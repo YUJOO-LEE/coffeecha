@@ -1,4 +1,4 @@
-import GNB from '@/component/GNB';
+import GlobalNavigation from '@/component/GlobalNavigation';
 import Header from '@/component/Header';
 import { Box, styled } from '@mui/material';
 import React, { useCallback, useState } from 'react';
@@ -12,7 +12,7 @@ const Layout = ({ children }: React.PropsWithChildren):React.ReactNode => {
 
   return (
     <Box display="flex">
-      <GNB />
+      <GlobalNavigation />
       <Box flexGrow={1} maxHeight="100dvh" display="grid" gridTemplateRows="50px 1fr">
         <Header isOffsetTop={isOffsetTop} />
         <Styled.Main onScroll={handleScroll}>

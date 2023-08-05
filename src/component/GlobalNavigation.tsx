@@ -1,45 +1,10 @@
-import {
-  HomeRounded,
-  MenuOpenRounded,
-  MenuRounded,
-  FormatListBulletedRounded,
-  CoffeeRounded,
-  SettingsRounded,
-} from '@mui/icons-material';
+import navList from '@/assets/navList';
+import { MenuOpenRounded, MenuRounded } from '@mui/icons-material';
 import { Box, Button, Divider, styled, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-interface INavItem {
-  label: string;
-  icon?: React.ReactNode;
-  url: string;
-}
-
-const navList: INavItem[] = [
-  {
-    label: 'Home',
-    url: '/',
-    icon: <HomeRounded />,
-  },
-  {
-    label: 'Order',
-    url: '/order',
-    icon: <FormatListBulletedRounded />,
-  },
-  {
-    label: 'Menu',
-    url: '/menu',
-    icon: <CoffeeRounded />,
-  },
-  {
-    label: 'Setting',
-    url: '/setting',
-    icon: <SettingsRounded />,
-  },
-]
-
-const GNB = (): React.ReactNode => {
+const GlobalNavigation = (): React.ReactNode => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -82,7 +47,7 @@ const GNB = (): React.ReactNode => {
   );
 }
 
-export default GNB;
+export default GlobalNavigation;
 
 const Styled = {
   Nav: styled('div', { shouldForwardProp: (prop) => prop !== 'open' })<{
