@@ -1,5 +1,5 @@
-import AddEditDialog from '@/pages/menu/component/AddEditDialog';
-import Layout from '@/component/Layout';
+import AddEditDialog from '@/pages/SalesManagement/menu/component/AddEditDialog';
+import Layout from '@/components/Layout';
 import {
   AddRounded,
   CheckCircleRounded,
@@ -14,7 +14,7 @@ const MenuPage = () => {
 
   const [editMode, setEditMode] = useState(false);
   const [isAddEditOpen, setAddEditOpen] = useState(false);
-  const [editMenuData, setEditMenuData] = useState<any>();
+  const [editMenuData, setEditMenuData] = useState();
 
   const toggleEditMode = () => {
     setEditMode(!editMode);

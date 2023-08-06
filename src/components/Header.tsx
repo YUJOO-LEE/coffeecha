@@ -1,4 +1,4 @@
-import CustomerList from '@/component/CustomerList';
+import ClientListDrawer from '@/pages/SalesManagement/components/ClientListDrawer';
 import { LoopRounded } from '@mui/icons-material';
 import { Box, Button, Divider, styled, Typography } from '@mui/material';
 import React, { useState } from 'react';
@@ -34,7 +34,7 @@ const Header = (props: IProps): React.ReactNode => {
         <LoopRounded />
       </Styled.ControlButton>
 
-      <CustomerList open={listOpen} onClose={handleListClose} />
+      <ClientListDrawer open={listOpen} onClose={handleListClose} />
     </Styled.HeaderBar>
   );
 }

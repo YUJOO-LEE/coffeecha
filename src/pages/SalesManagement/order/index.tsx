@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import dayjs from 'dayjs';
 import numeral from 'numeral';
-import DeleteDialog from '@/component/DeleteDialog';
-import Layout from '@/component/Layout';
+import DeleteDialog from '@/components/DeleteDialog';
+import Layout from '@/components/Layout';
 import { OrderStatusEnum } from '@/type/order';
 import {
   AddRounded,

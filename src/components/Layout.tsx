@@ -1,9 +1,11 @@
-import GlobalNavigation from '@/component/GlobalNavigation';
-import Header from '@/component/Header';
+import GlobalNavigation from '@/components/GlobalNavigation';
+import Header from '@/components/Header';
 import { Box, styled } from '@mui/material';
 import React, { useCallback, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 const Layout = ({ children }: React.PropsWithChildren):React.ReactNode => {
+  const { clientId } = useParams();
   const [isOffsetTop, setIsOffsetTop] = useState(true);
 
   const handleScroll = useCallback((e: React.WheelEvent<HTMLElement>) => {
@@ -12,9 +14,9 @@ const Layout = ({ children }: React.PropsWithChildren):React.ReactNode => {
 
   return (
     <Box display="flex">
-      <GlobalNavigation />
-      <Box flexGrow={1} maxHeight="100dvh" display="grid" gridTemplateRows="50px 1fr">
-        <Header isOffsetTop={isOffsetTop} />
+      <GlobalNavigation clientId={clientId} />
+      <Box flexGrow={1} maxHeight="100dvh" display="grid" gridTemplateRows={clientId ? '50px 1fr' : '1fr'}>
+        {clientId && <Header isOffsetTop={isOffsetTop} />}
         <Styled.Main onScroll={handleScroll}>
           {children}
         </Styled.Main>

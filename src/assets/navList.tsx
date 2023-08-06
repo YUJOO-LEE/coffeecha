@@ -1,4 +1,4 @@
-import { CoffeeRounded, FormatListBulletedRounded, HomeRounded, SettingsRounded } from '@mui/icons-material';
+import { CoffeeRounded, FormatListBulletedRounded, HomeRounded, SettingsRounded, LocalShippingRounded, CoffeeMakerRounded } from '@mui/icons-material';
 import React from 'react';
 
 interface INavItem {
@@ -7,27 +7,40 @@ interface INavItem {
   url: string;
 }
 
-const navList: INavItem[] = [
+export const clientNavList = (clientId: string): INavItem[] => {
+  return [
+    {
+      label: 'Home',
+      url: `/${clientId}/`,
+      icon: <HomeRounded />,
+    },
+    {
+      label: 'Order',
+      url: `/${clientId}/order`,
+      icon: <FormatListBulletedRounded />,
+    },
+    {
+      label: 'Menu',
+      url: `/${clientId}/menu`,
+      icon: <CoffeeRounded />,
+    },
+    {
+      label: 'Setting',
+      url: `/${clientId}/setting`,
+      icon: <SettingsRounded />,
+    },
+  ];
+};
+
+export const userNavList: INavItem[] = [
   {
-    label: 'Home',
+    label: 'Coffeecha!',
     url: '/',
-    icon: <HomeRounded />,
+    icon: <LocalShippingRounded />,
   },
   {
-    label: 'Order',
-    url: '/order',
-    icon: <FormatListBulletedRounded />,
-  },
-  {
-    label: 'Menu',
-    url: '/menu',
-    icon: <CoffeeRounded />,
-  },
-  {
-    label: 'Setting',
-    url: '/setting',
-    icon: <SettingsRounded />,
+    label: 'Collection',
+    url: '/collection',
+    icon: <CoffeeMakerRounded />,
   },
 ];
-
-export default navList;

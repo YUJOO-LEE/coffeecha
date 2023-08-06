@@ -1,4 +1,4 @@
-import Layout from '@/component/Layout';
+import Layout from '@/components/Layout';
 import { SettingsRounded } from '@mui/icons-material';
 import { Box, Button, styled, TextField, Typography } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';

@@ -2,7 +2,7 @@ import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextFie
 import React from 'react';
 
 interface IProps {
-  editData?: any; // TODO
+  editData?: unknown; // TODO
   onClose: () => void;
 }
 

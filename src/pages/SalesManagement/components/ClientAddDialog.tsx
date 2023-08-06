@@ -6,7 +6,7 @@ interface IProps {
   onClose: () => void;
 }
 
-const CustomerAddDialog = (props: IProps): React.ReactNode => {
+const ClientAddDialog = (props: IProps): React.ReactNode => {
   const { onClose } = props;
 
   return (
@@ -34,4 +34,4 @@ const CustomerAddDialog = (props: IProps): React.ReactNode => {
   );
 }
 
-export default CustomerAddDialog;
+export default ClientAddDialog;
