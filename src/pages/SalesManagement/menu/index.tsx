@@ -14,7 +14,7 @@ const MenuPage = () => {
 
   const [editMode, setEditMode] = useState(false);
   const [isAddEditOpen, setAddEditOpen] = useState(false);
-  const [editMenuData, setEditMenuData] = useState();
+  const [editMenuData, setEditMenuData] = useState<any>();  // TODO
 
   const toggleEditMode = () => {
     setEditMode(!editMode);
