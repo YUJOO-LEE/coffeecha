@@ -4,7 +4,7 @@ import { Box, styled } from '@mui/material';
 import React, { useCallback, useState } from 'react';
 
 const Layout = ({ children }: React.PropsWithChildren):React.ReactNode => {
-  const [isOffsetTop, setIsOffsetTop] = useState(false);
+  const [isOffsetTop, setIsOffsetTop] = useState(true);
 
   const handleScroll = useCallback((e: React.WheelEvent<HTMLElement>) => {
     setIsOffsetTop((e.target as HTMLElement).scrollTop === 0);
