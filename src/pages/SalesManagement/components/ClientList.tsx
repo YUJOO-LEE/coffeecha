@@ -1,3 +1,4 @@
+import { useGetClientList } from '@/apis/queries/client';
 import ClientAddDialog from '@/pages/SalesManagement/components/ClientAddDialog';
 import { FilterEnum, IDropdownItem } from '@/type/filter';
 import { AddRounded, CheckRounded, DownloadDoneRounded } from '@mui/icons-material';
@@ -24,11 +25,13 @@ const filterList: IDropdownItem[] = [
 
 
 const ClientList = (): React.ReactNode => {
-  const { clientId } = useParams();
+  const params = useParams();
   const navigate = useNavigate();
 
   const [addOpen, setAddOpen] = useState<boolean>(false);
   const [filter, setFilter] = useState<FilterEnum>();
+
+  const { data: clientList } = useGetClientList();
 
   const handleFilterChange = (e: SelectChangeEvent) => {
     setFilter(e.target.value as FilterEnum);
@@ -66,21 +69,21 @@ const ClientList = (): React.ReactNode => {
           </FormControl>
         )}
       </Box>
-      {Array(20).fill('').map((_, index) => (
+      {clientList?.map(({ clientId, clientName, businessDate, address }, index) => (
         <Styled.ListItem key={index}>
           <Box display="flex" justifyContent="space-between" alignItems="flex-end">
             <Typography>
-              Name
+              {clientName}
             </Typography>
             <Typography fontSize="12px" color="grey">
-              {dayjs().format('MMM D, YYYY')}
+              {dayjs(businessDate).format('MMM D, YYYY')}
             </Typography>
           </Box>
           <Divider />
           <Typography fontSize="12px" color="grey">
-            서울특별시 강남구 테헤란로 427
+            {address}
           </Typography>
-          {Number(clientId) === index ? (
+          {Number(params.clientId) === clientId ? (
             <Styled.SelectButton size="small" variant="contained" disabled>
               <DownloadDoneRounded />
             </Styled.SelectButton>
