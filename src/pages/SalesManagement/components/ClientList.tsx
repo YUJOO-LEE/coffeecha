@@ -31,7 +31,7 @@ const ClientList = (): React.ReactNode => {
   const [addOpen, setAddOpen] = useState<boolean>(false);
   const [filter, setFilter] = useState<FilterEnum>();
 
-  const { data: clientList } = useGetClientList(1);
+  const { data: clientList } = useGetClientList(import.meta.env.VITE_TEST_USER_ID);
 
   const handleFilterChange = (e: SelectChangeEvent) => {
     setFilter(e.target.value as FilterEnum);

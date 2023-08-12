@@ -5,7 +5,7 @@ import { User } from '@/apis/swagger/User';
 import { UserMenu } from '@/apis/swagger/UserMenu';
 
 const axiosConfig = {
-  baseURL: import.meta.env.REACT_APP_API_ROOT,
+  baseURL: import.meta.env.VITE_API_ROOT,
   headers: {},
 };
 
