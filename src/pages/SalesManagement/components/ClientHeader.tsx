@@ -1,3 +1,4 @@
+import { useGetClientDetail } from '@/apis/queries/client';
 import ClientListDrawer from '@/pages/SalesManagement/components/ClientListDrawer';
 import { LoopRounded } from '@mui/icons-material';
 import { Box, Button, Divider, styled, Typography } from '@mui/material';
@@ -5,11 +6,14 @@ import React, { useState } from 'react';
 
 interface IProps {
   isOffsetTop?: boolean;
+  clientId: number;
 }
 
-const Header = (props: IProps): React.ReactNode => {
-  const { isOffsetTop } = props;
+const ClientHeader = (props: IProps): React.ReactNode => {
+  const { isOffsetTop, clientId } = props;
   const [listOpen, setListOpen] = useState(false);
+
+  const { data: clientDetail } = useGetClientDetail(Number(clientId));
 
   const handleListOpen = () => {
     setListOpen(true);
@@ -23,11 +27,11 @@ const Header = (props: IProps): React.ReactNode => {
     <Styled.HeaderBar isOffsetTop={isOffsetTop}>
       <Box display="flex" gap="8px" alignItems="center">
         <Typography variant="h2" fontSize="20px" fontWeight="500">
-          Name
+          {clientDetail?.clientName}
         </Typography>
         <Divider orientation="vertical" sx={{ height: '50%' }} />
         <Typography color="grey" fontSize="12px" fontWeight="300">
-          서울특별시 강남구 테헤란로 427
+          {clientDetail?.address}
         </Typography>
       </Box>
       <Styled.ControlButton size="small" color="inherit" onClick={handleListOpen}>
@@ -39,7 +43,7 @@ const Header = (props: IProps): React.ReactNode => {
   );
 }
 
-export default Header;
+export default ClientHeader;
 
 const Styled = {
   HeaderBar: styled('div')<{

@@ -1,5 +1,5 @@
 import GlobalNavigation from '@/components/GlobalNavigation';
-import Header from '@/components/Header';
+import ClientHeader from '@/pages/SalesManagement/components/ClientHeader';
 import { Box, styled } from '@mui/material';
 import React, { useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -16,7 +16,7 @@ const Layout = ({ children }: React.PropsWithChildren):React.ReactNode => {
     <Box display="flex">
       <GlobalNavigation clientId={clientId} />
       <Box flexGrow={1} maxHeight="100dvh" display="grid" gridTemplateRows={clientId ? '50px 1fr' : '1fr'}>
-        {clientId && <Header isOffsetTop={isOffsetTop} />}
+        {clientId && <ClientHeader clientId={Number(clientId)} isOffsetTop={isOffsetTop} />}
         <Styled.Main onScroll={handleScroll}>
           {children}
         </Styled.Main>

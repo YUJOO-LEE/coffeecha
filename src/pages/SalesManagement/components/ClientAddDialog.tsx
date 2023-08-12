@@ -2,6 +2,7 @@ import { useAddClient } from '@/apis/queries/client';
 import { SaveClientRequest } from '@/apis/swagger/data-contracts';
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 import React, { useState } from 'react';
 
 interface IProps {
@@ -24,13 +25,11 @@ const ClientAddDialog = (props: IProps): React.ReactNode => {
     }));
   };
 
-  const handleDateChange = (value: string | null) => {
-    if (!value) return;
-
+  const handleDateChange = (value?: dayjs.Dayjs | null) => {
     setFormData((prev) => ({
       ...prev,
-      businessDate: value,
-    }));
+      businessDate: dayjs(value).format('YYYY-MM-DD') || '',
+    }))
   };
 
   const handleSave = async () => {
@@ -54,7 +53,7 @@ const ClientAddDialog = (props: IProps): React.ReactNode => {
           <TextField label="Name" variant="outlined" value={formData.name} onChange={handleChange('name')} />
           <TextField label="Contact" variant="outlined" value={formData.phoneNumber} onChange={handleChange('phoneNumber')} />
           <TextField label="Address" variant="outlined" value={formData.address} onChange={handleChange('address')} />
-          <DatePicker label="Business date" value={formData.businessDate || null} onChange={handleDateChange} />
+          <DatePicker label="Business date" value={formData.businessDate ? dayjs(formData.businessDate) : null} onChange={handleDateChange} />
         </Box>
       </DialogContent>
       <DialogActions sx={{ padding: '16px 24px' }}>

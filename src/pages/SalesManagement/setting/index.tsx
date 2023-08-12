@@ -1,10 +1,12 @@
-import { useDeleteClient } from '@/apis/queries/client';
+import { useDeleteClient, useGetClientDetail, useUpdateClient } from '@/apis/queries/client';
+import { UpdateClientRequest } from '@/apis/swagger/data-contracts';
 import DeleteDialog from '@/components/DeleteDialog';
 import Layout from '@/components/Layout';
 import { SettingsRounded } from '@mui/icons-material';
 import { Box, Button, styled, TextField, Typography } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { useEffect, useState } from 'react';
+import dayjs from 'dayjs';
+import React, { useLayoutEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const SettingPage = () => {
@@ -13,11 +15,37 @@ const SettingPage = () => {
 
   const [editMode, setEditMode] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [formData, setFormData] = useState<UpdateClientRequest>({ name: '', phoneNumber: '', address: '', businessDate: '' });
+  const isDisabled = Object.values(formData).some((value) => !value);
 
-  const { mutateAsync: deleteMutateAsync, isSuccess: isDeleteSuccess } = useDeleteClient();
+  const { data: clientDetail } = useGetClientDetail(Number(clientId));
+  const { mutateAsync: updateMutateAsync } = useUpdateClient();
+  const { mutateAsync: deleteMutateAsync } = useDeleteClient();
 
   const toggleEditMode = () => {
     setEditMode(!editMode);
+  };
+
+  const handleChange = (target: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({
+      ...prev,
+      [target]: e.target.value,
+    }))
+  };
+
+  const handleDateChange = (value?: dayjs.Dayjs | null) => {
+    setFormData((prev) => ({
+      ...prev,
+      businessDate: dayjs(value).format('YYYY-MM-DD') || '',
+    }))
+  };
+
+  const handleUpdate = async () => {
+    const { status } = await updateMutateAsync({ clientId: Number(clientId), data: formData });
+
+    if (status === 200) {
+      setEditMode(false);
+    }
   };
 
   const handleDeleteOpen = () => {
@@ -29,15 +57,24 @@ const SettingPage = () => {
   };
 
   const handleDelete = async () => {
-    await deleteMutateAsync(Number(clientId));
+    const { status} = await deleteMutateAsync(Number(clientId));
+
+    if (status === 200) {
+      navigate('/');
+      handleDeleteClose();
+    }
   };
 
-  useEffect(() => {
-    if (!isDeleteSuccess) return;
+  useLayoutEffect(() => {
+    if (!clientDetail) return;
 
-    navigate('/');
-    handleDeleteClose();
-  }, [isDeleteSuccess, navigate]);
+    setFormData({
+      name: clientDetail.clientName,
+      address: clientDetail.address,
+      phoneNumber: clientDetail.phoneNumber,
+      businessDate: clientDetail.businessDate,
+    })
+  }, [clientDetail]);
 
   return (
     <Layout>
@@ -49,17 +86,17 @@ const SettingPage = () => {
           </Typography>
         </Box>
         <Styled.ContentBox display="flex" flexDirection="column" gap="16px">
-          <TextField label="Name" variant="outlined" disabled={!editMode} />
-          <TextField label="Contact" variant="outlined" disabled={!editMode} />
-          <TextField label="Address" variant="outlined" disabled={!editMode} />
-          <DatePicker label="Business date" disabled={!editMode} />
+          <TextField label="Name" variant="outlined" value={formData.name} onChange={handleChange('name')} disabled={!editMode} />
+          <TextField label="Contact" variant="outlined" value={formData.phoneNumber} onChange={handleChange('phoneNumber')} disabled={!editMode} />
+          <TextField label="Address" variant="outlined" value={formData.address} onChange={handleChange('address')} disabled={!editMode} />
+          <DatePicker label="Business date" value={formData.businessDate ? dayjs(formData.businessDate) : null} onChange={handleDateChange} disabled={!editMode} />
           <Box display="flex" justifyContent="flex-end" gap="8px">
             {editMode ? (
               <>
                 <Button variant="outlined" size="large" onClick={toggleEditMode}>
                   Cancel
                 </Button>
-                <Button variant="contained" size="large">
+                <Button variant="contained" size="large" disabled={isDisabled} onClick={handleUpdate}>
                   Save
                 </Button>
               </>
