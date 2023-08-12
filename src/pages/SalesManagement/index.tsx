@@ -35,7 +35,7 @@ const SalesManagementPage = (): React.ReactNode => {
             Add New Client
           </Button>
         </Box>
-        <ClientList />
+        <ClientList isEditMote />
       </Box>
 
       {addOpen && <ClientAddDialog onClose={handleClose} onDone={handleDone} />}

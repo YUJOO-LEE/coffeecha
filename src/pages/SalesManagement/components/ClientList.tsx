@@ -1,5 +1,5 @@
 import { useGetClientList } from '@/apis/queries/client';
-import { CheckRounded, DownloadDoneRounded } from '@mui/icons-material';
+import { CheckRounded, DownloadDoneRounded, ManageAccountsRounded } from '@mui/icons-material';
 import { Box, Button, Card, Divider, styled, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import React from 'react';
@@ -7,16 +7,22 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 interface IProps {
   onClose?: () => void;
+  isEditMote?: boolean;
 }
 
 const ClientList = (props: IProps): React.ReactNode => {
-  const { onClose } = props;
+  const { isEditMote, onClose } = props;
   const params = useParams();
   const navigate = useNavigate();
 
   const { data: clientList } = useGetClientList(import.meta.env.VITE_TEST_USER_ID);
 
-  const handleMove = (clientId: number) => () => {
+  const handleEdit = (clientId: number) => () => {
+    navigate(`/${clientId}/setting`);
+    onClose?.();
+  };
+
+  const handleSelect = (clientId: number) => () => {
     navigate(`/${clientId}/`);
     onClose?.();
   };
@@ -42,15 +48,22 @@ const ClientList = (props: IProps): React.ReactNode => {
           <Typography fontSize="12px" color="grey">
             {address}
           </Typography>
-          {Number(params.clientId) === clientId ? (
-            <Styled.SelectButton size="small" variant="contained" disabled>
-              <DownloadDoneRounded />
-            </Styled.SelectButton>
-          ) : (
-            <Styled.SelectButton size="small" variant="contained" onClick={handleMove(clientId!)}>
-              <CheckRounded />
-            </Styled.SelectButton>
-          )}
+          <Styled.Actions>
+            {isEditMote && (
+              <Button size="small" variant="outlined" onClick={handleEdit(clientId!)}>
+                <ManageAccountsRounded />
+              </Button>
+            )}
+            {Number(params.clientId) === clientId ? (
+              <Button size="small" variant="contained" disabled>
+                <DownloadDoneRounded />
+              </Button>
+            ) : (
+              <Button size="small" variant="contained" onClick={handleSelect(clientId!)}>
+                <CheckRounded />
+              </Button>
+            )}
+          </Styled.Actions>
         </Styled.ListItem>
       ))}
     </Box>
@@ -70,8 +83,10 @@ const Styled = {
       backgroundColor: theme.palette.grey[50],
     },
   })),
-  SelectButton: styled(Button)({
+  Actions: styled(Box)({
     gridColumn: '2',
     gridRow: '1 / 4',
+    display: 'flex',
+    gap: '8px',
   }),
 };

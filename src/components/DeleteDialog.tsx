@@ -3,13 +3,14 @@ import React from 'react';
 
 interface IProps {
   onClose: () => void;
+  onDone: () => void;
 }
 
 const DeleteDialog = (props: IProps): React.ReactNode => {
-  const { onClose } = props;
+  const { onClose, onDone } = props;
 
   return (
-    <Dialog open={true} onClick={onClose} PaperProps={{ style: { minWidth: '360px' } }}>
+    <Dialog open={true} onClose={onClose} PaperProps={{ style: { minWidth: '360px' } }}>
       <DialogContent>
         <Typography>
           Are you sure you want to delete?
@@ -19,7 +20,7 @@ const DeleteDialog = (props: IProps): React.ReactNode => {
         </Typography>
       </DialogContent>
       <DialogActions sx={{ padding: '16px 24px' }}>
-        <Button variant="contained" size="large" color="error">
+        <Button variant="contained" size="large" color="error" onClick={onDone}>
           Delete
         </Button>
         <Button variant="outlined" size="large" onClick={onClose}>
