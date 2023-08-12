@@ -23,11 +23,11 @@ export class UserMenu<SecurityDataType = unknown> {
    * @description 사용자 메뉴 추가 API
    *
    * @tags UserMenu
-   * @name SaveUser1
+   * @name SaveUserMenu
    * @summary 사용자 메뉴 추가
    * @request POST:/api/menus
    */
-  saveUser1 = (data: CreateUserMenuRequest, params: RequestParams = {}) =>
+  saveUserMenu = (data: CreateUserMenuRequest, params: RequestParams = {}) =>
     this.http.request<SaveResponse, any>({
       path: `/api/menus`,
       method: "POST",
