@@ -36,6 +36,20 @@ export class Client<SecurityDataType = unknown> {
       ...params,
     });
   /**
+   * @description 클라이언트 조회 API
+   *
+   * @tags Client
+   * @name GetClient
+   * @summary 클라이언트 조회
+   * @request GET:/api/clients/{clientId}
+   */
+  getClient = (clientId: number, params: RequestParams = {}) =>
+    this.http.request<ClientResponse, any>({
+      path: `/api/clients/${clientId}`,
+      method: "GET",
+      ...params,
+    });
+  /**
    * @description 클라이언트 삭제 API
    *
    * @tags Client
@@ -58,7 +72,7 @@ export class Client<SecurityDataType = unknown> {
    * @request PATCH:/api/clients/{clientId}
    */
   updateClient = (clientId: number, data: UpdateClientRequest, params: RequestParams = {}) =>
-    this.http.request<UpdateClientRequest, any>({
+    this.http.request<void, any>({
       path: `/api/clients/${clientId}`,
       method: "PATCH",
       body: data,
@@ -66,14 +80,14 @@ export class Client<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * @description 클라이언트 조회 API
+   * @description 사용자 클라이언트 조회 API
    *
    * @tags Client
-   * @name GetClient
-   * @summary 클라이언트 조회
+   * @name GetUserClients
+   * @summary 사용자 클라이언트 조회
    * @request GET:/api/clients/users/{userId}
    */
-  getClient = (userId: number, params: RequestParams = {}) =>
+  getUserClients = (userId: number, params: RequestParams = {}) =>
     this.http.request<ClientResponse[], any>({
       path: `/api/clients/users/${userId}`,
       method: "GET",

@@ -58,7 +58,7 @@ export class UserMenu<SecurityDataType = unknown> {
    * @request PATCH:/api/menus/{menuId}
    */
   updateUserMenu = (menuId: number, data: UpdateUserMenuRequest, params: RequestParams = {}) =>
-    this.http.request<UpdateUserMenuRequest, any>({
+    this.http.request<void, any>({
       path: `/api/menus/${menuId}`,
       method: "PATCH",
       body: data,
