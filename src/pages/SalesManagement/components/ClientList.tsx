@@ -31,14 +31,14 @@ const ClientList = (): React.ReactNode => {
   const [addOpen, setAddOpen] = useState<boolean>(false);
   const [filter, setFilter] = useState<FilterEnum>();
 
-  const { data: clientList } = useGetClientList();
+  const { data: clientList } = useGetClientList(1);
 
   const handleFilterChange = (e: SelectChangeEvent) => {
     setFilter(e.target.value as FilterEnum);
   };
 
-  const handleMove = (index: number) => () => {
-    navigate(`/${index}/`);
+  const handleMove = (clientId: number) => () => {
+    navigate(`/${clientId}/`);
   };
 
   const handleAddOpen = () => {
@@ -69,8 +69,8 @@ const ClientList = (): React.ReactNode => {
           </FormControl>
         )}
       </Box>
-      {clientList?.map(({ clientId, clientName, businessDate, address }, index) => (
-        <Styled.ListItem key={index}>
+      {clientList?.map(({ clientId, clientName, businessDate, address }) => (
+        <Styled.ListItem key={clientId}>
           <Box display="flex" justifyContent="space-between" alignItems="flex-end">
             <Typography>
               {clientName}
@@ -88,7 +88,7 @@ const ClientList = (): React.ReactNode => {
               <DownloadDoneRounded />
             </Styled.SelectButton>
           ) : (
-            <Styled.SelectButton size="small" variant="contained" onClick={handleMove(index)}>
+            <Styled.SelectButton size="small" variant="contained" onClick={handleMove(clientId!)}>
               <CheckRounded />
             </Styled.SelectButton>
           )}
