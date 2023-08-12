@@ -20,31 +20,16 @@ export class UserMenu<SecurityDataType = unknown> {
   }
 
   /**
-   * @description 사용자 메뉴 전체 조회
-   *
-   * @tags UserMenu
-   * @name AllMenu
-   * @summary 사용자 메뉴 조회
-   * @request GET:/user-menus
-   */
-  allMenu = (params: RequestParams = {}) =>
-    this.http.request<UserMenuResponse[], any>({
-      path: `/user-menus`,
-      method: "GET",
-      format: "json",
-      ...params,
-    });
-  /**
    * @description 사용자 메뉴 추가 API
    *
    * @tags UserMenu
    * @name SaveUser1
    * @summary 사용자 메뉴 추가
-   * @request POST:/user-menus
+   * @request POST:/api/menus
    */
   saveUser1 = (data: CreateUserMenuRequest, params: RequestParams = {}) =>
     this.http.request<SaveResponse, any>({
-      path: `/user-menus`,
+      path: `/api/menus`,
       method: "POST",
       body: data,
       type: ContentType.Json,
@@ -56,11 +41,11 @@ export class UserMenu<SecurityDataType = unknown> {
    * @tags UserMenu
    * @name DeleteUserMenu
    * @summary 사용자 메뉴 삭제
-   * @request DELETE:/user-menus/{id}
+   * @request DELETE:/api/menus/{menuId}
    */
-  deleteUserMenu = (id: number, params: RequestParams = {}) =>
+  deleteUserMenu = (menuId: number, params: RequestParams = {}) =>
     this.http.request<void, any>({
-      path: `/user-menus/${id}`,
+      path: `/api/menus/${menuId}`,
       method: "DELETE",
       ...params,
     });
@@ -70,14 +55,29 @@ export class UserMenu<SecurityDataType = unknown> {
    * @tags UserMenu
    * @name UpdateUserMenu
    * @summary 사용자 메뉴 수정
-   * @request PATCH:/user-menus/{id}
+   * @request PATCH:/api/menus/{menuId}
    */
-  updateUserMenu = (id: number, data: UpdateUserMenuRequest, params: RequestParams = {}) =>
+  updateUserMenu = (menuId: number, data: UpdateUserMenuRequest, params: RequestParams = {}) =>
     this.http.request<UpdateUserMenuRequest, any>({
-      path: `/user-menus/${id}`,
+      path: `/api/menus/${menuId}`,
       method: "PATCH",
       body: data,
       type: ContentType.Json,
+      ...params,
+    });
+  /**
+   * @description 사용자 메뉴 전체 조회
+   *
+   * @tags UserMenu
+   * @name AllMenu
+   * @summary 사용자 메뉴 조회
+   * @request GET:/api/menus/users/{userId}
+   */
+  allMenu = (userId: number, params: RequestParams = {}) =>
+    this.http.request<UserMenuResponse[], any>({
+      path: `/api/menus/users/${userId}`,
+      method: "GET",
+      format: "json",
       ...params,
     });
 }

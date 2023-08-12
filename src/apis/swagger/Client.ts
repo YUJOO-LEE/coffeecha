@@ -20,30 +20,16 @@ export class Client<SecurityDataType = unknown> {
   }
 
   /**
-   * @description 클라이언트 조회 API
-   *
-   * @tags Client
-   * @name GetClient
-   * @summary 클라이언트 조회
-   * @request GET:/clients
-   */
-  getClient = (params: RequestParams = {}) =>
-    this.http.request<ClientResponse[], any>({
-      path: `/clients`,
-      method: "GET",
-      ...params,
-    });
-  /**
    * @description 클라이언트 추가 API
    *
    * @tags Client
    * @name SaveClient
    * @summary 클라이언트 추가
-   * @request POST:/clients
+   * @request POST:/api/clients
    */
   saveClient = (data: SaveClientRequest, params: RequestParams = {}) =>
     this.http.request<SaveResponse, any>({
-      path: `/clients`,
+      path: `/api/clients`,
       method: "POST",
       body: data,
       type: ContentType.Json,
@@ -55,11 +41,11 @@ export class Client<SecurityDataType = unknown> {
    * @tags Client
    * @name DeleteClient
    * @summary 클라이언트 삭제
-   * @request DELETE:/clients/{clientId}
+   * @request DELETE:/api/clients/{clientId}
    */
   deleteClient = (clientId: number, params: RequestParams = {}) =>
     this.http.request<void, any>({
-      path: `/clients/${clientId}`,
+      path: `/api/clients/${clientId}`,
       method: "DELETE",
       ...params,
     });
@@ -69,14 +55,28 @@ export class Client<SecurityDataType = unknown> {
    * @tags Client
    * @name UpdateClient
    * @summary 클라이언트 수정
-   * @request PATCH:/clients/{clientId}
+   * @request PATCH:/api/clients/{clientId}
    */
   updateClient = (clientId: number, data: UpdateClientRequest, params: RequestParams = {}) =>
     this.http.request<UpdateClientRequest, any>({
-      path: `/clients/${clientId}`,
+      path: `/api/clients/${clientId}`,
       method: "PATCH",
       body: data,
       type: ContentType.Json,
+      ...params,
+    });
+  /**
+   * @description 클라이언트 조회 API
+   *
+   * @tags Client
+   * @name GetClient
+   * @summary 클라이언트 조회
+   * @request GET:/api/clients/users/{userId}
+   */
+  getClient = (userId: number, params: RequestParams = {}) =>
+    this.http.request<ClientResponse[], any>({
+      path: `/api/clients/users/${userId}`,
+      method: "GET",
       ...params,
     });
 }

@@ -24,11 +24,11 @@ export class CategoryController<SecurityDataType = unknown> {
    *
    * @tags category-controller
    * @name SaveCategory
-   * @request POST:/category
+   * @request POST:/api/category
    */
   saveCategory = (data: CategoryRequest, params: RequestParams = {}) =>
     this.http.request<number, any>({
-      path: `/category`,
+      path: `/api/category`,
       method: "POST",
       body: data,
       type: ContentType.Json,
@@ -39,11 +39,11 @@ export class CategoryController<SecurityDataType = unknown> {
    *
    * @tags category-controller
    * @name AllCategories
-   * @request GET:/categories
+   * @request GET:/api/categories
    */
   allCategories = (params: RequestParams = {}) =>
     this.http.request<CategoryResponse[], any>({
-      path: `/categories`,
+      path: `/api/categories`,
       method: "GET",
       format: "json",
       ...params,

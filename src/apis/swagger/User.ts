@@ -24,11 +24,11 @@ export class User<SecurityDataType = unknown> {
    *
    * @tags User
    * @name SaveUser
-   * @request POST:/user
+   * @request POST:/api/user
    */
   saveUser = (data: UserRequest, params: RequestParams = {}) =>
     this.http.request<number, any>({
-      path: `/user`,
+      path: `/api/user`,
       method: "POST",
       body: data,
       type: ContentType.Json,
