@@ -8,7 +8,7 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "swagger": "npx swagger-typescript-api -p %SWAGGER_DOCS% -o src/apis/swagger --axios --modular --extract-enums --enum-names-as-values --single-http-client --module-name-first-tag"
+    "swagger": "dotenv -- cross-var npx swagger-typescript-api -p %SWAGGER_DOCS% -o src/apis/swagger --axios --modular --extract-enums --enum-names-as-values --single-http-client --module-name-first-tag"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -36,6 +36,9 @@
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react": "^4.0.3",
+    "cross-var": "^1.1.0",
+    "dotenv": "^16.3.1",
+    "dotenv-cli": "^7.2.1",
     "eslint": "^8.45.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
