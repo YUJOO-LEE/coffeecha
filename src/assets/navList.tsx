@@ -34,7 +34,7 @@ export const clientNavList = (clientId: string): INavItem[] => {
 
 export const userNavList: INavItem[] = [
   {
-    label: 'Coffeecha!',
+    label: 'Clients',
     url: '/',
     icon: <LocalShippingRounded />,
   },

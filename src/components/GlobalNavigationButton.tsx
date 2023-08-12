@@ -22,7 +22,7 @@ const GlobalNavigationButton = (props: IProps): React.ReactNode => {
       variant={isSelected ? 'contained' : 'text'}
       open={open}
     >
-      <Typography fontSize="14px">
+      <Typography fontSize="14px" whiteSpace="nowrap">
         {label}
       </Typography>
     </Styled.NavButton>
