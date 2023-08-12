@@ -15,34 +15,34 @@ export interface UserRequest {
 }
 
 export interface CreateUserMenuRequest {
-  name?: string;
+  name: string;
   imageUrl?: string;
   description?: string;
   /** @format int64 */
-  categoryId?: number;
+  categoryId: number;
   /** @format int64 */
-  userId?: number;
+  userId: number;
 }
 
 export interface SaveResponse {
   /** @format int64 */
-  id?: number;
+  id: number;
 }
 
 export interface SaveClientRequest {
-  name?: string;
-  address?: string;
-  phoneNumber?: string;
+  name: string;
+  address: string;
+  phoneNumber: string;
   /** @format date */
-  businessDate?: string;
+  businessDate: string;
   /** @format int64 */
-  userId?: number;
+  userId: number;
 }
 
 export interface CategoryRequest {
-  name?: string;
+  name: string;
   /** @format int32 */
-  priorityOrder?: number;
+  priorityOrder: number;
 }
 
 export interface UpdateUserMenuRequest {
@@ -63,16 +63,17 @@ export interface UpdateClientRequest {
 
 export interface UserMenuResponse {
   /** @format int64 */
-  userMenuId?: number;
-  userMenuName?: string;
+  userMenuId: number;
+  userMenuName: string;
   imageUrl?: string;
   description?: string;
 }
 
+/** 클라이언트 조회 Response */
 export interface ClientResponse {
   /** @format int64 */
-  clientId?: number;
-  clientName?: string;
+  clientId: number;
+  clientName: string;
   address?: string;
   phoneNumber?: string;
   /** @format date */
@@ -81,6 +82,6 @@ export interface ClientResponse {
 
 export interface CategoryResponse {
   /** @format int64 */
-  id?: number;
-  name?: string;
+  id: number;
+  name: string;
 }
