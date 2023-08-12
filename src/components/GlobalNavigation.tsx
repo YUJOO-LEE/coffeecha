@@ -40,7 +40,7 @@ const GlobalNavigation = (props: IProps): React.ReactNode => {
         justifyContent={clientId ? 'space-between' : 'flex-start'}
       >
         <Box display="flex" flexDirection="column" gap="8px">
-          {clientId ? (
+          {clientId && (
             clientNavList(clientId).map(({ label, icon, url }) => (
               <GlobalNavigationButton
                 key={url}
@@ -52,20 +52,11 @@ const GlobalNavigation = (props: IProps): React.ReactNode => {
                 isSelected={pathname === url}
               />
             ))
-          ) : (
-            <GlobalNavigationButton
-              open={open}
-              icon={userNavList[0].icon}
-              url={userNavList[0].url}
-              label={userNavList[0].label}
-              onClick={handleMove(userNavList[0].url)}
-              isSelected={pathname === userNavList[0].url}
-            />
           )}
         </Box>
         <Box display="flex" flexDirection="column" gap="8px">
           {clientId && (<Divider />)}
-          {userNavList.slice(1).map(({ label, icon, url }) => (
+          {userNavList.map(({ label, icon, url }) => (
             <GlobalNavigationButton
               key={url}
               open={open}
