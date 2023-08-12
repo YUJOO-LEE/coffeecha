@@ -1,80 +1,39 @@
 import { useGetClientList } from '@/apis/queries/client';
-import ClientAddDialog from '@/pages/SalesManagement/components/ClientAddDialog';
-import { FilterEnum, IDropdownItem } from '@/type/filter';
-import { AddRounded, CheckRounded, DownloadDoneRounded } from '@mui/icons-material';
-import {
-  Box,
-  Button,
-  Card,
-  Divider,
-  FormControl,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-  styled,
-  Typography,
-} from '@mui/material';
+import { CheckRounded, DownloadDoneRounded } from '@mui/icons-material';
+import { Box, Button, Card, Divider, styled, Typography } from '@mui/material';
 import dayjs from 'dayjs';
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const filterList: IDropdownItem[] = [
-  // { label: 'A-Z', value: FilterEnum.Asc },
-  // { label: 'Z-A', value: FilterEnum.Desc },
-]
+interface IProps {
+  onClose?: () => void;
+}
 
-
-const ClientList = (): React.ReactNode => {
+const ClientList = (props: IProps): React.ReactNode => {
+  const { onClose } = props;
   const params = useParams();
   const navigate = useNavigate();
 
-  const [addOpen, setAddOpen] = useState<boolean>(false);
-  const [filter, setFilter] = useState<FilterEnum>();
-
   const { data: clientList } = useGetClientList(import.meta.env.VITE_TEST_USER_ID);
-
-  const handleFilterChange = (e: SelectChangeEvent) => {
-    setFilter(e.target.value as FilterEnum);
-  };
 
   const handleMove = (clientId: number) => () => {
     navigate(`/${clientId}/`);
+    onClose?.();
   };
-
-  const handleAddOpen = () => {
-    setAddOpen(true);
-  }
-
-  const handleClose = () => {
-    setAddOpen(false);
-  }
 
   return (
     <Box display="grid" gap="16px">
-      <Box display="flex" justifyContent="space-between">
-        <Button size="medium" variant="contained" startIcon={<AddRounded />} onClick={handleAddOpen}>
-          Add Customer
-        </Button>
-        {!!filterList.length && (
-          <FormControl>
-            <Select
-              value={filter}
-              onChange={handleFilterChange}
-              variant="standard"
-            >
-              {filterList.map(({ label, value }) => (
-                <MenuItem key={value} value={value}>{label}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        )}
-      </Box>
-      {clientList?.map(({ clientId, clientName, businessDate, address }) => (
+      {clientList?.map(({ clientId, clientName, phoneNumber, businessDate, address }) => (
         <Styled.ListItem key={clientId}>
           <Box display="flex" justifyContent="space-between" alignItems="flex-end">
-            <Typography>
-              {clientName}
-            </Typography>
+            <Box display="flex" alignItems="center" gap="8px">
+              <Typography>
+                {clientName}
+              </Typography>
+              <Typography fontSize="12px" color="grey">
+                {phoneNumber}
+              </Typography>
+            </Box>
             <Typography fontSize="12px" color="grey">
               {dayjs(businessDate).format('MMM D, YYYY')}
             </Typography>
@@ -94,7 +53,6 @@ const ClientList = (): React.ReactNode => {
           )}
         </Styled.ListItem>
       ))}
-      {addOpen && <ClientAddDialog onClose={handleClose} />}
     </Box>
   );
 }

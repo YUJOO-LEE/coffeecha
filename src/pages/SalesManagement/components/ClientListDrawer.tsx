@@ -1,8 +1,10 @@
 import IconButton from '@/components/IconButton';
 import ClientList from '@/pages/SalesManagement/components/ClientList';
+import isPropValid from '@emotion/is-prop-valid';
 import { CloseRounded } from '@mui/icons-material';
-import { Button, Card, DialogContent, DialogTitle, Drawer, styled, Typography } from '@mui/material';
+import { Box, Button, Card, DialogContent, DialogTitle, Drawer, styled, Typography } from '@mui/material';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface IProps {
   open: boolean;
@@ -11,12 +13,17 @@ interface IProps {
 
 const ClientListDrawer = (props: IProps): React.ReactNode => {
   const { open, onClose } = props;
+  const navigate = useNavigate();
 
   const [isOffsetTop, setIsOffsetTop] = useState(false);
 
   const handleScroll = (e: React.UIEvent<HTMLElement>) => {
     setIsOffsetTop(!!e.currentTarget.offsetTop);
-  }
+  };
+
+  const handleMove = () => {
+    navigate('/');
+  };
 
   return (
     <Drawer
@@ -32,15 +39,20 @@ const ClientListDrawer = (props: IProps): React.ReactNode => {
       }}
     >
       <Styled.Title isOffsetTop={isOffsetTop}>
-        <Typography fontSize="inherit" fontWeight="inherit">
-          Client List
-        </Typography>
+        <Box display="flex" alignItems="center" gap="16px">
+          <Typography fontSize="inherit" fontWeight="inherit">
+            Client List
+          </Typography>
+          <Button variant="outlined" size="small" onClick={handleMove}>
+            Edit Clients
+          </Button>
+        </Box>
         <IconButton onClick={onClose}>
           <CloseRounded />
         </IconButton>
       </Styled.Title>
       <Styled.Content onScroll={handleScroll}>
-        <ClientList />
+        <ClientList onClose={onClose} />
       </Styled.Content>
     </Drawer>
   );
@@ -49,14 +61,14 @@ const ClientListDrawer = (props: IProps): React.ReactNode => {
 export default ClientListDrawer;
 
 const Styled = {
-  Title: styled(DialogTitle)<{
-    isOffsetTop?: boolean;
-  }>(({ isOffsetTop }) => ({
+  Title: styled(DialogTitle, { shouldForwardProp: isPropValid })<{
+    isOffsetTop: boolean;
+  }>((props) => ({
     height: '50px',
     padding: '12px 24px',
     display: 'flex',
     justifyContent: 'space-between',
-    boxShadow: isOffsetTop ? `0 5px 10px rgba(0, 0, 0, 0.05)` : undefined,
+    boxShadow: `${props.isOffsetTop ? '0 5px 10px rgba(0, 0, 0, 0.05)' : undefined}`,
   })),
   Content: styled(DialogContent)(({ theme }) => ({
     padding: '24px !important',
