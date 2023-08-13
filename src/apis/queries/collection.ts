@@ -1,6 +1,12 @@
 import { categoryApi, userMenuApi } from '@/apis';
-import { CategoryResponse, UserMenuResponse } from '@/apis/swagger/data-contracts';
-import { useQuery, UseQueryResult } from '@tanstack/react-query';
+import {
+  CategoryResponse,
+  CreateUserMenuRequest,
+  SaveResponse,
+  UserMenuResponse,
+} from '@/apis/swagger/data-contracts';
+import { useMutation, UseMutationResult, useQuery, useQueryClient, UseQueryResult } from '@tanstack/react-query';
+import { AxiosResponse } from 'axios';
 
 export const QueryKey = 'collection';
 
@@ -28,4 +34,34 @@ export const useGetCollectionList = (): UseQueryResult<UserMenuResponse[]> => {
     },
     defaultOption
   );
+};
+
+export const useAddCollection = (): UseMutationResult<AxiosResponse<SaveResponse>, unknown, CreateUserMenuRequest> => {
+  const queryClient = useQueryClient();
+
+  return useMutation(userMenuApi.saveUserMenu, {
+    onSuccess: () => {
+      queryClient.invalidateQueries([QueryKey, 'list']);
+    },
+  });
+};
+
+export const useUpdateCollection = (): UseMutationResult<AxiosResponse<void>, unknown,  { menuId: number, data: CreateUserMenuRequest }> => {
+  const queryClient = useQueryClient();
+
+  return useMutation(({ menuId, data }) => userMenuApi.updateUserMenu(menuId, data), {
+    onSuccess: () => {
+      queryClient.invalidateQueries([QueryKey, 'list']);
+    },
+  });
+};
+
+export const useDeleteCollection = (): UseMutationResult<AxiosResponse<void>, unknown, number> => {
+  const queryClient = useQueryClient();
+
+  return useMutation(userMenuApi.deleteUserMenu, {
+    onSuccess: () => {
+      queryClient.invalidateQueries([QueryKey, 'list']);
+    },
+  });
 };

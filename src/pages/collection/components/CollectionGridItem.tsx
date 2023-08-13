@@ -4,17 +4,18 @@ import { Box, Card, IconButton, styled, Typography } from '@mui/material';
 import React from 'react';
 
 interface IProps {
-  onChange: () => void;
   data: UserMenuResponse;
+  onChange: () => void;
+  onDelete: () => void;
 }
 
 const MenuGridItem = (props: IProps): React.ReactNode => {
-  const { onChange, data } = props;
+  const { onChange, onDelete, data } = props;
 
   return (
     <Styled.CollectionItem>
       <Box display="flex" gap="8px" justifyContent="flex-end" alignItems="center">
-        <IconButton size="large" sx={{ margin: '-10px' }} onClick={onChange}>
+        <IconButton size="large" sx={{ margin: '-10px' }} onClick={onDelete}>
           <CancelRounded sx={{ width: '16px', height: '16px' }} />
         </IconButton>
         <IconButton size="large" sx={{ margin: '-10px' }} onClick={onChange}>
