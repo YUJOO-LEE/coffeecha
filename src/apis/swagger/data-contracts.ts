@@ -35,8 +35,6 @@ export interface SaveClientRequest {
   phoneNumber: string;
   /** @format date */
   businessDate: string;
-  /** @format int64 */
-  userId: number;
 }
 
 export interface CategoryRequest {
@@ -67,6 +65,8 @@ export interface UserMenuResponse {
   userMenuName: string;
   imageUrl?: string;
   description?: string;
+  /** @format int64 */
+  categoryId: number;
 }
 
 /** 클라이언트 조회 Response */

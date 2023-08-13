@@ -9,11 +9,11 @@ const defaultOption = {
   refetchOnWindowFocus: false,
 };
 
-export const useGetClientList = (userId: number): UseQueryResult<ClientResponse[]> => {
+export const useGetClientList = (): UseQueryResult<ClientResponse[]> => {
   return useQuery(
     [QueryKey, 'list'],
     async () => {
-      const { data } = await clientApi.getUserClients(userId);
+      const { data } = await clientApi.getUserClients();
       return data;
     },
     defaultOption
