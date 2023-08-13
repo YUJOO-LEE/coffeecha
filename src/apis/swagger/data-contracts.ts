@@ -20,8 +20,6 @@ export interface CreateUserMenuRequest {
   description?: string;
   /** @format int64 */
   categoryId: number;
-  /** @format int64 */
-  userId: number;
 }
 
 export interface SaveResponse {

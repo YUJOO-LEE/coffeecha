@@ -20,6 +20,20 @@ export class Client<SecurityDataType = unknown> {
   }
 
   /**
+   * @description 사용자 클라이언트 조회 API
+   *
+   * @tags Client
+   * @name GetUserClients
+   * @summary 사용자 클라이언트 조회
+   * @request GET:/api/clients
+   */
+  getUserClients = (params: RequestParams = {}) =>
+    this.http.request<ClientResponse[], any>({
+      path: `/api/clients`,
+      method: "GET",
+      ...params,
+    });
+  /**
    * @description 클라이언트 추가 API
    *
    * @tags Client
@@ -77,20 +91,6 @@ export class Client<SecurityDataType = unknown> {
       method: "PATCH",
       body: data,
       type: ContentType.Json,
-      ...params,
-    });
-  /**
-   * @description 사용자 클라이언트 조회 API
-   *
-   * @tags Client
-   * @name GetUserClients
-   * @summary 사용자 클라이언트 조회
-   * @request GET:/api/clients/users/{userId}
-   */
-  getUserClients = (userId: number, params: RequestParams = {}) =>
-    this.http.request<ClientResponse[], any>({
-      path: `/api/clients/users/${userId}`,
-      method: "GET",
       ...params,
     });
 }

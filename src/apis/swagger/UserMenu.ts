@@ -20,6 +20,21 @@ export class UserMenu<SecurityDataType = unknown> {
   }
 
   /**
+   * @description 사용자 메뉴 전체 조회
+   *
+   * @tags UserMenu
+   * @name AllMenu
+   * @summary 사용자 메뉴 조회
+   * @request GET:/api/menus
+   */
+  allMenu = (params: RequestParams = {}) =>
+    this.http.request<UserMenuResponse[], any>({
+      path: `/api/menus`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+  /**
    * @description 사용자 메뉴 추가 API
    *
    * @tags UserMenu
@@ -63,21 +78,6 @@ export class UserMenu<SecurityDataType = unknown> {
       method: "PATCH",
       body: data,
       type: ContentType.Json,
-      ...params,
-    });
-  /**
-   * @description 사용자 메뉴 전체 조회
-   *
-   * @tags UserMenu
-   * @name AllMenu
-   * @summary 사용자 메뉴 조회
-   * @request GET:/api/menus/users/{userId}
-   */
-  allMenu = (userId: number, params: RequestParams = {}) =>
-    this.http.request<UserMenuResponse[], any>({
-      path: `/api/menus/users/${userId}`,
-      method: "GET",
-      format: "json",
       ...params,
     });
 }
