@@ -1,7 +1,7 @@
 import Layout from '@/components/Layout';
 import ClientAddDialog from '@/pages/SalesManagement/components/ClientAddDialog';
 import ClientList from '@/pages/SalesManagement/components/ClientList';
-import { AddRounded } from '@mui/icons-material';
+import { AddRounded, LocalShippingRounded } from '@mui/icons-material';
 import { Box, Button, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -28,8 +28,8 @@ const SalesManagementPage = (): React.ReactNode => {
     <Layout>
       <Box display="grid" gap="16px">
         <Box display="flex" justifyContent="space-between">
-          <Typography fontSize="24px" fontWeight="inherit">
-            Clients Management
+          <Typography fontSize="20px" fontWeight="inherit" display="flex" alignItems="center" gap="8px">
+            <LocalShippingRounded />Clients Management
           </Typography>
           <Button size="medium" variant="contained" startIcon={<AddRounded />} onClick={handleAddOpen}>
             Add New Client
