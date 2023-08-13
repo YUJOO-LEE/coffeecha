@@ -34,7 +34,6 @@ const ClientAddDialog = (props: IProps): React.ReactNode => {
 
   const handleSave = async () => {
     const { data } = await addMutateAsync({
-      userId: import.meta.env.VITE_TEST_USER_ID,
       ...formData,
     });
 

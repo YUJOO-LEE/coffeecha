@@ -15,7 +15,7 @@ const ClientList = (props: IProps): React.ReactNode => {
   const params = useParams();
   const navigate = useNavigate();
 
-  const { data: clientList } = useGetClientList(import.meta.env.VITE_TEST_USER_ID);
+  const { data: clientList } = useGetClientList();
 
   const handleEdit = (clientId: number) => () => {
     navigate(`/${clientId}/setting`);
