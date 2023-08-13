@@ -1,13 +1,8 @@
-import AddEditDialog from '@/pages/SalesManagement/menu/component/AddEditDialog';
 import Layout from '@/components/Layout';
-import {
-  AddRounded,
-  CheckCircleRounded,
-  ChecklistRounded,
-  CoffeeRounded,
-  ModeEditOutlineRounded,
-} from '@mui/icons-material';
-import { Box, Button, Card, Checkbox, Divider, IconButton, Skeleton, styled, Typography } from '@mui/material';
+import MenuGridItem from '@/pages/SalesManagement/menu/components/MenuGridItem';
+import AddEditDialog from '@/pages/SalesManagement/menu/components/AddEditDialog';
+import { AddRounded, CheckCircleRounded, ChecklistRounded, CoffeeRounded } from '@mui/icons-material';
+import { Box, Button, Divider, styled, Typography } from '@mui/material';
 import { useState } from 'react';
 
 const MenuPage = () => {
@@ -72,21 +67,7 @@ const MenuPage = () => {
           </Typography>
           <Styled.MenuList>
             {Array(15).fill('').map((_, index) => (
-              <Styled.MenuItem key={index}>
-                <Box display="flex" gap="16px" justifyContent="space-between" alignItems="center">
-                  <Checkbox sx={{ margin: '-10px' }} disabled={!editMode} />
-                  <IconButton size="large" sx={{ margin: '-10px' }} onClick={handleMenuEdit}>
-                    <ModeEditOutlineRounded sx={{ width: '16px', height: '16px' }} />
-                  </IconButton>
-                </Box>
-                <Skeleton variant="rounded" sx={{ width: '100%', height: 'auto', aspectRatio: '1 / 1' }} />
-                <Typography>
-                  Menu 1
-                </Typography>
-                <Typography>
-                  Menu 1
-                </Typography>
-              </Styled.MenuItem>
+              <MenuGridItem key={index} isEditMode={editMode} onChange={handleMenuEdit} />
             ))}
           </Styled.MenuList>
           <Divider />
@@ -95,9 +76,7 @@ const MenuPage = () => {
           </Typography>
           <Styled.MenuList>
             {Array(5).fill('').map((_, index) => (
-              <Styled.MenuItem key={index}>
-                hi
-              </Styled.MenuItem>
+              <MenuGridItem key={index} isEditMode={editMode} onChange={handleMenuEdit}  />
             ))}
           </Styled.MenuList>
         </Styled.ContentBox>
@@ -120,11 +99,6 @@ const Styled = {
   MenuList: styled(Box)({
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))',
-    gap: '16px',
-  }),
-  MenuItem: styled(Card)({
-    padding: '16px',
-    display: 'grid',
     gap: '16px',
   }),
 };
