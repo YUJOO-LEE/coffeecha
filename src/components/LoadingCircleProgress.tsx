@@ -31,8 +31,8 @@ const Styled = {
   }),
   Progress: styled('div')({
     position: 'absolute',
-    top: '32px',
-    width: '82px',
-    textAlign: 'center',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
   }),
 }
