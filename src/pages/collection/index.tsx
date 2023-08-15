@@ -2,6 +2,7 @@ import { useDeleteCollection, useGetCollectionList } from '@/apis/queries/collec
 import { UserMenuResponse } from '@/apis/swagger/data-contracts';
 import DeleteDialog from '@/components/DeleteDialog';
 import Layout from '@/components/Layout';
+import LoadingCircularProgress from '@/components/LoadingCircleProgress';
 import AddEditDialog from '@/pages/collection/components/AddEditDialog';
 import CollectionGridItem from '@/pages/collection/components/CollectionGridItem';
 import { AddRounded, CoffeeMakerRounded } from '@mui/icons-material';
@@ -15,7 +16,7 @@ const CollectionPage = (): React.ReactNode => {
   const [editData, setEditData] = useState<UserMenuResponse>();
 
   const { data: collectionList } = useGetCollectionList();
-  const { mutateAsync: deleteMutateAsync } = useDeleteCollection();
+  const deleteCollection = useDeleteCollection();
 
   const handleAddOpen = () => {
     setIsAddEditOpen(true);
@@ -42,7 +43,7 @@ const CollectionPage = (): React.ReactNode => {
   const handleDelete = async () => {
     if (!deleteItemId) return;
 
-    const { status } = await deleteMutateAsync(deleteItemId);
+    const { status } = await deleteCollection.mutateAsync(deleteItemId);
     if (status === 200) {
       handleDeleteClose();
     }
@@ -50,6 +51,8 @@ const CollectionPage = (): React.ReactNode => {
 
   return (
     <Layout>
+      <LoadingCircularProgress open={deleteCollection.isLoading} />
+
       <Box display="grid" gap="16px">
         <Box display="flex" justifyContent="space-between">
           <Typography fontSize="20px" fontWeight="inherit" display="flex" alignItems="center" gap="8px">

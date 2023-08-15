@@ -2,6 +2,7 @@ import { useDeleteClient, useGetClientDetail, useUpdateClient } from '@/apis/que
 import { UpdateClientRequest } from '@/apis/swagger/data-contracts';
 import DeleteDialog from '@/components/DeleteDialog';
 import Layout from '@/components/Layout';
+import LoadingCircleProgress from '@/components/LoadingCircleProgress';
 import { SettingsRounded } from '@mui/icons-material';
 import { Box, Button, styled, TextField, Typography } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -19,8 +20,8 @@ const SettingPage = () => {
   const isDisabled = Object.values(formData).some((value) => !value);
 
   const { data: clientDetail } = useGetClientDetail(Number(clientId));
-  const { mutateAsync: updateMutateAsync } = useUpdateClient();
-  const { mutateAsync: deleteMutateAsync } = useDeleteClient();
+  const updateClient = useUpdateClient();
+  const deleteClient = useDeleteClient();
 
   const toggleEditMode = () => {
     setEditMode(!editMode);
@@ -41,7 +42,7 @@ const SettingPage = () => {
   };
 
   const handleUpdate = async () => {
-    const { status } = await updateMutateAsync({ clientId: Number(clientId), data: formData });
+    const { status } = await updateClient.mutateAsync({ clientId: Number(clientId), data: formData });
 
     if (status === 200) {
       setEditMode(false);
@@ -57,7 +58,7 @@ const SettingPage = () => {
   };
 
   const handleDelete = async () => {
-    const { status} = await deleteMutateAsync(Number(clientId));
+    const { status} = await deleteClient.mutateAsync(Number(clientId));
 
     if (status === 200) {
       navigate('/');
@@ -78,6 +79,8 @@ const SettingPage = () => {
 
   return (
     <Layout>
+      <LoadingCircleProgress open={updateClient.isLoading || deleteClient.isLoading} />
+
       <Box display="grid" gap="16px">
         <Box display="flex" gap="8px">
           <SettingsRounded color="primary" />

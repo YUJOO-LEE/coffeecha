@@ -1,5 +1,6 @@
 import { useAddCollection, useGetCategoryList, useUpdateCollection } from '@/apis/queries/collection';
 import { CreateUserMenuRequest, UserMenuResponse } from '@/apis/swagger/data-contracts';
+import LoadingCircleProgress from '@/components/LoadingCircleProgress';
 import {
   Box,
   Button,
@@ -26,8 +27,8 @@ const AddEditDialog = (props: IProps): React.ReactNode => {
   const isDisabled = !formData.name || !formData.categoryId;
 
   const { data: categoryList } = useGetCategoryList();
-  const { mutateAsync: addMutateAsync } = useAddCollection();
-  const { mutateAsync: updateMutateAsync } = useUpdateCollection();
+  const addCollection = useAddCollection();
+  const updateCollection = useUpdateCollection();
 
   const handleChange = (target: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
@@ -45,8 +46,8 @@ const AddEditDialog = (props: IProps): React.ReactNode => {
 
   const handleSave = async () => {
     const { status } = editData
-      ? await updateMutateAsync({ menuId: editData.userMenuId, data: formData })
-      : await addMutateAsync(formData);
+      ? await updateCollection.mutateAsync({ menuId: editData.userMenuId, data: formData })
+      : await addCollection.mutateAsync(formData);
 
     if (status === 200) {
       onClose();
@@ -66,6 +67,8 @@ const AddEditDialog = (props: IProps): React.ReactNode => {
 
   return (
     <Dialog open={true} onClose={onClose} PaperProps={{ style: { width: '50%', minWidth: '440px' } }}>
+      <LoadingCircleProgress open={addCollection.isLoading || updateCollection.isLoading} />
+
       <DialogTitle display="flex" justifyContent="space-between">
         {editData ? 'Edit' : 'Add New'} Menu
       </DialogTitle>

@@ -1,5 +1,6 @@
 import { useAddClient } from '@/apis/queries/client';
 import { SaveClientRequest } from '@/apis/swagger/data-contracts';
+import LoadingCircularProgress from '@/components/LoadingCircleProgress';
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
@@ -16,7 +17,7 @@ const ClientAddDialog = (props: IProps): React.ReactNode => {
   const [formData, setFormData] = useState<Omit<SaveClientRequest, 'userId'>>({ name: '', address: '', businessDate: '', phoneNumber: '' });
   const isDisabled = Object.values(formData).some((value) => !value);
 
-  const { mutateAsync: addMutateAsync } = useAddClient();
+  const addClient = useAddClient();
 
   const handleChange = (target: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
@@ -33,7 +34,7 @@ const ClientAddDialog = (props: IProps): React.ReactNode => {
   };
 
   const handleSave = async () => {
-    const { data } = await addMutateAsync({
+    const { data } = await addClient.mutateAsync({
       ...formData,
     });
 
@@ -44,6 +45,8 @@ const ClientAddDialog = (props: IProps): React.ReactNode => {
 
   return (
     <Dialog open={true} onClose={onClose} PaperProps={{ style: { width: '50%', minWidth: '440px' } }}>
+      <LoadingCircularProgress open={addClient.isLoading} />
+
       <DialogTitle display="flex" justifyContent="space-between">
         Add New Customer
       </DialogTitle>
