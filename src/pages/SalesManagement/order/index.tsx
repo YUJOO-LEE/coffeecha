@@ -36,6 +36,9 @@ const OrderPage = (): React.ReactNode => {
     setDeleteOpen(false);
   }
 
+  const handleDelete = () => {
+  }
+
   return (
     <Layout>
       <Box display="grid" gap="16px">
@@ -106,7 +109,7 @@ const OrderPage = (): React.ReactNode => {
       </Box>
 
       {deleteOpen && (
-        <DeleteDialog onClose={handleClose} />
+        <DeleteDialog onDone={handleDelete} onClose={handleClose} />
       )}
     </Layout>
   );
