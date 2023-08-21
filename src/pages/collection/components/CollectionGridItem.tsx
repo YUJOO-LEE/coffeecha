@@ -1,10 +1,10 @@
-import { UserMenuResponse } from '@/apis/swagger/data-contracts';
+import { MenuResponse } from '@/apis/swagger/data-contracts';
 import { CancelRounded, ModeEditOutlineRounded } from '@mui/icons-material';
 import { Box, Card, IconButton, styled, Typography } from '@mui/material';
 import React from 'react';
 
 interface IProps {
-  data: UserMenuResponse;
+  data: MenuResponse;
   onChange: () => void;
   onDelete: () => void;
 }
@@ -24,7 +24,7 @@ const MenuGridItem = (props: IProps): React.ReactNode => {
       </Box>
       {data.imageUrl ? (
         <Styled.ImageBox>
-          <img src={data.imageUrl} alt={data.userMenuName} />
+          <img src={data.imageUrl} alt={data.menuName} />
         </Styled.ImageBox>
       ) : (
         <Styled.ImageBox>
@@ -34,7 +34,7 @@ const MenuGridItem = (props: IProps): React.ReactNode => {
         </Styled.ImageBox>
       )}
       <Typography fontSize="14px" fontWeight="500">
-        {data.userMenuName}
+        {data.menuName}
       </Typography>
       <Typography fontSize="12px" color="grey">
         {data.description}
