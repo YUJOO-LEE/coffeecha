@@ -1,10 +1,5 @@
-import { categoryApi, userMenuApi } from '@/apis';
-import {
-  CategoryResponse,
-  CreateUserMenuRequest,
-  SaveResponse,
-  UserMenuResponse,
-} from '@/apis/swagger/data-contracts';
+import { categoryApi, collectionApi } from '@/apis';
+import { CategoryResponse, CreateMenuRequest } from '@/apis/swagger/data-contracts';
 import { useMutation, UseMutationResult, useQuery, useQueryClient, UseQueryResult } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
 
@@ -25,31 +20,31 @@ export const useGetCategoryList = (): UseQueryResult<CategoryResponse[]> => {
   );
 };
 
-export const useGetCollectionList = (): UseQueryResult<UserMenuResponse[]> => {
+export const useGetCollectionList = () => {
   return useQuery(
     [QueryKey, 'list'],
     async () => {
-      const { data } = await userMenuApi.allMenu();
+      const { data } = await collectionApi.allMenu();
       return data;
     },
     defaultOption
   );
 };
 
-export const useAddCollection = (): UseMutationResult<AxiosResponse<SaveResponse>, unknown, CreateUserMenuRequest> => {
+export const useAddCollection = () => {
   const queryClient = useQueryClient();
 
-  return useMutation(userMenuApi.saveUserMenu, {
+  return useMutation(collectionApi.saveUserMenu, {
     onSuccess: () => {
       queryClient.invalidateQueries([QueryKey, 'list']);
     },
   });
 };
 
-export const useUpdateCollection = (): UseMutationResult<AxiosResponse<void>, unknown,  { menuId: number, data: CreateUserMenuRequest }> => {
+export const useUpdateCollection = (): UseMutationResult<AxiosResponse<void>, unknown, { menuId: number, data: CreateMenuRequest }> => {
   const queryClient = useQueryClient();
 
-  return useMutation(({ menuId, data }) => userMenuApi.updateUserMenu(menuId, data), {
+  return useMutation(({ menuId, data }) => collectionApi.updateUserMenu(menuId, data), {
     onSuccess: () => {
       queryClient.invalidateQueries([QueryKey, 'list']);
     },
@@ -59,7 +54,7 @@ export const useUpdateCollection = (): UseMutationResult<AxiosResponse<void>, un
 export const useDeleteCollection = (): UseMutationResult<AxiosResponse<void>, unknown, number> => {
   const queryClient = useQueryClient();
 
-  return useMutation(userMenuApi.deleteUserMenu, {
+  return useMutation(collectionApi.deleteUserMenu, {
     onSuccess: () => {
       queryClient.invalidateQueries([QueryKey, 'list']);
     },

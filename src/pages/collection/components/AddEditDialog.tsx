@@ -1,5 +1,5 @@
 import { useAddCollection, useGetCategoryList, useUpdateCollection } from '@/apis/queries/collection';
-import { CreateUserMenuRequest, UserMenuResponse } from '@/apis/swagger/data-contracts';
+import { CreateMenuRequest, MenuResponse } from '@/apis/swagger/data-contracts';
 import LoadingCircleProgress from '@/components/LoadingCircleProgress';
 import {
   Box,
@@ -8,6 +8,8 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  FormControl,
+  InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent,
@@ -16,14 +18,14 @@ import {
 import React, { useLayoutEffect, useState } from 'react';
 
 interface IProps {
-  editData?: UserMenuResponse;
+  editData?: MenuResponse;
   onClose: () => void;
 }
 
 const AddEditDialog = (props: IProps): React.ReactNode => {
   const { editData, onClose } = props;
 
-  const [formData, setFormData] = useState<Omit<CreateUserMenuRequest, 'userId'>>({ name: '', imageUrl: '', description: '', categoryId: 0 });
+  const [formData, setFormData] = useState<Omit<CreateMenuRequest, 'userId'> & { options: number[] }>({ name: '', imageUrl: '', description: '', categoryId: 0, options: [] });
   const isDisabled = !formData.name || !formData.categoryId;
 
   const { data: categoryList } = useGetCategoryList();
@@ -44,9 +46,16 @@ const AddEditDialog = (props: IProps): React.ReactNode => {
     }))
   };
 
+  const handleOptionChange = (e: SelectChangeEvent<number[]>) => {
+    setFormData((prev) => ({
+      ...prev,
+      options: e.target.value as number[],
+    }))
+  };
+
   const handleSave = async () => {
     const { status } = editData
-      ? await updateCollection.mutateAsync({ menuId: editData.userMenuId, data: formData })
+      ? await updateCollection.mutateAsync({ menuId: editData.menuId, data: formData })
       : await addCollection.mutateAsync(formData);
 
     if (status === 200) {
@@ -58,10 +67,11 @@ const AddEditDialog = (props: IProps): React.ReactNode => {
     if (!editData) return;
 
     setFormData({
-      name: editData.userMenuName,
+      name: editData.menuName,
       description: editData.description,
       imageUrl: editData.imageUrl,
       categoryId: editData.categoryId,
+      options: [],
     });
   }, [editData]);
 
@@ -73,14 +83,26 @@ const AddEditDialog = (props: IProps): React.ReactNode => {
         {editData ? 'Edit' : 'Add New'} Menu
       </DialogTitle>
       <DialogContent>
-        <Box display="flex" flexDirection="column" gap="16px" paddingTop="4px">
-          <Select variant="outlined" value={formData.categoryId} onChange={handleCategoryChange}>
-            {categoryList?.map(({ id, name }) => (
-              <MenuItem key={`${name}_${id}`} value={id} >{name}</MenuItem>
-            ))}
-          </Select>
+        <Box display="flex" flexDirection="column" gap="16px" paddingTop="5px">
+          <FormControl fullWidth>
+            <InputLabel id="category-label">Category</InputLabel>
+            <Select labelId="category-label" label="Category" variant="outlined" value={formData.categoryId} onChange={handleCategoryChange}>
+              {categoryList?.map(({ id, name }) => (
+                <MenuItem key={`${name}_${id}`} value={id} >{name}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
           <TextField type="file" label="Image" variant="outlined" />
           <TextField label="Name" variant="outlined" value={formData.name} onChange={handleChange('name')} />
+
+          <FormControl fullWidth>
+            <InputLabel id="options-label">Options</InputLabel>
+            <Select labelId="options-label" label="Options" multiple variant="outlined" value={formData.options} onChange={handleOptionChange}>
+              {categoryList?.map(({ id, name }) => (
+                <MenuItem key={`${name}_${id}`} value={id} >{name}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
           <TextField label="Description" variant="outlined" value={formData.description} onChange={handleChange('description')} />
         </Box>
       </DialogContent>

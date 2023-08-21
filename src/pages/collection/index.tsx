@@ -1,5 +1,5 @@
 import { useDeleteCollection, useGetCollectionList } from '@/apis/queries/collection';
-import { UserMenuResponse } from '@/apis/swagger/data-contracts';
+import { MenuResponse } from '@/apis/swagger/data-contracts';
 import DeleteDialog from '@/components/DeleteDialog';
 import Layout from '@/components/Layout';
 import LoadingCircularProgress from '@/components/LoadingCircleProgress';
@@ -13,7 +13,7 @@ const CollectionPage = (): React.ReactNode => {
 
   const [isAddEditOpen, setIsAddEditOpen] = useState<boolean>(false);
   const [deleteItemId, setDeleteItemId] = useState<number | null>(null);
-  const [editData, setEditData] = useState<UserMenuResponse>();
+  const [editData, setEditData] = useState<MenuResponse>();
 
   const { data: collectionList } = useGetCollectionList();
   const deleteCollection = useDeleteCollection();
@@ -22,7 +22,7 @@ const CollectionPage = (): React.ReactNode => {
     setIsAddEditOpen(true);
   };
 
-  const handleEditOpen = (item: UserMenuResponse) => () => {
+  const handleEditOpen = (item: MenuResponse) => () => {
     setEditData(item);
     setIsAddEditOpen(true);
   };
@@ -64,7 +64,7 @@ const CollectionPage = (): React.ReactNode => {
         </Box>
         <Styled.MenuList>
           {collectionList?.map((item) => (
-            <CollectionGridItem data={item} onDelete={handleDeleteOpen(item.userMenuId)} onChange={handleEditOpen(item)} />
+            <CollectionGridItem data={item} onDelete={handleDeleteOpen(item.menuId)} onChange={handleEditOpen(item)} />
           ))}
         </Styled.MenuList>
       </Box>
