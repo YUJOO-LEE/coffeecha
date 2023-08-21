@@ -9,10 +9,10 @@
  * ---------------------------------------------------------------
  */
 
-import { CategoryRequest, CategoryResponse } from "./data-contracts";
+import { SaveClientMenuRequest } from "./data-contracts";
 import { ContentType, HttpClient, RequestParams } from "./http-client";
 
-export class CategoryController<SecurityDataType = unknown> {
+export class ClientMenu<SecurityDataType = unknown> {
   http: HttpClient<SecurityDataType>;
 
   constructor(http: HttpClient<SecurityDataType>) {
@@ -20,36 +20,21 @@ export class CategoryController<SecurityDataType = unknown> {
   }
 
   /**
-   * No description
+   * @description 클라이언트 메뉴 추가 API
    *
-   * @tags category-controller
-   * @name SaveCategory
-   * @request POST:/api/category
+   * @tags ClientMenu
+   * @name SaveClientMenus
+   * @summary 클라이언트 메뉴 추가
+   * @request POST:/api/client-menus/clients/{clientId}
    * @secure
    */
-  saveCategory = (data: CategoryRequest, params: RequestParams = {}) =>
-    this.http.request<number, any>({
-      path: `/api/category`,
+  saveClientMenus = (clientId: number, data: SaveClientMenuRequest, params: RequestParams = {}) =>
+    this.http.request<void, any>({
+      path: `/api/client-menus/clients/${clientId}`,
       method: "POST",
       body: data,
       secure: true,
       type: ContentType.Json,
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags category-controller
-   * @name AllCategories
-   * @request GET:/api/categories
-   * @secure
-   */
-  allCategories = (params: RequestParams = {}) =>
-    this.http.request<CategoryResponse[], any>({
-      path: `/api/categories`,
-      method: "GET",
-      secure: true,
-      format: "json",
       ...params,
     });
 }

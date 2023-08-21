@@ -10,11 +10,11 @@
  */
 
 export interface UserRequest {
-  name?: string;
-  password?: string;
+  loginId: string;
+  password: string;
 }
 
-export interface CreateUserMenuRequest {
+export interface CreateMenuRequest {
   name: string;
   imageUrl?: string;
   description?: string;
@@ -27,6 +27,10 @@ export interface SaveResponse {
   id: number;
 }
 
+export interface SaveMenuOptionRequest {
+  name: string;
+}
+
 export interface SaveClientRequest {
   name: string;
   address: string;
@@ -35,18 +39,37 @@ export interface SaveClientRequest {
   businessDate: string;
 }
 
+export interface SaveClientMenuRequest {
+  menuIds?: number[];
+}
+
 export interface CategoryRequest {
   name: string;
   /** @format int32 */
   priorityOrder: number;
 }
 
-export interface UpdateUserMenuRequest {
+export interface TokenRequest {
+  loginId: string;
+  password: string;
+}
+
+export interface TokenInfo {
+  grandType?: string;
+  accessToken?: string;
+  refreshToken?: string;
+}
+
+export interface UpdateMenuRequest {
   name?: string;
   imageUrl?: string;
   description?: string;
   /** @format int64 */
   categoryId?: number;
+}
+
+export interface UpdateMenuOptionRequest {
+  name: string;
 }
 
 export interface UpdateClientRequest {
@@ -57,10 +80,16 @@ export interface UpdateClientRequest {
   businessDate?: string;
 }
 
-export interface UserMenuResponse {
+export interface MenuOptionResponse {
   /** @format int64 */
-  userMenuId: number;
-  userMenuName: string;
+  menuOptionId?: number;
+  menuOptionName?: string;
+}
+
+export interface MenuResponse {
+  /** @format int64 */
+  menuId: number;
+  menuName: string;
   imageUrl?: string;
   description?: string;
   /** @format int64 */

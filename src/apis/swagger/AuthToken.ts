@@ -9,10 +9,10 @@
  * ---------------------------------------------------------------
  */
 
-import { UserRequest } from "./data-contracts";
-import { ContentType, HttpClient, RequestParams } from "./http-client";
+import { TokenInfo, TokenRequest } from "./data-contracts";
+import { HttpClient, RequestParams } from "./http-client";
 
-export class User<SecurityDataType = unknown> {
+export class AuthToken<SecurityDataType = unknown> {
   http: HttpClient<SecurityDataType>;
 
   constructor(http: HttpClient<SecurityDataType>) {
@@ -22,18 +22,22 @@ export class User<SecurityDataType = unknown> {
   /**
    * No description
    *
-   * @tags User
-   * @name SaveUser
-   * @request POST:/api/user
+   * @tags Auth Token
+   * @name Token
+   * @request POST:/api/auth/token
    * @secure
    */
-  saveUser = (data: UserRequest, params: RequestParams = {}) =>
-    this.http.request<number, any>({
-      path: `/api/user`,
+  token = (
+    query: {
+      request: TokenRequest;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.http.request<TokenInfo, any>({
+      path: `/api/auth/token`,
       method: "POST",
-      body: data,
+      query: query,
       secure: true,
-      type: ContentType.Json,
       ...params,
     });
 }

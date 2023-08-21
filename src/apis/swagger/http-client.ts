@@ -54,10 +54,7 @@ export class HttpClient<SecurityDataType = unknown> {
   private format?: ResponseType;
 
   constructor({ securityWorker, secure, format, ...axiosConfig }: ApiConfig<SecurityDataType> = {}) {
-    this.instance = axios.create({
-      ...axiosConfig,
-      baseURL: axiosConfig.baseURL || "http://coffee-api.ap-northeast-2.elasticbeanstalk.com",
-    });
+    this.instance = axios.create({ ...axiosConfig });
     this.secure = secure;
     this.format = format;
     this.securityWorker = securityWorker;

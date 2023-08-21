@@ -9,10 +9,10 @@
  * ---------------------------------------------------------------
  */
 
-import { CreateUserMenuRequest, SaveResponse, UpdateUserMenuRequest, UserMenuResponse } from "./data-contracts";
+import { CreateMenuRequest, MenuResponse, SaveResponse, UpdateMenuRequest } from "./data-contracts";
 import { ContentType, HttpClient, RequestParams } from "./http-client";
 
-export class UserMenu<SecurityDataType = unknown> {
+export class Menu<SecurityDataType = unknown> {
   http: HttpClient<SecurityDataType>;
 
   constructor(http: HttpClient<SecurityDataType>) {
@@ -20,63 +20,71 @@ export class UserMenu<SecurityDataType = unknown> {
   }
 
   /**
-   * @description 사용자 메뉴 전체 조회
+   * @description 메뉴 전체 조회
    *
-   * @tags UserMenu
+   * @tags Menu
    * @name AllMenu
-   * @summary 사용자 메뉴 조회
+   * @summary 메뉴 조회
    * @request GET:/api/menus
+   * @secure
    */
   allMenu = (params: RequestParams = {}) =>
-    this.http.request<UserMenuResponse[], any>({
+    this.http.request<MenuResponse[], any>({
       path: `/api/menus`,
       method: "GET",
+      secure: true,
       format: "json",
       ...params,
     });
   /**
-   * @description 사용자 메뉴 추가 API
+   * @description 메뉴 추가 API
    *
-   * @tags UserMenu
+   * @tags Menu
    * @name SaveUserMenu
-   * @summary 사용자 메뉴 추가
+   * @summary 메뉴 추가
    * @request POST:/api/menus
+   * @secure
    */
-  saveUserMenu = (data: CreateUserMenuRequest, params: RequestParams = {}) =>
+  saveUserMenu = (data: CreateMenuRequest, params: RequestParams = {}) =>
     this.http.request<SaveResponse, any>({
       path: `/api/menus`,
       method: "POST",
       body: data,
+      secure: true,
       type: ContentType.Json,
       ...params,
     });
   /**
-   * @description 사용자 메뉴 삭제 API
+   * @description 메뉴 삭제 API
    *
-   * @tags UserMenu
+   * @tags Menu
    * @name DeleteUserMenu
-   * @summary 사용자 메뉴 삭제
+   * @summary 메뉴 삭제
    * @request DELETE:/api/menus/{menuId}
+   * @secure
    */
   deleteUserMenu = (menuId: number, params: RequestParams = {}) =>
     this.http.request<void, any>({
       path: `/api/menus/${menuId}`,
       method: "DELETE",
+      secure: true,
       ...params,
     });
   /**
-   * @description 사용자 메뉴 수정 API
+   * @description 메뉴 수정 API
    *
-   * @tags UserMenu
+   * @tags Menu
    * @name UpdateUserMenu
-   * @summary 사용자 메뉴 수정
+   * @summary 메뉴 수정
    * @request PATCH:/api/menus/{menuId}
+   * @secure
    */
-  updateUserMenu = (menuId: number, data: UpdateUserMenuRequest, params: RequestParams = {}) =>
+  updateUserMenu = (menuId: number, data: UpdateMenuRequest, params: RequestParams = {}) =>
     this.http.request<void, any>({
       path: `/api/menus/${menuId}`,
       method: "PATCH",
       body: data,
+      secure: true,
       type: ContentType.Json,
       ...params,
     });

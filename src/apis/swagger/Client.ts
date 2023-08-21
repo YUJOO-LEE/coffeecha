@@ -26,11 +26,13 @@ export class Client<SecurityDataType = unknown> {
    * @name GetUserClients
    * @summary 사용자 클라이언트 조회
    * @request GET:/api/clients
+   * @secure
    */
   getUserClients = (params: RequestParams = {}) =>
     this.http.request<ClientResponse[], any>({
       path: `/api/clients`,
       method: "GET",
+      secure: true,
       ...params,
     });
   /**
@@ -40,12 +42,14 @@ export class Client<SecurityDataType = unknown> {
    * @name SaveClient
    * @summary 클라이언트 추가
    * @request POST:/api/clients
+   * @secure
    */
   saveClient = (data: SaveClientRequest, params: RequestParams = {}) =>
     this.http.request<SaveResponse, any>({
       path: `/api/clients`,
       method: "POST",
       body: data,
+      secure: true,
       type: ContentType.Json,
       ...params,
     });
@@ -56,11 +60,13 @@ export class Client<SecurityDataType = unknown> {
    * @name GetClient
    * @summary 클라이언트 조회
    * @request GET:/api/clients/{clientId}
+   * @secure
    */
   getClient = (clientId: number, params: RequestParams = {}) =>
     this.http.request<ClientResponse, any>({
       path: `/api/clients/${clientId}`,
       method: "GET",
+      secure: true,
       ...params,
     });
   /**
@@ -70,11 +76,13 @@ export class Client<SecurityDataType = unknown> {
    * @name DeleteClient
    * @summary 클라이언트 삭제
    * @request DELETE:/api/clients/{clientId}
+   * @secure
    */
   deleteClient = (clientId: number, params: RequestParams = {}) =>
     this.http.request<void, any>({
       path: `/api/clients/${clientId}`,
       method: "DELETE",
+      secure: true,
       ...params,
     });
   /**
@@ -84,12 +92,14 @@ export class Client<SecurityDataType = unknown> {
    * @name UpdateClient
    * @summary 클라이언트 수정
    * @request PATCH:/api/clients/{clientId}
+   * @secure
    */
   updateClient = (clientId: number, data: UpdateClientRequest, params: RequestParams = {}) =>
     this.http.request<void, any>({
       path: `/api/clients/${clientId}`,
       method: "PATCH",
       body: data,
+      secure: true,
       type: ContentType.Json,
       ...params,
     });
