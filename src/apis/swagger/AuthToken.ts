@@ -10,7 +10,7 @@
  */
 
 import { TokenInfo, TokenRequest } from "./data-contracts";
-import { HttpClient, RequestParams } from "./http-client";
+import { ContentType, HttpClient, RequestParams } from "./http-client";
 
 export class AuthToken<SecurityDataType = unknown> {
   http: HttpClient<SecurityDataType>;
@@ -27,17 +27,13 @@ export class AuthToken<SecurityDataType = unknown> {
    * @request POST:/api/auth/token
    * @secure
    */
-  token = (
-    query: {
-      request: TokenRequest;
-    },
-    params: RequestParams = {},
-  ) =>
+  token = (data: TokenRequest, params: RequestParams = {}) =>
     this.http.request<TokenInfo, any>({
       path: `/api/auth/token`,
       method: "POST",
-      query: query,
+      body: data,
       secure: true,
+      type: ContentType.Json,
       ...params,
     });
 }

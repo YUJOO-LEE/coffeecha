@@ -5,36 +5,52 @@ import LoginPage from '@/pages/login';
 import MenuPage from '@/pages/SalesManagement/menu';
 import OrderPage from '@/pages/SalesManagement/order';
 import SettingPage from '@/pages/SalesManagement/setting';
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, redirect } from 'react-router-dom';
 
 const routers = createBrowserRouter([
   {
     path: "/",
+    loader: async () => {
+      const isLogin = () => {
+        return localStorage.getItem('auth') !== null;
+      };
+
+      return !isLogin() && redirect('/login');
+    },
     element: <SalesManagementPage />,
-  },
-  {
-    path: "/collection",
-    element: <CollectionPage />,
+    children: [
+      {
+        path: "/collection",
+        element: <CollectionPage />,
+      },
+      {
+        path: "/:clientId/",
+        element: <HomePage />,
+      },
+      {
+        path: "/:clientId/order",
+        element: <OrderPage />,
+      },
+      {
+        path: "/:clientId/menu",
+        element: <MenuPage />,
+      },
+      {
+        path: "/:clientId/setting",
+        element: <SettingPage />,
+      },
+    ],
   },
   {
     path: "/login",
     element: <LoginPage />,
-  },
-  {
-    path: "/:clientId/",
-    element: <HomePage />,
-  },
-  {
-    path: "/:clientId/order",
-    element: <OrderPage />,
-  },
-  {
-    path: "/:clientId/menu",
-    element: <MenuPage />,
-  },
-  {
-    path: "/:clientId/setting",
-    element: <SettingPage />,
+    loader: async () => {
+      const isLogin = () => {
+        return localStorage.getItem('auth') !== null;
+      };
+
+      return isLogin() && redirect('/');
+    },
   },
 ]);
 
