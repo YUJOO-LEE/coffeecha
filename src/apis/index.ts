@@ -112,8 +112,6 @@ http.instance.interceptors.request.use((config) => {
   const accessToken = authData?.accessToken;
   const grandType = authData?.grandType;
 
-  console.log('#####', authData);
-
   if (accessToken && grandType) {
     newConfig.headers.setAuthorization(`${grandType} ${accessToken}`);
   }
