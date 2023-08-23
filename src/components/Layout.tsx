@@ -1,3 +1,4 @@
+import { useAuth } from '@/apis/queries/auth';
 import GlobalNavigation from '@/components/GlobalNavigation';
 import ClientHeader from '@/pages/SalesManagement/components/ClientHeader';
 import { Box, styled } from '@mui/material';
@@ -7,6 +8,8 @@ import { useParams } from 'react-router-dom';
 const Layout = ({ children }: React.PropsWithChildren):React.ReactNode => {
   const { clientId } = useParams();
   const [isOffsetTop, setIsOffsetTop] = useState(true);
+
+  useAuth();
 
   const handleScroll = useCallback((e: React.WheelEvent<HTMLElement>) => {
     setIsOffsetTop((e.target as HTMLElement).scrollTop === 0);

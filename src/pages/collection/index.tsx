@@ -64,7 +64,7 @@ const CollectionPage = (): React.ReactNode => {
         </Box>
         <Styled.MenuList>
           {collectionList?.map((item) => (
-            <CollectionGridItem data={item} onDelete={handleDeleteOpen(item.menuId)} onChange={handleEditOpen(item)} />
+            <CollectionGridItem key={item.menuId} data={item} onDelete={handleDeleteOpen(item.menuId)} onChange={handleEditOpen(item)} />
           ))}
         </Styled.MenuList>
       </Box>

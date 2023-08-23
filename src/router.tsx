@@ -17,8 +17,11 @@ const routers = createBrowserRouter([
 
       return !isLogin() && redirect('/login');
     },
-    element: <SalesManagementPage />,
     children: [
+      {
+        path: "/",
+        element: <SalesManagementPage />,
+      },
       {
         path: "/collection",
         element: <CollectionPage />,
