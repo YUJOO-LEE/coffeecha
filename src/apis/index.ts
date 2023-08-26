@@ -29,10 +29,6 @@ export const menuOptionApi = new MenuOption(http);
 (function initializeToErrorHandling() {
   const requestWaitQueue: ((token: string) => void)[] = [];
   // let isInProgressRefreshToken = false;
-
-  // function report(message: string, unknown?: boolean) {
-  // }
-
   // async function updateToken() {
   //   isInProgressRefreshToken = true;
   //
@@ -68,9 +64,11 @@ export const menuOptionApi = new MenuOption(http);
 
     const status = error.response.status;
 
-    if (error.config && status === 401) {
-      const { config: requestConfigToRetry } = error;
-
+    if (error.config && status === 403) {
+      clearAuth(queryClient);
+      return;
+      // const { config: requestConfigToRetry } = error;
+      //
       // if (!isInProgressRefreshToken) {
       //   updateToken().then((accessToken) => {
       //     while (accessToken && requestWaitQueue.length > 0) {
@@ -82,17 +80,17 @@ export const menuOptionApi = new MenuOption(http);
       //     }
       //   });
       // }
-
-      return new Promise((resolve) => {
-        requestWaitQueue.push((newAccessToken) => {
-          requestConfigToRetry['headers'] = {
-            ...requestConfigToRetry.headers,
-            Authorization: `Bearer ${newAccessToken}`,
-          };
-
-          resolve(axios.request(requestConfigToRetry));
-        });
-      });
+      //
+      // return new Promise((resolve) => {
+      //   requestWaitQueue.push((newAccessToken) => {
+      //     requestConfigToRetry['headers'] = {
+      //       ...requestConfigToRetry.headers,
+      //       Authorization: `Bearer ${newAccessToken}`,
+      //     };
+      //
+      //     resolve(axios.request(requestConfigToRetry));
+      //   });
+      // });
     }
 
     return Promise.reject(error);
