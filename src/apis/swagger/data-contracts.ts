@@ -27,6 +27,10 @@ export interface SaveResponse {
   id: number;
 }
 
+export interface MenuOptionLinksRequest {
+  menuOptionIds: number[];
+}
+
 export interface SaveMenuOptionRequest {
   name: string;
 }

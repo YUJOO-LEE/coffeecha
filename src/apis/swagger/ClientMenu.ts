@@ -37,4 +37,20 @@ export class ClientMenu<SecurityDataType = unknown> {
       type: ContentType.Json,
       ...params,
     });
+  /**
+   * @description 클라이언트 메뉴 삭제 API
+   *
+   * @tags ClientMenu
+   * @name DeleteClientMenus
+   * @summary 클라이언트 메뉴 삭제
+   * @request DELETE:/api/client-menus/{clientMenuId}
+   * @secure
+   */
+  deleteClientMenus = (clientMenuId: number, params: RequestParams = {}) =>
+    this.http.request<void, any>({
+      path: `/api/client-menus/${clientMenuId}`,
+      method: "DELETE",
+      secure: true,
+      ...params,
+    });
 }

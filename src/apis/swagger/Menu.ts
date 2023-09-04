@@ -9,7 +9,13 @@
  * ---------------------------------------------------------------
  */
 
-import { CreateMenuRequest, MenuResponse, SaveResponse, UpdateMenuRequest } from "./data-contracts";
+import {
+  CreateMenuRequest,
+  MenuOptionLinksRequest,
+  MenuResponse,
+  SaveResponse,
+  UpdateMenuRequest,
+} from "./data-contracts";
 import { ContentType, HttpClient, RequestParams } from "./http-client";
 
 export class Menu<SecurityDataType = unknown> {
@@ -48,6 +54,24 @@ export class Menu<SecurityDataType = unknown> {
   saveUserMenu = (data: CreateMenuRequest, params: RequestParams = {}) =>
     this.http.request<SaveResponse, any>({
       path: `/api/menus`,
+      method: "POST",
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      ...params,
+    });
+  /**
+   * @description 메뉴와 메뉴 옵션 연결
+   *
+   * @tags Menu
+   * @name MenuOptionLinks
+   * @summary 메뉴 옵션 연결
+   * @request POST:/api/menus/{menuId}/menu-option-links
+   * @secure
+   */
+  menuOptionLinks = (menuId: number, data: MenuOptionLinksRequest, params: RequestParams = {}) =>
+    this.http.request<void, any>({
+      path: `/api/menus/${menuId}/menu-option-links`,
       method: "POST",
       body: data,
       secure: true,
