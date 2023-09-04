@@ -36,7 +36,7 @@ const LoginPage = (): React.ReactNode => {
       <Form onSubmit={handleLogin}>
         <Box display="grid" gap="16px" width="260px">
           <TextField label="ID" variant="outlined" size="small" value={loginId} onChange={handleIdChange} />
-          <TextField label="Password" variant="outlined" size="small" value={password} onChange={handlePasswordChange} />
+          <TextField label="Password" type="password" variant="outlined" size="small" value={password} onChange={handlePasswordChange} />
           <Button type="submit" variant="contained" size="large">
             Login
           </Button>
