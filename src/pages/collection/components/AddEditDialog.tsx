@@ -1,6 +1,9 @@
 import { useAddCollection, useGetCategoryList, useUpdateCollection } from '@/apis/queries/collection';
+import { useGetOptionList } from '@/apis/queries/menuOption';
 import { CreateMenuRequest, MenuResponse } from '@/apis/swagger/data-contracts';
 import LoadingCircleProgress from '@/components/LoadingCircleProgress';
+import OptionDialog from '@/pages/collection/components/OptionDialog';
+import { ManageSearchRounded } from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -25,10 +28,12 @@ interface IProps {
 const AddEditDialog = (props: IProps): React.ReactNode => {
   const { editData, onClose } = props;
 
-  const [formData, setFormData] = useState<Omit<CreateMenuRequest, 'userId'> & { options: number[] }>({ name: '', imageUrl: '', description: '', categoryId: 0, options: [] });
+  const [isOptionOpen, setIsOptionOpen] = useState<boolean>(false);
+  const [formData, setFormData] = useState<Omit<CreateMenuRequest, 'userId'> & { options?: number[] }>({ name: '', imageUrl: '', description: '', categoryId: 0, options: [] });
   const isDisabled = !formData.name || !formData.categoryId;
 
   const { data: categoryList } = useGetCategoryList();
+  const { data: optionList } = useGetOptionList();
   const addCollection = useAddCollection();
   const updateCollection = useUpdateCollection();
 
@@ -63,6 +68,10 @@ const AddEditDialog = (props: IProps): React.ReactNode => {
     }
   };
 
+  const toggleOptionPanel = () => {
+    setIsOptionOpen((prev) => !prev);
+  };
+
   useLayoutEffect(() => {
     if (!editData) return;
 
@@ -71,7 +80,7 @@ const AddEditDialog = (props: IProps): React.ReactNode => {
       description: editData.description,
       imageUrl: editData.imageUrl,
       categoryId: editData.categoryId,
-      options: [],
+      options: editData.menuOptionIds,
     });
   }, [editData]);
 
@@ -95,14 +104,19 @@ const AddEditDialog = (props: IProps): React.ReactNode => {
           <TextField type="file" label="Image" variant="outlined" />
           <TextField label="Name" variant="outlined" value={formData.name} onChange={handleChange('name')} />
 
-          <FormControl fullWidth>
-            <InputLabel id="options-label">Options</InputLabel>
-            <Select labelId="options-label" label="Options" multiple variant="outlined" value={formData.options} onChange={handleOptionChange}>
-              {categoryList?.map(({ id, name }) => (
-                <MenuItem key={`${name}_${id}`} value={id} >{name}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+          <Box display="flex" gap="4px">
+            <FormControl fullWidth>
+              <InputLabel id="options-label">Options</InputLabel>
+              <Select labelId="options-label" label="Options" multiple variant="outlined" value={formData.options} onChange={handleOptionChange}>
+                {optionList?.map(({ menuOptionId, menuOptionName }) => (
+                  <MenuItem key={`${menuOptionName}_${menuOptionId}`} value={menuOptionId} >{menuOptionName}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <Button variant="outlined" size="large" onClick={toggleOptionPanel}>
+              <ManageSearchRounded />
+            </Button>
+          </Box>
           <TextField label="Description" variant="outlined" value={formData.description} onChange={handleChange('description')} />
         </Box>
       </DialogContent>
@@ -114,6 +128,8 @@ const AddEditDialog = (props: IProps): React.ReactNode => {
           {editData ? 'Save' : 'Add'}
         </Button>
       </DialogActions>
+
+      {isOptionOpen && <OptionDialog onClose={toggleOptionPanel} />}
     </Dialog>
   );
 }
