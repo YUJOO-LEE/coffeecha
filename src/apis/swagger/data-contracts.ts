@@ -20,15 +20,12 @@ export interface CreateMenuRequest {
   description?: string;
   /** @format int64 */
   categoryId: number;
+  menuOptionIds?: number[];
 }
 
 export interface SaveResponse {
   /** @format int64 */
   id: number;
-}
-
-export interface MenuOptionLinksRequest {
-  menuOptionIds: number[];
 }
 
 export interface SaveMenuOptionRequest {
@@ -70,6 +67,7 @@ export interface UpdateMenuRequest {
   description?: string;
   /** @format int64 */
   categoryId?: number;
+  menuOptionIds?: number[];
 }
 
 export interface UpdateMenuOptionRequest {
