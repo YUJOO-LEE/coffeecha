@@ -29,7 +29,7 @@ const AddEditDialog = (props: IProps): React.ReactNode => {
   const { editData, onClose } = props;
 
   const [isOptionOpen, setIsOptionOpen] = useState<boolean>(false);
-  const [formData, setFormData] = useState<Omit<CreateMenuRequest, 'userId'> & { options?: number[] }>({ name: '', imageUrl: '', description: '', categoryId: 0, options: [] });
+  const [formData, setFormData] = useState<Omit<CreateMenuRequest, 'userId'>>({ name: '', imageUrl: '', description: '', categoryId: 0, menuOptionIds: [] });
   const isDisabled = !formData.name || !formData.categoryId;
 
   const { data: categoryList } = useGetCategoryList();
@@ -54,7 +54,7 @@ const AddEditDialog = (props: IProps): React.ReactNode => {
   const handleOptionChange = (e: SelectChangeEvent<number[]>) => {
     setFormData((prev) => ({
       ...prev,
-      options: e.target.value as number[],
+      menuOptionIds: e.target.value as number[],
     }))
   };
 
@@ -80,7 +80,7 @@ const AddEditDialog = (props: IProps): React.ReactNode => {
       description: editData.description,
       imageUrl: editData.imageUrl,
       categoryId: editData.categoryId,
-      options: editData.menuOptionIds,
+      menuOptionIds: editData.menuOptionIds,
     });
   }, [editData]);
 
@@ -107,7 +107,7 @@ const AddEditDialog = (props: IProps): React.ReactNode => {
           <Box display="flex" gap="4px">
             <FormControl fullWidth>
               <InputLabel id="options-label">Options</InputLabel>
-              <Select labelId="options-label" label="Options" multiple variant="outlined" value={formData.options} onChange={handleOptionChange}>
+              <Select labelId="options-label" label="Options" multiple variant="outlined" value={formData.menuOptionIds} onChange={handleOptionChange}>
                 {optionList?.map(({ menuOptionId, menuOptionName }) => (
                   <MenuItem key={`${menuOptionName}_${menuOptionId}`} value={menuOptionId} >{menuOptionName}</MenuItem>
                 ))}
