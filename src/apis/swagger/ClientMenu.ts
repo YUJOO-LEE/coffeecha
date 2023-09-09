@@ -9,7 +9,7 @@
  * ---------------------------------------------------------------
  */
 
-import { SaveClientMenuRequest } from "./data-contracts";
+import { ClientMenuResponse, SaveClientMenuRequest } from "./data-contracts";
 import { ContentType, HttpClient, RequestParams } from "./http-client";
 
 export class ClientMenu<SecurityDataType = unknown> {
@@ -19,6 +19,22 @@ export class ClientMenu<SecurityDataType = unknown> {
     this.http = http;
   }
 
+  /**
+   * @description 클라이언트 메뉴 조회 API
+   *
+   * @tags ClientMenu
+   * @name GetClientMenuAll
+   * @summary 클라이언트 메뉴 전체 조회
+   * @request GET:/api/client-menus/clients/{clientId}
+   * @secure
+   */
+  getClientMenuAll = (clientId: number, params: RequestParams = {}) =>
+    this.http.request<ClientMenuResponse[], any>({
+      path: `/api/client-menus/clients/${clientId}`,
+      method: "GET",
+      secure: true,
+      ...params,
+    });
   /**
    * @description 클라이언트 메뉴 추가 API
    *

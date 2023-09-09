@@ -111,6 +111,17 @@ export interface ClientResponse {
   businessDate?: string;
 }
 
+export interface ClientMenuResponse {
+  /** @format int64 */
+  clientMenuId: number;
+  /** @format int32 */
+  stockQuantity: number;
+  /** @format int32 */
+  saleQuantity: number;
+  menuName: string;
+  menuImageUrl: string;
+}
+
 export interface CategoryResponse {
   /** @format int64 */
   id: number;
