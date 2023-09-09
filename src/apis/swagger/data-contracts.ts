@@ -84,12 +84,6 @@ export interface UpdateClientRequest {
   businessDate?: string;
 }
 
-export interface MenuOptionResponse {
-  /** @format int64 */
-  menuOptionId?: number;
-  menuOptionName?: string;
-}
-
 export interface MenuResponse {
   /** @format int64 */
   menuId: number;
@@ -98,6 +92,13 @@ export interface MenuResponse {
   description?: string;
   /** @format int64 */
   categoryId: number;
+  menuOptionIds?: number[];
+}
+
+export interface MenuOptionResponse {
+  /** @format int64 */
+  menuOptionId?: number;
+  menuOptionName?: string;
 }
 
 /** 클라이언트 조회 Response */

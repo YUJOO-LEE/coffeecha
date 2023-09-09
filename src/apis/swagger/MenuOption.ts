@@ -20,6 +20,22 @@ export class MenuOption<SecurityDataType = unknown> {
   }
 
   /**
+   * @description 사용자 메뉴 옵션 전체 조회
+   *
+   * @tags MenuOption
+   * @name GetMenuOption
+   * @summary 사용자 메뉴 옵션 조회
+   * @request GET:/api/menu-options
+   * @secure
+   */
+  getMenuOption = (params: RequestParams = {}) =>
+    this.http.request<MenuOptionResponse[], any>({
+      path: `/api/menu-options`,
+      method: "GET",
+      secure: true,
+      ...params,
+    });
+  /**
    * @description 사용자 메뉴 옵션 추가
    *
    * @tags MenuOption
@@ -69,22 +85,6 @@ export class MenuOption<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
-      ...params,
-    });
-  /**
-   * @description 사용자 메뉴 옵션 전체 조회
-   *
-   * @tags MenuOption
-   * @name GetMenuOption
-   * @summary 사용자 메뉴 옵션 조회
-   * @request GET:/api/munu-options
-   * @secure
-   */
-  getMenuOption = (params: RequestParams = {}) =>
-    this.http.request<MenuOptionResponse[], any>({
-      path: `/api/munu-options`,
-      method: "GET",
-      secure: true,
       ...params,
     });
 }
