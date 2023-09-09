@@ -1,8 +1,9 @@
+import { ClientMenuResponse } from '@/apis/swagger/data-contracts';
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
 import React from 'react';
 
 interface IProps {
-  editData?: unknown; // TODO
+  editData?: ClientMenuResponse;
   onClose: () => void;
 }
 

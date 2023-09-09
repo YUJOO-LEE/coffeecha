@@ -1,3 +1,4 @@
+import { ClientMenuResponse } from '@/apis/swagger/data-contracts';
 import { ModeEditOutlineRounded } from '@mui/icons-material';
 import { Box, Card, Checkbox, IconButton, Skeleton, styled, Typography } from '@mui/material';
 import React from 'react';
@@ -5,7 +6,7 @@ import React from 'react';
 interface IProps {
   isEditMode?: boolean;
   onChange: () => void;
-  data?: any; //TODO: client menu response
+  data?: ClientMenuResponse;
 }
 
 const MenuGridItem = (props: IProps): React.ReactNode => {
@@ -19,9 +20,13 @@ const MenuGridItem = (props: IProps): React.ReactNode => {
           <ModeEditOutlineRounded sx={{ width: '16px', height: '16px' }} />
         </IconButton>
       </Box>
-      <Skeleton variant="rounded" sx={{ width: '100%', height: 'auto', aspectRatio: '1 / 1' }} />
+      {data ? data.menuImageUrl && (
+        <img src={data.menuImageUrl} alt={data.menuName} />
+      ) : (
+        <Skeleton variant="rounded" sx={{ width: '100%', height: 'auto', aspectRatio: '1 / 1' }} />
+      )}
       <Typography>
-        Menu 1
+        {data?.menuName}
       </Typography>
       <Typography>
         Menu 1

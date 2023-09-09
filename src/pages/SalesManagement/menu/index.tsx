@@ -1,15 +1,21 @@
+import { ClientMenuResponse } from '@/apis/swagger/data-contracts';
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useGetClientMenuList } from '@/apis/queries/salesManagement/menu';
 import Layout from '@/components/Layout';
 import MenuGridItem from '@/pages/SalesManagement/menu/components/MenuGridItem';
 import AddEditDialog from '@/pages/SalesManagement/menu/components/AddEditDialog';
 import { AddRounded, CheckCircleRounded, ChecklistRounded, CoffeeRounded } from '@mui/icons-material';
 import { Box, Button, Divider, styled, Typography } from '@mui/material';
-import { useState } from 'react';
 
 const MenuPage = () => {
+  const { clientId } = useParams();
 
   const [editMode, setEditMode] = useState(false);
   const [isAddEditOpen, setAddEditOpen] = useState(false);
-  const [editMenuData, setEditMenuData] = useState<any>();  // TODO
+  const [editMenuData, setEditMenuData] = useState<ClientMenuResponse>();
+
+  const { data: menuList } = useGetClientMenuList(Number(clientId));
 
   const toggleEditMode = () => {
     setEditMode(!editMode);
@@ -19,14 +25,14 @@ const MenuPage = () => {
     setAddEditOpen(true);
   };
 
-  const handleMenuEdit = () => {
+  const handleMenuEdit = (item: ClientMenuResponse) => () => {
     setAddEditOpen(true);
-    setEditMenuData({});
+    setEditMenuData(item);
   };
 
   const handleClose = () => {
     setAddEditOpen(false);
-    setEditMenuData(null);
+    setEditMenuData(undefined);
   };
 
   return(
@@ -66,19 +72,19 @@ const MenuPage = () => {
             Coffee
           </Typography>
           <Styled.MenuList>
-            {Array(15).fill('').map((_, index) => (
-              <MenuGridItem key={index} isEditMode={editMode} onChange={handleMenuEdit} />
+            {menuList?.map((item) => (
+              <MenuGridItem key={item.clientMenuId} data={item} isEditMode={editMode} onChange={handleMenuEdit(item)} />
             ))}
           </Styled.MenuList>
-          <Divider />
-          <Typography>
-            Dessert
-          </Typography>
-          <Styled.MenuList>
-            {Array(5).fill('').map((_, index) => (
-              <MenuGridItem key={index} isEditMode={editMode} onChange={handleMenuEdit}  />
-            ))}
-          </Styled.MenuList>
+          {/*<Divider />*/}
+          {/*<Typography>*/}
+          {/*  Dessert*/}
+          {/*</Typography>*/}
+          {/*<Styled.MenuList>*/}
+          {/*  {Array(5).fill('').map((_, index) => (*/}
+          {/*    <MenuGridItem key={index} isEditMode={editMode} onChange={handleMenuEdit}  />*/}
+          {/*  ))}*/}
+          {/*</Styled.MenuList>*/}
         </Styled.ContentBox>
       </Box>
 
