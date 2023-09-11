@@ -5,18 +5,24 @@ import Layout from '@/components/Layout';
 import LoadingCircularProgress from '@/components/LoadingCircleProgress';
 import AddEditDialog from '@/pages/collection/components/AddEditDialog';
 import CollectionGridItem from '@/pages/collection/components/CollectionGridItem';
-import { AddRounded, CoffeeMakerRounded } from '@mui/icons-material';
+import OptionDialog from '@/pages/collection/components/OptionDialog';
+import { AddRounded, CoffeeMakerRounded, ManageSearchRounded } from '@mui/icons-material';
 import { Box, Button, styled, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
 const CollectionPage = (): React.ReactNode => {
 
+  const [isOptionOpen, setIsOptionOpen] = useState<boolean>(false);
   const [isAddEditOpen, setIsAddEditOpen] = useState<boolean>(false);
   const [deleteItemId, setDeleteItemId] = useState<number | null>(null);
   const [editData, setEditData] = useState<MenuResponse>();
 
   const { data: collectionList } = useGetCollectionList();
   const deleteCollection = useDeleteCollection();
+
+  const toggleOptionPanel = () => {
+    setIsOptionOpen((prev) => !prev);
+  };
 
   const handleAddOpen = () => {
     setIsAddEditOpen(true);
@@ -58,9 +64,14 @@ const CollectionPage = (): React.ReactNode => {
           <Typography fontSize="20px" fontWeight="inherit" display="flex" alignItems="center" gap="8px">
             <CoffeeMakerRounded />Collection
           </Typography>
-          <Button size="medium" variant="contained" startIcon={<AddRounded />} onClick={handleAddOpen}>
-            Add New Menu
-          </Button>
+          <Box display="flex" gap="8px">
+            <Button size="medium" variant="contained" startIcon={<AddRounded />} onClick={handleAddOpen}>
+              Add New Menu
+            </Button>
+            <Button size="medium" color="info" variant="contained" startIcon={<ManageSearchRounded />} onClick={toggleOptionPanel}>
+              Menu Options
+            </Button>
+          </Box>
         </Box>
         <Styled.MenuList>
           {collectionList?.map((item) => (
@@ -69,6 +80,7 @@ const CollectionPage = (): React.ReactNode => {
         </Styled.MenuList>
       </Box>
 
+      {isOptionOpen && <OptionDialog onClose={toggleOptionPanel} />}
       {isAddEditOpen && (<AddEditDialog editData={editData} onClose={handleEditClose} />)}
       {deleteItemId && (<DeleteDialog onClose={handleDeleteClose} onDone={handleDelete} />)}
     </Layout>
