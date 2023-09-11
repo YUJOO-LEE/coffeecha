@@ -4,7 +4,7 @@ import LoadingCircularProgress from '@/components/LoadingCircleProgress';
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface IProps {
   onClose: () => void;
@@ -14,8 +14,8 @@ interface IProps {
 const ClientAddDialog = (props: IProps): React.ReactNode => {
   const { onClose, onDone } = props;
 
+  const [isDisabled, setIsDisabled] = useState<boolean>(false);
   const [formData, setFormData] = useState<Omit<SaveClientRequest, 'userId'>>({ name: '', address: '', businessDate: '', phoneNumber: '' });
-  const isDisabled = Object.values(formData).some((value) => !value);
 
   const addClient = useAddClient();
 
@@ -34,14 +34,21 @@ const ClientAddDialog = (props: IProps): React.ReactNode => {
   };
 
   const handleSave = async () => {
+    setIsDisabled(true);
     const { data } = await addClient.mutateAsync({
       ...formData,
     });
 
     if (data.id) {
       onDone(data.id);
+    } else {
+      setIsDisabled(false);
     }
   };
+
+  useEffect(() => {
+    setIsDisabled(Object.values(formData).some((value) => !value))
+  }, [formData]);
 
   return (
     <Dialog open={true} onClose={onClose} PaperProps={{ style: { width: '50%', minWidth: '440px' } }}>
