@@ -1,27 +1,18 @@
 import { MenuResponse } from '@/apis/swagger/data-contracts';
-import { CancelRounded, ModeEditOutlineRounded } from '@mui/icons-material';
-import { Box, Card, IconButton, styled, Typography } from '@mui/material';
+import { Box, Card, styled, Typography } from '@mui/material';
 import React from 'react';
 
 interface IProps {
   data: MenuResponse;
-  onChange: () => void;
-  onDelete: () => void;
+  renderActionComponent?: React.ReactNode;
 }
 
-const MenuGridItem = (props: IProps): React.ReactNode => {
-  const { onChange, onDelete, data } = props;
+const CollectionGridItem = (props: IProps): React.ReactNode => {
+  const { data, renderActionComponent } = props;
 
   return (
     <Styled.CollectionItem>
-      <Box display="flex" gap="8px" justifyContent="flex-end" alignItems="center">
-        <IconButton size="large" sx={{ margin: '-10px' }} onClick={onDelete}>
-          <CancelRounded sx={{ width: '16px', height: '16px' }} />
-        </IconButton>
-        <IconButton size="large" sx={{ margin: '-10px' }} onClick={onChange}>
-          <ModeEditOutlineRounded sx={{ width: '16px', height: '16px' }} />
-        </IconButton>
-      </Box>
+      {renderActionComponent}
       {data.imageUrl ? (
         <Styled.ImageBox>
           <img src={data.imageUrl} alt={data.menuName} />
@@ -43,7 +34,7 @@ const MenuGridItem = (props: IProps): React.ReactNode => {
   );
 };
 
-export default MenuGridItem;
+export default CollectionGridItem;
 
 const Styled = {
   CollectionItem: styled(Card)({

@@ -6,8 +6,14 @@ import LoadingCircularProgress from '@/components/LoadingCircleProgress';
 import AddEditDialog from '@/pages/collection/components/AddEditDialog';
 import CollectionGridItem from '@/pages/collection/components/CollectionGridItem';
 import OptionDialog from '@/pages/collection/components/OptionDialog';
-import { AddRounded, CoffeeMakerRounded, ManageSearchRounded } from '@mui/icons-material';
-import { Box, Button, styled, Typography } from '@mui/material';
+import {
+  AddRounded,
+  CancelRounded,
+  CoffeeMakerRounded,
+  ManageSearchRounded,
+  ModeEditOutlineRounded,
+} from '@mui/icons-material';
+import { Box, Button, IconButton, styled, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
 const CollectionPage = (): React.ReactNode => {
@@ -75,7 +81,20 @@ const CollectionPage = (): React.ReactNode => {
         </Box>
         <Styled.MenuList>
           {collectionList?.map((item) => (
-            <CollectionGridItem key={item.menuId} data={item} onDelete={handleDeleteOpen(item.menuId)} onChange={handleEditOpen(item)} />
+            <CollectionGridItem
+              key={item.menuId}
+              data={item}
+              renderActionComponent={(
+                <Box display="flex" gap="8px" justifyContent="flex-end" alignItems="center">
+                  <IconButton size="large" sx={{ margin: '-10px' }} onClick={handleDeleteOpen(item.menuId)}>
+                    <CancelRounded sx={{ width: '16px', height: '16px' }} />
+                  </IconButton>
+                  <IconButton size="large" sx={{ margin: '-10px' }} onClick={handleEditOpen(item)}>
+                    <ModeEditOutlineRounded sx={{ width: '16px', height: '16px' }} />
+                  </IconButton>
+                </Box>
+              )}
+            />
           ))}
         </Styled.MenuList>
       </Box>
