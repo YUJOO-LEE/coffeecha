@@ -18,7 +18,7 @@ import {
   SelectChangeEvent,
   TextField,
 } from '@mui/material';
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 
 interface IProps {
   editData?: MenuResponse;
@@ -30,7 +30,7 @@ const AddEditDialog = (props: IProps): React.ReactNode => {
 
   const [isOptionOpen, setIsOptionOpen] = useState<boolean>(false);
   const [formData, setFormData] = useState<Omit<CreateMenuRequest, 'userId'>>({ name: '', imageUrl: '', description: '', categoryId: 0, menuOptionIds: [] });
-  const isDisabled = !formData.name || !formData.categoryId;
+  const [isDisabled, setIsDisabled] = useState<boolean>(false);
 
   const { data: categoryList } = useGetCategoryList();
   const { data: optionList } = useGetOptionList();
@@ -41,36 +41,43 @@ const AddEditDialog = (props: IProps): React.ReactNode => {
     setFormData((prev) => ({
       ...prev,
       [target]: e.target.value,
-    }))
+    }));
   };
 
   const handleCategoryChange = (e: SelectChangeEvent<number>) => {
     setFormData((prev) => ({
       ...prev,
       categoryId: Number(e.target.value),
-    }))
+    }));
   };
 
   const handleOptionChange = (e: SelectChangeEvent<number[]>) => {
     setFormData((prev) => ({
       ...prev,
       menuOptionIds: e.target.value as number[],
-    }))
+    }));
   };
 
   const handleSave = async () => {
+    setIsDisabled(true);
     const { status } = editData
       ? await updateCollection.mutateAsync({ menuId: editData.menuId, data: formData })
       : await addCollection.mutateAsync(formData);
 
     if (status === 200) {
       onClose();
+    } else {
+      setIsDisabled(false);
     }
   };
 
   const toggleOptionPanel = () => {
     setIsOptionOpen((prev) => !prev);
   };
+
+  useEffect(() => {
+    setIsDisabled(!formData.name || !formData.categoryId);
+  }, [formData]);
 
   useLayoutEffect(() => {
     if (!editData) return;
