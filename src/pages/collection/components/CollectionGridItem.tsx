@@ -3,15 +3,17 @@ import { Box, Card, styled, Typography } from '@mui/material';
 import React from 'react';
 
 interface IProps {
+  isSimple?: boolean;
   data: MenuResponse;
   renderActionComponent?: React.ReactNode;
+  onClick?: () => void;
 }
 
 const CollectionGridItem = (props: IProps): React.ReactNode => {
-  const { data, renderActionComponent } = props;
+  const { isSimple, data, renderActionComponent, onClick } = props;
 
   return (
-    <Styled.CollectionItem>
+    <Styled.CollectionItem className={onClick ? 'isButton' : undefined} onClick={onClick}>
       {renderActionComponent}
       {data.imageUrl ? (
         <Styled.ImageBox>
@@ -27,9 +29,11 @@ const CollectionGridItem = (props: IProps): React.ReactNode => {
       <Typography fontSize="14px" fontWeight="500">
         {data.menuName}
       </Typography>
-      <Typography fontSize="12px" color="grey">
-        {data.description}
-      </Typography>
+      {!isSimple && (
+        <Typography fontSize="12px" color="grey">
+          {data.description}
+        </Typography>
+      )}
     </Styled.CollectionItem>
   );
 };
@@ -38,9 +42,13 @@ export default CollectionGridItem;
 
 const Styled = {
   CollectionItem: styled(Card)({
+    position: 'relative',
     padding: '16px',
     display: 'grid',
     gap: '16px',
+    '&.isButton': {
+      cursor: 'pointer',
+    },
   }),
   ImageBox: styled(Box)(({ theme }) => ({
     width: '100%',
