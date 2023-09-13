@@ -1,6 +1,5 @@
 import { useGetCollectionList } from '@/apis/queries/collection';
 import { useAddClientMenu } from '@/apis/queries/salesManagement/menu';
-import { ClientMenuResponse } from '@/apis/swagger/data-contracts';
 import CollectionGridItem from '@/pages/collection/components/CollectionGridItem';
 import {
   Box,
@@ -17,12 +16,11 @@ import React, { useEffect, useState } from 'react';
 
 interface IProps {
   clientId: number;
-  editData?: ClientMenuResponse;
   onClose: () => void;
 }
 
-const AddEditDialog = (props: IProps): React.ReactNode => {
-  const { clientId, editData, onClose } = props;
+const AddDialog = (props: IProps): React.ReactNode => {
+  const { clientId, onClose } = props;
 
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
   const [selectedIdList, setSelectedIdList] = useState<number[]>([]);
@@ -71,7 +69,7 @@ const AddEditDialog = (props: IProps): React.ReactNode => {
   return (
     <Dialog open={true} onClose={onClose} PaperProps={{ style: { width: '50%', minWidth: '440px' } }}>
       <DialogTitle display="flex" justifyContent="space-between">
-        {editData ? 'Edit' : 'Add New'} Menu
+        Add New Menu
       </DialogTitle>
       <DialogContent>
         <Box display="flex">
@@ -109,14 +107,14 @@ const AddEditDialog = (props: IProps): React.ReactNode => {
           Cancel
         </Button>
         <Button variant="contained" size="large" disabled={isDisabled} onClick={handleAdd}>
-          {editData ? 'Save' : 'Add'}
+          Add
         </Button>
       </DialogActions>
     </Dialog>
   );
 }
 
-export default AddEditDialog;
+export default AddDialog;
 
 const Styled = {
   ActionWrapper: styled(Box)({

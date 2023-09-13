@@ -1,7 +1,6 @@
 import { useGetClientMenuList } from '@/apis/queries/salesManagement/menu';
-import { ClientMenuResponse } from '@/apis/swagger/data-contracts';
 import Layout from '@/components/Layout';
-import AddEditDialog from '@/pages/SalesManagement/menu/components/AddEditDialog';
+import AddDialog from '@/pages/SalesManagement/menu/components/AddDialog';
 import MenuGridItem from '@/pages/SalesManagement/menu/components/MenuGridItem';
 import { AddRounded, CoffeeRounded } from '@mui/icons-material';
 import { Box, Button, styled, Typography } from '@mui/material';
@@ -11,23 +10,16 @@ import { useParams } from 'react-router-dom';
 const MenuPage = () => {
   const { clientId } = useParams();
 
-  const [isAddEditOpen, setAddEditOpen] = useState(false);
-  const [editMenuData, setEditMenuData] = useState<ClientMenuResponse>();
+  const [isAddOpen, setAddOpen] = useState(false);
 
   const { data: menuList } = useGetClientMenuList(Number(clientId));
 
   const handleMenuAdd = () => {
-    setAddEditOpen(true);
-  };
-
-  const handleMenuEdit = (item: ClientMenuResponse) => () => {
-    setAddEditOpen(true);
-    setEditMenuData(item);
+    setAddOpen(true);
   };
 
   const handleClose = () => {
-    setAddEditOpen(false);
-    setEditMenuData(undefined);
+    setAddOpen(false);
   };
 
   return(
@@ -50,14 +42,14 @@ const MenuPage = () => {
           </Typography>
           <Styled.MenuList>
             {menuList?.map((item) => (
-              <MenuGridItem key={item.clientMenuId} data={item} onChange={handleMenuEdit(item)} />
+              <MenuGridItem key={item.clientMenuId} data={item} />
             ))}
           </Styled.MenuList>
         </Styled.ContentBox>
       </Box>
 
-      {isAddEditOpen && (
-        <AddEditDialog clientId={Number(clientId)} editData={editMenuData} onClose={handleClose} />
+      {isAddOpen && (
+        <AddDialog clientId={Number(clientId)} onClose={handleClose} />
       )}
     </Layout>
   );
