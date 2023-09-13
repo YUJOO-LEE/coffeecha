@@ -1,6 +1,13 @@
 import { ClientMenuResponse } from '@/apis/swagger/data-contracts';
-import { CancelRounded, CheckCircleRounded, DeleteOutlineRounded, ModeEditOutlineRounded } from '@mui/icons-material';
-import { Box, Card, IconButton, Skeleton, styled, Typography } from '@mui/material';
+import MenuInfoTooltip from '@/pages/SalesManagement/menu/components/MenuInfoTooltip';
+import {
+  CancelRounded,
+  CheckCircleRounded,
+  DeleteOutlineRounded,
+  InfoRounded,
+  ModeEditOutlineRounded,
+} from '@mui/icons-material';
+import { Box, Card, IconButton, Skeleton, styled, TextField, Tooltip, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
 interface IProps {
@@ -23,7 +30,12 @@ const MenuGridItem = (props: IProps): React.ReactNode => {
 
   return (
     <Styled.MenuItem>
-      <Box display="flex" gap="8px" justifyContent="flex-end" alignItems="center">
+      <Box display="flex" gap="8px" justifyContent="space-between" alignItems="center">
+        <Tooltip title={<MenuInfoTooltip />} arrow>
+          <IconButton size="large" sx={{ margin: '-10px', cursor: 'auto' }}>
+            <InfoRounded sx={{ width: '16px', height: '16px' }} />
+          </IconButton>
+        </Tooltip>
         {editMode ? (
           <Box display="flex" gap="8px" alignItems="center">
             <IconButton size="large" sx={{ margin: '-10px' }} onClick={handleEditModeOff}>
@@ -52,9 +64,24 @@ const MenuGridItem = (props: IProps): React.ReactNode => {
       <Typography>
         {data?.menuName}
       </Typography>
-      <Typography>
-        Menu 1
-      </Typography>
+      <Box display="grid" gridTemplateColumns="1fr 1fr" gap="8px">
+        <Styled.Quantity
+          disabled
+          label="sold"
+          inputMode="numeric"
+          type="number"
+          size="small"
+          value={data?.saleQuantity}
+        />
+        <Styled.Quantity
+          disabled={!editMode}
+          label="in stock"
+          inputMode="numeric"
+          type="number"
+          size="small"
+          value={data?.stockQuantity}
+        />
+      </Box>
     </Styled.MenuItem>
   );
 };
@@ -66,5 +93,10 @@ const Styled = {
     padding: '16px',
     display: 'grid',
     gap: '16px',
+  }),
+  Quantity: styled(TextField)({
+    '& input': {
+      paddingRight: '8px',
+    },
   }),
 };
