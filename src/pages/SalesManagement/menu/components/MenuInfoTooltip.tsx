@@ -1,7 +1,15 @@
+import { ClientMenuResponse } from '@/apis/swagger/data-contracts';
 import { Box, Divider, Typography } from '@mui/material';
 import React from 'react';
 
-const MenuInfoTooltip = (): React.ReactNode => {
+interface IProps {
+  data?: ClientMenuResponse;
+}
+
+const MenuInfoTooltip = (props: IProps): React.ReactNode => {
+  const { data } = props;
+  // TODO: api update - description, optionNames
+
   return (
     <Box padding="4px 4px 8px" display="grid" gap="8px">
       <Typography>

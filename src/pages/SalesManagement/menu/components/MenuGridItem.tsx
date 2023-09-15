@@ -31,7 +31,7 @@ const MenuGridItem = (props: IProps): React.ReactNode => {
   return (
     <Styled.MenuItem>
       <Box display="flex" gap="8px" justifyContent="space-between" alignItems="center">
-        <Tooltip title={<MenuInfoTooltip />} arrow>
+        <Tooltip title={<MenuInfoTooltip data={data} />} arrow>
           <IconButton size="large" sx={{ margin: '-10px', cursor: 'auto' }}>
             <InfoRounded sx={{ width: '16px', height: '16px' }} />
           </IconButton>
