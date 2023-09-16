@@ -1,4 +1,6 @@
+import { useDeleteClientMenu } from '@/apis/queries/salesManagement/menu';
 import { ClientMenuResponse } from '@/apis/swagger/data-contracts';
+import DeleteDialog from '@/components/DeleteDialog';
 import MenuInfoTooltip from '@/pages/SalesManagement/menu/components/MenuInfoTooltip';
 import {
   CancelRounded,
@@ -18,6 +20,9 @@ const MenuGridItem = (props: IProps): React.ReactNode => {
   const { data } = props;
 
   const [editMode, setEditMode] = useState<boolean>(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false);
+
+  const deleteMenu = useDeleteClientMenu();
 
   const isTooltipShow: boolean = Boolean(data?.menuDescription || (data?.optionNames && data.optionNames.length > 0));
 
@@ -27,6 +32,27 @@ const MenuGridItem = (props: IProps): React.ReactNode => {
 
   const handleEditModeOff = () => {
     setEditMode(false);
+  };
+
+  const handleDeleteOpen = () => {
+    setIsDeleteOpen(true);
+  };
+
+  const handleDeleteClose = () => {
+    setIsDeleteOpen(false);
+  };
+
+  const handleEdit = async () => {
+    // TODO: call api
+  };
+
+  const handleDelete = async () => {
+    if (!data) return;
+
+    const { status } = await deleteMenu.mutateAsync({ clientMenuId: data?.clientMenuId });
+    if (status === 200) {
+      handleDeleteClose();
+    }
   };
 
   return (
@@ -44,13 +70,13 @@ const MenuGridItem = (props: IProps): React.ReactNode => {
             <IconButton size="large" sx={{ margin: '-10px' }} onClick={handleEditModeOff}>
               <CancelRounded sx={{ width: '16px', height: '16px' }} />
             </IconButton>
-            <IconButton size="large" color="success" sx={{ margin: '-10px' }} onClick={handleEditModeOff}>
+            <IconButton size="large" color="success" sx={{ margin: '-10px' }} onClick={handleEdit}>
               <CheckCircleRounded sx={{ width: '16px', height: '16px' }} />
             </IconButton>
           </Box>
         ) : (
           <Box display="flex" gap="8px" alignItems="center">
-            <IconButton size="large" sx={{ margin: '-10px' }}>
+            <IconButton size="large" sx={{ margin: '-10px' }} onClick={handleDeleteOpen}>
               <DeleteOutlineRounded sx={{ width: '16px', height: '16px' }} />
             </IconButton>
             <IconButton size="large" color="primary" sx={{ margin: '-10px' }} onClick={handleEditModeOn}>
@@ -85,6 +111,9 @@ const MenuGridItem = (props: IProps): React.ReactNode => {
           value={data?.stockQuantity}
         />
       </Box>
+      {isDeleteOpen && (
+        <DeleteDialog onClose={handleDeleteClose} onDone={handleDelete} />
+      )}
     </Styled.MenuItem>
   );
 };
