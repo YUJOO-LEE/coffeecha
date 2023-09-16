@@ -8,20 +8,22 @@ interface IProps {
 
 const MenuInfoTooltip = (props: IProps): React.ReactNode => {
   const { data } = props;
-  // TODO: api update - description, optionNames
 
   return (
-    <Box padding="4px 4px 8px" display="grid" gap="8px">
-      <Typography>
-        description
-      </Typography>
-      <Divider color="white" />
-      <Typography fontSize="12px" fontWeight="300">
-        option 1
-      </Typography>
-      <Typography fontSize="12px" fontWeight="300">
-        option 2
-      </Typography>
+    <Box padding="8px 4px" display="grid" gap="8px">
+      {data?.menuDescription && (
+        <Typography>
+          {data?.menuDescription}
+        </Typography>
+      )}
+      {data?.menuDescription && data.optionNames.length > 0 && (
+        <Divider color="white" />
+      )}
+      {data?.optionNames.map((optionName) => (
+        <Typography key={`option_${optionName}`} fontSize="12px">
+          {optionName}
+        </Typography>
+      ))}
     </Box>
   );
 };

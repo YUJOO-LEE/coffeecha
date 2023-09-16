@@ -19,6 +19,8 @@ const MenuGridItem = (props: IProps): React.ReactNode => {
 
   const [editMode, setEditMode] = useState<boolean>(false);
 
+  const isTooltipShow: boolean = Boolean(data?.menuDescription || (data?.optionNames && data.optionNames.length > 0));
+
   const handleEditModeOn = () => {
     setEditMode(true);
   };
@@ -29,12 +31,14 @@ const MenuGridItem = (props: IProps): React.ReactNode => {
 
   return (
     <Styled.MenuItem>
-      <Box display="flex" gap="8px" justifyContent="space-between" alignItems="center">
-        <Tooltip title={<MenuInfoTooltip data={data} />} arrow>
-          <IconButton size="large" sx={{ margin: '-10px', cursor: 'auto' }}>
-            <InfoRounded sx={{ width: '16px', height: '16px' }} />
-          </IconButton>
-        </Tooltip>
+      <Box display="flex" gap="8px" justifyContent={isTooltipShow ? 'space-between' : 'flex-end'} alignItems="center">
+        {isTooltipShow && (
+          <Tooltip title={<MenuInfoTooltip data={data} />} arrow>
+            <IconButton size="large" sx={{ margin: '-10px', cursor: 'auto' }}>
+              <InfoRounded sx={{ width: '16px', height: '16px' }} />
+            </IconButton>
+          </Tooltip>
+        )}
         {editMode ? (
           <Box display="flex" gap="8px" alignItems="center">
             <IconButton size="large" sx={{ margin: '-10px' }} onClick={handleEditModeOff}>
