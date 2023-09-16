@@ -10,7 +10,7 @@ import { useParams } from 'react-router-dom';
 const MenuPage = () => {
   const { clientId } = useParams();
 
-  const [isAddOpen, setAddOpen] = useState(false);
+  const [isAddOpen, setAddOpen] = useState<boolean>(false);
 
   const { data: menuList } = useGetClientMenuList(Number(clientId));
 

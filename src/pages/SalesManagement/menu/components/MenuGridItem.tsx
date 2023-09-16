@@ -11,7 +11,6 @@ import { Box, Card, IconButton, Skeleton, styled, TextField, Tooltip, Typography
 import React, { useState } from 'react';
 
 interface IProps {
-  isEditMode?: boolean;
   data?: ClientMenuResponse;
 }
 

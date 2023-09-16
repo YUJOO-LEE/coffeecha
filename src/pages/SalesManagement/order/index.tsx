@@ -54,7 +54,7 @@ const OrderPage = (): React.ReactNode => {
               Add New Order
             </Button>
           </Box>
-          {Array(20).fill('').map((_, index) => (
+          {[...Array(20)].map((_, index) => (
             <Styled.ListItem key={index}>
               <Styled.Status className={index === 3 ? OrderStatusEnum.OrderPlaced : OrderStatusEnum.WaitingForPickup} />
               <Styled.NumberTypography fontSize="28px" fontWeight="500">
