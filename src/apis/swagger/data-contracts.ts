@@ -119,9 +119,10 @@ export interface ClientMenuResponse {
   saleQuantity: number;
   menuName: string;
   menuImageUrl?: string;
+  menuDescription?: string;
   /** @format int64 */
   categoryId: number;
-  optionIds: number[];
+  optionNames: string[];
 }
 
 export interface CategoryResponse {
