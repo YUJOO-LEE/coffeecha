@@ -27,35 +27,6 @@ export const menuApi = new ClientMenu(http);
 export const menuOptionApi = new MenuOption(http);
 
 (function initializeToErrorHandling() {
-  const requestWaitQueue: ((token: string) => void)[] = [];
-  // let isInProgressRefreshToken = false;
-  // async function updateToken() {
-  //   isInProgressRefreshToken = true;
-  //
-  //   const data = queryClient.getQueryData<TokenInfo>(['auth']);
-  //   const refreshToken = data?.refreshToken;
-  //
-  //   try {
-  //     if (refreshToken) {
-  //       const response = await authApi.refresh({
-  //         refreshToken,
-  //       });
-  //
-  //       const { accessToken } = response.data;
-  //
-  //       setAuth(queryClient, { accessToken, refreshToken });
-  //
-  //       return accessToken;
-  //     } else {
-  //       throw new Error('refresh token is not exist.');
-  //     }
-  //   } catch (e) {
-  //     clearAuth(queryClient);
-  //   } finally {
-  //     isInProgressRefreshToken = false;
-  //   }
-  // }
-
   const responseInterceptor = async (error?: any) => {
     if (error.config?.url.indexOf('/auth/refresh') >= 0) {
       clearAuth(queryClient);
@@ -66,31 +37,8 @@ export const menuOptionApi = new MenuOption(http);
 
     if (error.config && status === 403) {
       clearAuth(queryClient);
+      location.replace('/login');
       return;
-      // const { config: requestConfigToRetry } = error;
-      //
-      // if (!isInProgressRefreshToken) {
-      //   updateToken().then((accessToken) => {
-      //     while (accessToken && requestWaitQueue.length > 0) {
-      //       const waitingRequest = requestWaitQueue.shift();
-      //
-      //       if (waitingRequest) {
-      //         waitingRequest(accessToken);
-      //       }
-      //     }
-      //   });
-      // }
-      //
-      // return new Promise((resolve) => {
-      //   requestWaitQueue.push((newAccessToken) => {
-      //     requestConfigToRetry['headers'] = {
-      //       ...requestConfigToRetry.headers,
-      //       Authorization: `Bearer ${newAccessToken}`,
-      //     };
-      //
-      //     resolve(axios.request(requestConfigToRetry));
-      //   });
-      // });
     }
 
     return Promise.reject(error);
