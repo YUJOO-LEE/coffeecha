@@ -92,7 +92,7 @@ const SettingPage = () => {
           <TextField label="Name" variant="outlined" value={formData.name} onChange={handleChange('name')} disabled={!editMode} />
           <TextField label="Contact" variant="outlined" value={formData.phoneNumber} onChange={handleChange('phoneNumber')} disabled={!editMode} />
           <TextField label="Address" variant="outlined" value={formData.address} onChange={handleChange('address')} disabled={!editMode} />
-          <DatePicker label="Business date" value={formData.businessDate ? dayjs(formData.businessDate) : null} onChange={handleDateChange} disabled={!editMode} />
+          <DatePicker label="Opening date" value={formData.businessDate ? dayjs(formData.businessDate) : null} onChange={handleDateChange} disabled={!editMode} />
           <Box display="flex" justifyContent="flex-end" gap="8px">
             {editMode ? (
               <>

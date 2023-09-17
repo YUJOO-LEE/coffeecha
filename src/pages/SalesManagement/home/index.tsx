@@ -1,12 +1,103 @@
+import { useGetClientDetail } from '@/apis/queries/client';
 import Layout from '@/components/Layout';
+import OpenCloseDialog from '@/pages/SalesManagement/home/components/OpenCloseDialog';
+import { NotificationsRounded } from '@mui/icons-material';
+import { Box, Button, Card, Chip, styled, Typography } from '@mui/material';
+import dayjs from 'dayjs';
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 const HomePage = () => {
+  const { clientId } = useParams();
+
+  const [isChangeStatusOpen, setChangeStatusOpen] = useState<boolean>(false);
+
+  const { data: clientDetail } = useGetClientDetail(Number(clientId));
+
+  const isOpenDisabled: boolean = !clientDetail?.businessDate;
+
+  const handleChangeStatusOpen = () => {
+    setChangeStatusOpen(true);
+  };
+
+  const handleClose = () => {
+    setChangeStatusOpen(false);
+  };
+
+  const handleChangeStatus = () => {
+    //TODO: call api
+  };
 
   return (
     <Layout>
-      hi2
+      <Box
+        display="grid"
+        gap="16px"
+        gridTemplateColumns="repeat(auto-fit, minmax(180px, 1fr))"
+        gridTemplateRows="repeat(auto-fit, minmax(180px, 1fr))"
+      >
+        <Styled.OpenCard>
+          <Button size="large" variant="contained" startIcon={<NotificationsRounded />} onClick={handleChangeStatusOpen} disabled={isOpenDisabled}>
+            Change to Closed
+          </Button>
+          {isOpenDisabled ? (
+              <Styled.OpenWarning>
+                <span>Opening date</span> must be provided to proceed.
+              </Styled.OpenWarning>
+          ) : (
+            <Styled.OpenWarning>
+              Changing the current client's status to <span>Open</span> will automatically switch the status of the currently open client to <span>Closed</span>.
+            </Styled.OpenWarning>
+          )}
+        </Styled.OpenCard>
+
+        <Styled.InfoCard>
+          <Typography display="flex" alignItems="center" gap="8px">
+            <Chip size="small" label="today" />
+            {dayjs().format('MMM D, YYYY')}
+          </Typography>
+          <Typography display="flex" alignItems="center" gap="8px">
+            <Chip size="small" label="opening date" />
+            {dayjs(clientDetail?.businessDate).format('MMM D, YYYY')}
+            <Typography color="grey"> ({dayjs(clientDetail?.businessDate).diff(new Date(), 'd')})</Typography>
+          </Typography>
+        </Styled.InfoCard>
+      </Box>
+
+      {isChangeStatusOpen && clientDetail?.businessDate && (  //TODO: changeToOpen
+        <OpenCloseDialog
+          changeToOpen={true}
+          openingDate={clientDetail.businessDate}
+          onClose={handleClose}
+          onDone={handleChangeStatus}
+        />
+      )}
     </Layout>
   );
 }
 
 export default HomePage;
+
+const Styled = {
+  InfoCard: styled(Card)({
+    padding: '24px',
+    gridColumn: 'span 2',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '8px',
+  }),
+  OpenCard: styled(Card)({
+    padding: '24px',
+    display: 'grid',
+    gridTemplateRows: '1fr auto',
+    gap: '8px',
+  }),
+  OpenWarning: styled(Typography)(({ theme }) => ({
+    fontSize: '12px',
+    fontWeight: '500',
+    color: theme.palette.grey[600],
+    '& span': {
+      fontWeight: '700',
+    },
+  })),
+}

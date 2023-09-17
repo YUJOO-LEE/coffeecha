@@ -1,7 +1,7 @@
 import { useGetClientDetail } from '@/apis/queries/client';
 import ClientListDrawer from '@/pages/SalesManagement/components/ClientListDrawer';
 import { LoopRounded } from '@mui/icons-material';
-import { Box, Button, Divider, styled, Typography } from '@mui/material';
+import { Box, Button, Chip, Divider, styled, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
 interface IProps {
@@ -26,6 +26,9 @@ const ClientHeader = (props: IProps): React.ReactNode => {
   return (
     <Styled.HeaderBar isOffsetTop={isOffsetTop}>
       <Box display="flex" gap="8px" alignItems="center">
+        <Chip size="small" variant="filled" color="success" label="OPEN"
+              //TODO: call api
+        />
         <Typography variant="h2" fontSize="20px" fontWeight="500">
           {clientDetail?.clientName}
         </Typography>
