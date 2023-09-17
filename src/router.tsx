@@ -1,4 +1,5 @@
 import CollectionPage from '@/pages/collection';
+import GuestOrderPage from '@/pages/guestOrder';
 import SalesManagementPage from '@/pages/SalesManagement';
 import HomePage from '@/pages/SalesManagement/home';
 import LoginPage from '@/pages/login';
@@ -9,7 +10,7 @@ import { createBrowserRouter, redirect } from 'react-router-dom';
 
 const routers = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     loader: async () => {
       const isLogin = () => {
         return localStorage.getItem('auth') !== null;
@@ -19,33 +20,33 @@ const routers = createBrowserRouter([
     },
     children: [
       {
-        path: "/",
+        path: '/',
         element: <SalesManagementPage />,
       },
       {
-        path: "/collection",
+        path: '/collection',
         element: <CollectionPage />,
       },
       {
-        path: "/:clientId/",
+        path: '/:clientId/',
         element: <HomePage />,
       },
       {
-        path: "/:clientId/order",
+        path: '/:clientId/order',
         element: <OrderPage />,
       },
       {
-        path: "/:clientId/menu",
+        path: '/:clientId/menu',
         element: <MenuPage />,
       },
       {
-        path: "/:clientId/setting",
+        path: '/:clientId/setting',
         element: <SettingPage />,
       },
     ],
   },
   {
-    path: "/login",
+    path: '/login',
     element: <LoginPage />,
     loader: async () => {
       const isLogin = () => {
@@ -54,6 +55,10 @@ const routers = createBrowserRouter([
 
       return isLogin() && redirect('/');
     },
+  },
+  {
+    path: '/order/:clientKey',
+    element: <GuestOrderPage />,
   },
 ]);
 
