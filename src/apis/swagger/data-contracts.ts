@@ -37,7 +37,7 @@ export interface SaveClientRequest {
   address: string;
   phoneNumber: string;
   /** @format date */
-  businessDate: string;
+  businessDate?: string;
 }
 
 export interface SaveClientMenuRequest {
@@ -82,6 +82,13 @@ export interface UpdateClientRequest {
   businessDate?: string;
 }
 
+export interface UpdateClientMenuRequest {
+  /** @format int32 */
+  stockQuantity?: number;
+  /** @format int32 */
+  saleQuantity?: number;
+}
+
 export interface MenuResponse {
   /** @format int64 */
   menuId: number;
@@ -104,10 +111,12 @@ export interface ClientResponse {
   /** @format int64 */
   clientId: number;
   clientName: string;
-  address?: string;
-  phoneNumber?: string;
+  address: string;
+  phoneNumber: string;
   /** @format date */
-  businessDate?: string;
+  businessDate: string;
+  openStatus: ClientResponseOpenStatusEnum;
+  clientKey: string;
 }
 
 export interface ClientMenuResponse {
@@ -129,4 +138,9 @@ export interface CategoryResponse {
   /** @format int64 */
   id: number;
   name: string;
+}
+
+export enum ClientResponseOpenStatusEnum {
+  OPEN = "OPEN",
+  CLOSE = "CLOSE",
 }

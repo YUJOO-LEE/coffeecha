@@ -9,7 +9,7 @@
  * ---------------------------------------------------------------
  */
 
-import { ClientMenuResponse, SaveClientMenuRequest } from "./data-contracts";
+import { ClientMenuResponse, SaveClientMenuRequest, UpdateClientMenuRequest } from "./data-contracts";
 import { ContentType, HttpClient, RequestParams } from "./http-client";
 
 export class ClientMenu<SecurityDataType = unknown> {
@@ -67,6 +67,24 @@ export class ClientMenu<SecurityDataType = unknown> {
       path: `/api/client-menus/${clientMenuId}`,
       method: "DELETE",
       secure: true,
+      ...params,
+    });
+  /**
+   * @description 클라이언트 메뉴 수정 API (재고 수량, 판매량)
+   *
+   * @tags ClientMenu
+   * @name UpdateClientMenu
+   * @summary 클라이언트 메뉴 수정
+   * @request PATCH:/api/client-menus/{clientMenuId}
+   * @secure
+   */
+  updateClientMenu = (clientMenuId: number, data: UpdateClientMenuRequest, params: RequestParams = {}) =>
+    this.http.request<void, any>({
+      path: `/api/client-menus/${clientMenuId}`,
+      method: "PATCH",
+      body: data,
+      secure: true,
+      type: ContentType.Json,
       ...params,
     });
 }

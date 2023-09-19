@@ -103,4 +103,36 @@ export class Client<SecurityDataType = unknown> {
       type: ContentType.Json,
       ...params,
     });
+  /**
+   * @description 클라이언트 영업 시작 API (시작 클라이언트 외 모든 영업 종료)
+   *
+   * @tags Client
+   * @name ClientOpen
+   * @summary 클라이언트 영업 시작
+   * @request PATCH:/api/clients/{clientId}/open
+   * @secure
+   */
+  clientOpen = (clientId: number, params: RequestParams = {}) =>
+    this.http.request<void, any>({
+      path: `/api/clients/${clientId}/open`,
+      method: "PATCH",
+      secure: true,
+      ...params,
+    });
+  /**
+   * @description 클라이언트 영업 종료
+   *
+   * @tags Client
+   * @name ClientClose
+   * @summary 클라이언트 영업 종료
+   * @request PATCH:/api/clients/{clientId}/close
+   * @secure
+   */
+  clientClose = (clientId: number, params: RequestParams = {}) =>
+    this.http.request<void, any>({
+      path: `/api/clients/${clientId}/close`,
+      method: "PATCH",
+      secure: true,
+      ...params,
+    });
 }
