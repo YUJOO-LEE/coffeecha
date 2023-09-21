@@ -1,4 +1,5 @@
 import { useGetClientDetail } from '@/apis/queries/client';
+import { ClientResponseOpenStatusEnum } from '@/apis/swagger/data-contracts';
 import Layout from '@/components/Layout';
 import OpenCloseDialog from '@/pages/SalesManagement/home/components/OpenCloseDialog';
 import { NotificationsRounded } from '@mui/icons-material';
@@ -14,7 +15,8 @@ const HomePage = () => {
 
   const { data: clientDetail } = useGetClientDetail(Number(clientId));
 
-  const isOpenDisabled: boolean = !clientDetail?.businessDate;
+  const isOpenDisabled: boolean = !dayjs().isSame(dayjs(clientDetail?.businessDate), 'd');
+  const changeToOpen: boolean = !!clientDetail && clientDetail.openStatus !== ClientResponseOpenStatusEnum.OPEN;
 
   const handleChangeStatusOpen = () => {
     setChangeStatusOpen(true);
@@ -22,10 +24,6 @@ const HomePage = () => {
 
   const handleClose = () => {
     setChangeStatusOpen(false);
-  };
-
-  const handleChangeStatus = () => {
-    //TODO: call api
   };
 
   return (
@@ -38,7 +36,7 @@ const HomePage = () => {
       >
         <Styled.OpenCard>
           <Button size="large" variant="contained" startIcon={<NotificationsRounded />} onClick={handleChangeStatusOpen} disabled={isOpenDisabled}>
-            Change to Closed
+            Change to {changeToOpen ? 'Opend' : 'Closed'}
           </Button>
           {isOpenDisabled ? (
               <Styled.OpenWarning>
@@ -64,12 +62,10 @@ const HomePage = () => {
         </Styled.InfoCard>
       </Box>
 
-      {isChangeStatusOpen && clientDetail?.businessDate && (  //TODO: changeToOpen
+      {isChangeStatusOpen && clientDetail && (
         <OpenCloseDialog
-          changeToOpen={true}
-          openingDate={clientDetail.businessDate}
+          data={clientDetail}
           onClose={handleClose}
-          onDone={handleChangeStatus}
         />
       )}
     </Layout>

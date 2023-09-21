@@ -61,3 +61,25 @@ export const useDeleteClient = (): UseMutationResult<AxiosResponse<void>, unknow
     },
   });
 };
+
+export const useOpenClient = (): UseMutationResult<AxiosResponse<void>, unknown, number> => {
+  const queryClient = useQueryClient();
+
+  return useMutation(clientApi.clientOpen, {
+    onSuccess: () => {
+      queryClient.invalidateQueries([QueryKey, 'list']);
+      queryClient.invalidateQueries([QueryKey, 'detail']);
+    },
+  });
+};
+
+export const useCloseClient = (): UseMutationResult<AxiosResponse<void>, unknown, number> => {
+  const queryClient = useQueryClient();
+
+  return useMutation(clientApi.clientClose, {
+    onSuccess: () => {
+      queryClient.invalidateQueries([QueryKey, 'list']);
+      queryClient.invalidateQueries([QueryKey, 'detail']);
+    },
+  });
+};

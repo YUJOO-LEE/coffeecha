@@ -1,4 +1,5 @@
 import { useGetClientDetail } from '@/apis/queries/client';
+import { ClientResponseOpenStatusEnum } from '@/apis/swagger/data-contracts';
 import ClientListDrawer from '@/pages/SalesManagement/components/ClientListDrawer';
 import { LoopRounded } from '@mui/icons-material';
 import { Box, Button, Chip, Divider, styled, Typography } from '@mui/material';
@@ -26,8 +27,11 @@ const ClientHeader = (props: IProps): React.ReactNode => {
   return (
     <Styled.HeaderBar isOffsetTop={isOffsetTop}>
       <Box display="flex" gap="8px" alignItems="center">
-        <Chip size="small" variant="filled" color="success" label="OPEN"
-              //TODO: call api
+        <Chip
+          size="small"
+          variant="filled"
+          color={clientDetail?.openStatus === ClientResponseOpenStatusEnum.OPEN ? 'success' : 'default'}
+          label={clientDetail?.openStatus}
         />
         <Typography variant="h2" fontSize="20px" fontWeight="500">
           {clientDetail?.clientName}
