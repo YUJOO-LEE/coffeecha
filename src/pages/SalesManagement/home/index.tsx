@@ -5,17 +5,19 @@ import OpenCloseDialog from '@/pages/SalesManagement/home/components/OpenCloseDi
 import { NotificationsRounded } from '@mui/icons-material';
 import { Box, Button, Card, Chip, styled, Typography } from '@mui/material';
 import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 const HomePage = () => {
   const { clientId } = useParams();
+  dayjs.extend(relativeTime);
 
   const [isChangeStatusOpen, setChangeStatusOpen] = useState<boolean>(false);
 
   const { data: clientDetail } = useGetClientDetail(Number(clientId));
 
-  const isOpenDisabled: boolean = !dayjs().isSame(dayjs(clientDetail?.businessDate), 'd');
+  const isOpenDisabled: boolean = !clientDetail || !dayjs().isSame(dayjs(clientDetail?.businessDate), 'd');
   const changeToOpen: boolean = !!clientDetail && clientDetail.openStatus !== ClientResponseOpenStatusEnum.OPEN;
 
   const handleChangeStatusOpen = () => {
@@ -57,7 +59,7 @@ const HomePage = () => {
           <Typography display="flex" alignItems="center" gap="8px">
             <Chip size="small" label="opening date" />
             {dayjs(clientDetail?.businessDate).format('MMM D, YYYY')}
-            <Typography color="grey"> ({dayjs(clientDetail?.businessDate).diff(new Date(), 'd')})</Typography>
+            <Typography color="grey"> ({dayjs(clientDetail?.businessDate).fromNow()})</Typography>
           </Typography>
         </Styled.InfoCard>
       </Box>
