@@ -37,16 +37,19 @@ const HomePage = () => {
         gridTemplateRows="repeat(auto-fit, minmax(180px, 1fr))"
       >
         <Styled.OpenCard>
-          <Button size="large" variant="contained" startIcon={<NotificationsRounded />} onClick={handleChangeStatusOpen} disabled={isOpenDisabled}>
+          <Button
+            size="large"
+            variant="contained"
+            color={changeToOpen ? 'primary' : 'error'}
+            startIcon={<NotificationsRounded />}
+            onClick={handleChangeStatusOpen}
+            disabled={isOpenDisabled}
+          >
             Change to {changeToOpen ? 'Opend' : 'Closed'}
           </Button>
-          {isOpenDisabled ? (
-              <Styled.OpenWarning>
-                <span>Opening date</span> must be provided to proceed.
-              </Styled.OpenWarning>
-          ) : (
+          {isOpenDisabled && (
             <Styled.OpenWarning>
-              Changing the current client's status to <span>Open</span> will automatically switch the status of the currently open client to <span>Closed</span>.
+              <span>Opening date</span> must be provided to proceed.
             </Styled.OpenWarning>
           )}
         </Styled.OpenCard>

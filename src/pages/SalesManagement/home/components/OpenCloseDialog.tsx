@@ -12,8 +12,9 @@ interface IProps {
 const OpenCloseDialog = (props: IProps): React.ReactNode => {
   const { onClose, data } = props;
   const changeToOpen: boolean = data.openStatus !== ClientResponseOpenStatusEnum.OPEN;
+  const isSameDate = dayjs().isSame(dayjs(data.businessDate), 'd');
 
-  const [isDisabled, setIsDisabled] = useState<boolean>(!dayjs().isSame(dayjs(data.businessDate), 'd'));
+  const [isDisabled, setIsDisabled] = useState<boolean>(!isSameDate);
 
   const openClient = useOpenClient();
   const closeClient = useCloseClient();
@@ -41,10 +42,16 @@ const OpenCloseDialog = (props: IProps): React.ReactNode => {
           <Styled.Content>
             Are you sure you want to change the status to <span>{changeToOpen ? 'Open' : 'Close'}?</span>
           </Styled.Content>
-          {isDisabled && (
+          {!isSameDate ? (
             <Styled.ErrorBox>
               <Styled.Content color={(theme) => theme.palette.error.main}>
                 Status cannot be updated due to a mismatch with the provided <span>opening date ({dayjs(data.businessDate).format('MMM d, YYYY')})</span>
+              </Styled.Content>
+            </Styled.ErrorBox>
+          ) : changeToOpen && (
+            <Styled.ErrorBox>
+              <Styled.Content color={(theme) => theme.palette.error.main}>
+                Changing the current client's status to <span>Open</span> will automatically switch the status of the currently open client to <span>Closed</span>.
               </Styled.Content>
             </Styled.ErrorBox>
           )}
