@@ -35,7 +35,7 @@ export const menuOptionApi = new MenuOption(http);
 
     const status = error.response.status;
 
-    if (error.config && status === 403) {
+    if (status === 403) {
       clearAuth(queryClient);
       location.replace('/login');
       return;
