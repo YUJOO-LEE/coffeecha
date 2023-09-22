@@ -1,6 +1,7 @@
 import { useGetClientDetail } from '@/apis/queries/client';
 import { ClientResponseOpenStatusEnum } from '@/apis/swagger/data-contracts';
 import Layout from '@/components/Layout';
+import CopyToClipboard from '@/pages/components/CopyToClipboard';
 import OpenCloseDialog from '@/pages/SalesManagement/home/components/OpenCloseDialog';
 import { NotificationsRounded } from '@mui/icons-material';
 import { Box, Button, Card, Chip, styled, Typography } from '@mui/material';
@@ -56,14 +57,22 @@ const HomePage = () => {
 
         <Styled.InfoCard>
           <Typography display="flex" alignItems="center" gap="8px">
-            <Chip size="small" label="today" />
+            <Chip size="small" label="TODAY" />
             {dayjs().format('MMM D, YYYY')}
           </Typography>
           <Typography display="flex" alignItems="center" gap="8px">
-            <Chip size="small" label="opening date" />
+            <Chip size="small" label="OPENING DATE" />
             {dayjs(clientDetail?.businessDate).format('MMM D, YYYY')}
             <Typography color="grey"> ({dayjs(clientDetail?.businessDate).fromNow()})</Typography>
           </Typography>
+          {clientDetail?.openStatus === ClientResponseOpenStatusEnum.OPEN && (
+            <Typography display="flex" alignItems="center" gap="8px">
+              <Chip size="small" label="ORDER PAGE" />
+              <CopyToClipboard>
+                {`https://coffeecha.bubu.dev/order/${clientDetail?.clientKey}`}
+              </CopyToClipboard>
+            </Typography>
+          )}
         </Styled.InfoCard>
       </Box>
 
