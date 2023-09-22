@@ -4,6 +4,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Provider } from 'jotai';
+import { SnackbarProvider } from 'notistack';
 import React from 'react';
 import { RouterProvider } from 'react-router-dom';
 
@@ -15,7 +16,9 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Provider>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <RouterProvider router={routers} />
+          <SnackbarProvider>
+            <RouterProvider router={routers} />
+          </SnackbarProvider>
         </LocalizationProvider>
       </Provider>
     </QueryClientProvider>
