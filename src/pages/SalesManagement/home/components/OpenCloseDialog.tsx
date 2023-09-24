@@ -62,7 +62,7 @@ const OpenCloseDialog = (props: IProps): React.ReactNode => {
           variant="contained"
           size="large"
           onClick={handleChangeStatus}
-          disabled={isDisabled}
+          disabled={changeToOpen && isDisabled}
         >
           Confirm
         </Button>

@@ -44,7 +44,7 @@ const HomePage = () => {
             color={changeToOpen ? 'primary' : 'error'}
             startIcon={<NotificationsRounded />}
             onClick={handleChangeStatusOpen}
-            disabled={isOpenDisabled}
+            disabled={changeToOpen && isOpenDisabled}
           >
             Change to {changeToOpen ? 'Opend' : 'Closed'}
           </Button>
