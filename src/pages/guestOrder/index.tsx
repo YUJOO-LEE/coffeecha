@@ -1,6 +1,7 @@
-import Cart from '@/pages/guestOrder/components/Cart';
-import ClientInfo from '@/pages/guestOrder/components/ClientInfo';
-import MenuList from '@/pages/guestOrder/components/MenuList';
+import Cart from '@/pages/guestOrder/Cart';
+import ClientInfo from '@/pages/guestOrder/ClientInfo';
+import MenuList from '@/pages/guestOrder/Menu';
+import MenuHeader from '@/pages/guestOrder/Menu/MenuHeader';
 import { Box, styled } from '@mui/material';
 import React from 'react';
 
@@ -9,6 +10,7 @@ const GuestOrderPage = (): React.ReactNode => {
     <Styled.Wrapper>
       <Styled.Box>
         <ClientInfo />
+        <MenuHeader />
         <MenuList />
         <Cart />
       </Styled.Box>
@@ -24,12 +26,15 @@ const Styled = {
     height: '100dvh',
     display: 'flex',
     justifyContent: 'center',
-    backgroundColor: theme.palette.grey[50],
+    backgroundColor: theme.palette.grey[100],
   })),
-  Box: styled(Box)(({ theme }) => ({
+  Box: styled(Box)({
+    padding: '24px',
     width: '100%',
     maxWidth: '640px',
     height: '100%',
-    backgroundColor: theme.palette.background.default,
-  })),
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '24px',
+  }),
 };
