@@ -23,7 +23,7 @@ export default GuestOrderPage;
 const Styled = {
   Wrapper: styled(Box)(({ theme }) => ({
     width: '100dvw',
-    height: '100dvh',
+    minHeight: '100dvh',
     display: 'flex',
     justifyContent: 'center',
     backgroundColor: theme.palette.grey[100],
