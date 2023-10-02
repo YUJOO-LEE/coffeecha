@@ -12,8 +12,8 @@ const GuestOrderPage = (): React.ReactNode => {
         <ClientInfo />
         <MenuHeader />
         <MenuList />
-        <Cart />
       </Styled.Box>
+      <Cart />
     </Styled.Wrapper>
   );
 };
@@ -26,6 +26,7 @@ const Styled = {
     minHeight: '100dvh',
     display: 'flex',
     justifyContent: 'center',
+    gap: '24px',
     backgroundColor: theme.palette.grey[100],
   })),
   Box: styled(Box)({
