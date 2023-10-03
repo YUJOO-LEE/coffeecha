@@ -129,6 +129,7 @@ export interface ClientMenuResponse {
   menuName: string;
   menuImageUrl?: string;
   menuDescription?: string;
+  menuHidden: boolean;
   /** @format int64 */
   categoryId: number;
   optionNames: string[];

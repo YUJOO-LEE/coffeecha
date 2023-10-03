@@ -54,7 +54,7 @@ export class ClientMenu<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * @description 클라이언트 메뉴 삭제 API
+   * @description 클라이언트 메뉴 숨김 처리(db 삭제 아님)
    *
    * @tags ClientMenu
    * @name DeleteClientMenus

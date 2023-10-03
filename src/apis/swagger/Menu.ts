@@ -55,7 +55,7 @@ export class Menu<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * @description 메뉴 삭제 API
+   * @description 메뉴 숨김 처리(db 삭제 아님)
    *
    * @tags Menu
    * @name DeleteUserMenu
