@@ -32,7 +32,7 @@ const Cart = (): React.ReactNode => {
   };
 
   useEffect(() => {
-    if (isCartOpen) {
+    if (isCartOpen && document.body.offsetWidth < maxWidth) {
       preventScroll();
     } else {
       allowScroll();
@@ -42,8 +42,8 @@ const Cart = (): React.ReactNode => {
   useEffect(() => {
     resizeObserver.current = new ResizeObserver((entries) => {
       const { width } = entries[0].contentRect;
-      allowScroll();
       setIsCartOpen(width > maxWidth);
+      allowScroll();
     });
     resizeObserver.current.observe(document.body);
 
