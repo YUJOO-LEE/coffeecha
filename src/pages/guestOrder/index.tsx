@@ -1,4 +1,4 @@
-import Cart from '@/pages/guestOrder/Cart';
+import Cart, { maxWidth } from '@/pages/guestOrder/Cart';
 import ClientInfo from '@/pages/guestOrder/ClientInfo';
 import MenuList from '@/pages/guestOrder/Menu';
 import MenuHeader from '@/pages/guestOrder/Menu/MenuHeader';
@@ -37,5 +37,8 @@ const Styled = {
     display: 'flex',
     flexDirection: 'column',
     gap: '24px',
+    [`@media screen and (max-width: ${maxWidth}px)`]: {
+      marginBottom: 'calc(56px + 24px)',
+    },
   }),
 };

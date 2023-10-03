@@ -1,21 +1,48 @@
+import CartItem from '@/pages/guestOrder/Cart/CartItem';
 import { KeyboardDoubleArrowDownRounded, KeyboardDoubleArrowUpRounded } from '@mui/icons-material';
-import { styled, Typography } from '@mui/material';
+import { Box, Button, Divider, styled, Typography } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
 
-const maxWidth = 640 + 420 + 24;
+export const maxWidth = 640 + 420 + 24;
 
 const Cart = (): React.ReactNode => {
 
   const resizeObserver = useRef<ResizeObserver>();
+  const prevScrollY = useRef<number>(window.scrollY);
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
 
   const toggleCartOpen = () => {
     setIsCartOpen((prev) => !prev);
   };
 
+  const preventScroll = () => {
+    prevScrollY.current = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.width = '100%';
+    document.body.style.top = `-${prevScrollY.current}px`;
+    document.body.style.overflowY = 'scroll';
+  };
+
+  const allowScroll = () => {
+    document.body.style.position = '';
+    document.body.style.width = '';
+    document.body.style.top = '';
+    document.body.style.overflowY = '';
+    window.scrollTo(0, prevScrollY.current);
+  };
+
+  useEffect(() => {
+    if (isCartOpen) {
+      preventScroll();
+    } else {
+      allowScroll();
+    }
+  }, [isCartOpen]);
+
   useEffect(() => {
     resizeObserver.current = new ResizeObserver((entries) => {
       const { width } = entries[0].contentRect;
+      allowScroll();
       setIsCartOpen(width > maxWidth);
     });
     resizeObserver.current.observe(document.body);
@@ -26,25 +53,54 @@ const Cart = (): React.ReactNode => {
   }, []);
 
   return (
-    <Styled.Wrapper className={isCartOpen ? 'open' : 'close'}>
-      <Styled.OpenButton onClick={toggleCartOpen}>
-        {isCartOpen ? (
-          <KeyboardDoubleArrowDownRounded sx={{ fill: 'white' }} />
-        ) : (
-          <KeyboardDoubleArrowUpRounded sx={{ fill: 'white' }} />
-        )}
-      </Styled.OpenButton>
-      <Styled.Box>
-        <Styled.Header>
-          <Typography>
-            CART
-          </Typography>
-          <Typography>
-            Total 3
-          </Typography>
-        </Styled.Header>
-      </Styled.Box>
-    </Styled.Wrapper>
+    <>
+      <Styled.Wrapper className={isCartOpen ? 'open' : 'close'}>
+        <Styled.OpenButton onClick={toggleCartOpen}>
+          {isCartOpen ? (
+            <KeyboardDoubleArrowDownRounded sx={{ fill: 'white' }} />
+          ) : (
+            <KeyboardDoubleArrowUpRounded sx={{ fill: 'white' }} />
+          )}
+        </Styled.OpenButton>
+        <Styled.Box>
+          <Styled.Header>
+            <Typography fontSize="16px" fontWeight="500">
+              CART
+            </Typography>
+            <Box display="flex" gap="4px">
+              <Typography fontSize="16px" fontWeight="500">
+                Total
+              </Typography>
+              <Typography fontSize="16px" fontWeight="700">
+                3
+              </Typography>
+            </Box>
+          </Styled.Header>
+          <Divider />
+          <Styled.CartList>
+            <Typography fontSize="16px" fontWeight="300" align="center">
+              No item
+            </Typography>
+            <CartItem />
+            <CartItem />
+            <CartItem />
+            <CartItem />
+            <CartItem />
+          </Styled.CartList>
+          <Box display="flex" justifyContent="flex-end" gap="8px">
+            <Button variant="text" size="medium" color="primary">
+              Reset
+            </Button>
+            <Button variant="contained" size="medium" color="primary">
+              Order
+            </Button>
+          </Box>
+        </Styled.Box>
+      </Styled.Wrapper>
+      {isCartOpen && (
+        <Styled.BackDrop onClick={toggleCartOpen} />
+      )}
+    </>
   );
 };
 
@@ -95,6 +151,9 @@ const Styled = {
   })),
   Box: styled('div')(({ theme }) => ({
     padding: '16px 24px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '16px',
     borderRadius: '16px',
     backgroundColor: theme.palette.background.default,
     [`@media screen and (max-width: ${maxWidth}px)`]: {
@@ -106,5 +165,26 @@ const Styled = {
     display: 'flex',
     justifyContent: 'space-between',
     gap: '24px',
+  }),
+  CartList: styled('ul')({
+    display: 'grid',
+    gap: '16px',
+    [`@media screen and (max-width: ${maxWidth}px)`]: {
+      height: '100%',
+      overflowY: 'auto',
+    },
+  }),
+  BackDrop: styled('div')({
+    display: 'none',
+    width: '100dvw',
+    height: '100dvh',
+    position: 'fixed',
+    top: '0',
+    left: '0',
+    zIndex: '1',
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    [`@media screen and (max-width: ${maxWidth}px)`]: {
+      display: 'block',
+    },
   }),
 };

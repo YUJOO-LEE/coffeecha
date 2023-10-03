@@ -8,10 +8,10 @@ const ClientInfo = (): React.ReactNode => {
         커피팔아요
       </Typography>
       <Box display="grid" gap="4px">
-        <Typography fontSize="14px" color={(theme) => theme.palette.grey[500]}>
+        <Typography fontSize="14px" fontWeight="300" color={(theme) => theme.palette.grey[500]}>
           강남 못참지
         </Typography>
-        <Typography fontSize="14px" color={(theme) => theme.palette.grey[500]}>
+        <Typography fontSize="14px" fontWeight="300" color={(theme) => theme.palette.grey[500]}>
           010-1111-1232
         </Typography>
       </Box>
