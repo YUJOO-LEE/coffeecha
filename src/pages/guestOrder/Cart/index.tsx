@@ -62,7 +62,7 @@ const Cart = (): React.ReactNode => {
             <KeyboardDoubleArrowUpRounded sx={{ fill: 'white' }} />
           )}
         </Styled.OpenButton>
-        <Styled.Box>
+        <Styled.Box onClick={!isCartOpen ? toggleCartOpen : undefined}>
           <Styled.Header>
             <Typography fontSize="16px" fontWeight="500">
               CART
