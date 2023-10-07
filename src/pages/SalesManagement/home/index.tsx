@@ -69,7 +69,7 @@ const HomePage = () => {
             <Typography display="flex" alignItems="center" gap="8px">
               <Chip size="small" label="ORDER PAGE" />
               <CopyToClipboard>
-                {`https://coffeecha.bubu.dev/order/${clientDetail?.clientKey}`}
+                {`${window.location.origin}/order/${clientDetail?.clientKey}`}
               </CopyToClipboard>
             </Typography>
           )}

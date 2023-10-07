@@ -1,19 +1,40 @@
-import { Box, styled, Typography } from '@mui/material';
+import { useGetClientInfoForGuest } from '@/apis/queries/guestOrder';
+import { Box, Skeleton, styled, Typography } from '@mui/material';
 import React from 'react';
 
-const ClientInfo = (): React.ReactNode => {
+interface IProps {
+  clientKey: string
+}
+
+const ClientInfo = (props: IProps): React.ReactNode => {
+  const { clientKey } = props;
+
+  const { data: clientInfo } = useGetClientInfoForGuest(clientKey);
+
   return (
     <Styled.Wrapper>
-      <Typography variant="h1" fontSize="24px" fontWeight="500">
-        커피팔아요
-      </Typography>
+      {clientInfo ? (
+        <Typography variant="h1" fontSize="24px" fontWeight="500">
+          {clientInfo.clientName}
+        </Typography>
+      ) : (
+        <Skeleton />
+      )}
       <Box display="grid" gap="4px">
-        <Typography fontSize="14px" fontWeight="300" color={(theme) => theme.palette.grey[500]}>
-          강남 못참지
-        </Typography>
-        <Typography fontSize="14px" fontWeight="300" color={(theme) => theme.palette.grey[500]}>
-          010-1111-1232
-        </Typography>
+        {clientInfo ? (
+          <Typography fontSize="14px" fontWeight="300" color={(theme) => theme.palette.grey[500]}>
+            {clientInfo.address}
+          </Typography>
+        ) : (
+          <Skeleton />
+        )}
+        {clientInfo ? (
+          <Typography fontSize="14px" fontWeight="300" color={(theme) => theme.palette.grey[500]}>
+            {clientInfo.phoneNumber}
+          </Typography>
+        ) : (
+          <Skeleton />
+        )}
       </Box>
     </Styled.Wrapper>
   );

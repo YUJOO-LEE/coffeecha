@@ -1,16 +1,23 @@
+import { ClientMenuResponse } from '@/apis/swagger/data-contracts';
 import { Box, styled, Typography } from '@mui/material';
 import React from 'react';
 
 const maxWidth = 420;
 
-const MenuListItem = (): React.ReactNode => {
+interface IProps {
+  data: ClientMenuResponse;
+}
+
+const MenuListItem = (props: IProps): React.ReactNode => {
+  const { data } = props;
+
   return (
     <Styled.Wrapper>
       <Styled.ImageWrapper>
-        <img src="img" alt="title" />
+        <img src={data.menuImageUrl} alt="title" />
       </Styled.ImageWrapper>
       <Typography fontSize="16px" fontWeight="500">
-        title
+        {data.menuName}
       </Typography>
     </Styled.Wrapper>
   );

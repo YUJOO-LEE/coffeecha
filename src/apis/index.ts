@@ -7,6 +7,7 @@ import { TokenInfo } from '@/apis/swagger/data-contracts';
 import { HttpClient } from '@/apis/swagger/http-client';
 import { Menu } from '@/apis/swagger/Menu';
 import { MenuOption } from '@/apis/swagger/MenuOption';
+import { OrderPage } from '@/apis/swagger/OrderPage';
 import { User } from '@/apis/swagger/User';
 import { queryClient } from '@/App';
 import axios, { InternalAxiosRequestConfig } from 'axios';
@@ -25,6 +26,7 @@ export const userApi = new User(http);
 export const collectionApi = new Menu(http);
 export const menuApi = new ClientMenu(http);
 export const menuOptionApi = new MenuOption(http);
+export const guestOrderApi = new OrderPage(http);
 
 (function initializeToErrorHandling() {
   const responseInterceptor = async (error?: any) => {
