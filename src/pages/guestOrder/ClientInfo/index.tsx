@@ -1,36 +1,34 @@
-import { useGetClientInfoForGuest } from '@/apis/queries/guestOrder';
+import { ClientResponse } from '@/apis/swagger/data-contracts';
 import { Box, Skeleton, styled, Typography } from '@mui/material';
 import React from 'react';
 
 interface IProps {
-  clientKey: string
+  data?: ClientResponse;
 }
 
 const ClientInfo = (props: IProps): React.ReactNode => {
-  const { clientKey } = props;
-
-  const { data: clientInfo } = useGetClientInfoForGuest(clientKey);
+  const { data } = props;
 
   return (
     <Styled.Wrapper>
-      {clientInfo ? (
+      {data ? (
         <Typography variant="h1" fontSize="24px" fontWeight="500">
-          {clientInfo.clientName}
+          {data.clientName}
         </Typography>
       ) : (
         <Skeleton />
       )}
       <Box display="grid" gap="4px">
-        {clientInfo ? (
+        {data ? (
           <Typography fontSize="14px" fontWeight="300" color={(theme) => theme.palette.grey[500]}>
-            {clientInfo.address}
+            {data.address}
           </Typography>
         ) : (
           <Skeleton />
         )}
-        {clientInfo ? (
+        {data ? (
           <Typography fontSize="14px" fontWeight="300" color={(theme) => theme.palette.grey[500]}>
-            {clientInfo.phoneNumber}
+            {data.phoneNumber}
           </Typography>
         ) : (
           <Skeleton />

@@ -57,8 +57,14 @@ const routers = createBrowserRouter([
     },
   },
   {
-    path: '/order/:clientKey',
+    path: '/order',
     element: <GuestOrderPage />,
+    children: [
+      {
+        path: '/order/:clientKey',
+        element: <GuestOrderPage />,
+      }
+    ],
   },
 ]);
 

@@ -1,3 +1,4 @@
+import { useGetClientInfoForGuest } from '@/apis/queries/guestOrder';
 import Cart, { maxWidth } from '@/pages/guestOrder/Cart';
 import ClientInfo from '@/pages/guestOrder/ClientInfo';
 import MenuList from '@/pages/guestOrder/Menu';
@@ -9,7 +10,9 @@ import { useParams } from 'react-router-dom';
 const GuestOrderPage = (): React.ReactNode => {
   const { clientKey } = useParams();
 
-  if (!clientKey) { // TODO
+  const { data: clientInfo, isLoading, isError } = useGetClientInfoForGuest(clientKey!, !!clientKey);
+
+  if (!clientKey || isError || (!isLoading && !clientInfo)) { // TODO
     return (
       <div>
         No client data
@@ -20,7 +23,7 @@ const GuestOrderPage = (): React.ReactNode => {
   return (
     <Styled.Wrapper>
       <Styled.Box>
-        <ClientInfo clientKey={clientKey} />
+        <ClientInfo data={clientInfo} />
         <MenuHeader />
         <MenuList clientKey={clientKey} />
       </Styled.Box>
