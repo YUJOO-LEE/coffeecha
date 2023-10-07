@@ -3,7 +3,8 @@ import { ClientResponseOpenStatusEnum } from '@/apis/swagger/data-contracts';
 import ClientListDrawer from '@/pages/SalesManagement/components/ClientListDrawer';
 import { LoopRounded } from '@mui/icons-material';
 import { Box, Button, Chip, Divider, styled, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface IProps {
   isOffsetTop?: boolean;
@@ -12,9 +13,11 @@ interface IProps {
 
 const ClientHeader = (props: IProps): React.ReactNode => {
   const { isOffsetTop, clientId } = props;
+  const navigate = useNavigate();
+
   const [listOpen, setListOpen] = useState(false);
 
-  const { data: clientDetail } = useGetClientDetail(Number(clientId));
+  const { data: clientDetail, isError } = useGetClientDetail(Number(clientId));
 
   const handleListOpen = () => {
     setListOpen(true);
@@ -23,6 +26,12 @@ const ClientHeader = (props: IProps): React.ReactNode => {
   const handleListClose = () => {
     setListOpen(false);
   };
+
+  useLayoutEffect(() => {
+    if (!isError) return;
+
+    navigate('/');
+  }, [isError]);
 
   return (
     <Styled.HeaderBar isOffsetTop={isOffsetTop}>

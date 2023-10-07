@@ -24,7 +24,7 @@ export const useGetClientDetail = (clientId: number): UseQueryResult<ClientRespo
   return useQuery(
     [QueryKey, 'detail', clientId],
     async () => {
-      const { data } = await clientApi.getClient(clientId);
+      const { data } = await clientApi.getClientById(clientId);
       return data;
     },
     defaultOption
