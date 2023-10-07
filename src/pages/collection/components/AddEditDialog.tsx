@@ -131,7 +131,7 @@ const AddEditDialog = (props: IProps): React.ReactNode => {
         <Button variant="text" size="large" onClick={onClose}>
           Cancel
         </Button>
-        <Button variant="contained" size="large" disabled={isDisabled} onClick={handleSave}>
+        <Button variant="contained" size="large" disabled={isDisabled} disableElevation onClick={handleSave}>
           {editData ? 'Save' : 'Add'}
         </Button>
       </DialogActions>

@@ -31,7 +31,7 @@ const SalesManagementPage = (): React.ReactNode => {
           <Typography fontSize="20px" fontWeight="inherit" display="flex" alignItems="center" gap="8px">
             <LocalShippingRounded />Clients Management
           </Typography>
-          <Button size="medium" variant="contained" startIcon={<AddRounded />} onClick={handleAddOpen}>
+          <Button disableElevation size="medium" variant="contained" startIcon={<AddRounded />} onClick={handleAddOpen}>
             Add New Client
           </Button>
         </Box>

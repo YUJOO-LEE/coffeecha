@@ -39,6 +39,7 @@ const HomePage = () => {
       >
         <Styled.OpenCard>
           <Button
+            disableElevation
             size="large"
             variant="contained"
             color={changeToOpen ? 'primary' : 'error'}

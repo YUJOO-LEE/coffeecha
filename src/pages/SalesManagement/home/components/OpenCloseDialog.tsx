@@ -59,6 +59,7 @@ const OpenCloseDialog = (props: IProps): React.ReactNode => {
       </DialogContent>
       <DialogActions sx={{ padding: '16px 24px' }}>
         <Button
+          disableElevation
           variant="contained"
           size="large"
           onClick={handleChangeStatus}

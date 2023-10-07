@@ -91,7 +91,7 @@ const Cart = (): React.ReactNode => {
             <Button variant="text" size="medium" color="primary">
               Reset
             </Button>
-            <Button variant="contained" size="medium" color="primary">
+            <Button variant="contained" size="medium" color="primary" disableElevation>
               Order
             </Button>
           </Box>

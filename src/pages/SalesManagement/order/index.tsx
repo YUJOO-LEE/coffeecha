@@ -50,7 +50,7 @@ const OrderPage = (): React.ReactNode => {
         </Box>
         <Box display="flex" flexDirection="column" gap="16px">
           <Box display="flex" justifyContent="space-between">
-            <Button size="medium" variant="contained" startIcon={<AddRounded />}>
+            <Button disableElevation size="medium" variant="contained" startIcon={<AddRounded />}>
               Add New Order
             </Button>
           </Box>
@@ -90,16 +90,16 @@ const OrderPage = (): React.ReactNode => {
                 </AccordionDetails>
               </Styled.OrderDetail>
               <Styled.Actions display="flex" gap="8px" alignItems="flex-start">
-                <Styled.ActionButton size="small" variant="contained">
+                <Styled.ActionButton disableElevation size="small" variant="contained">
                   <CheckRounded />
                 </Styled.ActionButton>
                 <Styled.ActionButton size="small" variant="outlined" color="error" onClick={handleDeleteOpen}>
                   <CloseRounded />
                 </Styled.ActionButton>
-                <Styled.ActionButton size="small" variant="contained" color="success">
+                <Styled.ActionButton disableElevation size="small" variant="contained" color="success">
                   <HowToRegRounded />
                 </Styled.ActionButton>
-                <Styled.ActionButton size="small" variant="contained" color="warning">
+                <Styled.ActionButton disableElevation size="small" variant="contained" color="warning">
                   <CoffeeRounded />
                 </Styled.ActionButton>
               </Styled.Actions>

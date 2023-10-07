@@ -20,7 +20,7 @@ const DeleteDialog = (props: IProps): React.ReactNode => {
         </Typography>
       </DialogContent>
       <DialogActions sx={{ padding: '16px 24px' }}>
-        <Button variant="contained" size="large" color="error" onClick={onDone}>
+        <Button variant="contained" size="large" color="error" disableElevation onClick={onDone}>
           Delete
         </Button>
         <Button variant="outlined" size="large" onClick={onClose}>

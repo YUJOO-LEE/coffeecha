@@ -71,10 +71,10 @@ const CollectionPage = (): React.ReactNode => {
             <CoffeeMakerRounded />Collection
           </Typography>
           <Box display="flex" gap="8px">
-            <Button size="medium" variant="contained" startIcon={<AddRounded />} onClick={handleAddOpen}>
+            <Button size="medium" variant="contained" startIcon={<AddRounded />} disableElevation onClick={handleAddOpen}>
               Add New Menu
             </Button>
-            <Button size="medium" color="info" variant="contained" startIcon={<ManageSearchRounded />} onClick={toggleOptionPanel}>
+            <Button size="medium" color="info" variant="contained" disableElevation startIcon={<ManageSearchRounded />} onClick={toggleOptionPanel}>
               Menu Options
             </Button>
           </Box>

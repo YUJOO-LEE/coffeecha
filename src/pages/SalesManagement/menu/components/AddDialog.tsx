@@ -106,7 +106,7 @@ const AddDialog = (props: IProps): React.ReactNode => {
         <Button variant="text" size="large" onClick={onClose}>
           Cancel
         </Button>
-        <Button variant="contained" size="large" disabled={isDisabled} onClick={handleAdd}>
+        <Button disableElevation variant="contained" size="large" disabled={isDisabled} onClick={handleAdd}>
           Add
         </Button>
       </DialogActions>

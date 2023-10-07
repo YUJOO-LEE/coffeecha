@@ -21,6 +21,7 @@ const GlobalNavigationButton = (props: IProps): React.ReactNode => {
       onClick={onClick}
       variant={isSelected ? 'contained' : 'text'}
       open={open}
+      disableElevation
     >
       <Typography fontSize="14px" whiteSpace="nowrap">
         {label}

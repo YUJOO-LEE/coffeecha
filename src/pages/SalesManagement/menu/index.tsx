@@ -33,7 +33,7 @@ const MenuPage = () => {
         </Box>
         <Styled.ContentBox>
           <Box display="flex" gap="8px" alignItems="center">
-            <Button size="medium" variant="contained" startIcon={<AddRounded />} onClick={handleMenuAdd}>
+            <Button disableElevation size="medium" variant="contained" startIcon={<AddRounded />} onClick={handleMenuAdd}>
               Add New Menu
             </Button>
           </Box>

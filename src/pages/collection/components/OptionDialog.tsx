@@ -77,7 +77,7 @@ const OptionDialog = (props: IProps): React.ReactNode => {
                 </Styled.Button>
               </>
             ) : (
-              <Styled.Button variant="contained" size="medium" startIcon={<AddRounded />} onClick={toggleEditMode}>
+              <Styled.Button variant="contained" size="medium" disableElevation startIcon={<AddRounded />} onClick={toggleEditMode}>
                 New Option
               </Styled.Button>
             )}

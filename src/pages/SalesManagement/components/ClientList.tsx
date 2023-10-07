@@ -55,11 +55,11 @@ const ClientList = (props: IProps): React.ReactNode => {
               </Button>
             )}
             {Number(params.clientId) === clientId ? (
-              <Button size="small" variant="contained" disabled>
+              <Button disableElevation size="small" variant="contained" disabled>
                 <DownloadDoneRounded />
               </Button>
             ) : (
-              <Button size="small" variant="contained" onClick={handleSelect(clientId!)}>
+              <Button disableElevation size="small" variant="contained" onClick={handleSelect(clientId!)}>
                 <CheckRounded />
               </Button>
             )}

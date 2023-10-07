@@ -3,7 +3,7 @@ import React from 'react';
 
 const MenuHeader = (): React.ReactNode => {
   return (
-    <Styled.Wrapper fullWidth variant="contained" size="large">
+    <Styled.Wrapper fullWidth disableElevation variant="contained" size="large">
       <Button>
         coffee
       </Button>

@@ -99,16 +99,16 @@ const SettingPage = () => {
                 <Button variant="outlined" size="large" onClick={toggleEditMode}>
                   Cancel
                 </Button>
-                <Button variant="contained" size="large" disabled={isDisabled} onClick={handleUpdate}>
+                <Button disableElevation variant="contained" size="large" disabled={isDisabled} onClick={handleUpdate}>
                   Save
                 </Button>
               </>
             ) : (
               <>
-                <Button variant="contained" color="error" size="large" onClick={handleDeleteOpen}>
+                <Button disableElevation variant="contained" color="error" size="large" onClick={handleDeleteOpen}>
                   Delete
                 </Button>
-                <Button variant="contained" size="large" onClick={toggleEditMode}>
+                <Button disableElevation variant="contained" size="large" onClick={toggleEditMode}>
                   Edit
                 </Button>
               </>
