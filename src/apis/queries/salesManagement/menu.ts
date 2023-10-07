@@ -1,13 +1,10 @@
 import { menuApi } from '@/apis';
+import { defaultOption } from '@/apis/queries';
 import { SaveClientMenuRequest } from '@/apis/swagger/data-contracts';
 import { useMutation, UseMutationResult, useQuery, useQueryClient } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
 
 export const QueryKey = 'menu';
-
-const defaultOption = {
-  refetchOnWindowFocus: false,
-};
 
 export const useGetClientMenuList = (clientId: number) => {
   return useQuery(

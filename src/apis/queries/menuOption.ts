@@ -1,13 +1,10 @@
 import { menuOptionApi } from '@/apis';
+import { defaultOption } from '@/apis/queries/index';
 import { UpdateMenuOptionRequest } from '@/apis/swagger/data-contracts';
 import { useMutation, UseMutationResult, useQuery, useQueryClient } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
 
 export const QueryKey = 'menu_option';
-
-const defaultOption = {
-  refetchOnWindowFocus: false,
-};
 
 export const useGetOptionList = () => {
   return useQuery(

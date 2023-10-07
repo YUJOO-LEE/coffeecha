@@ -1,13 +1,10 @@
 import { clientApi } from '@/apis';
+import { defaultOption } from '@/apis/queries/index';
 import { ClientResponse, SaveClientRequest, SaveResponse, UpdateClientRequest } from '@/apis/swagger/data-contracts';
 import { useMutation, UseMutationResult, useQuery, useQueryClient, UseQueryResult } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
 
 export const QueryKey = 'client';
-
-const defaultOption = {
-  refetchOnWindowFocus: false,
-};
 
 export const useGetClientList = (): UseQueryResult<ClientResponse[]> => {
   return useQuery(

@@ -1,13 +1,10 @@
 import { categoryApi, collectionApi } from '@/apis';
+import { defaultOption } from '@/apis/queries/index';
 import { CategoryResponse, CreateMenuRequest } from '@/apis/swagger/data-contracts';
 import { useMutation, UseMutationResult, useQuery, useQueryClient, UseQueryResult } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
 
 export const QueryKey = 'collection';
-
-const defaultOption = {
-  refetchOnWindowFocus: false,
-};
 
 export const useGetCategoryList = (): UseQueryResult<CategoryResponse[]> => {
   return useQuery(
