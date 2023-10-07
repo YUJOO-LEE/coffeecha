@@ -57,12 +57,12 @@ export class Client<SecurityDataType = unknown> {
    * @description 클라이언트 조회 API
    *
    * @tags Client
-   * @name GetClient
+   * @name GetClientById
    * @summary 클라이언트 조회
    * @request GET:/api/clients/{clientId}
    * @secure
    */
-  getClient = (clientId: number, params: RequestParams = {}) =>
+  getClientById = (clientId: number, params: RequestParams = {}) =>
     this.http.request<ClientResponse, any>({
       path: `/api/clients/${clientId}`,
       method: "GET",

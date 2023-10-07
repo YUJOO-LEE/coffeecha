@@ -89,23 +89,6 @@ export interface UpdateClientMenuRequest {
   saleQuantity?: number;
 }
 
-export interface MenuResponse {
-  /** @format int64 */
-  menuId: number;
-  menuName: string;
-  imageUrl?: string;
-  description?: string;
-  /** @format int64 */
-  categoryId: number;
-  menuOptionIds?: number[];
-}
-
-export interface MenuOptionResponse {
-  /** @format int64 */
-  menuOptionId?: number;
-  menuOptionName?: string;
-}
-
 /** 클라이언트 조회 Response */
 export interface ClientResponse {
   /** @format int64 */
@@ -133,6 +116,23 @@ export interface ClientMenuResponse {
   /** @format int64 */
   categoryId: number;
   optionNames: string[];
+}
+
+export interface MenuResponse {
+  /** @format int64 */
+  menuId: number;
+  menuName: string;
+  imageUrl?: string;
+  description?: string;
+  /** @format int64 */
+  categoryId: number;
+  menuOptionIds?: number[];
+}
+
+export interface MenuOptionResponse {
+  /** @format int64 */
+  menuOptionId?: number;
+  menuOptionName?: string;
 }
 
 export interface CategoryResponse {
