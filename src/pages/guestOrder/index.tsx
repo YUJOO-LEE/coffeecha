@@ -1,9 +1,11 @@
 import { useGetClientInfoForGuest } from '@/apis/queries/guestOrder';
+import { ClientResponseOpenStatusEnum } from '@/apis/swagger/data-contracts';
 import Cart, { maxWidth } from '@/pages/guestOrder/Cart';
 import ClientInfo from '@/pages/guestOrder/ClientInfo';
 import MenuList from '@/pages/guestOrder/Menu';
 import MenuHeader from '@/pages/guestOrder/Menu/MenuHeader';
 import { Box, styled } from '@mui/material';
+import dayjs from 'dayjs';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -11,11 +13,21 @@ const GuestOrderPage = (): React.ReactNode => {
   const { clientKey } = useParams();
 
   const { data: clientInfo, isLoading, isError } = useGetClientInfoForGuest(clientKey!, !!clientKey);
+  const isWrongClientData = !clientKey || isError || (!isLoading && !clientInfo);
+  const isClosed = clientInfo && (clientInfo.openStatus !== ClientResponseOpenStatusEnum.OPEN || clientInfo.businessDate !== dayjs().format('YYYY-MM-DD'));
 
-  if (!clientKey || isError || (!isLoading && !clientInfo)) { // TODO
+  if (isWrongClientData) { // TODO
     return (
       <div>
         No client data
+      </div>
+    );
+  }
+
+  if (isClosed) { // TODO
+    return (
+      <div>
+        영업일 아님
       </div>
     );
   }
