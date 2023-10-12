@@ -2,6 +2,9 @@ import { useGetClientInfoForGuest } from '@/apis/queries/guestOrder';
 import { ClientResponseOpenStatusEnum } from '@/apis/swagger/data-contracts';
 import Cart, { maxWidth } from '@/pages/guestOrder/Cart';
 import ClientInfo from '@/pages/guestOrder/ClientInfo';
+import Closed from '@/pages/guestOrder/Error/Closed';
+import Loading from '@/pages/guestOrder/Error/Loading';
+import NoData from '@/pages/guestOrder/Error/NoData';
 import MenuList from '@/pages/guestOrder/Menu';
 import MenuHeader from '@/pages/guestOrder/Menu/MenuHeader';
 import { Box, styled } from '@mui/material';
@@ -16,21 +19,10 @@ const GuestOrderPage = (): React.ReactNode => {
   const isWrongClientData = !clientKey || isError || (!isLoading && !clientInfo);
   const isClosed = clientInfo && (clientInfo.openStatus !== ClientResponseOpenStatusEnum.OPEN || clientInfo.businessDate !== dayjs().format('YYYY-MM-DD'));
 
-  if (isWrongClientData) { // TODO
-    return (
-      <div>
-        No client data
-      </div>
-    );
-  }
-
-  if (isClosed) { // TODO
-    return (
-      <div>
-        영업일 아님
-      </div>
-    );
-  }
+  // 상황 별 에러 페이지 출력
+  if (isLoading) return <Loading />;
+  if (isWrongClientData) return <NoData />;
+  if (isClosed) return <Closed />;
 
   return (
     <Styled.Wrapper>
