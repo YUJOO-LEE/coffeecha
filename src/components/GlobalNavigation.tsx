@@ -5,11 +5,11 @@ import { Box, Button, Divider, styled } from '@mui/material';
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-interface IProps {
+interface Props {
   clientId?: string;
 }
 
-const GlobalNavigation = (props: IProps): React.ReactNode => {
+const GlobalNavigation = (props: Props): React.ReactNode => {
   const { clientId } = props;
   const navigate = useNavigate();
   const { pathname } = useLocation();

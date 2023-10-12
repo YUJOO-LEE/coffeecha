@@ -6,12 +6,12 @@ import { Box, Button, Card, DialogContent, DialogTitle, Drawer, styled, Typograp
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-interface IProps {
+interface Props {
   open: boolean;
   onClose: () => void;
 }
 
-const ClientListDrawer = (props: IProps): React.ReactNode => {
+const ClientListDrawer = (props: Props): React.ReactNode => {
   const { open, onClose } = props;
   const navigate = useNavigate();
 

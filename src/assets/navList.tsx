@@ -1,13 +1,13 @@
 import { CoffeeRounded, FormatListBulletedRounded, HomeRounded, SettingsRounded, LocalShippingRounded, CoffeeMakerRounded } from '@mui/icons-material';
 import React from 'react';
 
-interface INavItem {
+interface NavItem {
   label: string;
   icon?: React.ReactNode;
   url: string;
 }
 
-export const clientNavList = (clientId: string): INavItem[] => {
+export const clientNavList = (clientId: string): NavItem[] => {
   return [
     {
       label: 'Home',
@@ -32,7 +32,7 @@ export const clientNavList = (clientId: string): INavItem[] => {
   ];
 };
 
-export const userNavList: INavItem[] = [
+export const userNavList: NavItem[] = [
   {
     label: 'Clients',
     url: '/',

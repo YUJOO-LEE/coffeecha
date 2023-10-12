@@ -4,12 +4,12 @@ import { Box, Button, Dialog, DialogActions, DialogContent, styled, Typography }
 import dayjs from 'dayjs';
 import React, { useState } from 'react';
 
-interface IProps {
+interface Props {
   data: ClientResponse;
   onClose: () => void;
 }
 
-const OpenCloseDialog = (props: IProps): React.ReactNode => {
+const OpenCloseDialog = (props: Props): React.ReactNode => {
   const { onClose, data } = props;
   const changeToOpen: boolean = data.openStatus !== ClientResponseOpenStatusEnum.OPEN;
   const isSameDate = dayjs().isSame(dayjs(data.businessDate), 'd');

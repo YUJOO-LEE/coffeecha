@@ -1,7 +1,7 @@
 import { Button, styled, Typography } from '@mui/material';
 import React from 'react';
 
-interface IProps {
+interface Props {
   open: boolean;
   icon: React.ReactNode;
   url: string;
@@ -10,7 +10,7 @@ interface IProps {
   onClick: () => void;
 }
 
-const GlobalNavigationButton = (props: IProps): React.ReactNode => {
+const GlobalNavigationButton = (props: Props): React.ReactNode => {
   const { open, icon, url, label, isSelected, onClick } = props;
 
   return (

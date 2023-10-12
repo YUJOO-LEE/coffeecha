@@ -20,12 +20,12 @@ import {
 } from '@mui/material';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 
-interface IProps {
+interface Props {
   editData?: MenuResponse;
   onClose: () => void;
 }
 
-const AddEditDialog = (props: IProps): React.ReactNode => {
+const AddEditDialog = (props: Props): React.ReactNode => {
   const { editData, onClose } = props;
 
   const [isOptionOpen, setIsOptionOpen] = useState<boolean>(false);

@@ -12,11 +12,11 @@ import {
 import { Box, Card, IconButton, Skeleton, styled, TextField, Tooltip, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
-interface IProps {
+interface Props {
   data?: ClientMenuResponse;
 }
 
-const MenuGridItem = (props: IProps): React.ReactNode => {
+const MenuGridItem = (props: Props): React.ReactNode => {
   const { data } = props;
 
   const [editMode, setEditMode] = useState<boolean>(false);

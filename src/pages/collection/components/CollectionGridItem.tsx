@@ -2,14 +2,14 @@ import { MenuResponse } from '@/apis/swagger/data-contracts';
 import { Box, Card, styled, Typography } from '@mui/material';
 import React from 'react';
 
-interface IProps {
+interface Props {
   isSimple?: boolean;
   data: MenuResponse;
   renderActionComponent?: React.ReactNode;
   onClick?: () => void;
 }
 
-const CollectionGridItem = (props: IProps): React.ReactNode => {
+const CollectionGridItem = (props: Props): React.ReactNode => {
   const { isSimple, data, renderActionComponent, onClick } = props;
 
   return (

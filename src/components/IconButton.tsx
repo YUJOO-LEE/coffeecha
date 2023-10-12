@@ -2,11 +2,11 @@ import { Button, styled } from '@mui/material';
 import { ButtonProps } from '@mui/material/Button/Button';
 import React from 'react';
 
-interface IProps {
+interface Props {
   onClick: () => void;
 }
 
-const IconButton = (props: React.PropsWithChildren<IProps & ButtonProps>) => {
+const IconButton = (props: React.PropsWithChildren<Props & ButtonProps>) => {
   const { children, onClick, ...restProps } = props;
 
   return (

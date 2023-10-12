@@ -2,11 +2,11 @@ import { ClientResponse } from '@/apis/swagger/data-contracts';
 import { Box, Skeleton, styled, Typography } from '@mui/material';
 import React from 'react';
 
-interface IProps {
+interface Props {
   data?: ClientResponse;
 }
 
-const ClientInfo = (props: IProps): React.ReactNode => {
+const ClientInfo = (props: Props): React.ReactNode => {
   const { data } = props;
 
   return (

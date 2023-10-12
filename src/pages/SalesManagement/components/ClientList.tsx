@@ -5,12 +5,12 @@ import dayjs from 'dayjs';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-interface IProps {
+interface Props {
   onClose?: () => void;
   isEditMote?: boolean;
 }
 
-const ClientList = (props: IProps): React.ReactNode => {
+const ClientList = (props: Props): React.ReactNode => {
   const { isEditMote, onClose } = props;
   const params = useParams();
   const navigate = useNavigate();

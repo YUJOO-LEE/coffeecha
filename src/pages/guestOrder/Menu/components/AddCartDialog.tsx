@@ -12,12 +12,12 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 
-interface IProps {
+interface Props {
   data: ClientMenuResponse;
   onClose: () => void;
 }
 
-const AddCartDialog = (props: IProps): React.ReactNode => {
+const AddCartDialog = (props: Props): React.ReactNode => {
   const { data, onClose } = props;
 
   const [quantity, setQuantity] = useState<number>(1);

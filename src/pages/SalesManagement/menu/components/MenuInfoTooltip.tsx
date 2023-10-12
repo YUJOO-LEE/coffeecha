@@ -2,11 +2,11 @@ import { ClientMenuResponse } from '@/apis/swagger/data-contracts';
 import { Box, Divider, Typography } from '@mui/material';
 import React from 'react';
 
-interface IProps {
+interface Props {
   data?: ClientMenuResponse;
 }
 
-const MenuInfoTooltip = (props: IProps): React.ReactNode => {
+const MenuInfoTooltip = (props: Props): React.ReactNode => {
   const { data } = props;
 
   return (

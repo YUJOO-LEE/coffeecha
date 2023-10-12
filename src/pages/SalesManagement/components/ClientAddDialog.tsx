@@ -6,12 +6,12 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 
-interface IProps {
+interface Props {
   onClose: () => void;
   onDone: (clientId: number) => void;
 }
 
-const ClientAddDialog = (props: IProps): React.ReactNode => {
+const ClientAddDialog = (props: Props): React.ReactNode => {
   const { onClose, onDone } = props;
 
   const [isDisabled, setIsDisabled] = useState<boolean>(false);

@@ -2,11 +2,11 @@ import { EventBusyRounded } from '@mui/icons-material';
 import { styled, Typography } from '@mui/material';
 import React from 'react';
 
-interface IProps {
+interface Props {
   openingDate: string;
 }
 
-const Closed = (props: IProps): React.ReactNode => {
+const Closed = (props: Props): React.ReactNode => {
   const { openingDate } = props;
 
   return (

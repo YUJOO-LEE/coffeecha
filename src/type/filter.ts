@@ -4,7 +4,7 @@ export enum FilterEnum {
   Desc = 'desc',
 }
 
-export interface IDropdownItem {
+export interface DropdownItem {
   label: string,
   value: FilterEnum,
 }

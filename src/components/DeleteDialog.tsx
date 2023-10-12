@@ -1,12 +1,12 @@
 import { Button, Dialog, DialogActions, DialogContent, Typography } from '@mui/material';
 import React from 'react';
 
-interface IProps {
+interface Props {
   onClose: () => void;
   onDone: () => void;
 }
 
-const DeleteDialog = (props: IProps): React.ReactNode => {
+const DeleteDialog = (props: Props): React.ReactNode => {
   const { onClose, onDone } = props;
 
   return (

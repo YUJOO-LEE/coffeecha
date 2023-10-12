@@ -5,12 +5,12 @@ import { CheckRounded, ClearRounded, DeleteOutlineRounded, ModeEditOutlineRounde
 import { Box, Button, styled, TextField } from '@mui/material';
 import React, { useState } from 'react';
 
-interface IProps {
+interface Props {
   data: MenuOptionResponse;
   onDelete: () => void;
 }
 
-const OptionListItem = (props: IProps): React.ReactNode => {
+const OptionListItem = (props: Props): React.ReactNode => {
   const { data, onDelete } = props;
 
   const [isEditMode, setIsEditMode] = useState<boolean>(false);

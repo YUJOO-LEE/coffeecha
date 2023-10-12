@@ -1,12 +1,12 @@
 import { CircularProgress, Dialog, Typography, styled } from '@mui/material';
 import React from 'react';
 
-interface IProps {
+interface Props {
   open: boolean;
   progress?: number;
 }
 
-const LoadingCircleProgress = (props: IProps): React.ReactNode => {
+const LoadingCircleProgress = (props: Props): React.ReactNode => {
   const { open, progress } = props;
 
   return (

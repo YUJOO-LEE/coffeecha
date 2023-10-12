@@ -14,12 +14,12 @@ import {
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 
-interface IProps {
+interface Props {
   clientId: number;
   onClose: () => void;
 }
 
-const AddDialog = (props: IProps): React.ReactNode => {
+const AddDialog = (props: Props): React.ReactNode => {
   const { clientId, onClose } = props;
 
   const [isDisabled, setIsDisabled] = useState<boolean>(false);

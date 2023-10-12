@@ -3,11 +3,11 @@ import { styled, Typography } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import React from 'react';
 
-interface IProps {
+interface Props {
   children: string;
 }
 
-const CopyToClipboard = (props: IProps & React.HTMLAttributes<HTMLDivElement>): React.ReactNode => {
+const CopyToClipboard = (props: Props & React.HTMLAttributes<HTMLDivElement>): React.ReactNode => {
   const { children, ...restProps } = props;
   const { enqueueSnackbar } = useSnackbar();
 

@@ -4,12 +4,12 @@ import React from 'react';
 
 const maxWidth = 420;
 
-interface IProps {
+interface Props {
   data: ClientMenuResponse;
   onAddCart: () => void;
 }
 
-const MenuListItem = (props: IProps): React.ReactNode => {
+const MenuListItem = (props: Props): React.ReactNode => {
   const { data, onAddCart } = props;
 
   return (

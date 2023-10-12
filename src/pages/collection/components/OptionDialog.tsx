@@ -7,11 +7,11 @@ import { AddRounded, CheckRounded, ClearRounded } from '@mui/icons-material';
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, styled, TextField } from '@mui/material';
 import React, { useState } from 'react';
 
-interface IProps {
+interface Props {
   onClose: () => void;
 }
 
-const OptionDialog = (props: IProps): React.ReactNode => {
+const OptionDialog = (props: Props): React.ReactNode => {
   const { onClose } = props;
 
   const [isEditMode, setIsEditMode] = useState<boolean>(false);

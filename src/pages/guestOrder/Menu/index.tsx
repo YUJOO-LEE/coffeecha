@@ -5,11 +5,11 @@ import MenuListItem from '@/pages/guestOrder/Menu/components/MenuListItem';
 import { Box } from '@mui/material';
 import React, { useState } from 'react';
 
-interface IProps {
+interface Props {
   clientKey: string
 }
 
-const MenuList = (props: IProps): React.ReactNode => {
+const MenuList = (props: Props): React.ReactNode => {
   const { clientKey } = props;
 
   const [addCartTarget, setAddCartTarget] = useState<ClientMenuResponse | null>(null);

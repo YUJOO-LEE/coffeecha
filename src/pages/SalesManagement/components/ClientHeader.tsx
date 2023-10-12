@@ -6,12 +6,12 @@ import { Box, Button, Chip, Divider, styled, Typography } from '@mui/material';
 import React, { useLayoutEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-interface IProps {
+interface Props {
   isOffsetTop?: boolean;
   clientId: number;
 }
 
-const ClientHeader = (props: IProps): React.ReactNode => {
+const ClientHeader = (props: Props): React.ReactNode => {
   const { isOffsetTop, clientId } = props;
   const navigate = useNavigate();
 
@@ -31,7 +31,7 @@ const ClientHeader = (props: IProps): React.ReactNode => {
     if (!isError) return;
 
     navigate('/');
-  }, [isError]);
+  }, [isError, navigate]);
 
   return (
     <Styled.HeaderBar isOffsetTop={isOffsetTop}>
