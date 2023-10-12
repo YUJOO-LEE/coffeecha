@@ -22,7 +22,7 @@ const GuestOrderPage = (): React.ReactNode => {
   // 상황 별 에러 페이지 출력
   if (isLoading) return <Loading />;
   if (isWrongClientData) return <NoData />;
-  if (isClosed) return <Closed />;
+  if (isClosed) return <Closed openingDate={clientInfo.businessDate} />;
 
   return (
     <Styled.Wrapper>
