@@ -9,18 +9,31 @@ import MenuList from '@/pages/guestOrder/Menu';
 import MenuHeader from '@/pages/guestOrder/Menu/MenuHeader';
 import { Box, styled } from '@mui/material';
 import dayjs from 'dayjs';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 const GuestOrderPage = (): React.ReactNode => {
   const { clientKey } = useParams();
 
+  const [isLoadingShow, setIsLoadingShow] = useState<boolean>(true);
+
   const { data: clientInfo, isLoading, isError } = useGetClientInfoForGuest(clientKey!, !!clientKey);
   const isWrongClientData = !clientKey || isError || (!isLoading && !clientInfo);
   const isClosed = clientInfo && (clientInfo.openStatus !== ClientResponseOpenStatusEnum.OPEN || clientInfo.businessDate !== dayjs().format('YYYY-MM-DD'));
 
+  useEffect(() => {
+    // loading 일정시간 노출 (귀여우니까)
+    const timer = setTimeout(() => {
+      setIsLoadingShow(false);
+    }, 1500);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
   // 상황 별 에러 페이지 출력
-  if (isLoading) return <Loading />;
+  if (isLoading || isLoadingShow) return <Loading />;
   if (isWrongClientData) return <NoData />;
   if (isClosed) return <Closed openingDate={clientInfo.businessDate} />;
 
