@@ -1,4 +1,5 @@
 import { ClientMenuResponse } from '@/apis/swagger/data-contracts';
+import { cartAtom, CartItem } from '@/pages/guestOrder/atoms';
 import {
   Box,
   Button, ButtonGroup,
@@ -10,6 +11,7 @@ import {
   styled,
   Typography,
 } from '@mui/material';
+import { useSetAtom } from 'jotai';
 import React, { useState } from 'react';
 
 interface Props {
@@ -21,6 +23,8 @@ const AddCartDialog = (props: Props): React.ReactNode => {
   const { data, onClose } = props;
 
   const [quantity, setQuantity] = useState<number>(1);
+
+  const setCart = useSetAtom(cartAtom);
 
   const handleDecrease = () => {
     setQuantity((prev) => {
@@ -35,6 +39,18 @@ const AddCartDialog = (props: Props): React.ReactNode => {
     setQuantity((prev) => {
       return prev + 1;
     });
+  };
+
+  const handleAdd = () => {
+    const newItem: CartItem = {
+      ...data,
+      quantity,
+    }
+
+    setCart((prev) => ([
+      ...prev,
+      newItem,
+    ]));
   };
 
   return (
@@ -68,7 +84,7 @@ const AddCartDialog = (props: Props): React.ReactNode => {
         <Button variant="text" size="medium" onClick={onClose}>
           Cancel
         </Button>
-        <Button variant="contained" size="medium" disableElevation>
+        <Button variant="contained" size="medium" disableElevation onClick={handleAdd}>
           Add Cart
         </Button>
       </DialogActions>

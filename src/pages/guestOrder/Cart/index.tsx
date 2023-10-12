@@ -1,6 +1,8 @@
+import { cartAtom } from '@/pages/guestOrder/atoms';
 import CartItem from '@/pages/guestOrder/Cart/CartItem';
 import { KeyboardDoubleArrowDownRounded, KeyboardDoubleArrowUpRounded } from '@mui/icons-material';
 import { Box, Button, Divider, styled, Typography } from '@mui/material';
+import { useAtomValue } from 'jotai';
 import React, { useEffect, useRef, useState } from 'react';
 
 export const maxWidth = 640 + 420 + 24;
@@ -10,6 +12,8 @@ const Cart = (): React.ReactNode => {
   const resizeObserver = useRef<ResizeObserver>();
   const prevScrollY = useRef<number>(window.scrollY);
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
+
+  const cartList = useAtomValue(cartAtom);
 
   const toggleCartOpen = () => {
     setIsCartOpen((prev) => !prev);
@@ -72,20 +76,21 @@ const Cart = (): React.ReactNode => {
                 Total
               </Typography>
               <Typography fontSize="16px" fontWeight="700">
-                3
+                {cartList.length}
               </Typography>
             </Box>
           </Styled.Header>
           <Divider />
           <Styled.CartList>
-            <Typography fontSize="16px" fontWeight="300" align="center">
-              No item
-            </Typography>
-            <CartItem />
-            <CartItem />
-            <CartItem />
-            <CartItem />
-            <CartItem />
+            {!cartList.length ? (
+              <Typography fontSize="16px" fontWeight="300" align="center">
+                No item
+              </Typography>
+            ) : (
+              cartList.map((item) => (
+                <CartItem key={item.clientMenuId} data={item} />
+              ))
+            )}
           </Styled.CartList>
           <Box display="flex" justifyContent="flex-end" gap="8px">
             <Button variant="text" size="medium" color="primary">
