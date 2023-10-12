@@ -6,13 +6,14 @@ const maxWidth = 420;
 
 interface IProps {
   data: ClientMenuResponse;
+  onAddCart: () => void;
 }
 
 const MenuListItem = (props: IProps): React.ReactNode => {
-  const { data } = props;
+  const { data, onAddCart } = props;
 
   return (
-    <Styled.Wrapper>
+    <Styled.Wrapper onClick={onAddCart}>
       <Styled.ImageWrapper>
         <img src={data.menuImageUrl} alt="title" />
       </Styled.ImageWrapper>
