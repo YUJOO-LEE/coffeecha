@@ -2,9 +2,9 @@ import { useGetClientMenuList } from '@/apis/queries/salesManagement/menu';
 import Layout from '@/components/Layout';
 import AddDialog from '@/pages/SalesManagement/menu/components/AddDialog';
 import MenuGridItem from '@/pages/SalesManagement/menu/components/MenuGridItem';
-import { AddRounded, CoffeeRounded } from '@mui/icons-material';
-import { Box, Button, styled, Typography } from '@mui/material';
-import { useState } from 'react';
+import { AddRounded, CoffeeRounded, InfoRounded } from '@mui/icons-material';
+import { Box, Button, Card, IconButton, Skeleton, styled, Typography } from '@mui/material';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 const MenuPage = () => {
@@ -12,7 +12,7 @@ const MenuPage = () => {
 
   const [isAddOpen, setAddOpen] = useState<boolean>(false);
 
-  const { data: menuList } = useGetClientMenuList(Number(clientId));
+  const { data: menuList, isLoading } = useGetClientMenuList(Number(clientId));
 
   const handleMenuAdd = () => {
     setAddOpen(true);
@@ -41,7 +41,23 @@ const MenuPage = () => {
             Coffee
           </Typography>
           <Styled.MenuList>
-            {menuList?.map((item) => (
+            {isLoading && (
+              [...Array(5)].map((_, index) => (
+                <Styled.MenuItem key={`skeleton_${index}`}>
+                  <Box>
+                    <IconButton size="large" sx={{ margin: '-10px', cursor: 'auto' }}>
+                      <InfoRounded sx={{ width: '16px', height: '16px' }} />
+                    </IconButton>
+                  </Box>
+                  <Skeleton variant="rounded" sx={{ width: '100%', height: 'auto', aspectRatio: '1 / 1' }} />
+                  <Skeleton variant="rounded" />
+                </Styled.MenuItem>
+              ))
+            )}
+            {menuList?.filter(({ menuHidden }) => !menuHidden).map((item) => (
+              <MenuGridItem key={item.clientMenuId} data={item} />
+            ))}
+            {menuList?.filter(({ menuHidden }) => menuHidden).map((item) => (
               <MenuGridItem key={item.clientMenuId} data={item} />
             ))}
           </Styled.MenuList>
@@ -65,6 +81,12 @@ const Styled = {
   MenuList: styled(Box)({
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))',
+    gap: '16px',
+  }),
+  MenuItem: styled(Card)({
+    padding: '16px',
+    display: 'grid',
+    gridTemplateRows: 'auto 1fr auto',
     gap: '16px',
   }),
 };

@@ -9,7 +9,7 @@ import {
   InfoRounded,
   ModeEditOutlineRounded,
 } from '@mui/icons-material';
-import { Box, Card, IconButton, Skeleton, styled, TextField, Tooltip, Typography } from '@mui/material';
+import { Box, Card, IconButton, styled, TextField, Tooltip, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
 interface Props {
@@ -72,7 +72,7 @@ const MenuGridItem = (props: Props): React.ReactNode => {
             </IconButton>
           </Tooltip>
         )}
-        {editMode ? (
+        {!data.menuHidden && (editMode ? (
           <Box display="flex" gap="8px" alignItems="center">
             <IconButton size="large" sx={{ margin: '-10px' }} onClick={handleEditModeOff}>
               <CancelRounded sx={{ width: '16px', height: '16px' }} />
@@ -90,36 +90,46 @@ const MenuGridItem = (props: Props): React.ReactNode => {
               <ModeEditOutlineRounded sx={{ width: '16px', height: '16px' }} />
             </IconButton>
           </Box>
-        )}
+        ))}
       </Box>
-      {data ? data.menuImageUrl && (
-        <img src={data.menuImageUrl} alt={data.menuName} />
+      <Box display="grid" gap="16px">
+        <Styled.ImageWrapper>
+          <img
+            src={data.menuImageUrl}
+            alt={data.menuName}
+            style={{ filter: data.menuHidden ? 'blur(5px)' : undefined }}
+          />
+        </Styled.ImageWrapper>
+        <Typography>
+          {data.menuName}
+        </Typography>
+      </Box>
+      {data.menuHidden ? (
+        <Typography fontSize="12px" color={(theme) => theme.palette.error.main}>
+          Menu removed from collection
+        </Typography>
       ) : (
-        <Skeleton variant="rounded" sx={{ width: '100%', height: 'auto', aspectRatio: '1 / 1' }} />
+        <Box display="grid" gridTemplateColumns="1fr 1fr" gap="8px">
+          <Styled.Quantity
+            disabled
+            label="sold"
+            inputMode="numeric"
+            type="number"
+            size="small"
+            value={data.saleQuantity}
+          />
+          <Styled.Quantity
+            disabled={!editMode}
+            label="in stock"
+            inputMode="numeric"
+            type="number"
+            size="small"
+            value={stockQuantity.toString()}
+            error={!stockQuantity}
+            onChange={handleQuantity}
+          />
+        </Box>
       )}
-      <Typography>
-        {data.menuName}
-      </Typography>
-      <Box display="grid" gridTemplateColumns="1fr 1fr" gap="8px">
-        <Styled.Quantity
-          disabled
-          label="sold"
-          inputMode="numeric"
-          type="number"
-          size="small"
-          value={data.saleQuantity}
-        />
-        <Styled.Quantity
-          disabled={!editMode}
-          label="in stock"
-          inputMode="numeric"
-          type="number"
-          size="small"
-          value={stockQuantity.toString()}
-          error={!stockQuantity}
-          onChange={handleQuantity}
-        />
-      </Box>
       {isDeleteOpen && (
         <DeleteDialog onClose={handleDeleteClose} onDone={handleDelete} />
       )}
@@ -133,7 +143,20 @@ const Styled = {
   MenuItem: styled(Card)({
     padding: '16px',
     display: 'grid',
+    gridTemplateRows: 'auto auto 1fr',
     gap: '16px',
+  }),
+  ImageWrapper: styled(Box)({
+    width: '100%',
+    height: 'auto',
+    aspectRatio: '1 / 1',
+    borderRadius: '8px',
+    overflow: 'hidden',
+    '& img': {
+      width: '100%',
+      height: '100%',
+      objectFit: 'cover',
+    },
   }),
   Quantity: styled(TextField)({
     '& input': {
