@@ -34,10 +34,10 @@ const AddCartDialog = (props: Props): React.ReactNode => {
 
       if (findIndex > -1) {
         newList.splice(findIndex, 1);
-        return newList;
+        return newList.sort();
       }
 
-      return [...newList, selected];
+      return [...newList, selected].sort();
     });
   };
 
