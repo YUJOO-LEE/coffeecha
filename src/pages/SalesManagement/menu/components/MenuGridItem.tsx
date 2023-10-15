@@ -1,4 +1,4 @@
-import { useDeleteClientMenu } from '@/apis/queries/salesManagement/menu';
+import { useDeleteClientMenu, useUpdateClientMenuStockQuantity } from '@/apis/queries/salesManagement/menu';
 import { ClientMenuResponse } from '@/apis/swagger/data-contracts';
 import DeleteDialog from '@/components/DeleteDialog';
 import MenuInfoTooltip from '@/pages/SalesManagement/menu/components/MenuInfoTooltip';
@@ -13,18 +13,20 @@ import { Box, Card, IconButton, Skeleton, styled, TextField, Tooltip, Typography
 import React, { useState } from 'react';
 
 interface Props {
-  data?: ClientMenuResponse;
+  data: ClientMenuResponse;
 }
 
 const MenuGridItem = (props: Props): React.ReactNode => {
   const { data } = props;
 
   const [editMode, setEditMode] = useState<boolean>(false);
+  const [stockQuantity, setStockQuantity] = useState<number>(data.stockQuantity);
   const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false);
 
-  const deleteMenu = useDeleteClientMenu();
+  const updateStockQuantity = useUpdateClientMenuStockQuantity(data.clientMenuId);
+  const deleteMenu = useDeleteClientMenu(data.clientMenuId);
 
-  const isTooltipShow: boolean = Boolean(data?.menuDescription || (data?.optionNames && data.optionNames.length > 0));
+  const isTooltipShow: boolean = Boolean(data.menuDescription || (data.optionNames && data.optionNames.length > 0));
 
   const handleEditModeOn = () => {
     setEditMode(true);
@@ -42,14 +44,19 @@ const MenuGridItem = (props: Props): React.ReactNode => {
     setIsDeleteOpen(false);
   };
 
+  const handleQuantity = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setStockQuantity(Number(event.target.value));
+  };
+
   const handleEdit = async () => {
-    // TODO: call api
+    const { status } = await updateStockQuantity.mutateAsync({ stockQuantity });
+    if (status === 200) {
+      handleEditModeOff();
+    }
   };
 
   const handleDelete = async () => {
-    if (!data) return;
-
-    const { status } = await deleteMenu.mutateAsync({ clientMenuId: data?.clientMenuId });
+    const { status } = await deleteMenu.mutateAsync();
     if (status === 200) {
       handleDeleteClose();
     }
@@ -91,7 +98,7 @@ const MenuGridItem = (props: Props): React.ReactNode => {
         <Skeleton variant="rounded" sx={{ width: '100%', height: 'auto', aspectRatio: '1 / 1' }} />
       )}
       <Typography>
-        {data?.menuName}
+        {data.menuName}
       </Typography>
       <Box display="grid" gridTemplateColumns="1fr 1fr" gap="8px">
         <Styled.Quantity
@@ -100,7 +107,7 @@ const MenuGridItem = (props: Props): React.ReactNode => {
           inputMode="numeric"
           type="number"
           size="small"
-          value={data?.saleQuantity}
+          value={data.saleQuantity}
         />
         <Styled.Quantity
           disabled={!editMode}
@@ -108,7 +115,9 @@ const MenuGridItem = (props: Props): React.ReactNode => {
           inputMode="numeric"
           type="number"
           size="small"
-          value={data?.stockQuantity}
+          value={stockQuantity.toString()}
+          error={!stockQuantity}
+          onChange={handleQuantity}
         />
       </Box>
       {isDeleteOpen && (

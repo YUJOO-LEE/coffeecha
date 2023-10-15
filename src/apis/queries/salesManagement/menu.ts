@@ -1,6 +1,6 @@
 import { menuApi } from '@/apis';
 import { defaultOption } from '@/apis/queries';
-import { SaveClientMenuRequest } from '@/apis/swagger/data-contracts';
+import { SaveClientMenuRequest, UpdateClientMenuRequest } from '@/apis/swagger/data-contracts';
 import { useMutation, UseMutationResult, useQuery, useQueryClient } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
 
@@ -27,10 +27,20 @@ export const useAddClientMenu = (): UseMutationResult<AxiosResponse<void>, unkno
   });
 };
 
-export const useDeleteClientMenu = (): UseMutationResult<AxiosResponse<void>, unknown, { clientMenuId: number }> => {
+export const useUpdateClientMenuStockQuantity = (clientMenuId: number): UseMutationResult<AxiosResponse<void>, unknown, UpdateClientMenuRequest> => {
   const queryClient = useQueryClient();
 
-  return useMutation(({ clientMenuId }) => menuApi.deleteClientMenus(clientMenuId), {
+  return useMutation((request) => menuApi.updateClientMenu(clientMenuId, request), {
+    onSuccess: () => {
+      queryClient.invalidateQueries([QueryKey, 'list']);
+    },
+  });
+};
+
+export const useDeleteClientMenu = (clientMenuId: number)=> {
+  const queryClient = useQueryClient();
+
+  return useMutation(() => menuApi.deleteClientMenus(clientMenuId), {
     onSuccess: () => {
       queryClient.invalidateQueries([QueryKey, 'list']);
     },
