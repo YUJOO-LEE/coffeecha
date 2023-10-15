@@ -88,7 +88,7 @@ const Cart = (): React.ReactNode => {
               </Typography>
             ) : (
               cartList.map((item) => (
-                <CartItem key={item.clientMenuId} data={item} />
+                <CartItem key={item.menuInfo.clientMenuId} data={item} />
               ))
             )}
           </Styled.CartList>

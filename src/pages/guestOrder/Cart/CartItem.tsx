@@ -12,14 +12,14 @@ const CartItem = (props: Props): React.ReactNode => {
   return (
     <Styled.Wrapper>
       <Styled.ImageWrapper>
-        <img src={data.menuImageUrl} alt={data.menuName} />
+        <img src={data.menuInfo.menuImageUrl} alt={data.menuInfo.menuName} />
       </Styled.ImageWrapper>
       <Box display="flex" flexDirection="column" gap="8px">
         <Typography fontSize="16px" fontWeight="500">
-          {data.menuName}
+          {data.menuInfo.menuName}
         </Typography>
         <Typography fontSize="14px" fontWeight="300">
-          {data.optionNames.join(', ')}
+          {data.options.join(', ')}
         </Typography>
       </Box>
     </Styled.Wrapper>

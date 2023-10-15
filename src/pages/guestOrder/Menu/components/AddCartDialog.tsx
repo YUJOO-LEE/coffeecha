@@ -22,9 +22,24 @@ interface Props {
 const AddCartDialog = (props: Props): React.ReactNode => {
   const { data, onClose } = props;
 
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [quantity, setQuantity] = useState<number>(1);
 
   const setCart = useSetAtom(cartAtom);
+
+  const handleOptionsSelect = (selected: string) => () => {
+    setSelectedOptions((prev) => {
+      const newList = [...prev];
+      const findIndex = prev.findIndex((value) => value === selected);
+
+      if (findIndex > -1) {
+        newList.splice(findIndex, 1);
+        return newList;
+      }
+
+      return [...newList, selected];
+    });
+  };
 
   const handleDecrease = () => {
     setQuantity((prev) => {
@@ -43,7 +58,8 @@ const AddCartDialog = (props: Props): React.ReactNode => {
 
   const handleAdd = () => {
     const newItem: CartItem = {
-      ...data,
+      menuInfo: data,
+      options: selectedOptions,
       quantity,
     }
 
@@ -51,6 +67,8 @@ const AddCartDialog = (props: Props): React.ReactNode => {
       ...prev,
       newItem,
     ]));
+
+    onClose();
   };
 
   return (
@@ -72,7 +90,7 @@ const AddCartDialog = (props: Props): React.ReactNode => {
         <Styled.OptionList>
           {data.optionNames.map((name, index) => (
             <label key={`option_${index}`}>
-              <Checkbox />
+              <Checkbox checked={selectedOptions.includes(name)} onChange={handleOptionsSelect(name)} />
               <Typography fontSize="14px">
                 {name}
               </Typography>
