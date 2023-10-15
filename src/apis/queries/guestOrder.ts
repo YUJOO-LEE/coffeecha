@@ -3,6 +3,9 @@ import { defaultOption } from '@/apis/queries/index';
 import { useQuery } from '@tanstack/react-query';
 
 export const QueryKey = 'guest_order';
+const queryOptions = {
+  refetchOnWindowFocus: true,
+};
 
 export const useGetClientInfoForGuest = (clientKey: string, enabled: boolean) => {
   return useQuery(
@@ -11,7 +14,7 @@ export const useGetClientInfoForGuest = (clientKey: string, enabled: boolean) =>
       const { data } = await guestOrderApi.getClientByKey(clientKey);
       return data;
     },
-    { ...defaultOption, refetchOnWindowFocus: true, enabled }
+    { ...defaultOption, ...queryOptions, enabled }
   );
 };
 
@@ -22,6 +25,6 @@ export const useGetClientMenuForGuest = (clientKey: string) => {
       const { data } = await guestOrderApi.getOpenClientAllMenus(clientKey);
       return data;
     },
-    defaultOption
+    { ...defaultOption, ...queryOptions, refetchInterval: 10000 },
   );
 };
