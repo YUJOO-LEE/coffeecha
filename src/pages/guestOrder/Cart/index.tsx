@@ -2,7 +2,7 @@ import { cartAtom } from '@/pages/guestOrder/atoms';
 import CartItem from '@/pages/guestOrder/Cart/CartItem';
 import { KeyboardDoubleArrowDownRounded, KeyboardDoubleArrowUpRounded } from '@mui/icons-material';
 import { Box, Button, Divider, styled, Typography } from '@mui/material';
-import { useAtomValue } from 'jotai';
+import { useAtom } from 'jotai';
 import React, { useEffect, useRef, useState } from 'react';
 
 export const maxWidth = 640 + 420 + 24;
@@ -13,10 +13,29 @@ const Cart = (): React.ReactNode => {
   const prevScrollY = useRef<number>(window.scrollY);
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
 
-  const cartList = useAtomValue(cartAtom);
+  const [cartList, setCartList] = useAtom(cartAtom);
 
   const toggleCartOpen = () => {
     setIsCartOpen((prev) => !prev);
+  };
+
+  const handleDecrease = (index: number) => () => {
+    setCartList((prev) => {
+      const newList = [...prev];
+      if (newList[index].quantity > 1) {
+        newList[index].quantity -= 1;
+        return newList;
+      }
+      return prev;
+    });
+  };
+
+  const handleIncrease = (index: number) => () => {
+    setCartList((prev) => {
+      const newList = [...prev];
+      newList[index].quantity += 1;
+      return newList;
+    });
   };
 
   const preventScroll = () => {
@@ -87,8 +106,13 @@ const Cart = (): React.ReactNode => {
                 No item
               </Typography>
             ) : (
-              cartList.map((item) => (
-                <CartItem key={item.menuInfo.clientMenuId} data={item} />
+              cartList.map((item, index) => (
+                <CartItem
+                  key={item.menuInfo.clientMenuId}
+                  data={item}
+                  onIncrease={handleIncrease(index)}
+                  onDecrease={handleDecrease(index)}
+                />
               ))
             )}
           </Styled.CartList>

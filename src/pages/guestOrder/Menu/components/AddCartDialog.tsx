@@ -127,4 +127,4 @@ const Styled = {
       backgroundColor: 'inherit',
     },
   }),
-}
+};
