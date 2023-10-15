@@ -1,5 +1,5 @@
 import { cartAtom } from '@/pages/guestOrder/atoms';
-import CartItem from '@/pages/guestOrder/Cart/CartItem';
+import CartItem from './CartItem';
 import { KeyboardDoubleArrowDownRounded, KeyboardDoubleArrowUpRounded } from '@mui/icons-material';
 import { Box, Button, Divider, styled, Typography } from '@mui/material';
 import { useAtom } from 'jotai';
@@ -34,6 +34,14 @@ const Cart = (): React.ReactNode => {
     setCartList((prev) => {
       const newList = [...prev];
       newList[index].quantity += 1;
+      return newList;
+    });
+  };
+
+  const handleRemove = (index: number) => () => {
+    setCartList((prev) => {
+      const newList = [...prev];
+      newList.splice(index, 1);
       return newList;
     });
   };
@@ -112,6 +120,7 @@ const Cart = (): React.ReactNode => {
                   data={item}
                   onIncrease={handleIncrease(index)}
                   onDecrease={handleDecrease(index)}
+                  onRemove={handleRemove(index)}
                 />
               ))
             )}
@@ -196,7 +205,8 @@ const Styled = {
     gap: '24px',
   }),
   CartList: styled('ul')({
-    display: 'grid',
+    display: 'flex',
+    flexDirection: 'column',
     gap: '16px',
     [`@media screen and (max-width: ${maxWidth}px)`]: {
       height: '100%',

@@ -35,6 +35,7 @@ const Styled = {
     gap: '16px',
     borderRadius: '16px',
     backgroundColor: theme.palette.background.default,
+    cursor: 'pointer',
     [`@media screen and (max-width: ${maxWidth}px)`]: {
       gridTemplateColumns: '56px 1fr',
       justifyItems: 'flex-start',
