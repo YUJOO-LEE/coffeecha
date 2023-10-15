@@ -1,6 +1,7 @@
 import { useGetClientList } from '@/apis/queries/client';
+import { ClientResponseOpenStatusEnum } from '@/apis/swagger/data-contracts';
 import { CheckRounded, DownloadDoneRounded, ManageAccountsRounded } from '@mui/icons-material';
-import { Box, Button, Card, Divider, styled, Typography } from '@mui/material';
+import { Box, Button, Card, Chip, Divider, styled, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -29,10 +30,19 @@ const ClientList = (props: Props): React.ReactNode => {
 
   return (
     <Box display="grid" gap="16px">
-      {clientList?.map(({ clientId, clientName, phoneNumber, businessDate, address }) => (
+      {clientList?.map(({ openStatus, clientId, clientName, phoneNumber, businessDate, address }) => (
         <Styled.ListItem key={clientId}>
           <Box display="flex" justifyContent="space-between" alignItems="flex-end">
             <Box display="flex" alignItems="center" gap="8px">
+              {openStatus === ClientResponseOpenStatusEnum.OPEN && (
+                <Chip
+                  size="small"
+                  variant="filled"
+                  color="success"
+                  label={openStatus}
+                />
+              )}
+
               <Typography>
                 {clientName}
               </Typography>
