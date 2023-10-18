@@ -16,6 +16,7 @@ const Cart = (): React.ReactNode => {
   const [cartList, setCartList] = useAtom(cartAtom);
 
   const toggleCartOpen = () => {
+    console.log('###', isCartOpen);
     setIsCartOpen((prev) => !prev);
   };
 
