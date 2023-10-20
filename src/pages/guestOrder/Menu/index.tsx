@@ -6,15 +6,18 @@ import { Box } from '@mui/material';
 import React, { useState } from 'react';
 
 interface Props {
-  clientKey: string
+  clientKey: string;
+  category?: number;
 }
 
 const MenuList = (props: Props): React.ReactNode => {
-  const { clientKey } = props;
+  const { clientKey, category } = props;
 
   const [addCartTarget, setAddCartTarget] = useState<ClientMenuResponse | null>(null);
 
-  const { data: menuList } = useGetClientMenuForGuest(clientKey);
+  const { data } = useGetClientMenuForGuest(clientKey);
+
+  const menuList = (category ? data?.filter(({ categoryId }) => categoryId === category) : data) || [];
 
   const handleOpenAddDialog = (target: ClientMenuResponse) => () => {
     setAddCartTarget(target);
@@ -26,7 +29,7 @@ const MenuList = (props: Props): React.ReactNode => {
 
   return (
     <Box display="grid" gap="16px" gridTemplateColumns="repeat(auto-fill, minmax(180px, 1fr))">
-      {menuList?.map((item) => (
+      {menuList.map((item) => (
         <MenuListItem key={item.clientMenuId} data={item} onAddCart={handleOpenAddDialog(item)} />
       ))}
 

@@ -7,6 +7,17 @@ const queryOptions = {
   refetchOnWindowFocus: true,
 };
 
+export const useGetCategoryForGuest = () => {
+  return useQuery(
+    [QueryKey, 'category'],
+    async () => {
+      const { data } = await guestOrderApi.allCategories();
+      return data;
+    },
+    { ...defaultOption, ...queryOptions }
+  );
+};
+
 export const useGetClientInfoForGuest = (clientKey: string, enabled: boolean) => {
   return useQuery(
     [QueryKey, 'client'],

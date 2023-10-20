@@ -16,10 +16,15 @@ const GuestOrderPage = (): React.ReactNode => {
   const { clientKey } = useParams();
 
   const [isLoadingShow, setIsLoadingShow] = useState<boolean>(true);
+  const [category, setCategory] = useState<number>();
 
   const { data: clientInfo, isLoading, isError } = useGetClientInfoForGuest(clientKey!, !!clientKey);
   const isWrongClientData = !clientKey || isError || (!isLoading && !clientInfo);
   const isClosed = clientInfo && (clientInfo.openStatus !== ClientResponseOpenStatusEnum.OPEN || clientInfo.businessDate !== dayjs().format('YYYY-MM-DD'));
+
+  const handleCategorySelect = (target?: number) => {
+    setCategory(target);
+  };
 
   useEffect(() => {
     // loading 일정시간 노출 (귀여우니까)
@@ -41,8 +46,8 @@ const GuestOrderPage = (): React.ReactNode => {
     <Styled.Wrapper>
       <Styled.Box>
         <ClientInfo data={clientInfo} />
-        <MenuHeader />
-        <MenuList clientKey={clientKey} />
+        <MenuHeader onCategorySelect={handleCategorySelect} />
+        <MenuList clientKey={clientKey} category={category} />
       </Styled.Box>
       <Cart />
     </Styled.Wrapper>
