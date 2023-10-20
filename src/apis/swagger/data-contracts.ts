@@ -9,6 +9,26 @@
  * ---------------------------------------------------------------
  */
 
+export interface OrderMenuRequest {
+  /** @format int64 */
+  clientMenuId?: number;
+  /** @format int32 */
+  quantity?: number;
+  option?: string;
+}
+
+export interface OrderRequest {
+  guestName: string;
+  /** @pattern ^01[016789]-\d{3,4}-\d{4}$ */
+  phoneNumber?: string;
+  orderList: OrderMenuRequest[];
+  message?: string;
+}
+
+export interface OrderResponse {
+  orderKey: string;
+}
+
 export interface UserRequest {
   loginId: string;
   password: string;
@@ -118,6 +138,12 @@ export interface ClientMenuResponse {
   optionNames: string[];
 }
 
+export interface CategoryResponse {
+  /** @format int64 */
+  id: number;
+  name: string;
+}
+
 export interface MenuResponse {
   /** @format int64 */
   menuId: number;
@@ -133,12 +159,6 @@ export interface MenuOptionResponse {
   /** @format int64 */
   menuOptionId?: number;
   menuOptionName?: string;
-}
-
-export interface CategoryResponse {
-  /** @format int64 */
-  id: number;
-  name: string;
 }
 
 export enum ClientResponseOpenStatusEnum {

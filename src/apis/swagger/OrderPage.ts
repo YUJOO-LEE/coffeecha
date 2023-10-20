@@ -9,8 +9,8 @@
  * ---------------------------------------------------------------
  */
 
-import { ClientMenuResponse, ClientResponse } from "./data-contracts";
-import { HttpClient, RequestParams } from "./http-client";
+import { CategoryResponse, ClientMenuResponse, ClientResponse, OrderRequest, OrderResponse } from "./data-contracts";
+import { ContentType, HttpClient, RequestParams } from "./http-client";
 
 export class OrderPage<SecurityDataType = unknown> {
   http: HttpClient<SecurityDataType>;
@@ -19,6 +19,24 @@ export class OrderPage<SecurityDataType = unknown> {
     this.http = http;
   }
 
+  /**
+   * @description 고객 주문 API
+   *
+   * @tags OrderPage
+   * @name CustomerOrder
+   * @summary 고객 주문
+   * @request POST:/order-api/order/{clientKey}
+   * @secure
+   */
+  customerOrder = (clientKey: string, data: OrderRequest, params: RequestParams = {}) =>
+    this.http.request<OrderResponse, any>({
+      path: `/order-api/order/${clientKey}`,
+      method: "POST",
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      ...params,
+    });
   /**
    * @description 클라이언트 정보 조회
    *
@@ -49,6 +67,23 @@ export class OrderPage<SecurityDataType = unknown> {
       path: `/order-api/client-menus/clients/${clientKey}`,
       method: "GET",
       secure: true,
+      ...params,
+    });
+  /**
+   * @description 카테고리 조회
+   *
+   * @tags OrderPage
+   * @name AllCategories
+   * @summary 카테고리 조회
+   * @request GET:/order-api/categories
+   * @secure
+   */
+  allCategories = (params: RequestParams = {}) =>
+    this.http.request<CategoryResponse[], any>({
+      path: `/order-api/categories`,
+      method: "GET",
+      secure: true,
+      format: "json",
       ...params,
     });
 }
