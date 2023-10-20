@@ -178,7 +178,7 @@ const Styled = {
     justifyContent: 'center',
     alignItems: 'flex-start',
     border: 'none',
-    borderRadius: '16px 16px 0 0',
+    borderRadius: '4px 4px 0 0',
     backgroundColor: theme.palette.primary.main,
     [`@media screen and (max-width: ${maxWidth}px)`]: {
       position: 'fixed',
@@ -193,11 +193,11 @@ const Styled = {
     display: 'flex',
     flexDirection: 'column',
     gap: '16px',
-    borderRadius: '16px',
+    borderRadius: '4px',
     backgroundColor: theme.palette.background.default,
     [`@media screen and (max-width: ${maxWidth}px)`]: {
       height: '100%',
-      borderRadius: '16px 16px 0 0',
+      borderRadius: '0',
     },
   })),
   Header: styled('div')({

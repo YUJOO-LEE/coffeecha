@@ -49,7 +49,7 @@ const Styled = {
     gridTemplateColumns: '1fr',
     justifyItems: 'center',
     gap: '16px',
-    borderRadius: '16px',
+    borderRadius: '4px',
     backgroundColor: theme.palette.background.default,
     overflow: 'hidden',
     cursor: 'pointer',

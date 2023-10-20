@@ -46,7 +46,7 @@ const Styled = {
     display: 'grid',
     gap: '16px',
     overflow: 'hidden',
-    borderRadius: '16px',
+    borderRadius: '4px',
     backgroundColor: theme.palette.background.default,
   })),
 };

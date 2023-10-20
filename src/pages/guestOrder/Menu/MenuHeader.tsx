@@ -19,7 +19,6 @@ export default MenuHeader;
 const Styled = {
   Wrapper: styled(ButtonGroup)({
     overflow: 'hidden',
-    borderRadius: '16px',
     '& button': {
       padding: '12px',
     },
