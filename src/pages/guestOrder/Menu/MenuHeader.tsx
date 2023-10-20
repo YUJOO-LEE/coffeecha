@@ -3,11 +3,12 @@ import { Button, ButtonGroup, styled } from '@mui/material';
 import React from 'react';
 
 interface IProps {
+  category?: number;
   onCategorySelect: (target?: number) => void;
 }
 
 const MenuHeader = (props: IProps): React.ReactNode => {
-  const { onCategorySelect } = props;
+  const { category, onCategorySelect } = props;
 
   const { data: categoryList } = useGetCategoryForGuest();
 
@@ -17,11 +18,18 @@ const MenuHeader = (props: IProps): React.ReactNode => {
 
   return (
     <Styled.Wrapper fullWidth disableElevation variant="contained" size="large">
-      <Button onClick={handleSelect()}>
+      <Button
+        onClick={handleSelect()}
+        sx={(theme) => ({ backgroundColor: !category ? theme.palette.primary.dark : undefined})}
+      >
         All
       </Button>
       {categoryList?.map(({ id, name }) => (
-        <Button key={`category_${id}`} onClick={handleSelect(id)}>
+        <Button
+          key={`category_${id}`}
+          onClick={handleSelect(id)}
+          sx={(theme) => ({ backgroundColor: category === id ? theme.palette.primary.dark : undefined})}
+        >
           {name}
         </Button>
       ))}
@@ -34,7 +42,7 @@ export default MenuHeader;
 const Styled = {
   Wrapper: styled(ButtonGroup)({
     overflow: 'hidden',
-    '& button': {
+      '& button': {
       padding: '12px',
     },
   }),
