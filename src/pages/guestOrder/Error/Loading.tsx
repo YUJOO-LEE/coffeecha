@@ -34,31 +34,21 @@ const Keyframes = {
   }),
   Cloud: keyframes({
     ['0%']: {
-      right: '0',
-      transform: 'translateX(100%)',
+      left: '100%',
     },
     ['100%']: {
-      right: '100%',
+      left: '0',
       transform: 'translateX(-100%)',
-},
+    },
   }),
 };
 
-interface CSSPropertiesWithWebkit extends CSSProperties{
-  '-webkit-perspective': string;
-  '-webkit-backface-visibility': string;
-}
-
-const CloudCommon: CSSPropertiesWithWebkit = {
+const CloudCommon: CSSProperties = {
   position: 'absolute',
-  right: '100%',
-  transform: 'translateX(-100%)',
+  left: '100%',
   width: '24px',
   height: '24px',
   opacity: '.1',
-  backfaceVisibility: 'hidden',
-  ['-webkit-perspective']: '1000',
-  ['-webkit-backface-visibility']: 'hidden',
 };
 
 const Styled = {
