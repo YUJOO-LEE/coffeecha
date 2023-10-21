@@ -40,7 +40,7 @@ const Keyframes = {
     ['100%']: {
       right: '100%',
       transform: 'translateX(-100%)',
-    },
+},
   }),
 };
 
@@ -56,6 +56,7 @@ const CloudCommon: CSSPropertiesWithWebkit = {
   width: '24px',
   height: '24px',
   opacity: '.1',
+  willChange: 'transform',
   ['-webkit-perspective']: '1000',
   ['-webkit-backface-visibility']: 'hidden',
 };
