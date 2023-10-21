@@ -35,11 +35,11 @@ const Keyframes = {
   Cloud: keyframes({
     ['0%']: {
       right: '0%',
-      transform: 'translateX(100%)'
+      transform: 'translateX(100%)',
     },
     ['100%']: {
       right: '100%',
-      transform: 'translateX(00%)'
+      transform: 'translateX(-100%)',
     },
   }),
 };
