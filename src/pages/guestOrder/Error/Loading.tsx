@@ -34,7 +34,7 @@ const Keyframes = {
   }),
   Cloud: keyframes({
     ['0%']: {
-      right: '0%',
+      right: '0',
       transform: 'translateX(100%)',
     },
     ['100%']: {
@@ -46,8 +46,6 @@ const Keyframes = {
 
 const CloudCommon: CSSProperties = {
   position: 'absolute',
-  right: '0',
-  transform: 'translateX(100%)',
   width: '24px',
   height: '24px',
   opacity: '.1',
