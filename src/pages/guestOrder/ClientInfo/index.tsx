@@ -13,7 +13,7 @@ const ClientInfo = (props: Props): React.ReactNode => {
     <Styled.Wrapper>
       {data ? (
         <Typography variant="h1" fontSize="24px" fontWeight="500">
-          {data.clientName}
+          {data.userName}
         </Typography>
       ) : (
         <Skeleton />
@@ -21,14 +21,14 @@ const ClientInfo = (props: Props): React.ReactNode => {
       <Box display="grid" gap="4px">
         {data ? (
           <Typography fontSize="14px" fontWeight="300" color={(theme) => theme.palette.grey[500]}>
-            {data.address}
+            {data.clientName} | {data.address}
           </Typography>
         ) : (
           <Skeleton />
         )}
         {data ? (
           <Typography fontSize="14px" fontWeight="300" color={(theme) => theme.palette.grey[500]}>
-            {data.phoneNumber}
+            {data.userPhoneNumber}
           </Typography>
         ) : (
           <Skeleton />

@@ -3,14 +3,15 @@ import { Button, ButtonGroup, styled } from '@mui/material';
 import React from 'react';
 
 interface IProps {
+  clientKey: string;
   category?: number;
   onCategorySelect: (target?: number) => void;
 }
 
 const MenuHeader = (props: IProps): React.ReactNode => {
-  const { category, onCategorySelect } = props;
+  const { clientKey, category, onCategorySelect } = props;
 
-  const { data: categoryList } = useGetCategoryForGuest();
+  const { data: categoryList } = useGetCategoryForGuest(clientKey);
 
   const handleSelect = (target?: number) => () => {
     onCategorySelect(target);

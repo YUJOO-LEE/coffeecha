@@ -46,7 +46,7 @@ const GuestOrderPage = (): React.ReactNode => {
     <Styled.Wrapper>
       <Styled.Box>
         <ClientInfo data={clientInfo} />
-        <MenuHeader category={category} onCategorySelect={handleCategorySelect} />
+        <MenuHeader clientKey={clientKey} category={category} onCategorySelect={handleCategorySelect} />
         <MenuList clientKey={clientKey} category={category} />
       </Styled.Box>
       <Cart />
