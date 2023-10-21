@@ -56,7 +56,7 @@ const CloudCommon: CSSPropertiesWithWebkit = {
   width: '24px',
   height: '24px',
   opacity: '.1',
-  willChange: 'transform',
+  backfaceVisibility: 'hidden',
   ['-webkit-perspective']: '1000',
   ['-webkit-backface-visibility']: 'hidden',
 };
