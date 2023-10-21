@@ -38,6 +38,7 @@ const Keyframes = {
     },
     ['100%']: {
       left: '0',
+      transform: 'translateX(-100%)',
     },
   }),
 };
