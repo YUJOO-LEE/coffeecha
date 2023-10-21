@@ -83,6 +83,7 @@ const Styled = {
     height: '100%',
     //overflow: 'hidden',
     borderRadius: '8px',
+    border: '1px solid #000',
   }),
   Cloud1: styled(CloudRounded)({
     ...CloudCommon,
