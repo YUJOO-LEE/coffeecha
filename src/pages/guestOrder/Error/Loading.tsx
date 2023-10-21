@@ -38,7 +38,6 @@ const Keyframes = {
     },
     ['100%']: {
       left: '0',
-      transform: 'translateX(-100%)',
     },
   }),
 };
@@ -82,7 +81,7 @@ const Styled = {
     zIndex: 1,
     width: '100%',
     height: '100%',
-    overflow: 'hidden',
+    //overflow: 'hidden',
     borderRadius: '8px',
   }),
   Cloud1: styled(CloudRounded)({
