@@ -73,17 +73,16 @@ export class OrderPage<SecurityDataType = unknown> {
    * @description 카테고리 조회
    *
    * @tags OrderPage
-   * @name AllCategories
+   * @name OrderAllCategories
    * @summary 카테고리 조회
-   * @request GET:/order-api/categories
+   * @request GET:/order-api/categories/{clientKey}
    * @secure
    */
-  allCategories = (params: RequestParams = {}) =>
+  orderAllCategories = (clientKey: string, params: RequestParams = {}) =>
     this.http.request<CategoryResponse[], any>({
-      path: `/order-api/categories`,
+      path: `/order-api/categories/${clientKey}`,
       method: "GET",
       secure: true,
-      format: "json",
       ...params,
     });
 }

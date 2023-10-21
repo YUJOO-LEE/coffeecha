@@ -115,7 +115,8 @@ export interface ClientResponse {
   clientId: number;
   clientName: string;
   address: string;
-  phoneNumber: string;
+  userName: string;
+  userPhoneNumber: string;
   /** @format date */
   businessDate: string;
   openStatus: ClientResponseOpenStatusEnum;
