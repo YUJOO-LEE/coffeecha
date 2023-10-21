@@ -36,6 +36,6 @@ export const useGetClientMenuForGuest = (clientKey: string) => {
       const { data } = await guestOrderApi.getOpenClientAllMenus(clientKey);
       return data;
     },
-    { ...defaultOption, ...queryOptions, refetchInterval: 10000 },
+    { ...defaultOption, ...queryOptions },
   );
 };
