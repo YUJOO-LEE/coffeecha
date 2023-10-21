@@ -34,10 +34,9 @@ const Keyframes = {
   }),
   Cloud: keyframes({
     ['0%']: {
-      left: '100%',
+      transform: 'translateX(180px)',
     },
     ['100%']: {
-      left: '0',
       transform: 'translateX(-100%)',
     },
   }),
@@ -45,7 +44,7 @@ const Keyframes = {
 
 const CloudCommon: CSSProperties = {
   position: 'absolute',
-  left: '100%',
+  transform: 'translateX(180px)',
   width: '24px',
   height: '24px',
   opacity: '.1',
@@ -88,26 +87,26 @@ const Styled = {
   Cloud1: styled(CloudRounded)({
     ...CloudCommon,
     top: '10%',
-    animation: `${Keyframes.Cloud} 3.5s linear .5s infinite forwards`,
+    animation: `${Keyframes.Cloud} 3.5s linear .5s infinite`,
   }),
   Cloud2: styled(CloudRounded)({
     ...CloudCommon,
     top: '40%',
-    animation: `${Keyframes.Cloud} 2s linear .2s infinite forwards`,
+    animation: `${Keyframes.Cloud} 2s linear .2s infinite`,
   }),
   Cloud3: styled(CloudRounded)({
     ...CloudCommon,
     top: '70%',
     width: '44px',
     height: '44px',
-    animation: `${Keyframes.Cloud} 1s linear .3s infinite forwards`,
+    animation: `${Keyframes.Cloud} 1s linear .3s infinite`,
   }),
   Cloud4: styled(CloudRounded)({
     ...CloudCommon,
     top: '30%',
     width: '36px',
     height: '36px',
-    animation: `${Keyframes.Cloud} 2.5s linear 1s infinite forwards`,
+    animation: `${Keyframes.Cloud} 2.5s linear 1s infinite`,
   }),
   Cloud5: styled(CloudRounded)({
     ...CloudCommon,
