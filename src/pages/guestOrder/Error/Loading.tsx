@@ -44,13 +44,20 @@ const Keyframes = {
   }),
 };
 
-const CloudCommon: CSSProperties = {
+interface CSSPropertiesWithWebkit extends CSSProperties{
+  '-webkit-perspective': string;
+  '-webkit-backface-visibility': string;
+}
+
+const CloudCommon: CSSPropertiesWithWebkit = {
   position: 'absolute',
   right: '100%',
   transform: 'translateX(-100%)',
   width: '24px',
   height: '24px',
   opacity: '.1',
+  ['-webkit-perspective']: '1000',
+  ['-webkit-backface-visibility']: 'hidden',
 };
 
 const Styled = {
