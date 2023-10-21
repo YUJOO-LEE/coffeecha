@@ -46,6 +46,8 @@ const Keyframes = {
 
 const CloudCommon: CSSProperties = {
   position: 'absolute',
+  right: '100%',
+  transform: 'translateX(-100%)',
   width: '24px',
   height: '24px',
   opacity: '.1',
