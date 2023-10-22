@@ -16,7 +16,6 @@ const MenuList = (props: Props): React.ReactNode => {
   const [addCartTarget, setAddCartTarget] = useState<ClientMenuResponse | null>(null);
 
   const { data } = useGetClientMenuForGuest(clientKey);
-
   const menuList = (category ? data?.filter(({ categoryId }) => categoryId === category) : data) || [];
 
   const handleOpenAddDialog = (target: ClientMenuResponse) => () => {
@@ -34,7 +33,7 @@ const MenuList = (props: Props): React.ReactNode => {
       ))}
 
       {addCartTarget && (
-        <AddCartDialog data={addCartTarget} onClose={handleClose} />
+        <AddCartDialog clientKey={clientKey} data={addCartTarget} onClose={handleClose} />
       )}
     </Box>
   );

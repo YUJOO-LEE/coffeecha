@@ -1,9 +1,9 @@
 import { cartAtom } from '@/pages/guestOrder/atoms';
-import CartItem from './CartItem';
 import { KeyboardDoubleArrowDownRounded, KeyboardDoubleArrowUpRounded } from '@mui/icons-material';
 import { Box, Button, Divider, styled, Typography } from '@mui/material';
 import { useAtom } from 'jotai';
 import React, { useEffect, useRef, useState } from 'react';
+import CartItem from './CartItem';
 
 export const maxWidth = 640 + 420 + 24;
 
@@ -16,7 +16,6 @@ const Cart = (): React.ReactNode => {
   const [cartList, setCartList] = useAtom(cartAtom);
 
   const toggleCartOpen = () => {
-    console.log('###', isCartOpen);
     setIsCartOpen((prev) => !prev);
   };
 

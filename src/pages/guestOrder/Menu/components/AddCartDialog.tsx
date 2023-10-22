@@ -15,12 +15,13 @@ import { useSetAtom } from 'jotai';
 import React, { useState } from 'react';
 
 interface Props {
+  clientKey: string;
   data: ClientMenuResponse;
   onClose: () => void;
 }
 
 const AddCartDialog = (props: Props): React.ReactNode => {
-  const { data, onClose } = props;
+  const { clientKey, data, onClose } = props;
 
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [quantity, setQuantity] = useState<number>(1);
@@ -58,6 +59,7 @@ const AddCartDialog = (props: Props): React.ReactNode => {
 
   const handleAdd = () => {
     const newItem: CartItem = {
+      clientKey,
       menuInfo: data,
       options: selectedOptions,
       quantity,
