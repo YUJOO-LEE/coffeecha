@@ -109,8 +109,7 @@ export interface UpdateClientMenuRequest {
   saleQuantity?: number;
 }
 
-/** 클라이언트 조회 Response */
-export interface ClientResponse {
+export interface OrderClientResponse {
   /** @format int64 */
   clientId: number;
   clientName: string;
@@ -119,7 +118,7 @@ export interface ClientResponse {
   userPhoneNumber: string;
   /** @format date */
   businessDate: string;
-  openStatus: ClientResponseOpenStatusEnum;
+  openStatus: OrderClientResponseOpenStatusEnum;
   clientKey: string;
 }
 
@@ -160,6 +159,24 @@ export interface MenuOptionResponse {
   /** @format int64 */
   menuOptionId?: number;
   menuOptionName?: string;
+}
+
+/** 클라이언트 조회 Response */
+export interface ClientResponse {
+  /** @format int64 */
+  clientId: number;
+  clientName: string;
+  address: string;
+  phoneNumber: string;
+  /** @format date */
+  businessDate: string;
+  openStatus: ClientResponseOpenStatusEnum;
+  clientKey: string;
+}
+
+export enum OrderClientResponseOpenStatusEnum {
+  OPEN = "OPEN",
+  CLOSE = "CLOSE",
 }
 
 export enum ClientResponseOpenStatusEnum {

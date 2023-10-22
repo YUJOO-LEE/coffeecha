@@ -9,7 +9,13 @@
  * ---------------------------------------------------------------
  */
 
-import { CategoryResponse, ClientMenuResponse, ClientResponse, OrderRequest, OrderResponse } from "./data-contracts";
+import {
+  CategoryResponse,
+  ClientMenuResponse,
+  OrderClientResponse,
+  OrderRequest,
+  OrderResponse,
+} from "./data-contracts";
 import { ContentType, HttpClient, RequestParams } from "./http-client";
 
 export class OrderPage<SecurityDataType = unknown> {
@@ -25,12 +31,12 @@ export class OrderPage<SecurityDataType = unknown> {
    * @tags OrderPage
    * @name CustomerOrder
    * @summary 고객 주문
-   * @request POST:/order-api/order/{clientKey}
+   * @request POST:/order-api/orders/{clientKey}
    * @secure
    */
   customerOrder = (clientKey: string, data: OrderRequest, params: RequestParams = {}) =>
     this.http.request<OrderResponse, any>({
-      path: `/order-api/order/${clientKey}`,
+      path: `/order-api/orders/${clientKey}`,
       method: "POST",
       body: data,
       secure: true,
@@ -47,7 +53,7 @@ export class OrderPage<SecurityDataType = unknown> {
    * @secure
    */
   getClientByKey = (clientKey: string, params: RequestParams = {}) =>
-    this.http.request<ClientResponse, any>({
+    this.http.request<OrderClientResponse, any>({
       path: `/order-api/clients/${clientKey}`,
       method: "GET",
       secure: true,
