@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 
 interface Props {
   clientKey: string;
-  category?: number;
+  category: number | 'all';
 }
 
 const MenuList = (props: Props): React.ReactNode => {
@@ -16,7 +16,7 @@ const MenuList = (props: Props): React.ReactNode => {
   const [addCartTarget, setAddCartTarget] = useState<ClientMenuResponse | null>(null);
 
   const { data } = useGetClientMenuForGuest(clientKey);
-  const menuList = (category ? data?.filter(({ categoryId }) => categoryId === category) : data) || [];
+  const menuList = (category === 'all' ? data : data?.filter(({ categoryId }) => categoryId === category)) || [];
 
   const handleOpenAddDialog = (target: ClientMenuResponse) => () => {
     setAddCartTarget(target);

@@ -1,11 +1,11 @@
 import { useGetCategoryForGuest } from '@/apis/queries/guestOrder';
-import { Button, ButtonGroup, styled } from '@mui/material';
+import { styled, Tab, Tabs } from '@mui/material';
 import React from 'react';
 
 interface IProps {
   clientKey: string;
-  category?: number;
-  onCategorySelect: (target?: number) => void;
+  category: number | 'all';
+  onCategorySelect: (target: number | 'all') => void;
 }
 
 const MenuHeader = (props: IProps): React.ReactNode => {
@@ -13,27 +13,36 @@ const MenuHeader = (props: IProps): React.ReactNode => {
 
   const { data: categoryList } = useGetCategoryForGuest(clientKey);
 
-  const handleSelect = (target?: number) => () => {
+  const handleSelect = (target: number | 'all') => () => {
     onCategorySelect(target);
   };
 
   return (
-    <Styled.Wrapper fullWidth disableElevation variant="contained" size="large">
-      <Button
-        onClick={handleSelect()}
-        sx={(theme) => ({ backgroundColor: !category ? theme.palette.primary.dark : undefined})}
+    <Styled.Wrapper>
+      <Styled.Tabs
+        value={category}
+        variant="scrollable"
+        textColor="inherit"
+        scrollButtons="auto"
+        selectionFollowsFocus
+        TabIndicatorProps={{ style: { display: 'none' } }}
       >
-        All
-      </Button>
-      {categoryList?.map(({ id, name }) => (
-        <Button
-          key={`category_${id}`}
-          onClick={handleSelect(id)}
-          sx={(theme) => ({ backgroundColor: category === id ? theme.palette.primary.dark : undefined})}
-        >
-          {name}
-        </Button>
-      ))}
+        <Tab
+          onClick={handleSelect('all')}
+          label="All"
+          value="all"
+          sx={(theme) => ({ backgroundColor: category === 'all' ? `${theme.palette.primary.dark} !important` : undefined})}
+        />
+        {categoryList?.map(({ id, name }) => (
+          <Tab
+            key={`category_${id}`}
+            label={name}
+            value={id}
+            onClick={handleSelect(id)}
+            sx={(theme) => ({ backgroundColor: category === id ? `${theme.palette.primary.dark} !important` : undefined})}
+          />
+        ))}
+      </Styled.Tabs>
     </Styled.Wrapper>
   );
 };
@@ -41,10 +50,26 @@ const MenuHeader = (props: IProps): React.ReactNode => {
 export default MenuHeader;
 
 const Styled = {
-  Wrapper: styled(ButtonGroup)({
-    overflow: 'hidden',
-      '& button': {
-      padding: '12px',
+  Wrapper: styled('div')(({ theme }) => ({
+    display: 'flex',
+    justifyContent: 'center',
+    borderRadius: '4px',
+    backgroundColor: theme.palette.primary.main,
+  })),
+  Tabs: styled(Tabs)(({ theme }) => ({
+    '& button': {
+      color: theme.palette.common.white,
+      backgroundColor: theme.palette.primary.main,
+      opacity: '1',
+      '&:last-of-type': {
+        borderRadius: '0 4px 4px 0',
+      },
+      '&:first-of-type': {
+        borderRadius: '4px 0 0 4px',
+      },
     },
-  }),
+    '& .MuiTabs-scrollButtons path': {
+      fill: theme.palette.common.white,
+    },
+  })),
 };

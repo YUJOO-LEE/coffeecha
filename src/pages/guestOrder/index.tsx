@@ -16,13 +16,13 @@ const GuestOrderPage = (): React.ReactNode => {
   const { clientKey } = useParams();
 
   const [isLoadingShow, setIsLoadingShow] = useState<boolean>(true);
-  const [category, setCategory] = useState<number>();
+  const [category, setCategory] = useState<number | 'all'>('all');
 
   const { data: clientInfo, isLoading, isError } = useGetClientInfoForGuest(clientKey!, !!clientKey);
   const isWrongClientData = !clientKey || isError || (!isLoading && !clientInfo);
   const isClosed = clientInfo && (clientInfo.openStatus !== OrderClientResponseOpenStatusEnum.OPEN || clientInfo.businessDate !== dayjs().format('YYYY-MM-DD'));
 
-  const handleCategorySelect = (target?: number) => {
+  const handleCategorySelect = (target: number | 'all') => {
     setCategory(target);
   };
 
