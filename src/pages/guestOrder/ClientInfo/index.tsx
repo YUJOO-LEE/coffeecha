@@ -1,9 +1,9 @@
-import { ClientResponse } from '@/apis/swagger/data-contracts';
+import { OrderClientResponse } from '@/apis/swagger/data-contracts';
 import { Box, Skeleton, styled, Typography } from '@mui/material';
 import React from 'react';
 
 interface Props {
-  data?: ClientResponse;
+  data?: OrderClientResponse;
 }
 
 const ClientInfo = (props: Props): React.ReactNode => {
