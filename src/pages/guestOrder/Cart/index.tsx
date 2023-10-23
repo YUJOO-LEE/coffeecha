@@ -48,10 +48,11 @@ const Cart = (): React.ReactNode => {
 
   const preventScroll = () => {
     prevScrollY.current = window.scrollY;
+    const bodyHeight = document.body.offsetHeight;
     document.body.style.position = 'fixed';
     document.body.style.width = '100%';
     document.body.style.top = `-${prevScrollY.current}px`;
-    document.body.style.overflowY = 'scroll';
+    document.body.style.overflowY = bodyHeight > window.innerHeight ? 'scroll' : 'hidden';
   };
 
   const allowScroll = () => {
@@ -72,7 +73,8 @@ const Cart = (): React.ReactNode => {
 
   useEffect(() => {
     resizeObserver.current = new ResizeObserver((entries) => {
-      const { width } = entries[0].contentRect;
+      const { inlineSize: width } = entries[0].borderBoxSize[0];
+
       setIsCartOpen(width > maxWidth);
       allowScroll();
     });
