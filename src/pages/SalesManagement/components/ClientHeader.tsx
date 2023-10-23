@@ -1,8 +1,9 @@
 import { useGetClientDetail } from '@/apis/queries/client';
 import { ClientResponseOpenStatusEnum } from '@/apis/swagger/data-contracts';
 import ClientListDrawer from '@/pages/SalesManagement/components/ClientListDrawer';
-import { LoopRounded } from '@mui/icons-material';
-import { Box, Button, Chip, Divider, styled, Typography } from '@mui/material';
+import { ErrorRounded, LoopRounded } from '@mui/icons-material';
+import { Box, Button, Chip, Divider, styled, Tooltip, Typography } from '@mui/material';
+import dayjs from 'dayjs';
 import React, { useLayoutEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,6 +19,7 @@ const ClientHeader = (props: Props): React.ReactNode => {
   const [listOpen, setListOpen] = useState(false);
 
   const { data: clientDetail, isError } = useGetClientDetail(Number(clientId));
+  const isOpenDisabled: boolean = !clientDetail || !dayjs().isSame(dayjs(clientDetail?.businessDate), 'd');
 
   const handleListOpen = () => {
     setListOpen(true);
@@ -36,12 +38,19 @@ const ClientHeader = (props: Props): React.ReactNode => {
   return (
     <Styled.HeaderBar isOffsetTop={isOffsetTop}>
       <Box display="flex" gap="8px" alignItems="center">
-        <Chip
-          size="small"
-          variant="filled"
-          color={clientDetail?.openStatus === ClientResponseOpenStatusEnum.OPEN ? 'success' : 'default'}
-          label={clientDetail?.openStatus}
-        />
+        <Box display="flex" gap="4px" alignItems="center">
+          {clientDetail?.openStatus === ClientResponseOpenStatusEnum.OPEN && isOpenDisabled && (
+            <Tooltip title="Store is open but today is not opening day. Unable to take orders until opening day." arrow>
+              <ErrorRounded color="error" />
+            </Tooltip>
+          )}
+          <Chip
+            size="small"
+            variant="filled"
+            color={clientDetail?.openStatus === ClientResponseOpenStatusEnum.OPEN ? 'success' : 'default'}
+            label={clientDetail?.openStatus}
+          />
+        </Box>
         <Typography variant="h2" fontSize="20px" fontWeight="500">
           {clientDetail?.clientName}
         </Typography>

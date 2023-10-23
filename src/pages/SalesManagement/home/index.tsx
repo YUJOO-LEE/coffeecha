@@ -51,7 +51,7 @@ const HomePage = () => {
           </Button>
           {isOpenDisabled && (
             <Styled.OpenWarning>
-              <span>Opening date</span> must be provided to proceed.
+              The store can only be opened if the <span>Opening date</span> is the same as <span>Today's date</span>.
             </Styled.OpenWarning>
           )}
         </Styled.OpenCard>
