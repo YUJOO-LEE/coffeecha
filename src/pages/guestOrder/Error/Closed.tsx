@@ -13,8 +13,8 @@ const Closed = (props: Props): React.ReactNode => {
     <Styled.Wrapper>
       <Styled.Icon />
       <Typography fontSize="16px" fontWeight="500" color={(theme) => theme.palette.error.main} align="center">
-        The coffee cart has not opened<br />
-        Please check the opening date <strong>{openingDate}</strong>
+        커피차가 오픈하지 않았습니다.<br />
+        오픈 예정일(<strong>{openingDate}</strong>)을 확인 해 주세요.
       </Typography>
     </Styled.Wrapper>
   );

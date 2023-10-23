@@ -7,7 +7,8 @@ const NoData = (): React.ReactNode => {
     <Styled.Wrapper>
       <Styled.Icon />
       <Typography fontSize="16px" fontWeight="500" color={(theme) => theme.palette.error.main} align="center">
-        Sorry, we couldn't find the data for your requested COFFEECHA
+        커피차를 찾을 수 없습니다.<br />
+        요청하신 URL을 다시 확인 해 주세요.
       </Typography>
     </Styled.Wrapper>
   );

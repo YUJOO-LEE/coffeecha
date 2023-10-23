@@ -29,7 +29,7 @@ const MenuHeader = (props: IProps): React.ReactNode => {
       >
         <Tab
           onClick={handleSelect('all')}
-          label="All"
+          label="전체"
           value="all"
           sx={(theme) => ({ backgroundColor: category === 'all' ? `${theme.palette.primary.dark} !important` : undefined})}
         />

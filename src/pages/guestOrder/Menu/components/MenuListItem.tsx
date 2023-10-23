@@ -31,7 +31,7 @@ const MenuListItem = (props: Props): React.ReactNode => {
         <Styled.HiddenWrapper>
           <Styled.HiddenIcon />
           <Typography fontSize="16px" fontWeight="500" color={(theme) => theme.palette.primary.main}>
-            Sold out
+            재고 소진
           </Typography>
         </Styled.HiddenWrapper>
       )}

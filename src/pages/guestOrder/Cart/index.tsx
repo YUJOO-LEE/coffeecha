@@ -98,11 +98,11 @@ const Cart = (): React.ReactNode => {
         <Styled.Box onClick={!isCartOpen ? toggleCartOpen : undefined}>
           <Styled.Header>
             <Typography fontSize="16px" fontWeight="500">
-              CART
+              주문서
             </Typography>
             <Box display="flex" gap="4px">
               <Typography fontSize="16px" fontWeight="500">
-                Total
+                합계
               </Typography>
               <Typography fontSize="16px" fontWeight="700">
                 {cartList.length}
@@ -113,7 +113,7 @@ const Cart = (): React.ReactNode => {
           <Styled.CartList>
             {!cartList.length ? (
               <Typography fontSize="16px" fontWeight="300" align="center">
-                No item
+                주문 할 메뉴를 선택하세요
               </Typography>
             ) : (
               cartList.map((item, index) => (
@@ -129,10 +129,10 @@ const Cart = (): React.ReactNode => {
           </Styled.CartList>
           <Box display="flex" justifyContent="flex-end" gap="8px">
             <Button variant="text" size="medium" color="primary">
-              Reset
+              초기화
             </Button>
             <Button variant="contained" size="medium" color="primary" disableElevation>
-              Order
+              주문하기
             </Button>
           </Box>
         </Styled.Box>

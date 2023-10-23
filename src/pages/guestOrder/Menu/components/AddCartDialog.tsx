@@ -102,10 +102,10 @@ const AddCartDialog = (props: Props): React.ReactNode => {
       </DialogContent>
       <DialogActions>
         <Button variant="text" size="medium" onClick={onClose}>
-          Cancel
+          닫기
         </Button>
         <Button variant="contained" size="medium" disableElevation onClick={handleAdd}>
-          Add Cart
+          메뉴 추가
         </Button>
       </DialogActions>
     </Dialog>
