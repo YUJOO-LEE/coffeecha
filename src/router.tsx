@@ -1,11 +1,12 @@
 import CollectionPage from '@/pages/collection';
 import GuestOrderPage from '@/pages/guestOrder';
-import SalesManagementPage from '@/pages/SalesManagement';
-import HomePage from '@/pages/SalesManagement/home';
+import SalesManagementPage from '@/pages/salesManagement';
+import HomePage from '@/pages/salesManagement/home';
 import LoginPage from '@/pages/login';
-import MenuPage from '@/pages/SalesManagement/menu';
-import OrderPage from '@/pages/SalesManagement/order';
-import SettingPage from '@/pages/SalesManagement/setting';
+import MenuPage from '@/pages/salesManagement/menu';
+import OrderPage from '@/pages/salesManagement/order';
+import ClientSettingsPage from '@/pages/salesManagement/settings';
+import UserSettingsPage from '@/pages/settings';
 import { createBrowserRouter, redirect } from 'react-router-dom';
 
 const routers = createBrowserRouter([
@@ -28,6 +29,10 @@ const routers = createBrowserRouter([
         element: <CollectionPage />,
       },
       {
+        path: '/settings',
+        element: <UserSettingsPage />,
+      },
+      {
         path: '/:clientId/',
         element: <HomePage />,
       },
@@ -40,8 +45,8 @@ const routers = createBrowserRouter([
         element: <MenuPage />,
       },
       {
-        path: '/:clientId/setting',
-        element: <SettingPage />,
+        path: '/:clientId/settings',
+        element: <ClientSettingsPage />,
       },
     ],
   },

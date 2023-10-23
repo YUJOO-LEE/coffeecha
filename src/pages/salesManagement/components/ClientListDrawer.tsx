@@ -1,5 +1,5 @@
 import IconButton from '@/components/IconButton';
-import ClientList from '@/pages/SalesManagement/components/ClientList';
+import ClientList from '@/pages/salesManagement/components/ClientList';
 import isPropValid from '@emotion/is-prop-valid';
 import { CloseRounded } from '@mui/icons-material';
 import { Box, Button, Card, DialogContent, DialogTitle, Drawer, styled, Typography } from '@mui/material';

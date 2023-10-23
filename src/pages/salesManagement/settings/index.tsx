@@ -3,14 +3,14 @@ import { UpdateClientRequest } from '@/apis/swagger/data-contracts';
 import DeleteDialog from '@/components/DeleteDialog';
 import Layout from '@/components/Layout';
 import LoadingCircleProgress from '@/components/LoadingCircleProgress';
-import { SettingsRounded } from '@mui/icons-material';
+import { ManageAccountsRounded } from '@mui/icons-material';
 import { Box, Button, styled, TextField, Typography } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import React, { useLayoutEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const SettingPage = () => {
+const ClientSettingsPage = () => {
   const { clientId } = useParams();
   const navigate = useNavigate();
 
@@ -83,9 +83,9 @@ const SettingPage = () => {
 
       <Box display="grid" gap="16px">
         <Box display="flex" gap="8px">
-          <SettingsRounded color="primary" />
+          <ManageAccountsRounded color="primary" />
           <Typography variant="h1" fontSize="20px" fontWeight="500" color={(theme) => theme.palette.primary.main}>
-            Setting
+            Settings
           </Typography>
         </Box>
         <Styled.ContentBox display="flex" flexDirection="column" gap="16px">
@@ -122,7 +122,7 @@ const SettingPage = () => {
   );
 }
 
-export default SettingPage;
+export default ClientSettingsPage;
 
 const Styled = {
   ContentBox: styled(Box)(({ theme }) => ({

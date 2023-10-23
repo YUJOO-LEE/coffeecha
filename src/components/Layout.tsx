@@ -1,6 +1,6 @@
 import { useAuth } from '@/apis/queries/auth';
 import GlobalNavigation from '@/components/GlobalNavigation';
-import ClientHeader from '@/pages/SalesManagement/components/ClientHeader';
+import ClientHeader from '@/pages/salesManagement/components/ClientHeader';
 import { Box, styled } from '@mui/material';
 import React, { useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
