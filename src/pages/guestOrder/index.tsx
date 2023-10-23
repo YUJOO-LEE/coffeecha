@@ -1,5 +1,6 @@
 import { useGetClientInfoForGuest } from '@/apis/queries/guestOrder';
 import { OrderClientResponseOpenStatusEnum } from '@/apis/swagger/data-contracts';
+import { cartAtom } from '@/pages/guestOrder/atoms';
 import Cart, { maxWidth } from '@/pages/guestOrder/Cart';
 import ClientInfo from '@/pages/guestOrder/ClientInfo';
 import Closed from '@/pages/guestOrder/Error/Closed';
@@ -9,7 +10,8 @@ import MenuList from '@/pages/guestOrder/Menu';
 import MenuHeader from '@/pages/guestOrder/Menu/MenuHeader';
 import { Box, styled } from '@mui/material';
 import dayjs from 'dayjs';
-import React, { useEffect, useState } from 'react';
+import { useAtom } from 'jotai';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 const GuestOrderPage = (): React.ReactNode => {
@@ -18,6 +20,8 @@ const GuestOrderPage = (): React.ReactNode => {
   const [isLoadingShow, setIsLoadingShow] = useState<boolean>(true);
   const [category, setCategory] = useState<number | 'all'>('all');
 
+  const [cartList, setCartList] = useAtom(cartAtom);
+
   const { data: clientInfo, isLoading, isError } = useGetClientInfoForGuest(clientKey!, !!clientKey);
   const isWrongClientData = !clientKey || isError || (!isLoading && !clientInfo);
   const isClosed = clientInfo && (clientInfo.openStatus !== OrderClientResponseOpenStatusEnum.OPEN || clientInfo.businessDate !== dayjs().format('YYYY-MM-DD'));
@@ -25,6 +29,12 @@ const GuestOrderPage = (): React.ReactNode => {
   const handleCategorySelect = (target: number | 'all') => {
     setCategory(target);
   };
+
+  useLayoutEffect(() => {
+    if (!clientKey || !cartList[0] || cartList[0].clientKey === clientKey) return;
+    // 접속한 client 와 cart 를 담은 client 가 다르면 초기화
+    setCartList([]);
+  }, [cartList, clientKey, setCartList]);
 
   useEffect(() => {
     // loading 일정시간 노출 (귀여우니까)
