@@ -105,7 +105,7 @@ const Cart = (): React.ReactNode => {
                 합계
               </Typography>
               <Typography fontSize="16px" fontWeight="700">
-                {cartList.length}
+                {cartList.reduce((prev, { quantity }) => prev + quantity, 0)}
               </Typography>
             </Box>
           </Styled.Header>

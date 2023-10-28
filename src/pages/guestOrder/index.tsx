@@ -79,7 +79,6 @@ const Styled = {
     padding: '24px',
     width: '100%',
     maxWidth: '640px',
-    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     gap: '24px',
