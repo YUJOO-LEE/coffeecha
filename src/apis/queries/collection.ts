@@ -1,4 +1,4 @@
-import { categoryApi, collectionApi } from '@/apis';
+import { categoryApi, collectionApi, imageApi } from '@/apis';
 import { defaultOption } from '@/apis/queries/index';
 import { CategoryResponse, CreateMenuRequest } from '@/apis/swagger/data-contracts';
 import { useMutation, UseMutationResult, useQuery, useQueryClient, UseQueryResult } from '@tanstack/react-query';
@@ -57,3 +57,5 @@ export const useDeleteCollection = (): UseMutationResult<AxiosResponse<void>, un
     },
   });
 };
+
+export const useImageUpload = () => useMutation(imageApi.awsS3ImageUploadUrl);

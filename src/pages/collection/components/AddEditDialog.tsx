@@ -1,4 +1,4 @@
-import { useAddCollection, useGetCategoryList, useUpdateCollection } from '@/apis/queries/collection';
+import { useAddCollection, useGetCategoryList, useImageUpload, useUpdateCollection } from '@/apis/queries/collection';
 import { useGetOptionList } from '@/apis/queries/menuOption';
 import { CreateMenuRequest, MenuResponse } from '@/apis/swagger/data-contracts';
 import LoadingCircleProgress from '@/components/LoadingCircleProgress';
@@ -18,6 +18,7 @@ import {
   SelectChangeEvent,
   TextField,
 } from '@mui/material';
+import axios from 'axios';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 
 interface Props {
@@ -36,6 +37,7 @@ const AddEditDialog = (props: Props): React.ReactNode => {
   const { data: optionList } = useGetOptionList();
   const addCollection = useAddCollection();
   const updateCollection = useUpdateCollection();
+  const uploadImage = useImageUpload();
 
   const handleChange = (target: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
@@ -58,8 +60,25 @@ const AddEditDialog = (props: Props): React.ReactNode => {
     }));
   };
 
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+
+    if (!file) {
+      setFormData((prev) => ({...prev, imageUrl: '' }));
+      return;
+    }
+
+    const { data } = await uploadImage.mutateAsync({ file: file.name });
+    if (data.uploadUrl) {
+      const imageUrl = data.uploadUrl.split('?')[0];
+      await axios.put(data.uploadUrl, file);
+      setFormData((prev) => ({...prev, imageUrl }));
+    }
+  };
+
   const handleSave = async () => {
     setIsDisabled(true);
+
     const { status } = editData
       ? await updateCollection.mutateAsync({ menuId: editData.menuId, data: formData })
       : await addCollection.mutateAsync(formData);
@@ -102,13 +121,13 @@ const AddEditDialog = (props: Props): React.ReactNode => {
         <Box display="flex" flexDirection="column" gap="16px" paddingTop="5px">
           <FormControl fullWidth>
             <InputLabel id="category-label">Category</InputLabel>
-            <Select labelId="category-label" label="Category" variant="outlined" value={formData.categoryId} onChange={handleCategoryChange}>
+            <Select labelId="category-label" label="Category" variant="outlined" value={formData.categoryId || ''} onChange={handleCategoryChange}>
               {categoryList?.map(({ id, name }) => (
                 <MenuItem key={`${name}_${id}`} value={id} >{name}</MenuItem>
               ))}
             </Select>
           </FormControl>
-          <TextField type="file" label="Image" variant="outlined" />
+          <TextField type="file" label="Image" variant="outlined" onChange={handleFileChange} />
           <TextField label="Name" variant="outlined" value={formData.name} onChange={handleChange('name')} />
 
           <Box display="flex" gap="4px">

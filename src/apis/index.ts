@@ -5,6 +5,7 @@ import { Client } from '@/apis/swagger/Client';
 import { ClientMenu } from '@/apis/swagger/ClientMenu';
 import { TokenInfo } from '@/apis/swagger/data-contracts';
 import { HttpClient } from '@/apis/swagger/http-client';
+import { Image } from '@/apis/swagger/Image';
 import { Menu } from '@/apis/swagger/Menu';
 import { MenuOption } from '@/apis/swagger/MenuOption';
 import { OrderPage } from '@/apis/swagger/OrderPage';
@@ -27,6 +28,7 @@ export const collectionApi = new Menu(http);
 export const menuApi = new ClientMenu(http);
 export const menuOptionApi = new MenuOption(http);
 export const guestOrderApi = new OrderPage(http);
+export const imageApi = new Image(http);
 
 (function initializeToErrorHandling() {
   const responseInterceptor = async (error?: any) => {
