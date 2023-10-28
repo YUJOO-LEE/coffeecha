@@ -20,14 +20,14 @@ const ClientInfo = (props: Props): React.ReactNode => {
       )}
       <Box display="grid" gap="4px">
         {data ? (
-          <Typography fontSize="14px" fontWeight="300" color={(theme) => theme.palette.grey[500]}>
+          <Typography fontWeight="300" color={(theme) => theme.palette.grey[500]}>
             {data.clientName} | {data.address}
           </Typography>
         ) : (
           <Skeleton />
         )}
         {data ? (
-          <Typography fontSize="14px" fontWeight="300" color={(theme) => theme.palette.grey[500]}>
+          <Typography fontWeight="300" color={(theme) => theme.palette.grey[500]}>
             {data.userPhoneNumber}
           </Typography>
         ) : (
