@@ -16,10 +16,12 @@ import {
   MenuItem,
   Select,
   SelectChangeEvent,
+  styled,
   TextField,
 } from '@mui/material';
 import axios from 'axios';
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { useSnackbar } from 'notistack';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 interface Props {
   editData?: MenuResponse;
@@ -28,6 +30,9 @@ interface Props {
 
 const AddEditDialog = (props: Props): React.ReactNode => {
   const { editData, onClose } = props;
+  const { enqueueSnackbar } = useSnackbar();
+
+  const fileRef = useRef<HTMLInputElement>(null);
 
   const [isOptionOpen, setIsOptionOpen] = useState<boolean>(false);
   const [formData, setFormData] = useState<Omit<CreateMenuRequest, 'userId'>>({ name: '', imageUrl: '', description: '', categoryId: 0, menuOptionIds: [] });
@@ -60,6 +65,10 @@ const AddEditDialog = (props: Props): React.ReactNode => {
     }));
   };
 
+  const handleUploadClick = () => {
+    fileRef.current?.click();
+  };
+
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 
@@ -68,11 +77,21 @@ const AddEditDialog = (props: Props): React.ReactNode => {
       return;
     }
 
+    if (!file.type.includes('image/')) {
+      enqueueSnackbar('This file type is not supported', { variant: 'error' });
+      e.target.value = '';
+      return;
+    }
+
     const { data } = await uploadImage.mutateAsync({ file: file.name });
     if (data.uploadUrl) {
       const imageUrl = data.uploadUrl.split('?')[0];
-      await axios.put(data.uploadUrl, file);
-      setFormData((prev) => ({...prev, imageUrl }));
+      const { status } = await axios.put(data.uploadUrl, file);
+
+      if (status === 200) {
+        setFormData((prev) => ({...prev, imageUrl }));
+      }
+      e.target.value = '';
     }
   };
 
@@ -119,21 +138,34 @@ const AddEditDialog = (props: Props): React.ReactNode => {
       </DialogTitle>
       <DialogContent>
         <Box display="flex" flexDirection="column" gap="16px" paddingTop="5px">
+          {formData.imageUrl ? (
+            <Styled.ImagePreview>
+              <img src={formData.imageUrl} alt={formData.imageUrl} />
+              <Styled.ChangeImageButton variant="contained" disableElevation onClick={handleUploadClick}>
+                Change Image
+              </Styled.ChangeImageButton>
+            </Styled.ImagePreview>
+          ) : (
+            <Button variant="contained" size="large" disableElevation onClick={handleUploadClick}>
+              Upload Image
+            </Button>
+          )}
+          <Styled.ImageInput ref={fileRef} type="file" accept="image/*" onChange={handleFileChange} />
+
           <FormControl fullWidth>
             <InputLabel id="category-label">Category</InputLabel>
-            <Select labelId="category-label" label="Category" variant="outlined" value={formData.categoryId || ''} onChange={handleCategoryChange}>
+            <Select labelId="category-label" label="Category" variant="outlined" value={formData.categoryId} onChange={handleCategoryChange}>
               {categoryList?.map(({ id, name }) => (
                 <MenuItem key={`${name}_${id}`} value={id} >{name}</MenuItem>
               ))}
             </Select>
           </FormControl>
-          <TextField type="file" label="Image" variant="outlined" onChange={handleFileChange} />
           <TextField label="Name" variant="outlined" value={formData.name} onChange={handleChange('name')} />
 
           <Box display="flex" gap="4px">
             <FormControl fullWidth>
               <InputLabel id="options-label">Options</InputLabel>
-              <Select labelId="options-label" label="Options" multiple variant="outlined" value={formData.menuOptionIds} onChange={handleOptionChange}>
+              <Select labelId="options-label" label="Options" multiple variant="outlined" value={formData.menuOptionIds || ''} onChange={handleOptionChange}>
                 {optionList?.map(({ menuOptionId, menuOptionName }) => (
                   <MenuItem key={`${menuOptionName}_${menuOptionId}`} value={menuOptionId} >{menuOptionName}</MenuItem>
                 ))}
@@ -161,3 +193,28 @@ const AddEditDialog = (props: Props): React.ReactNode => {
 }
 
 export default AddEditDialog;
+
+const Styled = {
+  ImagePreview: styled('div')(({ theme }) => ({
+    position: 'relative',
+    height: '180px',
+    padding: '8px',
+    border: `1px solid ${theme.palette.grey[200]}`,
+    borderRadius: '4px',
+    lineHeight: '0',
+    overflow: 'hidden',
+    '& img': {
+      width: '100%',
+      height: '100%',
+      objectFit: 'contain',
+    },
+  })),
+  ChangeImageButton: styled(Button)({
+    position: 'absolute',
+    top: '16px',
+    right: '16px',
+  }),
+  ImageInput: styled('input')({
+    display: 'none',
+  }),
+};
