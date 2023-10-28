@@ -65,6 +65,11 @@ const Styled = {
     borderRadius: '8px',
     overflow: 'hidden',
     backgroundColor: theme.palette.grey[200],
+    '& img': {
+      width: '100%',
+      height: '100%',
+      objectFit: 'cover',
+    }
   })),
   QuantityWrapper: styled(ButtonGroup)({
     '& .MuiButtonGroup-grouped': {
