@@ -72,7 +72,7 @@ const MenuGridItem = (props: Props): React.ReactNode => {
             </IconButton>
           </Tooltip>
         )}
-        {!data.menuHidden && (editMode ? (
+        {editMode ? (
           <Box display="flex" gap="8px" alignItems="center">
             <IconButton size="large" sx={{ margin: '-10px' }} onClick={handleEditModeOff}>
               <CancelRounded sx={{ width: '16px', height: '16px' }} />
@@ -86,11 +86,13 @@ const MenuGridItem = (props: Props): React.ReactNode => {
             <IconButton size="large" sx={{ margin: '-10px' }} onClick={handleDeleteOpen}>
               <DeleteOutlineRounded sx={{ width: '16px', height: '16px' }} />
             </IconButton>
-            <IconButton size="large" color="primary" sx={{ margin: '-10px' }} onClick={handleEditModeOn}>
-              <ModeEditOutlineRounded sx={{ width: '16px', height: '16px' }} />
-            </IconButton>
+            {!data.menuHidden && (
+              <IconButton size="large" color="primary" sx={{ margin: '-10px' }} onClick={handleEditModeOn}>
+                <ModeEditOutlineRounded sx={{ width: '16px', height: '16px' }} />
+              </IconButton>
+            )}
           </Box>
-        ))}
+        )}
       </Box>
       <Box display="grid" gap="16px">
         <Styled.ImageWrapper>
