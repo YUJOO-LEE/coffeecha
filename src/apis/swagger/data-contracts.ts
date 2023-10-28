@@ -161,6 +161,10 @@ export interface MenuOptionResponse {
   menuOptionName?: string;
 }
 
+export interface ImageUploadUrlResponse {
+  uploadUrl: string;
+}
+
 /** 클라이언트 조회 Response */
 export interface ClientResponse {
   /** @format int64 */
