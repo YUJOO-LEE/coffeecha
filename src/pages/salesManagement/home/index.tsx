@@ -57,22 +57,28 @@ const HomePage = () => {
         </Styled.OpenCard>
 
         <Styled.InfoCard>
-          <Typography display="flex" alignItems="center" gap="8px">
+          <Box display="flex" alignItems="center" gap="8px">
             <Chip size="small" label="TODAY" />
-            {dayjs().format('MMM D, YYYY')}
-          </Typography>
-          <Typography display="flex" alignItems="center" gap="8px">
+            <Typography>
+              {dayjs().format('MMM D, YYYY')}
+            </Typography>
+          </Box>
+          <Box display="flex" alignItems="center" gap="8px">
             <Chip size="small" label="OPENING DATE" />
-            {dayjs(clientDetail?.businessDate).format('MMM D, YYYY')}
-            <Typography color="grey"> ({dayjs(clientDetail?.businessDate).fromNow()})</Typography>
-          </Typography>
+            <Typography>
+              {dayjs(clientDetail?.businessDate).format('MMM D, YYYY')}
+            </Typography>
+            <Typography color="grey">
+              ({dayjs(clientDetail?.businessDate).fromNow()})
+            </Typography>
+          </Box>
           {clientDetail?.openStatus === ClientResponseOpenStatusEnum.OPEN && (
-            <Typography display="flex" alignItems="center" gap="8px">
+            <Box display="flex" alignItems="center" gap="8px">
               <Chip size="small" label="ORDER PAGE" />
               <CopyToClipboard>
                 {`${window.location.origin}/order/${clientDetail?.clientKey}`}
               </CopyToClipboard>
-            </Typography>
+            </Box>
           )}
         </Styled.InfoCard>
       </Box>
