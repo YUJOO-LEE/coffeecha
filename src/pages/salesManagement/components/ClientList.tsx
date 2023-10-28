@@ -19,7 +19,7 @@ const ClientList = (props: Props): React.ReactNode => {
   const { data: clientList } = useGetClientList();
 
   const handleEdit = (clientId: number) => () => {
-    navigate(`/${clientId}/setting`);
+    navigate(`/${clientId}/settings`);
     onClose?.();
   };
 
