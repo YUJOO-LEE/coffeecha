@@ -1,5 +1,5 @@
 import { useGetClientDetail } from '@/apis/queries/client';
-import { ClientResponseOpenStatusEnum } from '@/apis/swagger/data-contracts';
+import { OpenStatus } from '@/apis/swagger/data-contracts';
 import ClientListDrawer from '@/pages/salesManagement/components/ClientListDrawer';
 import { ErrorRounded, LoopRounded } from '@mui/icons-material';
 import { Box, Button, Chip, Divider, styled, Tooltip, Typography } from '@mui/material';
@@ -39,7 +39,7 @@ const ClientHeader = (props: Props): React.ReactNode => {
     <Styled.HeaderBar isOffsetTop={isOffsetTop}>
       <Box display="flex" gap="8px" alignItems="center">
         <Box display="flex" gap="4px" alignItems="center">
-          {clientDetail?.openStatus === ClientResponseOpenStatusEnum.OPEN && isOpenDisabled && (
+          {clientDetail?.openStatus === OpenStatus.OPEN && isOpenDisabled && (
             <Tooltip title="Store is open but today is not opening day. Unable to take orders until opening day." arrow>
               <ErrorRounded color="error" />
             </Tooltip>
@@ -47,7 +47,7 @@ const ClientHeader = (props: Props): React.ReactNode => {
           <Chip
             size="small"
             variant="filled"
-            color={clientDetail?.openStatus === ClientResponseOpenStatusEnum.OPEN ? 'success' : 'default'}
+            color={clientDetail?.openStatus === OpenStatus.OPEN ? 'success' : 'default'}
             label={clientDetail?.openStatus}
           />
         </Box>

@@ -1,5 +1,5 @@
 import { useGetClientInfoForGuest } from '@/apis/queries/guestOrder';
-import { OrderClientResponseOpenStatusEnum } from '@/apis/swagger/data-contracts';
+import { OpenStatus } from '@/apis/swagger/data-contracts';
 import { cartAtom } from '@/pages/guestOrder/order/atoms';
 import Cart, { maxWidth } from '@/pages/guestOrder/order/Cart';
 import ClientInfo from '@/pages/guestOrder/order/ClientInfo';
@@ -24,7 +24,7 @@ const GuestOrderPage = (): React.ReactNode => {
 
   const { data: clientInfo, isLoading, isError } = useGetClientInfoForGuest(clientKey!, !!clientKey);
   const isWrongClientData = !clientKey || isError || (!isLoading && !clientInfo);
-  const isClosed = clientInfo && (clientInfo.openStatus !== OrderClientResponseOpenStatusEnum.OPEN || clientInfo.businessDate !== dayjs().format('YYYY-MM-DD'));
+  const isClosed = clientInfo && (clientInfo.openStatus !== OpenStatus.OPEN || clientInfo.businessDate !== dayjs().format('YYYY-MM-DD'));
 
   const handleCategorySelect = (target: number | 'all') => {
     setCategory(target);

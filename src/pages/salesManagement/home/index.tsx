@@ -1,5 +1,5 @@
 import { useGetClientDetail } from '@/apis/queries/client';
-import { ClientResponseOpenStatusEnum } from '@/apis/swagger/data-contracts';
+import { OpenStatus } from '@/apis/swagger/data-contracts';
 import Layout from '@/components/Layout';
 import CopyToClipboard from '@/pages/components/CopyToClipboard';
 import OpenCloseDialog from '@/pages/salesManagement/home/components/OpenCloseDialog';
@@ -19,7 +19,7 @@ const HomePage = () => {
   const { data: clientDetail } = useGetClientDetail(Number(clientId));
 
   const isOpenDisabled: boolean = !clientDetail || !dayjs().isSame(dayjs(clientDetail?.businessDate), 'd');
-  const changeToOpen: boolean = !!clientDetail && clientDetail.openStatus !== ClientResponseOpenStatusEnum.OPEN;
+  const changeToOpen: boolean = !!clientDetail && clientDetail.openStatus !== OpenStatus.OPEN;
 
   const handleChangeStatusOpen = () => {
     setChangeStatusOpen(true);
@@ -72,7 +72,7 @@ const HomePage = () => {
               ({dayjs(clientDetail?.businessDate).fromNow()})
             </Typography>
           </Box>
-          {clientDetail?.openStatus === ClientResponseOpenStatusEnum.OPEN && (
+          {clientDetail?.openStatus === OpenStatus.OPEN && (
             <Box display="flex" alignItems="center" gap="8px">
               <Chip size="small" label="ORDER PAGE" />
               <CopyToClipboard>

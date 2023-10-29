@@ -1,5 +1,5 @@
 import { useCloseClient, useOpenClient } from '@/apis/queries/client';
-import { ClientResponse, ClientResponseOpenStatusEnum } from '@/apis/swagger/data-contracts';
+import { ClientResponse, OpenStatus } from '@/apis/swagger/data-contracts';
 import { Box, Button, Dialog, DialogActions, DialogContent, styled, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import React, { useState } from 'react';
@@ -11,7 +11,7 @@ interface Props {
 
 const OpenCloseDialog = (props: Props): React.ReactNode => {
   const { onClose, data } = props;
-  const changeToOpen: boolean = data.openStatus !== ClientResponseOpenStatusEnum.OPEN;
+  const changeToOpen: boolean = data.openStatus !== OpenStatus.OPEN;
   const isSameDate = dayjs().isSame(dayjs(data.businessDate), 'd');
 
   const [isDisabled, setIsDisabled] = useState<boolean>(!isSameDate);
@@ -23,8 +23,8 @@ const OpenCloseDialog = (props: Props): React.ReactNode => {
     setIsDisabled(true);
 
     const mutation = {
-      [ClientResponseOpenStatusEnum.CLOSE]: openClient,
-      [ClientResponseOpenStatusEnum.OPEN]: closeClient,
+      [OpenStatus.CLOSE]: openClient,
+      [OpenStatus.OPEN]: closeClient,
     };
 
     try {

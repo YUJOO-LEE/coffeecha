@@ -1,5 +1,5 @@
 import { useGetClientList } from '@/apis/queries/client';
-import { ClientResponseOpenStatusEnum } from '@/apis/swagger/data-contracts';
+import { OpenStatus } from '@/apis/swagger/data-contracts';
 import { CheckRounded, DownloadDoneRounded, ErrorRounded, ManageAccountsRounded } from '@mui/icons-material';
 import { Box, Button, Card, Chip, Divider, styled, Tooltip, Typography } from '@mui/material';
 import dayjs from 'dayjs';
@@ -34,9 +34,9 @@ const ClientList = (props: Props): React.ReactNode => {
         <Styled.ListItem key={clientId}>
           <Box display="flex" justifyContent="space-between" alignItems="flex-end">
             <Box display="flex" alignItems="center" gap="8px">
-              {openStatus === ClientResponseOpenStatusEnum.OPEN && (
+              {openStatus === OpenStatus.OPEN && (
               <Box display="flex" gap="4px" alignItems="center">
-                {openStatus === ClientResponseOpenStatusEnum.OPEN && !dayjs().isSame(dayjs(businessDate), 'd') && (
+                {openStatus === OpenStatus.OPEN && !dayjs().isSame(dayjs(businessDate), 'd') && (
                   <Tooltip title="Store is open but today is not opening day. Unable to take orders until opening day." arrow>
                     <ErrorRounded color="error" />
                   </Tooltip>
