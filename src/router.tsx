@@ -1,5 +1,8 @@
 import CollectionPage from '@/pages/collection';
+import GuestOrderDetailPage from '@/pages/guestOrder/detail';
+import GuestOrderListPage from '@/pages/guestOrder/list';
 import GuestOrderPage from '@/pages/guestOrder/order';
+import NoCoffeechaDataPage from '@/pages/guestOrder/order/Error/NoCoffeechaDataPage';
 import SalesManagementPage from '@/pages/salesManagement';
 import HomePage from '@/pages/salesManagement/home';
 import LoginPage from '@/pages/login';
@@ -7,6 +10,7 @@ import MenuPage from '@/pages/salesManagement/menu';
 import OrderPage from '@/pages/salesManagement/order';
 import ClientSettingsPage from '@/pages/salesManagement/settings';
 import UserSettingsPage from '@/pages/settings';
+import React from 'react';
 import { createBrowserRouter, redirect } from 'react-router-dom';
 
 const routers = createBrowserRouter([
@@ -63,12 +67,19 @@ const routers = createBrowserRouter([
   },
   {
     path: '/order',
-    element: <GuestOrderPage />,
     children: [
       {
-        path: '/order/:clientKey',
+        path: '/order/list',
+        element: <GuestOrderListPage />,
+      },
+      {
+        path: '/order/detail/:orderKey',
+        element: <GuestOrderDetailPage />,
+      },
+      {
+        path: '/order/:clientKey?',
         element: <GuestOrderPage />,
-      }
+      },
     ],
   },
 ]);

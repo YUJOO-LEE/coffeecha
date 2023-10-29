@@ -1,26 +1,20 @@
-import { EventBusyRounded } from '@mui/icons-material';
+import { ReportRounded } from '@mui/icons-material';
 import { styled, Typography } from '@mui/material';
 import React from 'react';
 
-interface Props {
-  openingDate: string;
-}
-
-const Closed = (props: Props): React.ReactNode => {
-  const { openingDate } = props;
-
+const NoCoffeechaDataPage = (): React.ReactNode => {
   return (
     <Styled.Wrapper>
       <Styled.Icon />
       <Typography fontSize="16px" fontWeight="500" color={(theme) => theme.palette.error.main} align="center">
-        커피차가 오픈하지 않았습니다.<br />
-        오픈 예정일(<strong>{openingDate}</strong>)을 확인 해 주세요.
+        커피차를 찾을 수 없습니다.<br />
+        요청하신 URL을 다시 확인 해 주세요.
       </Typography>
     </Styled.Wrapper>
   );
 };
 
-export default Closed;
+export default NoCoffeechaDataPage;
 
 const Styled = {
   Wrapper: styled('div')({
@@ -33,7 +27,7 @@ const Styled = {
     alignItems: 'center',
     gap: '16px',
   }),
-  Icon: styled(EventBusyRounded)(({ theme }) => ({
+  Icon: styled(ReportRounded)(({ theme }) => ({
     width: '48px',
     height: '48px',
     fill: theme.palette.error.main,

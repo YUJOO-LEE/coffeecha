@@ -3,9 +3,9 @@ import { OrderClientResponseOpenStatusEnum } from '@/apis/swagger/data-contracts
 import { cartAtom } from '@/pages/guestOrder/order/atoms';
 import Cart, { maxWidth } from '@/pages/guestOrder/order/Cart';
 import ClientInfo from '@/pages/guestOrder/order/ClientInfo';
-import Closed from '@/pages/guestOrder/order/Error/Closed';
-import Loading from '@/pages/guestOrder/order/Error/Loading';
-import NoData from '@/pages/guestOrder/order/Error/NoData';
+import CoffeechaClosedPage from '@/pages/guestOrder/order/Error/CoffeechaClosedPage';
+import CoffeechaLoading from '@/pages/guestOrder/order/Error/CoffeechaLoading';
+import NoCoffeechaDataPage from '@/pages/guestOrder/order/Error/NoCoffeechaDataPage';
 import MenuList from '@/pages/guestOrder/order/Menu';
 import MenuHeader from '@/pages/guestOrder/order/Menu/MenuHeader';
 import { Box, styled } from '@mui/material';
@@ -48,9 +48,9 @@ const GuestOrderPage = (): React.ReactNode => {
   }, []);
 
   // 상황 별 에러 페이지 출력
-  if (isLoading || isLoadingShow) return <Loading />;
-  if (isWrongClientData) return <NoData />;
-  if (isClosed) return <Closed openingDate={clientInfo.businessDate} />;
+  if (isWrongClientData) return <NoCoffeechaDataPage />;
+  if (isLoading || isLoadingShow) return <CoffeechaLoading />;
+  if (isClosed) return <CoffeechaClosedPage openingDate={clientInfo.businessDate} />;
 
   return (
     <Styled.Wrapper>

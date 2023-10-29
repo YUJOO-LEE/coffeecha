@@ -3,7 +3,7 @@ import { keyframes, styled } from '@mui/material';
 import { CSSProperties } from '@mui/system/CSSProperties';
 import React from 'react';
 
-const Loading = (): React.ReactNode => {
+const CoffeechaLoading = (): React.ReactNode => {
 
   return (
     <Styled.Wrapper>
@@ -21,7 +21,7 @@ const Loading = (): React.ReactNode => {
   );
 };
 
-export default Loading;
+export default CoffeechaLoading;
 
 const Keyframes = {
   Truck: keyframes({
