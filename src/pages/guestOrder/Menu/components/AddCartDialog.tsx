@@ -28,6 +28,9 @@ const AddCartDialog = (props: Props): React.ReactNode => {
 
   const setCart = useSetAtom(cartAtom);
 
+  const availableQuantityToOrder = Math.max(data.stockQuantity - data.saleQuantity, 0);
+  const isIncreaseDisable = quantity >= availableQuantityToOrder;
+
   const handleOptionsSelect = (selected: string) => () => {
     setSelectedOptions((prev) => {
       const newList = [...prev];
@@ -52,6 +55,8 @@ const AddCartDialog = (props: Props): React.ReactNode => {
   };
 
   const handleIncrease = () => {
+    if (isIncreaseDisable) return;
+
     setQuantity((prev) => {
       return prev + 1;
     });
@@ -79,9 +84,13 @@ const AddCartDialog = (props: Props): React.ReactNode => {
         {data.menuName}
         <Box>
           <ButtonGroup>
-            <Button disableElevation variant="contained" onClick={handleDecrease}>-</Button>
+            <Button disableElevation variant="contained" onClick={handleDecrease}>
+              -
+            </Button>
             <Styled.Quantity disableRipple>{quantity}</Styled.Quantity>
-            <Button disableElevation variant="contained" onClick={handleIncrease}>+</Button>
+            <Button disableElevation variant="contained" onClick={handleIncrease} disabled={isIncreaseDisable}>
+              +
+            </Button>
           </ButtonGroup>
         </Box>
       </DialogTitle>

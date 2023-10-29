@@ -24,7 +24,7 @@ const CartAction = (props: IProps): React.ReactNode => {
             {isEmpty && '주문할 메뉴를 선택하세요'}
             {isError && (
               <>
-                더 이상 주문할 수 없는 메뉴가 담겨있습니다<br />
+                주문 가능한 수량을 초과했습니다<br />
                 잔여 수량을 확인 해 주세요
               </>
             )}
