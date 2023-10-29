@@ -1,4 +1,4 @@
-import { useDeleteCollection, useGetCollectionList } from '@/apis/queries/collection';
+import { useDeleteCollection, useGetCategoryList, useGetCollectionList } from '@/apis/queries/collection';
 import { MenuResponse } from '@/apis/swagger/data-contracts';
 import DeleteDialog from '@/components/DeleteDialog';
 import Layout from '@/components/Layout';
@@ -23,6 +23,7 @@ const CollectionPage = (): React.ReactNode => {
   const [deleteItemId, setDeleteItemId] = useState<number | null>(null);
   const [editData, setEditData] = useState<MenuResponse>();
 
+  const { data: categoryList } = useGetCategoryList();
   const { data: collectionList } = useGetCollectionList();
   const deleteCollection = useDeleteCollection();
 
@@ -65,7 +66,7 @@ const CollectionPage = (): React.ReactNode => {
     <Layout>
       <LoadingCircularProgress open={deleteCollection.isLoading} />
 
-      <Box display="grid" gap="16px">
+      <Box display="grid" gap="24px">
         <Box display="flex" justifyContent="space-between">
           <Typography fontSize="20px" fontWeight="inherit" display="flex" alignItems="center" gap="8px">
             <CoffeeMakerRounded />Collection
@@ -79,24 +80,34 @@ const CollectionPage = (): React.ReactNode => {
             </Button>
           </Box>
         </Box>
-        <Styled.MenuList>
-          {collectionList?.map((item) => (
-            <CollectionGridItem
-              key={item.menuId}
-              data={item}
-              renderActionComponent={(
-                <Box display="flex" gap="8px" justifyContent="flex-end" alignItems="center">
-                  <IconButton size="large" sx={{ margin: '-10px' }} onClick={handleDeleteOpen(item.menuId)}>
-                    <CancelRounded sx={{ width: '16px', height: '16px' }} />
-                  </IconButton>
-                  <IconButton size="large" sx={{ margin: '-10px' }} onClick={handleEditOpen(item)}>
-                    <ModeEditOutlineRounded sx={{ width: '16px', height: '16px' }} />
-                  </IconButton>
-                </Box>
-              )}
-            />
-          ))}
-        </Styled.MenuList>
+
+        {categoryList?.map(({ id, name }) => (
+          <Box display="grid" gap="16px">
+            <Typography fontSize="18px" fontWeight="700">
+              {name}
+            </Typography>
+            <Styled.MenuList>
+              {collectionList
+                ?.filter(({ categoryId }) => categoryId === id)
+                .map((item) => (
+                  <CollectionGridItem
+                    key={item.menuId}
+                    data={item}
+                    renderActionComponent={(
+                      <Box display="flex" gap="8px" justifyContent="flex-end" alignItems="center">
+                        <IconButton size="large" sx={{ margin: '-10px' }} onClick={handleDeleteOpen(item.menuId)}>
+                          <CancelRounded sx={{ width: '16px', height: '16px' }} />
+                        </IconButton>
+                        <IconButton size="large" sx={{ margin: '-10px' }} onClick={handleEditOpen(item)}>
+                          <ModeEditOutlineRounded sx={{ width: '16px', height: '16px' }} />
+                        </IconButton>
+                      </Box>
+                    )}
+                  />
+                ))}
+            </Styled.MenuList>
+          </Box>
+        ))}
       </Box>
 
       {isOptionOpen && <OptionDialog onClose={toggleOptionPanel} />}

@@ -1,3 +1,4 @@
+import { useGetCategoryList } from '@/apis/queries/collection';
 import { useGetClientMenuList } from '@/apis/queries/salesManagement/menu';
 import Layout from '@/components/Layout';
 import AddDialog from '@/pages/salesManagement/menu/components/AddDialog';
@@ -12,6 +13,7 @@ const MenuPage = () => {
 
   const [isAddOpen, setAddOpen] = useState<boolean>(false);
 
+  const { data: categoryList } = useGetCategoryList();
   const { data: menuList, isLoading } = useGetClientMenuList(Number(clientId));
 
   const handleMenuAdd = () => {
@@ -37,30 +39,34 @@ const MenuPage = () => {
               Add New Menu
             </Button>
           </Box>
-          <Typography>
-            Coffee
-          </Typography>
-          <Styled.MenuList>
-            {isLoading && (
-              [...Array(5)].map((_, index) => (
-                <Styled.MenuItem key={`skeleton_${index}`}>
-                  <Box>
-                    <IconButton size="large" sx={{ margin: '-10px', cursor: 'auto' }}>
-                      <InfoRounded sx={{ width: '16px', height: '16px' }} />
-                    </IconButton>
-                  </Box>
-                  <Skeleton variant="rounded" sx={{ width: '100%', height: 'auto', aspectRatio: '1 / 1' }} />
-                  <Skeleton variant="rounded" />
-                </Styled.MenuItem>
-              ))
-            )}
-            {menuList?.filter(({ menuHidden }) => !menuHidden).map((item) => (
-              <MenuGridItem key={item.clientMenuId} data={item} />
-            ))}
-            {menuList?.filter(({ menuHidden }) => menuHidden).map((item) => (
-              <MenuGridItem key={item.clientMenuId} data={item} />
-            ))}
-          </Styled.MenuList>
+          {categoryList?.map(({ id, name }) => (
+            <Box display="grid" gap="16px">
+              <Typography fontSize="18px" fontWeight="700">
+                {name}
+              </Typography>
+              <Styled.MenuList>
+                {isLoading && (
+                  [...Array(5)].map((_, index) => (
+                    <Styled.MenuItem key={`skeleton_${index}`}>
+                      <Box>
+                        <IconButton size="large" sx={{ margin: '-10px', cursor: 'auto' }}>
+                          <InfoRounded sx={{ width: '16px', height: '16px' }} />
+                        </IconButton>
+                      </Box>
+                      <Skeleton variant="rounded" sx={{ width: '100%', height: 'auto', aspectRatio: '1 / 1' }} />
+                      <Skeleton variant="rounded" />
+                    </Styled.MenuItem>
+                  ))
+                )}
+                {menuList?.filter(({ menuHidden, categoryId }) => id === categoryId && !menuHidden).map((item) => (
+                  <MenuGridItem key={item.clientMenuId} data={item} />
+                ))}
+                {menuList?.filter(({ menuHidden, categoryId }) => id === categoryId && menuHidden).map((item) => (
+                  <MenuGridItem key={item.clientMenuId} data={item} />
+                ))}
+              </Styled.MenuList>
+            </Box>
+          ))}
         </Styled.ContentBox>
       </Box>
 
