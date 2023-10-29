@@ -1,16 +1,28 @@
+import GuestProfile from '@/pages/guestOrder/Cart/GuestProfile';
 import { ErrorRounded } from '@mui/icons-material';
 import { Box, Button, Tooltip, Typography } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 
 interface IProps {
   isError: boolean;
   isEmpty: boolean;
   onReset: () => void;
-  onOrder: () => void;
 }
 
 const CartAction = (props: IProps): React.ReactNode => {
-  const { isError, isEmpty, onOrder, onReset } = props;
+  const { isError, isEmpty, onReset } = props;
+
+  const [isProfileOpen, setIsProfileOpen] = useState<boolean>(false);
+
+  const handleOrderOpen = () => {
+    if (isEmpty) return;
+    setIsProfileOpen(true);
+  };
+
+  const handleOrderClose = () => {
+    setIsProfileOpen(false);
+  };
+
 
   return (
     <Box display="flex" justifyContent="flex-end" gap="8px">
@@ -38,7 +50,7 @@ const CartAction = (props: IProps): React.ReactNode => {
             size="medium"
             color="primary"
             disableElevation
-            onClick={onOrder}
+            onClick={handleOrderOpen}
             disabled={isError || isEmpty}
             startIcon={(isError || isEmpty) ? <ErrorRounded /> : undefined}
           >
@@ -46,6 +58,10 @@ const CartAction = (props: IProps): React.ReactNode => {
           </Button>
         </span>
       </Tooltip>
+
+      {isProfileOpen && (
+        <GuestProfile onClose={handleOrderClose} />
+      )}
     </Box>
   );
 };

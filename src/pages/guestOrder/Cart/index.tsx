@@ -1,7 +1,6 @@
 import { useGetClientMenuForGuest } from '@/apis/queries/guestOrder';
 import { cartAtom } from '@/pages/guestOrder/atoms';
 import CartAction from '@/pages/guestOrder/Cart/CartAction';
-import GuestProfile from '@/pages/guestOrder/Cart/GuestProfile';
 import { KeyboardDoubleArrowDownRounded, KeyboardDoubleArrowUpRounded } from '@mui/icons-material';
 import { Box, Divider, styled, Typography } from '@mui/material';
 import { useAtom } from 'jotai';
@@ -20,7 +19,6 @@ const Cart = (props: IProps): React.ReactNode => {
   const resizeObserver = useRef<ResizeObserver>();
   const prevScrollY = useRef<number>(window.scrollY);
 
-  const [isProfileOpen, setIsProfileOpen] = useState<boolean>(false);
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
 
   const { data: menuList } = useGetClientMenuForGuest(clientKey);
@@ -73,15 +71,6 @@ const Cart = (props: IProps): React.ReactNode => {
 
   const handleReset = () => {
     setCartList([]);
-  };
-
-  const handleOrderOpen = () => {
-    if (!totalQuantity) return;
-    setIsProfileOpen(true);
-  };
-
-  const handleOrderClose = () => {
-    setIsProfileOpen(false);
   };
 
   const preventScroll = () => {
@@ -165,15 +154,12 @@ const Cart = (props: IProps): React.ReactNode => {
               ))
             )}
           </Styled.CartList>
-          <CartAction isError={isError} isEmpty={!totalQuantity} onOrder={handleOrderOpen} onReset={handleReset} />
+          <CartAction isError={isError} isEmpty={!totalQuantity} onReset={handleReset} />
         </Styled.Box>
       </Styled.Wrapper>
 
       {isCartOpen && (
         <Styled.BackDrop onClick={toggleCartOpen} />
-      )}
-      {isProfileOpen && (
-        <GuestProfile onClose={handleOrderClose} />
       )}
     </>
   );
