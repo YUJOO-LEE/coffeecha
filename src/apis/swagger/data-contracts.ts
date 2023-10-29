@@ -109,6 +109,28 @@ export interface UpdateClientMenuRequest {
   saleQuantity?: number;
 }
 
+export interface GuestOrderResponse {
+  /** @format date-time */
+  orderDateTime: string;
+  clientName: string;
+  orderStatus: OrderStatus;
+  orderKey: string;
+  userName: string;
+}
+
+export enum OrderStatus {
+  ORDER_PLACED = "ORDER_PLACED",
+  ORDER_ACCEPTED = "ORDER_ACCEPTED",
+  WAITING_FOR_PICKUP = "WAITING_FOR_PICKUP",
+  PICKUP_COMPLETE = "PICKUP_COMPLETE",
+  ORDER_CANCELLED = "ORDER_CANCELLED",
+}
+
+export enum OpenStatus {
+  OPEN = "OPEN",
+  CLOSE = "CLOSE",
+}
+
 export interface OrderClientResponse {
   /** @format int64 */
   clientId: number;
@@ -118,7 +140,7 @@ export interface OrderClientResponse {
   userPhoneNumber: string;
   /** @format date */
   businessDate: string;
-  openStatus: OrderClientResponseOpenStatusEnum;
+  openStatus: OpenStatus;
   clientKey: string;
 }
 
@@ -174,16 +196,6 @@ export interface ClientResponse {
   phoneNumber: string;
   /** @format date */
   businessDate: string;
-  openStatus: ClientResponseOpenStatusEnum;
+  openStatus: OpenStatus;
   clientKey: string;
-}
-
-export enum OrderClientResponseOpenStatusEnum {
-  OPEN = "OPEN",
-  CLOSE = "CLOSE",
-}
-
-export enum ClientResponseOpenStatusEnum {
-  OPEN = "OPEN",
-  CLOSE = "CLOSE",
 }

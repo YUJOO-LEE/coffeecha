@@ -12,6 +12,7 @@
 import {
   CategoryResponse,
   ClientMenuResponse,
+  GuestOrderResponse,
   OrderClientResponse,
   OrderRequest,
   OrderResponse,
@@ -41,6 +42,29 @@ export class OrderPage<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      ...params,
+    });
+  /**
+   * @description 게스트 주문 전제 조회(이름, 폰번호)
+   *
+   * @tags OrderPage
+   * @name GuestAllOrders
+   * @summary 게스트 주문 전체 조회
+   * @request GET:/order-api/guests
+   * @secure
+   */
+  guestAllOrders = (
+    query: {
+      name: string;
+      phone: string;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.http.request<GuestOrderResponse[], any>({
+      path: `/order-api/guests`,
+      method: "GET",
+      query: query,
+      secure: true,
       ...params,
     });
   /**
