@@ -1,10 +1,10 @@
 import type { CartItem } from '@/pages/guestOrder/atoms';
 import { AddRounded, ClearRounded, RemoveRounded } from '@mui/icons-material';
-import { Box, Button, ButtonGroup, styled, Typography } from '@mui/material';
+import { Alert, Box, Button, ButtonGroup, styled, Typography } from '@mui/material';
 import React from 'react';
 
 interface Props {
-  data: CartItem;
+  data: CartItem & { remain: number; error: boolean };
   onIncrease: () => void;
   onDecrease: () => void;
   onRemove: () => void;
@@ -12,6 +12,8 @@ interface Props {
 
 const CartItem = (props: Props): React.ReactNode => {
   const { data, onIncrease, onDecrease, onRemove } = props;
+
+  const isIncreaseDisable = data.quantity >= data.remain;
 
   return (
     <Styled.Wrapper>
@@ -38,12 +40,19 @@ const CartItem = (props: Props): React.ReactNode => {
           <Button disableElevation variant="contained" onClick={onDecrease}>
             <RemoveRounded />
           </Button>
-          <Styled.Quantity disableRipple>{data.quantity}</Styled.Quantity>
-          <Button disableElevation variant="contained" onClick={onIncrease}>
+          <Styled.Quantity disableRipple disabled={data.error}>{data.quantity}</Styled.Quantity>
+          <Button disableElevation variant="contained" onClick={onIncrease} disabled={isIncreaseDisable}>
             <AddRounded />
           </Button>
         </Styled.QuantityWrapper>
       </Box>
+      {data.error && (
+        <Box gridColumn="span 2">
+          <Alert severity="error">
+            주문할 수 없습니다. <strong>잔여 수량 : {data.remain}</strong>
+          </Alert>
+        </Box>
+      )}
     </Styled.Wrapper>
   );
 };

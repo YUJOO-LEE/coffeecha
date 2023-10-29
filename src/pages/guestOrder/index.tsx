@@ -59,7 +59,7 @@ const GuestOrderPage = (): React.ReactNode => {
         <MenuHeader clientKey={clientKey} category={category} onCategorySelect={handleCategorySelect} />
         <MenuList clientKey={clientKey} category={category} />
       </Styled.Box>
-      <Cart />
+      <Cart clientKey={clientKey} />
     </Styled.Wrapper>
   );
 };

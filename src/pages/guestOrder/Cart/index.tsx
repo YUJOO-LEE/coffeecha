@@ -1,16 +1,21 @@
+import { useGetClientMenuForGuest } from '@/apis/queries/guestOrder';
 import { cartAtom } from '@/pages/guestOrder/atoms';
+import CartAction from '@/pages/guestOrder/Cart/CartAction';
 import GuestProfile from '@/pages/guestOrder/Cart/GuestProfile';
 import { KeyboardDoubleArrowDownRounded, KeyboardDoubleArrowUpRounded } from '@mui/icons-material';
-import { Box, Button, Divider, styled, Typography } from '@mui/material';
+import { Box, Divider, styled, Typography } from '@mui/material';
 import { useAtom } from 'jotai';
-import { useSnackbar } from 'notistack';
 import React, { useEffect, useRef, useState } from 'react';
 import CartItem from './CartItem';
 
 export const maxWidth = 640 + 420 + 24;
 
-const Cart = (): React.ReactNode => {
-  const { enqueueSnackbar } = useSnackbar();
+interface IProps {
+  clientKey: string;
+}
+
+const Cart = (props: IProps): React.ReactNode => {
+  const { clientKey } = props;
 
   const resizeObserver = useRef<ResizeObserver>();
   const prevScrollY = useRef<number>(window.scrollY);
@@ -18,9 +23,22 @@ const Cart = (): React.ReactNode => {
   const [isProfileOpen, setIsProfileOpen] = useState<boolean>(false);
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
 
-  const [cartList, setCartList] = useAtom(cartAtom);
+  const { data: menuList } = useGetClientMenuForGuest(clientKey);
 
-  const totalQuantity = cartList.reduce((prev, { quantity }) => prev + quantity, 0);
+  const [cartListAtom, setCartList] = useAtom(cartAtom);
+
+  const totalQuantity = cartListAtom.reduce((prev, { quantity }) => prev + quantity, 0);
+  const cartList = cartListAtom.map((item) => {
+    const findMenu = menuList?.find(({ clientMenuId }) => clientMenuId === item.menuInfo.clientMenuId);
+    const availableQuantityToOrder = findMenu ? findMenu.stockQuantity - findMenu.saleQuantity : 0;
+
+    return {
+      ...item,
+      remain: availableQuantityToOrder,
+      error: item.quantity > availableQuantityToOrder,
+    }
+  });
+  const isError = cartList.some(({ error }) => error);
 
   const toggleCartOpen = () => {
     setIsCartOpen((prev) => !prev);
@@ -58,11 +76,7 @@ const Cart = (): React.ReactNode => {
   };
 
   const handleOrderOpen = () => {
-    if (!totalQuantity) {
-      enqueueSnackbar('주문 할 메뉴를 선택하세요', { variant: 'error' });
-      return;
-    }
-
+    if (!totalQuantity) return;
     setIsProfileOpen(true);
   };
 
@@ -151,14 +165,7 @@ const Cart = (): React.ReactNode => {
               ))
             )}
           </Styled.CartList>
-          <Box display="flex" justifyContent="flex-end" gap="8px">
-            <Button variant="text" size="medium" color="primary" onClick={handleReset}>
-              초기화
-            </Button>
-            <Button variant="contained" size="medium" color="primary" disableElevation onClick={handleOrderOpen}>
-              주문하기
-            </Button>
-          </Box>
+          <CartAction isError={isError} isEmpty={!totalQuantity} onOrder={handleOrderOpen} onReset={handleReset} />
         </Styled.Box>
       </Styled.Wrapper>
 
