@@ -1,19 +1,26 @@
 import { cartAtom } from '@/pages/guestOrder/atoms';
+import GuestProfile from '@/pages/guestOrder/Cart/GuestProfile';
 import { KeyboardDoubleArrowDownRounded, KeyboardDoubleArrowUpRounded } from '@mui/icons-material';
 import { Box, Button, Divider, styled, Typography } from '@mui/material';
 import { useAtom } from 'jotai';
+import { useSnackbar } from 'notistack';
 import React, { useEffect, useRef, useState } from 'react';
 import CartItem from './CartItem';
 
 export const maxWidth = 640 + 420 + 24;
 
 const Cart = (): React.ReactNode => {
+  const { enqueueSnackbar } = useSnackbar();
 
   const resizeObserver = useRef<ResizeObserver>();
   const prevScrollY = useRef<number>(window.scrollY);
+
+  const [isProfileOpen, setIsProfileOpen] = useState<boolean>(false);
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
 
   const [cartList, setCartList] = useAtom(cartAtom);
+
+  const totalQuantity = cartList.reduce((prev, { quantity }) => prev + quantity, 0);
 
   const toggleCartOpen = () => {
     setIsCartOpen((prev) => !prev);
@@ -44,6 +51,23 @@ const Cart = (): React.ReactNode => {
       newList.splice(index, 1);
       return newList;
     });
+  };
+
+  const handleReset = () => {
+    setCartList([]);
+  };
+
+  const handleOrderOpen = () => {
+    if (!totalQuantity) {
+      enqueueSnackbar('주문 할 메뉴를 선택하세요', { variant: 'error' });
+      return;
+    }
+
+    setIsProfileOpen(true);
+  };
+
+  const handleOrderClose = () => {
+    setIsProfileOpen(false);
   };
 
   const preventScroll = () => {
@@ -105,7 +129,7 @@ const Cart = (): React.ReactNode => {
                 합계
               </Typography>
               <Typography fontSize="16px" fontWeight="700">
-                {cartList.reduce((prev, { quantity }) => prev + quantity, 0)}
+                {totalQuantity}
               </Typography>
             </Box>
           </Styled.Header>
@@ -128,17 +152,21 @@ const Cart = (): React.ReactNode => {
             )}
           </Styled.CartList>
           <Box display="flex" justifyContent="flex-end" gap="8px">
-            <Button variant="text" size="medium" color="primary">
+            <Button variant="text" size="medium" color="primary" onClick={handleReset}>
               초기화
             </Button>
-            <Button variant="contained" size="medium" color="primary" disableElevation>
+            <Button variant="contained" size="medium" color="primary" disableElevation onClick={handleOrderOpen}>
               주문하기
             </Button>
           </Box>
         </Styled.Box>
       </Styled.Wrapper>
+
       {isCartOpen && (
         <Styled.BackDrop onClick={toggleCartOpen} />
+      )}
+      {isProfileOpen && (
+        <GuestProfile onClose={handleOrderClose} />
       )}
     </>
   );
