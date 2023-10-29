@@ -1,5 +1,5 @@
 import { ClientMenuResponse } from '@/apis/swagger/data-contracts';
-import { cartAtom, CartItem } from '@/pages/guestOrder/atoms';
+import { cartAtom, CartItem } from '@/pages/guestOrder/order/atoms';
 import {
   Box,
   Button, ButtonGroup,

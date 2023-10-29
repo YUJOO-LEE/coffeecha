@@ -1,4 +1,4 @@
-import GuestProfile from '@/pages/guestOrder/Cart/GuestProfile';
+import GuestProfile from '@/pages/guestOrder/order/Cart/GuestProfile';
 import { ErrorRounded } from '@mui/icons-material';
 import { Box, Button, Tooltip, Typography } from '@mui/material';
 import React, { useState } from 'react';

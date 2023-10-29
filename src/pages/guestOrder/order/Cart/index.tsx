@@ -1,6 +1,6 @@
 import { useGetClientMenuForGuest } from '@/apis/queries/guestOrder';
-import { cartAtom } from '@/pages/guestOrder/atoms';
-import CartAction from '@/pages/guestOrder/Cart/CartAction';
+import { cartAtom } from '@/pages/guestOrder/order/atoms';
+import CartAction from '@/pages/guestOrder/order/Cart/CartAction';
 import { KeyboardDoubleArrowDownRounded, KeyboardDoubleArrowUpRounded } from '@mui/icons-material';
 import { Box, Divider, styled, Typography } from '@mui/material';
 import { useAtom } from 'jotai';

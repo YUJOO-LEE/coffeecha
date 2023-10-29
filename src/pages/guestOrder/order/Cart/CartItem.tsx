@@ -1,4 +1,4 @@
-import type { CartItem } from '@/pages/guestOrder/atoms';
+import type { CartItem } from '@/pages/guestOrder/order/atoms';
 import { AddRounded, ClearRounded, RemoveRounded } from '@mui/icons-material';
 import { Alert, Box, Button, ButtonGroup, styled, Typography } from '@mui/material';
 import React from 'react';

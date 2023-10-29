@@ -1,5 +1,5 @@
 import { OrderRequest } from '@/apis/swagger/data-contracts';
-import { guestInfoAtom } from '@/pages/guestOrder/atoms';
+import { guestInfoAtom } from '@/pages/guestOrder/order/atoms';
 import { getPhoneNumber } from '@/util';
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
 import { useAtom } from 'jotai';

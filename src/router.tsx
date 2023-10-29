@@ -1,5 +1,5 @@
 import CollectionPage from '@/pages/collection';
-import GuestOrderPage from '@/pages/guestOrder';
+import GuestOrderPage from '@/pages/guestOrder/order';
 import SalesManagementPage from '@/pages/salesManagement';
 import HomePage from '@/pages/salesManagement/home';
 import LoginPage from '@/pages/login';
