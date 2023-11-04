@@ -2,7 +2,6 @@ import CollectionPage from '@/pages/collection';
 import GuestOrderDetailPage from '@/pages/guestOrder/detail';
 import GuestOrderListPage from '@/pages/guestOrder/list';
 import GuestOrderPage from '@/pages/guestOrder/order';
-import NoCoffeechaDataPage from '@/pages/guestOrder/order/Error/NoCoffeechaDataPage';
 import SalesManagementPage from '@/pages/salesManagement';
 import HomePage from '@/pages/salesManagement/home';
 import LoginPage from '@/pages/login';
