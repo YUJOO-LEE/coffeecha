@@ -32,13 +32,16 @@ export default GuestOrderHeader;
 
 const Styled = {
   Wrapper: styled('div')(({ theme }) => ({
+    width: '100%',
     minHeight: '56px',
     position: 'sticky',
+    top: '0',
     padding: '8px',
     display: 'grid',
     gridTemplateColumns: 'repeat(3, 1fr)',
     alignItems: 'center',
     gap: '8px',
+    backgroundColor: theme.palette.background.default,
     borderBottom: `1px solid ${theme.palette.grey[200]}`,
   })),
 };
