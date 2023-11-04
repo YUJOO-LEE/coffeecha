@@ -1,5 +1,5 @@
 import { useGetClientMenuForGuest } from '@/apis/queries/guestOrder';
-import { cartAtom } from '@/pages/guestOrder/order/atoms';
+import { cartAtom, OrderItem } from '@/pages/guestOrder/order/atoms';
 import CartAction from '@/pages/guestOrder/order/Cart/CartAction';
 import { KeyboardDoubleArrowDownRounded, KeyboardDoubleArrowUpRounded } from '@mui/icons-material';
 import { Box, Divider, styled, Typography } from '@mui/material';
@@ -26,7 +26,7 @@ const Cart = (props: IProps): React.ReactNode => {
   const [cartListAtom, setCartList] = useAtom(cartAtom);
 
   const totalQuantity = cartListAtom.reduce((prev, { quantity }) => prev + quantity, 0);
-  const cartList = cartListAtom.map((item) => {
+  const cartList: OrderItem[] = cartListAtom.map((item) => {
     const findMenu = menuList?.find(({ clientMenuId }) => clientMenuId === item.menuInfo.clientMenuId);
     const availableQuantityToOrder = findMenu ? findMenu.stockQuantity - findMenu.saleQuantity : 0;
 
@@ -154,7 +154,13 @@ const Cart = (props: IProps): React.ReactNode => {
               ))
             )}
           </Styled.CartList>
-          <CartAction isError={isError} isEmpty={!totalQuantity} onReset={handleReset} />
+          <CartAction
+            orderList={cartList}
+            clientKey={clientKey}
+            isError={isError}
+            isEmpty={!totalQuantity}
+            onReset={handleReset}
+          />
         </Styled.Box>
       </Styled.Wrapper>
 

@@ -10,6 +10,11 @@ export interface CartItem {
   quantity: number;
 }
 
+export interface OrderItem extends CartItem {
+  remain: number;
+  error: boolean;
+}
+
 export const cartAtom = atomWithStorage<CartItem[]>('cart_list', []);
 
 

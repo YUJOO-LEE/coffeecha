@@ -1,19 +1,31 @@
-import { OrderRequest } from '@/apis/swagger/data-contracts';
-import { guestInfoAtom } from '@/pages/guestOrder/order/atoms';
+import { useOrder } from '@/apis/queries/guestOrder';
+import { OrderMenuRequest, OrderRequest } from '@/apis/swagger/data-contracts';
+import LoadingCircleProgress from '@/components/LoadingCircleProgress';
+import { guestInfoAtom, OrderItem } from '@/pages/guestOrder/order/atoms';
 import { getPhoneNumber } from '@/util';
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
 import { useAtom } from 'jotai';
+import { useSnackbar } from 'notistack';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface IProps {
+  clientKey: string;
+  orderList: OrderItem[];
   onClose: () => void;
 }
 
 const GuestProfile = (props: IProps): React.ReactNode => {
-  const { onClose } = props;
+  const { clientKey, orderList, onClose } = props;
+  const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
   const [formData, setFormData] = useAtom(guestInfoAtom);
+
+  const isFormEmpty = !formData.guestName || !formData.phoneNumber || formData.phoneNumber.length < 12;
+
+  const guestOrder = useOrder(clientKey);
 
   const handleChange = (target: keyof Omit<OrderRequest, 'orderList'>) => (e: React.ChangeEvent<HTMLInputElement>) => {
     const value: string = e.target.value;
@@ -24,12 +36,36 @@ const GuestProfile = (props: IProps): React.ReactNode => {
     }));
   };
 
-  const handleSave = async () => {
+  const getOrderList = (): OrderMenuRequest[] => (
+    orderList.map(({ menuInfo, quantity, options}) => ({
+      clientMenuId: menuInfo.clientMenuId,
+      option: options.join(','),
+      quantity,
+    }))
+  );
 
+  const getRequest = () => ({
+    guestName: formData.guestName,
+    phoneNumber: formData.phoneNumber,
+    message: formData.message,
+    orderList: getOrderList(),
+  });
+
+  const handleOrder = async () => {
+    setIsDisabled(true);
+
+    const request = getRequest();
+    try {
+      const { data } = await guestOrder.mutateAsync(request);
+      navigate(`/order/detail/${data.orderKey}`);
+    } catch (e: unknown) {
+      enqueueSnackbar(`주문에 실패했습니다`, { variant: 'error' });
+    }
   };
 
   return (
     <Dialog open={true} onClose={onClose} PaperProps={{ style: { width: '30%', minWidth: '320px' } }}>
+      <LoadingCircleProgress open={guestOrder.isLoading} />
       <DialogTitle>
         주문자 정보
       </DialogTitle>
@@ -44,7 +80,7 @@ const GuestProfile = (props: IProps): React.ReactNode => {
         <Button variant="text" size="large" onClick={onClose}>
           주문취소
         </Button>
-        <Button disableElevation variant="contained" size="large" disabled={isDisabled} onClick={handleSave}>
+        <Button disableElevation variant="contained" size="large" disabled={isFormEmpty || isDisabled} onClick={handleOrder}>
           주문하기
         </Button>
       </DialogActions>

@@ -1,16 +1,19 @@
+import { OrderItem } from '@/pages/guestOrder/order/atoms';
 import GuestProfile from '@/pages/guestOrder/order/Cart/GuestProfile';
 import { ErrorRounded } from '@mui/icons-material';
 import { Box, Button, Tooltip, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
 interface IProps {
+  clientKey: string;
+  orderList: OrderItem[];
   isError: boolean;
   isEmpty: boolean;
   onReset: () => void;
 }
 
 const CartAction = (props: IProps): React.ReactNode => {
-  const { isError, isEmpty, onReset } = props;
+  const { clientKey, orderList, isError, isEmpty, onReset } = props;
 
   const [isProfileOpen, setIsProfileOpen] = useState<boolean>(false);
 
@@ -60,7 +63,11 @@ const CartAction = (props: IProps): React.ReactNode => {
       </Tooltip>
 
       {isProfileOpen && (
-        <GuestProfile onClose={handleOrderClose} />
+        <GuestProfile
+          clientKey={clientKey}
+          orderList={orderList}
+          onClose={handleOrderClose}
+        />
       )}
     </Box>
   );
