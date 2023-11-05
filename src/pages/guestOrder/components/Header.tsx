@@ -21,7 +21,7 @@ const GuestOrderHeader = (props: IProps): React.ReactNode => {
       <Typography variant="h6" fontWeight="700" align="center">
         {title}
       </Typography>
-      <Box>
+      <Box display="flex" justifyContent="flex-end" paddingRight="4px">
         {actionComponent}
       </Box>
     </Styled.Wrapper>

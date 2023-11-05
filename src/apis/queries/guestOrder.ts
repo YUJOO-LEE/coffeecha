@@ -65,13 +65,13 @@ export const useGetGuestOrderList = (name: string, phone: string, enabled: boole
   );
 };
 
-export const useGetGuestOrderDetail = (orderKey: string) => {
+export const useGetGuestOrderDetail = (orderKey?: string) => {
   return useQuery(
     [QueryKey, 'detail', orderKey],
     async () => {
-      const { data } = await guestOrderApi.guestOrderDetail(orderKey);
+      const { data } = await guestOrderApi.guestOrderDetail(orderKey!);
       return data;
     },
-    { ...defaultOption, ...queryOptions },
+    { ...defaultOption, ...queryOptions, enabled: !!orderKey },
   );
 };

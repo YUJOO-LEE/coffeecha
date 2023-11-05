@@ -5,11 +5,12 @@ import { useNavigate } from 'react-router-dom';
 
 interface Props {
   title: string;
+  goBackAction?: () => void;
   actionComponent?: React.ReactNode;
 }
 
 const GuestLayout = (props: React.PropsWithChildren<Props>): React.ReactNode => {
-  const { title, actionComponent, children } = props;
+  const { title, goBackAction, actionComponent, children } = props;
   const navigate = useNavigate();
 
   const handleBack = () => {
@@ -20,7 +21,7 @@ const GuestLayout = (props: React.PropsWithChildren<Props>): React.ReactNode => 
     <Styled.Wrapper>
       <GuestOrderHeader
         title={title}
-        goBackAction={handleBack}
+        goBackAction={goBackAction || handleBack}
         actionComponent={actionComponent}
       />
       <Styled.Content>
