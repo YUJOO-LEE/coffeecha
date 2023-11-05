@@ -45,6 +45,5 @@ const Styled = {
     padding: '24px',
     width: '100%',
     maxWidth: '640px',
-    height: '100%',
   }),
 };

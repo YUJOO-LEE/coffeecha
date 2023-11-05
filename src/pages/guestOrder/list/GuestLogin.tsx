@@ -9,7 +9,7 @@ export const GuestLogin = (): React.ReactNode => {
   const setGuestLoginInfo = useSetAtom(guestLoginAtom);
   const [guestInfo, setGuestInfo] = useAtom(guestInfoAtom);
 
-  const isEmpty = !guestInfo.guestName || !guestInfo.phoneNumber;
+  const isEmpty = !guestInfo.guestName || !guestInfo.phoneNumber || guestInfo.phoneNumber.length < 12;
 
   const handleChange = (target: keyof typeof guestInfo) => (e: React.ChangeEvent<HTMLInputElement>) => {
     const value: string = e.target.value;
@@ -30,7 +30,7 @@ export const GuestLogin = (): React.ReactNode => {
   };
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" height="100%">
+    <Box display="flex" justifyContent="center" alignItems="center" height="calc(100dvh - 56px - 48px)">
       <Form onSubmit={handleLogin}>
         <Box display="grid" gap="16px" width="260px">
           <TextField
