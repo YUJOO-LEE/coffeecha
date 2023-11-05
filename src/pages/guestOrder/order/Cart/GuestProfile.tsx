@@ -1,10 +1,10 @@
 import { useOrder } from '@/apis/queries/guestOrder';
 import { OrderMenuRequest, OrderRequest } from '@/apis/swagger/data-contracts';
 import LoadingCircleProgress from '@/components/LoadingCircleProgress';
-import { guestInfoAtom, OrderItem } from '@/pages/guestOrder/order/atoms';
+import { cartAtom, guestInfoAtom, OrderItem } from '@/pages/guestOrder/order/atoms';
 import { getPhoneNumber } from '@/util';
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
-import { useAtom } from 'jotai';
+import { useAtom, useSetAtom } from 'jotai';
 import { useSnackbar } from 'notistack';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -21,6 +21,7 @@ const GuestProfile = (props: IProps): React.ReactNode => {
   const { enqueueSnackbar } = useSnackbar();
 
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
+  const setCartList = useSetAtom(cartAtom);
   const [formData, setFormData] = useAtom(guestInfoAtom);
 
   const isFormEmpty = !formData.guestName || !formData.phoneNumber || formData.phoneNumber.length < 12;
@@ -57,6 +58,8 @@ const GuestProfile = (props: IProps): React.ReactNode => {
     const request = getRequest();
     try {
       const { data } = await guestOrder.mutateAsync(request);
+      setCartList([]);
+      setFormData((prev) => ({ ...prev, message: '' }));
       navigate(`/order/detail/${data.orderKey}`);
     } catch (e: unknown) {
       enqueueSnackbar(`주문에 실패했습니다`, { variant: 'error' });
