@@ -1,4 +1,5 @@
 import { ClientMenuResponse, OrderRequest } from '@/apis/swagger/data-contracts';
+import { atom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 
 // CART
@@ -26,4 +27,4 @@ export const guestInfoInitialData = {
   message: '',
 };
 
-export const guestInfoAtom = atomWithStorage<Omit<OrderRequest, 'orderList'>>('guest_info', guestInfoInitialData);
+export const guestInfoAtom = atom<Omit<OrderRequest, 'orderList'>>(guestInfoInitialData);
