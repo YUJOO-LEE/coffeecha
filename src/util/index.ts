@@ -3,9 +3,11 @@ export const getPhoneNumber = (value: string) => {
     return value[0];
   }
 
-  const phoneNumberRegex = /^(01[016789])(\d{3,4})(\d{4})$/;
+  const phoneNumberRegexSmall = /^(01[016789])(\d{1,4})$/;
+  const phoneNumberRegexLarge = /^(01[016789])(\d{3,4})(\d{1,4})$/;
 
   return value
     .replace(/\D/g, '')
-    .replace(phoneNumberRegex, '$1-$2-$3');
+    .replace(phoneNumberRegexSmall, '$1-$2')
+    .replace(phoneNumberRegexLarge, '$1-$2-$3');
 };

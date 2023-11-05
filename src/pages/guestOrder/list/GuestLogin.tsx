@@ -1,4 +1,5 @@
 import { guestInfoAtom, guestLoginAtom } from '@/pages/guestOrder/order/atoms';
+import { getPhoneNumber } from '@/util';
 import { Box, Button, TextField } from '@mui/material';
 import { useAtom, useSetAtom } from 'jotai';
 import React from 'react';
@@ -11,9 +12,11 @@ export const GuestLogin = (): React.ReactNode => {
   const isEmpty = !guestInfo.guestName || !guestInfo.phoneNumber;
 
   const handleChange = (target: keyof typeof guestInfo) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value: string = e.target.value;
+
     setGuestInfo((prev) => ({
       ...prev,
-      [target]: e.target.value,
+      [target]: target === 'phoneNumber' ? getPhoneNumber(value) : value,
     }));
   };
 
@@ -41,6 +44,7 @@ export const GuestLogin = (): React.ReactNode => {
             label="연락처"
             variant="outlined"
             size="small"
+            inputProps={{ maxLength: 13, inputMode: 'numeric' }}
             value={guestInfo.phoneNumber}
             onChange={handleChange('phoneNumber')}
           />
