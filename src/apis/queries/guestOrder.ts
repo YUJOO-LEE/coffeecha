@@ -11,7 +11,7 @@ const queryOptions = {
 
 export const useGetCategoryForGuest = (clientKey: string) => {
   return useQuery(
-    [QueryKey, 'category'],
+    [QueryKey, 'category', clientKey],
     async () => {
       const { data } = await guestOrderApi.orderAllCategories(clientKey);
       return data;
@@ -22,7 +22,7 @@ export const useGetCategoryForGuest = (clientKey: string) => {
 
 export const useGetClientInfoForGuest = (clientKey: string, enabled: boolean) => {
   return useQuery(
-    [QueryKey, 'client'],
+    [QueryKey, 'client', clientKey],
     async () => {
       const { data } = await guestOrderApi.getClientByKey(clientKey);
       return data;
@@ -33,7 +33,7 @@ export const useGetClientInfoForGuest = (clientKey: string, enabled: boolean) =>
 
 export const useGetClientMenuForGuest = (clientKey: string) => {
   return useQuery(
-    [QueryKey, 'menu'],
+    [QueryKey, 'menu', clientKey],
     async () => {
       const { data } = await guestOrderApi.getOpenClientAllMenus(clientKey);
       return data;
@@ -52,4 +52,26 @@ export const useOrder = (clientKey: string): UseMutationResult<
       queryClient.invalidateQueries([QueryKey]);
     },
   });
+};
+
+export const useGetGuestOrderList = (name: string, phone: string, enabled: boolean) => {
+  return useQuery(
+    [QueryKey, 'list', name, phone],
+    async () => {
+      const { data } = await guestOrderApi.guestAllOrders({ name, phone });
+      return data;
+    },
+    { ...defaultOption, ...queryOptions, enabled },
+  );
+};
+
+export const useGetGuestOrderDetail = (orderKey: string) => {
+  return useQuery(
+    [QueryKey, 'detail', orderKey],
+    async () => {
+      const { data } = await guestOrderApi.guestOrderDetail(orderKey);
+      return data;
+    },
+    { ...defaultOption, ...queryOptions },
+  );
 };

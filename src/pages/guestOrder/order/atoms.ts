@@ -28,3 +28,11 @@ export const guestInfoInitialData = {
 };
 
 export const guestInfoAtom = atom<Omit<OrderRequest, 'orderList'>>(guestInfoInitialData);
+
+
+export const guestLoginInfoInitialData = {
+  guestName: '',
+  phoneNumber: '',
+};
+
+export const guestLoginAtom = atom<typeof guestLoginInfoInitialData>(guestLoginInfoInitialData);

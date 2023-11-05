@@ -11,7 +11,7 @@ const GuestOrderDetailPage = (): React.ReactNode => {
   if (!orderKey) return <></>
 
   return (
-    <GuestLayout>
+    <GuestLayout title="주문 상세">
       <Box display="grid" gap="16px">
         <Box display="flex" flexDirection="column" alignItems="center">
           <Typography>

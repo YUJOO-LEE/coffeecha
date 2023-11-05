@@ -1,15 +1,27 @@
 import GuestOrderHeader from '@/pages/guestOrder/components/Header';
 import { styled } from '@mui/material';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const GuestLayout = (props: React.PropsWithChildren): React.ReactNode => {
-  const { children } = props;
+interface Props {
+  title: string;
+  actionComponent?: React.ReactNode;
+}
+
+const GuestLayout = (props: React.PropsWithChildren<Props>): React.ReactNode => {
+  const { title, actionComponent, children } = props;
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   return (
     <Styled.Wrapper>
       <GuestOrderHeader
-        title="주문 상세"
-        goBackAction={() => {}}
+        title={title}
+        goBackAction={handleBack}
+        actionComponent={actionComponent}
       />
       <Styled.Content>
         {children}
@@ -33,5 +45,6 @@ const Styled = {
     padding: '24px',
     width: '100%',
     maxWidth: '640px',
+    height: '100%',
   }),
 };
