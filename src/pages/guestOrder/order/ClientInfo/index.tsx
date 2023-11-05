@@ -1,6 +1,7 @@
 import { OrderClientResponse } from '@/apis/swagger/data-contracts';
-import { Box, Skeleton, styled, Typography } from '@mui/material';
+import { Box, Button, Skeleton, styled, Typography } from '@mui/material';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   data?: OrderClientResponse;
@@ -8,6 +9,11 @@ interface Props {
 
 const ClientInfo = (props: Props): React.ReactNode => {
   const { data } = props;
+  const navigate = useNavigate();
+
+  const handleList = () => {
+    navigate('/order/list');
+  };
 
   return (
     <Styled.Wrapper>
@@ -34,6 +40,11 @@ const ClientInfo = (props: Props): React.ReactNode => {
           <Skeleton />
         )}
       </Box>
+      {data && (
+        <Styled.GoToList variant="contained" disableElevation onClick={handleList}>
+          주문조회
+        </Styled.GoToList>
+      )}
     </Styled.Wrapper>
   );
 };
@@ -42,6 +53,7 @@ export default ClientInfo;
 
 const Styled = {
   Wrapper: styled(Box)(({ theme }) => ({
+    position: 'relative',
     padding: '24px',
     display: 'grid',
     gap: '16px',
@@ -49,4 +61,9 @@ const Styled = {
     borderRadius: '4px',
     backgroundColor: theme.palette.background.default,
   })),
+  GoToList: styled(Button)({
+    position: 'absolute',
+    top: '16px',
+    right: '16px',
+  }),
 };
