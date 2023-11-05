@@ -115,6 +115,8 @@ export interface OrderDetailResponse {
   phoneNumber: string;
   message?: string;
   orderList: OrderMenuInfo[];
+  /** @format date-time */
+  orderDateTime?: string;
 }
 
 export interface OrderMenuInfo {
@@ -122,6 +124,7 @@ export interface OrderMenuInfo {
   /** @format int32 */
   orderQuantity?: number;
   menuOption?: string;
+  imageUrl?: string;
 }
 
 export enum OrderStatus {
