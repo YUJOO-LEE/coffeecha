@@ -65,7 +65,7 @@ const GuestProfile = (props: IProps): React.ReactNode => {
   };
 
   return (
-    <Dialog open={true} onClose={onClose} PaperProps={{ style: { width: '30%', minWidth: '320px' } }}>
+    <Dialog open={true} onClose={onClose} PaperProps={{ style: { width: '30%', minWidth: '320px' } }} disableScrollLock>
       <LoadingCircleProgress open={guestOrder.isLoading} />
       <DialogTitle>
         주문자 정보
