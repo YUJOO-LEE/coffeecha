@@ -1,7 +1,7 @@
 import { guestOrderApi } from '@/apis';
 import { defaultOption } from '@/apis/queries/index';
 import { OrderRequest, OrderResponse } from '@/apis/swagger/data-contracts';
-import { useMutation, UseMutationResult, useQuery } from '@tanstack/react-query';
+import { useMutation, UseMutationResult, useQuery, useQueryClient } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
 
 export const QueryKey = 'guest_order';
@@ -44,4 +44,12 @@ export const useGetClientMenuForGuest = (clientKey: string) => {
 
 export const useOrder = (clientKey: string): UseMutationResult<
   AxiosResponse<OrderResponse>, unknown, OrderRequest
-> => useMutation((data) => guestOrderApi.customerOrder(clientKey, data));
+> => {
+  const queryClient = useQueryClient();
+
+  return useMutation((data) => guestOrderApi.customerOrder(clientKey, data), {
+    onError: () => {
+      queryClient.invalidateQueries([QueryKey]);
+    },
+  });
+};

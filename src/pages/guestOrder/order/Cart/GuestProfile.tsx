@@ -60,6 +60,7 @@ const GuestProfile = (props: IProps): React.ReactNode => {
       navigate(`/order/detail/${data.orderKey}`);
     } catch (e: unknown) {
       enqueueSnackbar(`주문에 실패했습니다`, { variant: 'error' });
+      onClose();
     }
   };
 
