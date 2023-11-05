@@ -6,17 +6,16 @@ import React from 'react';
 
 interface Props {
   data: OrderMenuInfo[];
+  totalQuantity?: number;
 }
 
 export const MenuList = (props: Props): React.ReactNode => {
-  const { data } = props;
-
-  //TODO: total quantity
+  const { data, totalQuantity } = props;
 
   return (
     <Styled.Wrapper>
       <ProfileItem title="주문수량 합계">
-        10
+        {totalQuantity || 0}
       </ProfileItem>
       {data.map((item, index) => (
         <MenuItem key={`${item.menuName}-${index}`} data={item} />

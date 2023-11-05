@@ -117,6 +117,9 @@ export interface OrderDetailResponse {
   orderList: OrderMenuInfo[];
   /** @format date-time */
   orderDateTime?: string;
+  /** @format int32 */
+  totalQuantity?: number;
+  clientKey: string;
 }
 
 export interface OrderMenuInfo {
