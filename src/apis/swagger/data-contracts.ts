@@ -109,13 +109,19 @@ export interface UpdateClientMenuRequest {
   saleQuantity?: number;
 }
 
-export interface GuestOrderResponse {
-  /** @format date-time */
-  orderDateTime: string;
-  clientName: string;
-  orderStatus: OrderStatus;
-  orderKey: string;
-  userName: string;
+export interface OrderDetailResponse {
+  guestName: string;
+  status: OrderStatus;
+  phoneNumber: string;
+  message?: string;
+  orderList: OrderMenuInfo[];
+}
+
+export interface OrderMenuInfo {
+  menuName: string;
+  /** @format int32 */
+  orderQuantity?: number;
+  menuOption?: string;
 }
 
 export enum OrderStatus {
@@ -124,6 +130,15 @@ export enum OrderStatus {
   WAITING_FOR_PICKUP = "WAITING_FOR_PICKUP",
   PICKUP_COMPLETE = "PICKUP_COMPLETE",
   ORDER_CANCELLED = "ORDER_CANCELLED",
+}
+
+export interface GuestOrderResponse {
+  /** @format date-time */
+  orderDateTime: string;
+  clientName: string;
+  orderStatus: OrderStatus;
+  orderKey: string;
+  userName: string;
 }
 
 export enum OpenStatus {

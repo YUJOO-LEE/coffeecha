@@ -14,6 +14,7 @@ import {
   ClientMenuResponse,
   GuestOrderResponse,
   OrderClientResponse,
+  OrderDetailResponse,
   OrderRequest,
   OrderResponse,
 } from "./data-contracts";
@@ -45,12 +46,28 @@ export class OrderPage<SecurityDataType = unknown> {
       ...params,
     });
   /**
+   * @description 주문 정보 조회(주문키)
+   *
+   * @tags OrderPage
+   * @name GuestOrderDetail
+   * @summary 주문 상세 조회
+   * @request GET:/order-api/orders/{orderKey}
+   * @secure
+   */
+  guestOrderDetail = (orderKey: string, params: RequestParams = {}) =>
+    this.http.request<OrderDetailResponse, any>({
+      path: `/order-api/orders/${orderKey}`,
+      method: "GET",
+      secure: true,
+      ...params,
+    });
+  /**
    * @description 게스트 주문 전제 조회(이름, 폰번호)
    *
    * @tags OrderPage
    * @name GuestAllOrders
    * @summary 게스트 주문 전체 조회
-   * @request GET:/order-api/guests
+   * @request GET:/order-api/orders/guests
    * @secure
    */
   guestAllOrders = (
@@ -61,7 +78,7 @@ export class OrderPage<SecurityDataType = unknown> {
     params: RequestParams = {},
   ) =>
     this.http.request<GuestOrderResponse[], any>({
-      path: `/order-api/guests`,
+      path: `/order-api/orders/guests`,
       method: "GET",
       query: query,
       secure: true,
