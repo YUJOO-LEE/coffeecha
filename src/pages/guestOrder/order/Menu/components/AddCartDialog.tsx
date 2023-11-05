@@ -1,8 +1,10 @@
 import { ClientMenuResponse } from '@/apis/swagger/data-contracts';
 import { cartAtom, CartItem } from '@/pages/guestOrder/order/atoms';
 import {
+  Alert,
   Box,
-  Button, ButtonGroup,
+  Button,
+  ButtonGroup,
   Checkbox,
   Dialog,
   DialogActions,
@@ -11,7 +13,7 @@ import {
   styled,
   Typography,
 } from '@mui/material';
-import { useSetAtom } from 'jotai';
+import { useAtom } from 'jotai';
 import React, { useState } from 'react';
 
 interface Props {
@@ -23,13 +25,17 @@ interface Props {
 const AddCartDialog = (props: Props): React.ReactNode => {
   const { clientKey, data, onClose } = props;
 
+  const [isDisable, setIsDisable] = useState<boolean>(false);
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [quantity, setQuantity] = useState<number>(1);
 
-  const setCart = useSetAtom(cartAtom);
+  const [cartList, setCart] = useAtom(cartAtom);
 
   const availableQuantityToOrder = Math.max(data.stockQuantity - data.saleQuantity, 0);
-  const isIncreaseDisable = quantity >= availableQuantityToOrder;
+  const cartQuantity = cartList
+  ?.reduce((prev, { quantity, menuInfo }) => menuInfo.clientMenuId === data.clientMenuId ? prev + quantity : prev, 0);
+  const isIncreaseDisable = (quantity + cartQuantity) >= availableQuantityToOrder;
+  const isError = (quantity + cartQuantity) > availableQuantityToOrder;
 
   const handleOptionsSelect = (selected: string) => () => {
     setSelectedOptions((prev) => {
@@ -63,6 +69,7 @@ const AddCartDialog = (props: Props): React.ReactNode => {
   };
 
   const handleAdd = () => {
+    setIsDisable(true);
     const newItem: CartItem = {
       clientKey,
       menuInfo: data,
@@ -108,12 +115,17 @@ const AddCartDialog = (props: Props): React.ReactNode => {
             </label>
           ))}
         </Styled.OptionList>
+        {isError && (
+          <Alert severity="error">
+            잔여 수량 이상 주문할 수 없습니다. <strong>잔여 수량 : {availableQuantityToOrder}</strong>
+          </Alert>
+        )}
       </DialogContent>
       <DialogActions>
         <Button variant="text" size="medium" onClick={onClose}>
           닫기
         </Button>
-        <Button variant="contained" size="medium" disableElevation onClick={handleAdd}>
+        <Button variant="contained" size="medium" disableElevation disabled={isDisable || isError} onClick={handleAdd}>
           메뉴 추가
         </Button>
       </DialogActions>

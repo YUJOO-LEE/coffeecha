@@ -28,12 +28,14 @@ const Cart = (props: IProps): React.ReactNode => {
   const totalQuantity = cartListAtom.reduce((prev, { quantity }) => prev + quantity, 0);
   const cartList: OrderItem[] = cartListAtom.map((item) => {
     const findMenu = menuList?.find(({ clientMenuId }) => clientMenuId === item.menuInfo.clientMenuId);
+    const thisMenuTotalQuantity = cartListAtom
+      ?.reduce((prev, { quantity, menuInfo }) => menuInfo.clientMenuId === item.menuInfo.clientMenuId ? prev + quantity : prev, 0);
     const availableQuantityToOrder = findMenu ? findMenu.stockQuantity - findMenu.saleQuantity : 0;
 
     return {
       ...item,
       remain: availableQuantityToOrder,
-      error: item.quantity > availableQuantityToOrder,
+      error: thisMenuTotalQuantity > availableQuantityToOrder,
     }
   });
   const isError = cartList.some(({ error }) => error);
@@ -145,7 +147,7 @@ const Cart = (props: IProps): React.ReactNode => {
             ) : (
               cartList.map((item, index) => (
                 <CartItem
-                  key={item.menuInfo.clientMenuId}
+                  key={`cart-${item.menuInfo.clientMenuId}-${index}`}
                   data={item}
                   onIncrease={handleIncrease(index)}
                   onDecrease={handleDecrease(index)}
