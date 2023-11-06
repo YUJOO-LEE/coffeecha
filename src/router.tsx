@@ -2,9 +2,10 @@ import CollectionPage from '@/pages/collection';
 import GuestOrderDetailPage from '@/pages/guestOrder/detail';
 import GuestOrderListPage from '@/pages/guestOrder/list';
 import GuestOrderPage from '@/pages/guestOrder/order';
+import NoCoffeechaDataPage from '@/pages/guestOrder/order/Error/NoCoffeechaDataPage';
+import LoginPage from '@/pages/login';
 import SalesManagementPage from '@/pages/salesManagement';
 import HomePage from '@/pages/salesManagement/home';
-import LoginPage from '@/pages/login';
 import MenuPage from '@/pages/salesManagement/menu';
 import OrderPage from '@/pages/salesManagement/order';
 import ClientSettingsPage from '@/pages/salesManagement/settings';
@@ -76,9 +77,13 @@ const routers = createBrowserRouter([
         element: <GuestOrderDetailPage />,
       },
       {
-        path: '/order/:clientKey?',
+        path: '/order/:clientKey',
         element: <GuestOrderPage />,
       },
+      {
+        path: '/order/*',
+        element: <NoCoffeechaDataPage />,
+      }
     ],
   },
 ]);

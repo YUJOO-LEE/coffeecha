@@ -3,6 +3,7 @@ import { orderStatusList } from '@/assets/orderStatusList';
 import GuestLayout from '@/pages/guestOrder/components/Layout';
 import { GuestProfile } from '@/pages/guestOrder/detail/GuestProfile';
 import { MenuList } from '@/pages/guestOrder/detail/MenuList';
+import NoCoffeechaDataPage from '@/pages/guestOrder/order/Error/NoCoffeechaDataPage';
 import { Box, Button, Card, Divider, Typography } from '@mui/material';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -11,16 +12,17 @@ const GuestOrderDetailPage = (): React.ReactNode => {
   const { orderKey } = useParams();
   const navigate = useNavigate();
 
-  const { data } = useGetGuestOrderDetail(orderKey);
+  const { data: orderDetail, isError } = useGetGuestOrderDetail(orderKey);
+  const isWrongClientData = !orderKey || isError || !orderDetail;
 
-  if (!orderKey || !data) return <></>;
+  if (isWrongClientData) return <NoCoffeechaDataPage />;
 
   const handleList = () => {
     navigate('/order/list');
   };
 
   const handleOrder = () => {
-    navigate(`/order/${data.clientKey}`);
+    navigate(`/order/${orderDetail.clientKey}`);
   };
 
   return (
@@ -39,13 +41,13 @@ const GuestOrderDetailPage = (): React.ReactNode => {
             현재 주문 상태
           </Typography>
           <Typography variant="h4" color={(theme) => theme.palette.primary.main}>
-            {orderStatusList[data.status].name}
+            {orderStatusList[orderDetail.status].name}
           </Typography>
         </Box>
         <Card>
-          <GuestProfile orderKey={orderKey} data={data} />
+          <GuestProfile orderKey={orderKey} data={orderDetail} />
           <Divider />
-          <MenuList data={data.orderList} totalQuantity={data.totalQuantity} />
+          <MenuList data={orderDetail.orderList} totalQuantity={orderDetail.totalQuantity} />
         </Card>
       </Box>
     </GuestLayout>
