@@ -1,3 +1,4 @@
+import { queryClient } from '@/apis/queries';
 import { clearAuth } from '@/apis/queries/auth';
 import { AuthToken } from '@/apis/swagger/AuthToken';
 import { CategoryController } from '@/apis/swagger/CategoryController';
@@ -10,7 +11,6 @@ import { Menu } from '@/apis/swagger/Menu';
 import { MenuOption } from '@/apis/swagger/MenuOption';
 import { OrderPage } from '@/apis/swagger/OrderPage';
 import { User } from '@/apis/swagger/User';
-import { queryClient } from '@/App';
 import axios, { InternalAxiosRequestConfig } from 'axios';
 
 const axiosConfig = {

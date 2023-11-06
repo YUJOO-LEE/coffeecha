@@ -1,17 +1,15 @@
 import '@/assets/globals.css';
-import routers from '@/router';
+import { queryClient } from '@/apis/queries';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
 import { Provider } from 'jotai';
 import { SnackbarProvider } from 'notistack';
 import React from 'react';
 import { RouterProvider } from 'react-router-dom';
+import routers from './router';
 
-// eslint-disable-next-line react-refresh/only-export-components
-export const queryClient = new QueryClient();
-
-function App() {
+export const App = ():React.ReactNode => {
   return (
     <QueryClientProvider client={queryClient}>
       <Provider>
@@ -24,5 +22,3 @@ function App() {
     </QueryClientProvider>
   )
 }
-
-export default App
