@@ -3,6 +3,7 @@ import { orderStatusList } from '@/assets/orderStatusList';
 import GuestLayout from '@/pages/guestOrder/components/Layout';
 import { GuestProfile } from '@/pages/guestOrder/detail/GuestProfile';
 import { MenuList } from '@/pages/guestOrder/detail/MenuList';
+import CoffeechaLoading from '@/pages/guestOrder/order/Error/CoffeechaLoading';
 import NoCoffeechaDataPage from '@/pages/guestOrder/order/Error/NoCoffeechaDataPage';
 import { Box, Button, Card, Divider, Typography } from '@mui/material';
 import React from 'react';
@@ -12,9 +13,10 @@ const GuestOrderDetailPage = (): React.ReactNode => {
   const { orderKey } = useParams();
   const navigate = useNavigate();
 
-  const { data: orderDetail, isError } = useGetGuestOrderDetail(orderKey);
+  const { data: orderDetail, isError, isLoading } = useGetGuestOrderDetail(orderKey);
   const isWrongClientData = !orderKey || isError || !orderDetail;
 
+  if (isLoading) return <CoffeechaLoading />;
   if (isWrongClientData) return <NoCoffeechaDataPage />;
 
   const handleList = () => {
