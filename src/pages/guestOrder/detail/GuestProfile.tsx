@@ -30,9 +30,11 @@ export const GuestProfile = (props: Props): React.ReactNode => {
         {data.phoneNumber}
       </ProfileItem>
 
-      <ProfileItem title="메세지">
-        {data.message}
-      </ProfileItem>
+      {data.message && (
+        <ProfileItem title="메세지">
+          {data.message}
+        </ProfileItem>
+      )}
     </Styled.Wrapper>
   );
 };
