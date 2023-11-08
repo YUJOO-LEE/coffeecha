@@ -11,9 +11,9 @@
 
 export interface OrderMenuRequest {
   /** @format int64 */
-  clientMenuId?: number;
+  clientMenuId: number;
   /** @format int32 */
-  quantity?: number;
+  quantity: number;
   option?: string;
 }
 
@@ -118,14 +118,14 @@ export interface OrderDetailResponse {
   /** @format date-time */
   orderDateTime?: string;
   /** @format int32 */
-  totalQuantity?: number;
+  totalQuantity: number;
   clientKey: string;
 }
 
 export interface OrderMenuInfo {
   menuName: string;
   /** @format int32 */
-  orderQuantity?: number;
+  orderQuantity: number;
   menuOption?: string;
   imageUrl?: string;
 }
@@ -145,6 +145,9 @@ export interface GuestOrderResponse {
   orderStatus: OrderStatus;
   orderKey: string;
   userName: string;
+  firstMenuName: string;
+  /** @format int32 */
+  totalQuantity: number;
 }
 
 export enum OpenStatus {
