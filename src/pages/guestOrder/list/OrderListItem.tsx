@@ -13,7 +13,7 @@ export const OrderListItem = (props: Props): React.ReactNode => {
   const { data } = props;
   const navigate = useNavigate();
 
-  //TODO: api update - firstMenu, totalQuantity
+  const restQuantity = data.totalQuantity - 1;
 
   const handleMove = () => {
     navigate(`/order/detail/${data.orderKey}`);
@@ -35,7 +35,7 @@ export const OrderListItem = (props: Props): React.ReactNode => {
       <Divider sx={{ margin: '0 -16px' }} />
       <Box display="flex" gap="8px" alignItems="center" justifyContent="space-between" flexWrap="wrap">
         <Typography>
-          0000000000커피 외 0잔
+          {data.firstMenuName} {restQuantity > 0 && `외 수량 ${restQuantity}`}
         </Typography>
         <Typography fontSize="0.8rem" color={(theme) => theme.palette.grey[600]}>
           {dayjs(data.orderDateTime).format('YYYY년 MM월 DD일, HH시 mm분 ss초')}
