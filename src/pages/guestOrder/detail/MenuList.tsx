@@ -5,19 +5,25 @@ import { styled } from '@mui/material';
 import React from 'react';
 
 interface Props {
-  data: OrderMenuInfo[];
+  data?: OrderMenuInfo[];
   totalQuantity?: number;
+  isLoading: boolean;
 }
 
 export const MenuList = (props: Props): React.ReactNode => {
-  const { data, totalQuantity } = props;
+  const { data, totalQuantity, isLoading } = props;
 
   return (
     <Styled.Wrapper>
-      <ProfileItem title="주문수량 합계">
+      <ProfileItem isLoading={isLoading} title="주문수량 합계">
         {totalQuantity || 0}
       </ProfileItem>
-      {data.map((item, index) => (
+      {isLoading && (
+        [...Array(3)].map((_, index) => (
+          <MenuItem key={`skeleton-${index}`} isLoading={isLoading} />
+        ))
+      )}
+      {data?.map((item, index) => (
         <MenuItem key={`${item.menuName}-${index}`} data={item} />
       ))}
     </Styled.Wrapper>

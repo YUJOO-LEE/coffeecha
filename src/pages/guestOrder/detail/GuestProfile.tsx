@@ -6,33 +6,34 @@ import React from 'react';
 
 interface Props {
   orderKey: string;
-  data: OrderDetailResponse;
+  data?: OrderDetailResponse;
+  isLoading: boolean;
 }
 
 export const GuestProfile = (props: Props): React.ReactNode => {
-  const { orderKey, data } = props;
+  const { orderKey, data, isLoading } = props;
 
   return (
     <Styled.Wrapper>
-      <ProfileItem title="주문번호">
+      <ProfileItem isLoading={isLoading} title="주문번호">
         {orderKey}
       </ProfileItem>
 
-      <ProfileItem title="주문일시">
-        {dayjs(data.orderDateTime).format('YYYY년 MM월 DD일, HH시 mm분 ss초')}
+      <ProfileItem isLoading={isLoading} title="주문일시">
+        {dayjs(data?.orderDateTime).format('YYYY년 MM월 DD일, HH시 mm분 ss초')}
       </ProfileItem>
 
-      <ProfileItem title="주문자/팀명">
-        {data.guestName}
+      <ProfileItem isLoading={isLoading} title="주문자/팀명">
+        {data?.guestName}
       </ProfileItem>
 
-      <ProfileItem title="연락처">
-        {data.phoneNumber}
+      <ProfileItem isLoading={isLoading} title="연락처">
+        {data?.phoneNumber}
       </ProfileItem>
 
-      {data.message && (
-        <ProfileItem title="메세지">
-          {data.message}
+      {data?.message && (
+        <ProfileItem isLoading={isLoading} title="메세지">
+          {data?.message}
         </ProfileItem>
       )}
     </Styled.Wrapper>

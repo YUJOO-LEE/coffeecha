@@ -1,32 +1,39 @@
 import { OrderMenuInfo } from '@/apis/swagger/data-contracts';
-import { Box, styled, Typography } from '@mui/material';
+import { Box, Skeleton, styled, Typography } from '@mui/material';
 import React from 'react';
 
 interface Props {
-  data: OrderMenuInfo;
+  data?: OrderMenuInfo;
+  isLoading?: boolean;
 }
 
 export const MenuItem = (props: Props): React.ReactNode => {
-  const { data } = props;
+  const { data, isLoading } = props;
 
   return (
     <Styled.Wrapper>
-      {data.imageUrl && (
+      {isLoading ? (
         <Styled.ImageWrapper>
-          <img src={data.imageUrl} alt="alt" />
+          <Skeleton width="100%" height="100%" sx={{ transform: 'scale(1)'}} />
         </Styled.ImageWrapper>
+      ) : (
+        data?.imageUrl && (
+          <Styled.ImageWrapper>
+            <img src={data.imageUrl} alt="alt" />
+          </Styled.ImageWrapper>
+        )
       )}
       <Box display="flex" flexDirection="column" gap="8px">
         <Typography fontSize="16px" fontWeight="500">
-          {data.menuName}
+          {isLoading ? (<Skeleton />) : data?.menuName}
         </Typography>
 
         <Typography fontSize="14px" fontWeight="300">
-          {data.menuOption}
+          {isLoading ? (<Skeleton />) : data?.menuOption}
         </Typography>
 
         <Typography fontSize="14px" fontWeight="500">
-          수량: {data.orderQuantity}
+          {isLoading ? (<Skeleton />) : `수량: ${data?.orderQuantity}`}
         </Typography>
       </Box>
     </Styled.Wrapper>

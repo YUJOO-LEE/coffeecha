@@ -1,33 +1,38 @@
-import { styled, Typography } from '@mui/material';
+import { Skeleton, styled, Typography } from '@mui/material';
 import React from 'react';
 
 interface Props {
   title: string;
+  isLoading: boolean;
 }
 
 export const ProfileItem = (props: React.PropsWithChildren<Props>): React.ReactNode => {
-  const { title, children } = props;
+  const { title, children, isLoading } = props;
 
   return (
     <Styled.Wrapper>
       <Styled.Title>
         {title}
       </Styled.Title>
-      <div>
-        {children}
-      </div>
+      {isLoading ? (
+        <Skeleton />
+      ) : (
+        <div>
+          {children}
+        </div>
+      )}
     </Styled.Wrapper>
   );
 };
 
 const Styled = {
   Wrapper: styled('div')({
-    display: 'flex',
-    gap: '16px',
+    display: 'grid',
+    gridTemplateColumns: '100px 1fr',
     alignItems: 'center',
+    gap: '16px',
   }),
   Title: styled(Typography)({
-    minWidth: '100px',
     fontWeight: '700',
   }),
   Content: styled('div')({

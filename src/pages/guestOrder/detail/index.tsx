@@ -3,9 +3,8 @@ import { orderStatusList } from '@/assets/orderStatusList';
 import GuestLayout from '@/pages/guestOrder/components/Layout';
 import { GuestProfile } from '@/pages/guestOrder/detail/GuestProfile';
 import { MenuList } from '@/pages/guestOrder/detail/MenuList';
-import CoffeechaLoading from '@/pages/guestOrder/order/Error/CoffeechaLoading';
 import NoCoffeechaDataPage from '@/pages/guestOrder/order/Error/NoCoffeechaDataPage';
-import { Box, Button, Card, Divider, Typography } from '@mui/material';
+import { Box, Button, Card, Divider, Skeleton, Typography } from '@mui/material';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -14,9 +13,8 @@ const GuestOrderDetailPage = (): React.ReactNode => {
   const navigate = useNavigate();
 
   const { data: orderDetail, isError, isLoading } = useGetGuestOrderDetail(orderKey);
-  const isWrongClientData = !orderKey || isError || !orderDetail;
+  const isWrongClientData = !orderKey || isError;
 
-  if (isLoading) return <CoffeechaLoading />;
   if (isWrongClientData) return <NoCoffeechaDataPage />;
 
   const handleList = () => {
@@ -24,6 +22,7 @@ const GuestOrderDetailPage = (): React.ReactNode => {
   };
 
   const handleOrder = () => {
+    if (!orderDetail) return;
     navigate(`/order/${orderDetail.clientKey}`);
   };
 
@@ -43,13 +42,17 @@ const GuestOrderDetailPage = (): React.ReactNode => {
             현재 주문 상태
           </Typography>
           <Typography variant="h4" color={(theme) => theme.palette.primary.main}>
-            {orderStatusList[orderDetail.status].name}
+            {isLoading || !orderDetail ? (
+              <Skeleton width="100px" />
+            ) : (
+              orderStatusList[orderDetail.status].name
+            )}
           </Typography>
         </Box>
         <Card>
-          <GuestProfile orderKey={orderKey} data={orderDetail} />
+          <GuestProfile isLoading={isLoading} orderKey={orderKey} data={orderDetail} />
           <Divider />
-          <MenuList data={orderDetail.orderList} totalQuantity={orderDetail.totalQuantity} />
+          <MenuList isLoading={isLoading} data={orderDetail?.orderList} totalQuantity={orderDetail?.totalQuantity} />
         </Card>
       </Box>
     </GuestLayout>
