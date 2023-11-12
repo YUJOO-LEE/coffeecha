@@ -9,7 +9,7 @@ import SalesManagementPage from '@/pages/salesManagement';
 import HomePage from '@/pages/salesManagement/home';
 import MenuPage from '@/pages/salesManagement/menu';
 import OrderPage from '@/pages/salesManagement/order';
-import { NewOrderPage } from '@/pages/salesManagement/order/new';
+import { NewOrderPage } from '@/pages/salesManagement/newOrder';
 import ClientSettingsPage from '@/pages/salesManagement/settings';
 import UserSettingsPage from '@/pages/settings';
 import React from 'react';

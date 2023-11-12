@@ -5,8 +5,8 @@ import {
   CloseRounded,
   CoffeeRounded,
   ExpandMoreRounded,
-  FormatListBulletedRounded,
   HowToRegRounded,
+  ReceiptLongRounded,
 } from '@mui/icons-material';
 import {
   Accordion,
@@ -40,7 +40,7 @@ const OrderPage = (): React.ReactNode => {
   return (
     <Box display="grid" gap="16px">
       <Box display="flex" gap="8px">
-        <FormatListBulletedRounded color="primary" />
+        <ReceiptLongRounded color="primary" />
         <Typography variant="h1" fontSize="20px" fontWeight="500" color={(theme) => theme.palette.primary.main}>
           ORDER
         </Typography>
