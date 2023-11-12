@@ -40,7 +40,7 @@ export const MenuList = (props: Props): React.ReactNode => {
       <Styled.List>
         {menuList?.sort((a, b) => a.categoryId - b.categoryId)
           .map((item) => (
-            <MenuListItem key={item.clientMenuId} data={item} onAddCart={handleOpenAddDialog(item)} />
+            <MenuListItem isClientView key={item.clientMenuId} data={item} onAddCart={handleOpenAddDialog(item)} />
           )
         )}
       </Styled.List>

@@ -40,6 +40,7 @@ const Styled = {
   Content: styled('div')({
     width: '100%',
     height: '100%',
+    paddingBottom: '2px',
     overflow: 'hidden',
     display: 'grid',
     gridTemplateColumns: '1fr 420px',

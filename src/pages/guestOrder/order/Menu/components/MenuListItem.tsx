@@ -6,19 +6,23 @@ import React from 'react';
 const maxWidth = 420;
 
 interface Props {
+  isClientView?: boolean;
   data: ClientMenuResponse;
   onAddCart: () => void;
 }
 
 const MenuListItem = (props: Props): React.ReactNode => {
-  const { data, onAddCart } = props;
+  const { isClientView, data, onAddCart } = props;
 
   const isSoldOut = data.stockQuantity <= data.saleQuantity;
 
   return (
     <Styled.Wrapper
       onClick={isSoldOut ? undefined : onAddCart}
-      sx={{ cursor: isSoldOut ? 'default' : 'pointer'}}
+      sx={(theme) => ({
+        cursor: isSoldOut ? 'default' : 'pointer',
+        border: (isClientView && !isSoldOut) ? `1px solid ${theme.palette.primary.main}` : undefined
+      })}
     >
       <Styled.ImageWrapper>
         <img src={data.menuImageUrl} alt="title" />
