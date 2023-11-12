@@ -1,11 +1,12 @@
 import {
-  CoffeeRounded,
-  FormatListBulletedRounded,
-  HomeRounded,
-  SettingsRounded,
-  LocalShippingRounded,
   CoffeeMakerRounded,
+  CoffeeRounded,
+  HomeRounded,
+  LocalShippingRounded,
   ManageAccountsRounded,
+  PointOfSaleRounded,
+  ReceiptLongRounded,
+  SettingsRounded,
 } from '@mui/icons-material';
 import React from 'react';
 
@@ -25,7 +26,12 @@ export const clientNavList = (clientId: string): NavItem[] => {
     {
       label: 'Order',
       url: `/${clientId}/order`,
-      icon: <FormatListBulletedRounded />,
+      icon: <ReceiptLongRounded />,
+    },
+    {
+      label: 'New Order',
+      url: `/${clientId}/order/new`,
+      icon: <PointOfSaleRounded />,
     },
     {
       label: 'Menu',

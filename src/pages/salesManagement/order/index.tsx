@@ -1,7 +1,6 @@
 import DeleteDialog from '@/components/DeleteDialog';
 import { OrderStatusEnum } from '@/type/order';
 import {
-  AddRounded,
   CheckRounded,
   CloseRounded,
   CoffeeRounded,
@@ -48,11 +47,6 @@ const OrderPage = (): React.ReactNode => {
           </Typography>
         </Box>
         <Box display="flex" flexDirection="column" gap="16px">
-          <Box display="flex" justifyContent="space-between">
-            <Button disableElevation size="medium" variant="contained" startIcon={<AddRounded />}>
-              Add New Order
-            </Button>
-          </Box>
           {[...Array(20)].map((_, index) => (
             <Styled.ListItem key={index}>
               <Styled.Status className={index === 3 ? OrderStatusEnum.OrderPlaced : OrderStatusEnum.WaitingForPickup} />
