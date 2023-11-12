@@ -19,11 +19,13 @@ export const NewOrderPage = (): React.ReactNode => {
           NEW ORDER
         </Typography>
       </Box>
-      <Styled.Content>
-        <MenuList />
-        <CartList />
-        <Order />
-      </Styled.Content>
+      {clientDetail?.clientKey && (
+        <Styled.Content>
+          <MenuList clientKey={clientDetail.clientKey} />
+          <CartList />
+          <Order />
+        </Styled.Content>
+      )}
     </Styled.Wrapper>
   );
 };
@@ -38,6 +40,7 @@ const Styled = {
   Content: styled('div')({
     width: '100%',
     height: '100%',
+    overflow: 'hidden',
     display: 'grid',
     gridTemplateColumns: '1fr 420px',
     gridTemplateRows: '1fr 320px',

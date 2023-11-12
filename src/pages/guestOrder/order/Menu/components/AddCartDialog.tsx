@@ -1,5 +1,5 @@
 import { ClientMenuResponse } from '@/apis/swagger/data-contracts';
-import { cartAtom, CartItem } from '@/pages/guestOrder/order/atoms';
+import { CartItem } from '@/pages/guestOrder/order/atoms';
 import {
   Alert,
   Box,
@@ -13,23 +13,22 @@ import {
   styled,
   Typography,
 } from '@mui/material';
-import { useAtom } from 'jotai';
 import React, { useState } from 'react';
 
 interface Props {
   clientKey: string;
   data: ClientMenuResponse;
   onClose: () => void;
+  cartList: CartItem[];
+  onAdd: (newItem: CartItem) => void;
 }
 
 const AddCartDialog = (props: Props): React.ReactNode => {
-  const { clientKey, data, onClose } = props;
+  const { clientKey, data, onClose, onAdd, cartList } = props;
 
   const [isDisable, setIsDisable] = useState<boolean>(false);
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [quantity, setQuantity] = useState<number>(1);
-
-  const [cartList, setCart] = useAtom(cartAtom);
 
   const availableQuantityToOrder = Math.max(data.stockQuantity - data.saleQuantity, 0);
   const cartQuantity = cartList
@@ -75,14 +74,9 @@ const AddCartDialog = (props: Props): React.ReactNode => {
       menuInfo: data,
       options: selectedOptions,
       quantity,
-    }
+    };
 
-    setCart((prev) => ([
-      ...prev,
-      newItem,
-    ]));
-
-    onClose();
+    onAdd(newItem);
   };
 
   return (
