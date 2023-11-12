@@ -24,55 +24,53 @@ const MenuPage = () => {
   };
 
   return(
-    <>
-      <Box display="grid" gap="16px">
-        <Box display="flex" gap="8px">
-          <CoffeeRounded color="primary" />
-          <Typography variant="h1" fontSize="20px" fontWeight="500" color={(theme) => theme.palette.primary.main}>
-            Menu
-          </Typography>
-        </Box>
-        <Styled.ContentBox>
-          <Box display="flex" gap="8px" alignItems="center">
-            <Button disableElevation size="medium" variant="contained" startIcon={<AddRounded />} onClick={handleMenuAdd}>
-              Add New Menu
-            </Button>
-          </Box>
-          {categoryList?.map(({ id, name }) => (
-            <Box display="grid" gap="16px">
-              <Typography fontSize="18px" fontWeight="700">
-                {name}
-              </Typography>
-              <Styled.MenuList>
-                {isLoading && (
-                  [...Array(5)].map((_, index) => (
-                    <Styled.MenuItem key={`skeleton_${index}`}>
-                      <Box>
-                        <IconButton size="large" sx={{ margin: '-10px', cursor: 'auto' }}>
-                          <InfoRounded sx={{ width: '16px', height: '16px' }} />
-                        </IconButton>
-                      </Box>
-                      <Skeleton variant="rounded" sx={{ width: '100%', height: 'auto', aspectRatio: '1 / 1' }} />
-                      <Skeleton variant="rounded" />
-                    </Styled.MenuItem>
-                  ))
-                )}
-                {menuList?.filter(({ menuHidden, categoryId }) => id === categoryId && !menuHidden).map((item) => (
-                  <MenuGridItem key={item.clientMenuId} data={item} />
-                ))}
-                {menuList?.filter(({ menuHidden, categoryId }) => id === categoryId && menuHidden).map((item) => (
-                  <MenuGridItem key={item.clientMenuId} data={item} />
-                ))}
-              </Styled.MenuList>
-            </Box>
-          ))}
-        </Styled.ContentBox>
+    <Box display="grid" gap="16px">
+      <Box display="flex" gap="8px">
+        <CoffeeRounded color="primary" />
+        <Typography variant="h1" fontSize="20px" fontWeight="500" color={(theme) => theme.palette.primary.main}>
+          Menu
+        </Typography>
       </Box>
+      <Styled.ContentBox>
+        <Box display="flex" gap="8px" alignItems="center">
+          <Button disableElevation size="medium" variant="contained" startIcon={<AddRounded />} onClick={handleMenuAdd}>
+            Add New Menu
+          </Button>
+        </Box>
+        {categoryList?.map(({ id, name }) => (
+          <Box display="grid" gap="16px">
+            <Typography fontSize="18px" fontWeight="700">
+              {name}
+            </Typography>
+            <Styled.MenuList>
+              {isLoading && (
+                [...Array(5)].map((_, index) => (
+                  <Styled.MenuItem key={`skeleton_${index}`}>
+                    <Box>
+                      <IconButton size="large" sx={{ margin: '-10px', cursor: 'auto' }}>
+                        <InfoRounded sx={{ width: '16px', height: '16px' }} />
+                      </IconButton>
+                    </Box>
+                    <Skeleton variant="rounded" sx={{ width: '100%', height: 'auto', aspectRatio: '1 / 1' }} />
+                    <Skeleton variant="rounded" />
+                  </Styled.MenuItem>
+                ))
+              )}
+              {menuList?.filter(({ menuHidden, categoryId }) => id === categoryId && !menuHidden).map((item) => (
+                <MenuGridItem key={item.clientMenuId} data={item} />
+              ))}
+              {menuList?.filter(({ menuHidden, categoryId }) => id === categoryId && menuHidden).map((item) => (
+                <MenuGridItem key={item.clientMenuId} data={item} />
+              ))}
+            </Styled.MenuList>
+          </Box>
+        ))}
+      </Styled.ContentBox>
 
       {isAddOpen && (
         <AddDialog clientId={Number(clientId)} onClose={handleClose} />
       )}
-    </>
+    </Box>
   );
 }
 

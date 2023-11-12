@@ -24,21 +24,19 @@ const SalesManagementPage = (): React.ReactNode => {
   };
 
   return (
-    <>
-      <Box display="grid" gap="16px">
-        <Box display="flex" justifyContent="space-between">
-          <Typography fontSize="20px" fontWeight="inherit" display="flex" alignItems="center" gap="8px">
-            <LocalShippingRounded />Clients Management
-          </Typography>
-          <Button disableElevation size="medium" variant="contained" startIcon={<AddRounded />} onClick={handleAddOpen}>
-            Add New Client
-          </Button>
-        </Box>
-        <ClientList isEditMote />
+    <Box display="grid" gap="16px">
+      <Box display="flex" justifyContent="space-between">
+        <Typography fontSize="20px" fontWeight="inherit" display="flex" alignItems="center" gap="8px">
+          <LocalShippingRounded />Clients Management
+        </Typography>
+        <Button disableElevation size="medium" variant="contained" startIcon={<AddRounded />} onClick={handleAddOpen}>
+          Add New Client
+        </Button>
       </Box>
+      <ClientList isEditMote />
 
       {addOpen && <ClientAddDialog onClose={handleClose} onDone={handleDone} />}
-    </>
+    </Box>
   );
 }
 

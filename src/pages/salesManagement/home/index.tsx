@@ -29,58 +29,56 @@ const HomePage = () => {
   };
 
   return (
-    <>
-      <Box
-        display="grid"
-        gap="16px"
-        gridTemplateColumns="repeat(auto-fit, minmax(180px, 1fr))"
-        gridTemplateRows="repeat(auto-fit, minmax(180px, 1fr))"
-      >
-        <Styled.OpenCard>
-          <Button
-            disableElevation
-            size="large"
-            variant="contained"
-            color={changeToOpen ? 'primary' : 'error'}
-            startIcon={<NotificationsRounded />}
-            onClick={handleChangeStatusOpen}
-            disabled={changeToOpen && isOpenDisabled}
-          >
-            Change to {changeToOpen ? 'Opend' : 'Closed'}
-          </Button>
-          {isOpenDisabled && (
-            <Styled.OpenWarning>
-              The store can only be opened if the <span>Opening date</span> is the same as <span>Today's date</span>.
-            </Styled.OpenWarning>
-          )}
-        </Styled.OpenCard>
+    <Box
+      display="grid"
+      gap="16px"
+      gridTemplateColumns="repeat(auto-fit, minmax(180px, 1fr))"
+      gridTemplateRows="repeat(auto-fit, minmax(180px, 1fr))"
+    >
+      <Styled.OpenCard>
+        <Button
+          disableElevation
+          size="large"
+          variant="contained"
+          color={changeToOpen ? 'primary' : 'error'}
+          startIcon={<NotificationsRounded />}
+          onClick={handleChangeStatusOpen}
+          disabled={changeToOpen && isOpenDisabled}
+        >
+          Change to {changeToOpen ? 'Opend' : 'Closed'}
+        </Button>
+        {isOpenDisabled && (
+          <Styled.OpenWarning>
+            The store can only be opened if the <span>Opening date</span> is the same as <span>Today's date</span>.
+          </Styled.OpenWarning>
+        )}
+      </Styled.OpenCard>
 
-        <Styled.InfoCard>
+      <Styled.InfoCard>
+        <Box display="flex" alignItems="center" gap="8px">
+          <Chip size="small" label="TODAY" />
+          <Typography>
+            {dayjs().format('MMM D, YYYY')}
+          </Typography>
+        </Box>
+        <Box display="flex" alignItems="center" gap="8px">
+          <Chip size="small" label="OPENING DATE" />
+          <Typography>
+            {dayjs(clientDetail?.businessDate).format('MMM D, YYYY')}
+          </Typography>
+          <Typography color="grey">
+            ({dayjs(clientDetail?.businessDate).fromNow()})
+          </Typography>
+        </Box>
+        {clientDetail?.openStatus === OpenStatus.OPEN && (
           <Box display="flex" alignItems="center" gap="8px">
-            <Chip size="small" label="TODAY" />
-            <Typography>
-              {dayjs().format('MMM D, YYYY')}
-            </Typography>
+            <Chip size="small" label="ORDER PAGE" />
+            <CopyToClipboard>
+              {`${window.location.origin}/order/${clientDetail?.clientKey}`}
+            </CopyToClipboard>
           </Box>
-          <Box display="flex" alignItems="center" gap="8px">
-            <Chip size="small" label="OPENING DATE" />
-            <Typography>
-              {dayjs(clientDetail?.businessDate).format('MMM D, YYYY')}
-            </Typography>
-            <Typography color="grey">
-              ({dayjs(clientDetail?.businessDate).fromNow()})
-            </Typography>
-          </Box>
-          {clientDetail?.openStatus === OpenStatus.OPEN && (
-            <Box display="flex" alignItems="center" gap="8px">
-              <Chip size="small" label="ORDER PAGE" />
-              <CopyToClipboard>
-                {`${window.location.origin}/order/${clientDetail?.clientKey}`}
-              </CopyToClipboard>
-            </Box>
-          )}
-        </Styled.InfoCard>
-      </Box>
+        )}
+      </Styled.InfoCard>
 
       {isChangeStatusOpen && clientDetail && (
         <OpenCloseDialog
@@ -88,7 +86,7 @@ const HomePage = () => {
           onClose={handleClose}
         />
       )}
-    </>
+    </Box>
   );
 }
 

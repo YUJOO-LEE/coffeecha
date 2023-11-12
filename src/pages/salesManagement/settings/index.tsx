@@ -77,47 +77,45 @@ const ClientSettingsPage = () => {
   }, [clientDetail]);
 
   return (
-    <>
+    <Box display="grid" gap="16px">
       <LoadingCircleProgress open={updateClient.isLoading || deleteClient.isLoading} />
 
-      <Box display="grid" gap="16px">
-        <Box display="flex" gap="8px">
-          <ManageAccountsRounded color="primary" />
-          <Typography variant="h1" fontSize="20px" fontWeight="500" color={(theme) => theme.palette.primary.main}>
-            Settings
-          </Typography>
-        </Box>
-        <Styled.ContentBox display="flex" flexDirection="column" gap="16px">
-          <TextField label="Name" variant="outlined" value={formData.name} onChange={handleChange('name')} disabled={!editMode} />
-          <TextField label="Contact" variant="outlined" value={formData.phoneNumber} onChange={handleChange('phoneNumber')} disabled={!editMode} />
-          <TextField label="Address" variant="outlined" value={formData.address} onChange={handleChange('address')} disabled={!editMode} />
-          <DatePicker label="Opening date" value={formData.businessDate ? dayjs(formData.businessDate) : null} onChange={handleDateChange} disabled={!editMode} />
-          <Box display="flex" justifyContent="flex-end" gap="8px">
-            {editMode ? (
-              <>
-                <Button variant="outlined" size="large" onClick={toggleEditMode}>
-                  Cancel
-                </Button>
-                <Button disableElevation variant="contained" size="large" disabled={isDisabled} onClick={handleUpdate}>
-                  Save
-                </Button>
-              </>
-            ) : (
-              <>
-                <Button disableElevation variant="contained" color="error" size="large" onClick={handleDeleteOpen}>
-                  Delete
-                </Button>
-                <Button disableElevation variant="contained" size="large" onClick={toggleEditMode}>
-                  Edit
-                </Button>
-              </>
-            )}
-          </Box>
-        </Styled.ContentBox>
+      <Box display="flex" gap="8px">
+        <ManageAccountsRounded color="primary" />
+        <Typography variant="h1" fontSize="20px" fontWeight="500" color={(theme) => theme.palette.primary.main}>
+          Settings
+        </Typography>
       </Box>
+      <Styled.ContentBox display="flex" flexDirection="column" gap="16px">
+        <TextField label="Name" variant="outlined" value={formData.name} onChange={handleChange('name')} disabled={!editMode} />
+        <TextField label="Contact" variant="outlined" value={formData.phoneNumber} onChange={handleChange('phoneNumber')} disabled={!editMode} />
+        <TextField label="Address" variant="outlined" value={formData.address} onChange={handleChange('address')} disabled={!editMode} />
+        <DatePicker label="Opening date" value={formData.businessDate ? dayjs(formData.businessDate) : null} onChange={handleDateChange} disabled={!editMode} />
+        <Box display="flex" justifyContent="flex-end" gap="8px">
+          {editMode ? (
+            <>
+              <Button variant="outlined" size="large" onClick={toggleEditMode}>
+                Cancel
+              </Button>
+              <Button disableElevation variant="contained" size="large" disabled={isDisabled} onClick={handleUpdate}>
+                Save
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button disableElevation variant="contained" color="error" size="large" onClick={handleDeleteOpen}>
+                Delete
+              </Button>
+              <Button disableElevation variant="contained" size="large" onClick={toggleEditMode}>
+                Edit
+              </Button>
+            </>
+          )}
+        </Box>
+      </Styled.ContentBox>
 
       {isDeleteOpen && (<DeleteDialog onClose={handleDeleteClose} onDone={handleDelete} />)}
-    </>
+    </Box>
   );
 }
 
