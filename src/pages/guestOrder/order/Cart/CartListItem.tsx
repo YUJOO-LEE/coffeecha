@@ -1,24 +1,23 @@
-import { cartAtom } from '@/pages/guestOrder/order/atoms';
-import type { CartItem } from '@/pages/guestOrder/order/atoms';
+import { cartAtom, OrderItem } from '@/pages/guestOrder/order/atoms';
 import { AddRounded, ClearRounded, RemoveRounded } from '@mui/icons-material';
 import { Alert, Box, Button, ButtonGroup, styled, Typography } from '@mui/material';
 import { useAtomValue } from 'jotai';
 import React from 'react';
 
 interface Props {
-  data: CartItem & { remain: number; error: boolean };
+  data: OrderItem;
   onIncrease: () => void;
   onDecrease: () => void;
   onRemove: () => void;
 }
 
-const CartItem = (props: Props): React.ReactNode => {
+export const CartListItem = (props: Props): React.ReactNode => {
   const { data, onIncrease, onDecrease, onRemove } = props;
 
   const cartList = useAtomValue(cartAtom);
   const cartQuantity = cartList
   ?.reduce((prev, { quantity, menuInfo }) => menuInfo.clientMenuId === data.menuInfo.clientMenuId ? prev + quantity : prev, 0);
-  const isIncreaseDisable = cartQuantity >= data.remain;
+  const isIncreaseDisable = cartQuantity >= (data.remain ?? 0);
 
   return (
     <Styled.Wrapper>
@@ -61,8 +60,6 @@ const CartItem = (props: Props): React.ReactNode => {
     </Styled.Wrapper>
   );
 };
-
-export default CartItem;
 
 const Styled = {
   Wrapper: styled('li')(({ theme }) => ({

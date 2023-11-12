@@ -1,11 +1,11 @@
 import { useGetClientMenuForGuest } from '@/apis/queries/guestOrder';
 import { cartAtom, OrderItem } from '@/pages/guestOrder/order/atoms';
-import CartAction from '@/pages/guestOrder/order/Cart/CartAction';
 import { KeyboardDoubleArrowDownRounded, KeyboardDoubleArrowUpRounded } from '@mui/icons-material';
 import { Box, Divider, styled, Typography } from '@mui/material';
 import { useAtom } from 'jotai';
 import React, { useEffect, useRef, useState } from 'react';
-import CartItem from './CartItem';
+import { CartAction } from './CartAction';
+import { CartListItem } from './CartListItem';
 
 export const maxWidth = 640 + 420 + 24;
 
@@ -27,7 +27,8 @@ const Cart = (props: IProps): React.ReactNode => {
 
   const totalQuantity = cartListAtom.reduce((prev, { quantity }) => prev + quantity, 0);
   const cartList: OrderItem[] = cartListAtom.map((item) => {
-    const findMenu = menuList?.find(({ clientMenuId }) => clientMenuId === item.menuInfo.clientMenuId);
+    if (!menuList) return item;
+    const findMenu = menuList.find(({ clientMenuId }) => clientMenuId === item.menuInfo.clientMenuId);
     const thisMenuTotalQuantity = cartListAtom
       ?.reduce((prev, { quantity, menuInfo }) => menuInfo.clientMenuId === item.menuInfo.clientMenuId ? prev + quantity : prev, 0);
     const availableQuantityToOrder = findMenu ? findMenu.stockQuantity - findMenu.saleQuantity : 0;
@@ -146,7 +147,7 @@ const Cart = (props: IProps): React.ReactNode => {
               </Typography>
             ) : (
               cartList.map((item, index) => (
-                <CartItem
+                <CartListItem
                   key={`cart-${item.menuInfo.clientMenuId}-${index}`}
                   data={item}
                   onIncrease={handleIncrease(index)}

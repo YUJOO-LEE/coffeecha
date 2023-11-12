@@ -12,7 +12,7 @@ interface IProps {
   onReset: () => void;
 }
 
-const CartAction = (props: IProps): React.ReactNode => {
+export const CartAction = (props: IProps): React.ReactNode => {
   const { clientKey, orderList, isError, isEmpty, onReset } = props;
 
   const [isProfileOpen, setIsProfileOpen] = useState<boolean>(false);
@@ -25,7 +25,6 @@ const CartAction = (props: IProps): React.ReactNode => {
   const handleOrderClose = () => {
     setIsProfileOpen(false);
   };
-
 
   return (
     <Box display="flex" justifyContent="flex-end" gap="8px">
@@ -72,5 +71,3 @@ const CartAction = (props: IProps): React.ReactNode => {
     </Box>
   );
 };
-
-export default CartAction;
