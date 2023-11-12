@@ -1,8 +1,4 @@
-import React, { useState } from 'react';
-import dayjs from 'dayjs';
-import numeral from 'numeral';
 import DeleteDialog from '@/components/DeleteDialog';
-import Layout from '@/components/Layout';
 import { OrderStatusEnum } from '@/type/order';
 import {
   AddRounded,
@@ -24,23 +20,26 @@ import {
   styled,
   Typography,
 } from '@mui/material';
+import dayjs from 'dayjs';
+import numeral from 'numeral';
+import React, { useState } from 'react';
 
 const OrderPage = (): React.ReactNode => {
   const [deleteOpen, setDeleteOpen] = useState(false);
 
   const handleDeleteOpen = () => {
     setDeleteOpen(true);
-  }
+  };
 
   const handleClose = () => {
     setDeleteOpen(false);
-  }
+  };
 
   const handleDelete = () => {
-  }
+  };
 
   return (
-    <Layout>
+    <>
       <Box display="grid" gap="16px">
         <Box display="flex" gap="8px">
           <FormatListBulletedRounded color="primary" />
@@ -60,7 +59,10 @@ const OrderPage = (): React.ReactNode => {
               <Styled.NumberTypography fontSize="28px" fontWeight="500">
                 {numeral(index).format('000')}
               </Styled.NumberTypography>
-              <Box display="flex" justifyContent="space-between" alignItems="flex-end" gap="16px">
+              <Box display="flex" alignItems="flex-end" gap="16px">
+                <Typography fontSize="12px">
+                  주문자/팀명
+                </Typography>
                 <Typography fontSize="12px" color="grey">
                   010-3333-4444
                 </Typography>
@@ -111,7 +113,7 @@ const OrderPage = (): React.ReactNode => {
       {deleteOpen && (
         <DeleteDialog onDone={handleDelete} onClose={handleClose} />
       )}
-    </Layout>
+    </>
   );
 }
 

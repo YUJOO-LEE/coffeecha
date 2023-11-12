@@ -1,6 +1,5 @@
 import { useGetClientDetail } from '@/apis/queries/client';
 import { OpenStatus } from '@/apis/swagger/data-contracts';
-import Layout from '@/components/Layout';
 import CopyToClipboard from '@/pages/components/CopyToClipboard';
 import OpenCloseDialog from '@/pages/salesManagement/home/components/OpenCloseDialog';
 import { NotificationsRounded } from '@mui/icons-material';
@@ -30,7 +29,7 @@ const HomePage = () => {
   };
 
   return (
-    <Layout>
+    <>
       <Box
         display="grid"
         gap="16px"
@@ -89,7 +88,7 @@ const HomePage = () => {
           onClose={handleClose}
         />
       )}
-    </Layout>
+    </>
   );
 }
 

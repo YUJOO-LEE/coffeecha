@@ -1,3 +1,4 @@
+import Layout from '@/components/Layout';
 import CollectionPage from '@/pages/collection';
 import GuestOrderDetailPage from '@/pages/guestOrder/detail';
 import GuestOrderListPage from '@/pages/guestOrder/list';
@@ -11,7 +12,7 @@ import OrderPage from '@/pages/salesManagement/order';
 import ClientSettingsPage from '@/pages/salesManagement/settings';
 import UserSettingsPage from '@/pages/settings';
 import React from 'react';
-import { createBrowserRouter, redirect } from 'react-router-dom';
+import { createBrowserRouter, Outlet, redirect } from 'react-router-dom';
 
 const routers = createBrowserRouter([
   {
@@ -23,6 +24,11 @@ const routers = createBrowserRouter([
 
       return !isLogin() && redirect('/login');
     },
+    element: (
+      <Layout>
+        <Outlet />
+      </Layout>
+    ),
     children: [
       {
         path: '/',

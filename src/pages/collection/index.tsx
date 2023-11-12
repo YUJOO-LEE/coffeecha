@@ -1,7 +1,6 @@
 import { useDeleteCollection, useGetCategoryList, useGetCollectionList } from '@/apis/queries/collection';
 import { MenuResponse } from '@/apis/swagger/data-contracts';
 import DeleteDialog from '@/components/DeleteDialog';
-import Layout from '@/components/Layout';
 import LoadingCircularProgress from '@/components/LoadingCircleProgress';
 import AddEditDialog from '@/pages/collection/components/AddEditDialog';
 import CollectionGridItem from '@/pages/collection/components/CollectionGridItem';
@@ -63,7 +62,7 @@ const CollectionPage = (): React.ReactNode => {
   };
 
   return (
-    <Layout>
+    <>
       <LoadingCircularProgress open={deleteCollection.isLoading} />
 
       <Box display="grid" gap="24px">
@@ -113,7 +112,7 @@ const CollectionPage = (): React.ReactNode => {
       {isOptionOpen && <OptionDialog onClose={toggleOptionPanel} />}
       {isAddEditOpen && (<AddEditDialog editData={editData} onClose={handleEditClose} />)}
       {deleteItemId && (<DeleteDialog onClose={handleDeleteClose} onDone={handleDelete} />)}
-    </Layout>
+    </>
   );
 }
 

@@ -1,6 +1,5 @@
 import { useGetCategoryList } from '@/apis/queries/collection';
 import { useGetClientMenuList } from '@/apis/queries/salesManagement/menu';
-import Layout from '@/components/Layout';
 import AddDialog from '@/pages/salesManagement/menu/components/AddDialog';
 import MenuGridItem from '@/pages/salesManagement/menu/components/MenuGridItem';
 import { AddRounded, CoffeeRounded, InfoRounded } from '@mui/icons-material';
@@ -25,7 +24,7 @@ const MenuPage = () => {
   };
 
   return(
-    <Layout>
+    <>
       <Box display="grid" gap="16px">
         <Box display="flex" gap="8px">
           <CoffeeRounded color="primary" />
@@ -73,7 +72,7 @@ const MenuPage = () => {
       {isAddOpen && (
         <AddDialog clientId={Number(clientId)} onClose={handleClose} />
       )}
-    </Layout>
+    </>
   );
 }
 

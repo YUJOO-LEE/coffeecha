@@ -1,4 +1,3 @@
-import Layout from '@/components/Layout';
 import ClientAddDialog from '@/pages/salesManagement/components/ClientAddDialog';
 import ClientList from '@/pages/salesManagement/components/ClientList';
 import { AddRounded, LocalShippingRounded } from '@mui/icons-material';
@@ -25,7 +24,7 @@ const SalesManagementPage = (): React.ReactNode => {
   };
 
   return (
-    <Layout>
+    <>
       <Box display="grid" gap="16px">
         <Box display="flex" justifyContent="space-between">
           <Typography fontSize="20px" fontWeight="inherit" display="flex" alignItems="center" gap="8px">
@@ -39,7 +38,7 @@ const SalesManagementPage = (): React.ReactNode => {
       </Box>
 
       {addOpen && <ClientAddDialog onClose={handleClose} onDone={handleDone} />}
-    </Layout>
+    </>
   );
 }
 

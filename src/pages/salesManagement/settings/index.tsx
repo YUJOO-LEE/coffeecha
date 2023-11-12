@@ -1,7 +1,6 @@
 import { useDeleteClient, useGetClientDetail, useUpdateClient } from '@/apis/queries/client';
 import { UpdateClientRequest } from '@/apis/swagger/data-contracts';
 import DeleteDialog from '@/components/DeleteDialog';
-import Layout from '@/components/Layout';
 import LoadingCircleProgress from '@/components/LoadingCircleProgress';
 import { ManageAccountsRounded } from '@mui/icons-material';
 import { Box, Button, styled, TextField, Typography } from '@mui/material';
@@ -78,7 +77,7 @@ const ClientSettingsPage = () => {
   }, [clientDetail]);
 
   return (
-    <Layout>
+    <>
       <LoadingCircleProgress open={updateClient.isLoading || deleteClient.isLoading} />
 
       <Box display="grid" gap="16px">
@@ -118,7 +117,7 @@ const ClientSettingsPage = () => {
       </Box>
 
       {isDeleteOpen && (<DeleteDialog onClose={handleDeleteClose} onDone={handleDelete} />)}
-    </Layout>
+    </>
   );
 }
 
