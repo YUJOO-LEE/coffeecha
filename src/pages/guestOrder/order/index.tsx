@@ -1,5 +1,4 @@
 import { useGetClientInfoForGuest } from '@/apis/queries/guestOrder';
-import { OpenStatus } from '@/apis/swagger/data-contracts';
 import { cartAtom } from '@/pages/guestOrder/order/atoms';
 import Cart, { maxWidth } from '@/pages/guestOrder/order/Cart';
 import ClientInfo from '@/pages/guestOrder/order/ClientInfo';
@@ -8,8 +7,8 @@ import CoffeechaLoading from '@/pages/guestOrder/order/Error/CoffeechaLoading';
 import NoCoffeechaDataPage from '@/pages/guestOrder/order/Error/NoCoffeechaDataPage';
 import MenuList from '@/pages/guestOrder/order/Menu';
 import MenuHeader from '@/pages/guestOrder/order/Menu/MenuHeader';
+import { isClosedClient } from '@/util';
 import { Box, styled } from '@mui/material';
-import dayjs from 'dayjs';
 import { useAtom } from 'jotai';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -24,7 +23,6 @@ const GuestOrderPage = (): React.ReactNode => {
 
   const { data: clientInfo, isLoading, isError } = useGetClientInfoForGuest(clientKey!, !!clientKey);
   const isWrongClientData = !clientKey || isError || (!isLoading && !clientInfo);
-  const isClosed = clientInfo && (clientInfo.openStatus !== OpenStatus.OPEN || clientInfo.businessDate !== dayjs().format('YYYY-MM-DD'));
 
   const handleCategorySelect = (target: number | 'all') => {
     setCategory(target);
@@ -50,7 +48,7 @@ const GuestOrderPage = (): React.ReactNode => {
   // 상황 별 에러 페이지 출력
   if (isWrongClientData) return <NoCoffeechaDataPage />;
   if (isLoading || isLoadingShow) return <CoffeechaLoading />;
-  if (isClosed) return <CoffeechaClosedPage openingDate={clientInfo.businessDate} />;
+  if (clientInfo && isClosedClient(clientInfo)) return <CoffeechaClosedPage openingDate={clientInfo.businessDate} />;
 
   return (
     <Styled.Wrapper>

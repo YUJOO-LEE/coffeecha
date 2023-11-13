@@ -1,3 +1,4 @@
+import { ClientResponse } from '@/apis/swagger/data-contracts';
 import { clientNavList, userNavList } from '@/assets/navList';
 import GlobalNavigationButton from '@/components/GlobalNavigationButton';
 import { MenuOpenRounded, MenuRounded } from '@mui/icons-material';
@@ -6,11 +7,11 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 interface Props {
-  clientId?: string;
+  clientInfo?: ClientResponse;
 }
 
 const GlobalNavigation = (props: Props): React.ReactNode => {
-  const { clientId } = props;
+  const { clientInfo } = props;
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -37,11 +38,11 @@ const GlobalNavigation = (props: Props): React.ReactNode => {
       </Box>
       <Divider />
       <Styled.NavList
-        justifyContent={clientId ? 'space-between' : 'flex-start'}
+        justifyContent={clientInfo ? 'space-between' : 'flex-start'}
       >
         <Box display="flex" flexDirection="column" gap="8px">
-          {clientId && (
-            clientNavList(clientId).map(({ label, icon, url }) => (
+          {clientInfo && (
+            clientNavList(clientInfo).map(({ label, icon, url }) => (
               <GlobalNavigationButton
                 key={url}
                 open={open}
@@ -55,7 +56,7 @@ const GlobalNavigation = (props: Props): React.ReactNode => {
           )}
         </Box>
         <Box display="flex" flexDirection="column" gap="8px">
-          {clientId && (<Divider />)}
+          {clientInfo && (<Divider />)}
           {userNavList.map(({ label, icon, url }) => (
             <GlobalNavigationButton
               key={url}

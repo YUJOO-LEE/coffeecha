@@ -1,3 +1,5 @@
+import { ClientResponse } from '@/apis/swagger/data-contracts';
+import { isClosedClient } from '@/util';
 import {
   CoffeeMakerRounded,
   CoffeeRounded,
@@ -14,10 +16,13 @@ interface NavItem {
   label: string;
   icon?: React.ReactNode;
   url: string;
+  isHide?: boolean;
 }
 
-export const clientNavList = (clientId: string): NavItem[] => {
-  return [
+export const clientNavList = (clientInfo: ClientResponse): NavItem[] => {
+  const { clientId } = clientInfo;
+
+  const navList = [
     {
       label: 'Home',
       url: `/${clientId}/`,
@@ -32,6 +37,7 @@ export const clientNavList = (clientId: string): NavItem[] => {
       label: 'New Order',
       url: `/${clientId}/order/new`,
       icon: <PointOfSaleRounded />,
+      isHide: isClosedClient(clientInfo),
     },
     {
       label: 'Menu',
@@ -44,6 +50,8 @@ export const clientNavList = (clientId: string): NavItem[] => {
       icon: <ManageAccountsRounded />,
     },
   ];
+
+  return navList.filter(({ isHide }) => !isHide);
 };
 
 export const userNavList: NavItem[] = [

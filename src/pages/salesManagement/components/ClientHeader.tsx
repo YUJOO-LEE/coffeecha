@@ -1,25 +1,21 @@
-import { useGetClientDetail } from '@/apis/queries/client';
-import { OpenStatus } from '@/apis/swagger/data-contracts';
+import { ClientResponse, OpenStatus } from '@/apis/swagger/data-contracts';
 import ClientListDrawer from '@/pages/salesManagement/components/ClientListDrawer';
 import { ErrorRounded, LoopRounded } from '@mui/icons-material';
 import { Box, Button, Chip, Divider, styled, Tooltip, Typography } from '@mui/material';
 import dayjs from 'dayjs';
-import React, { useLayoutEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 
 interface Props {
   isOffsetTop?: boolean;
-  clientId: number;
+  clientInfo: ClientResponse;
 }
 
 const ClientHeader = (props: Props): React.ReactNode => {
-  const { isOffsetTop, clientId } = props;
-  const navigate = useNavigate();
+  const { isOffsetTop, clientInfo } = props;
 
   const [listOpen, setListOpen] = useState(false);
 
-  const { data: clientDetail, isError } = useGetClientDetail(Number(clientId));
-  const isOpenDisabled: boolean = !clientDetail || !dayjs().isSame(dayjs(clientDetail?.businessDate), 'd');
+  const isOpenDisabled: boolean = !clientInfo || !dayjs().isSame(dayjs(clientInfo?.businessDate), 'd');
 
   const handleListOpen = () => {
     setListOpen(true);
@@ -29,17 +25,11 @@ const ClientHeader = (props: Props): React.ReactNode => {
     setListOpen(false);
   };
 
-  useLayoutEffect(() => {
-    if (!isError) return;
-
-    navigate('/');
-  }, [isError, navigate]);
-
   return (
     <Styled.HeaderBar isOffsetTop={isOffsetTop}>
       <Box display="flex" gap="8px" alignItems="center">
         <Box display="flex" gap="4px" alignItems="center">
-          {clientDetail?.openStatus === OpenStatus.OPEN && isOpenDisabled && (
+          {clientInfo?.openStatus === OpenStatus.OPEN && isOpenDisabled && (
             <Tooltip title="Store is open but today is not opening day. Unable to take orders until opening day." arrow>
               <ErrorRounded color="error" />
             </Tooltip>
@@ -47,16 +37,16 @@ const ClientHeader = (props: Props): React.ReactNode => {
           <Chip
             size="small"
             variant="filled"
-            color={clientDetail?.openStatus === OpenStatus.OPEN ? 'success' : 'default'}
-            label={clientDetail?.openStatus}
+            color={clientInfo?.openStatus === OpenStatus.OPEN ? 'success' : 'default'}
+            label={clientInfo?.openStatus}
           />
         </Box>
         <Typography variant="h2" fontSize="20px" fontWeight="500">
-          {clientDetail?.clientName}
+          {clientInfo?.clientName}
         </Typography>
         <Divider orientation="vertical" sx={{ height: '50%' }} />
         <Typography color="grey" fontSize="12px" fontWeight="300">
-          {clientDetail?.address}
+          {clientInfo?.address}
         </Typography>
       </Box>
       <Styled.ControlButton size="small" color="inherit" onClick={handleListOpen}>

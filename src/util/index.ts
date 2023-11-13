@@ -1,3 +1,6 @@
+import { ClientResponse, OpenStatus } from '@/apis/swagger/data-contracts';
+import dayjs from 'dayjs';
+
 export const getPhoneNumber = (value: string) => {
   if (value.length > 1 && !/^(01)/.test(value)) {
     return value[0];
@@ -12,4 +15,11 @@ export const getPhoneNumber = (value: string) => {
     .replace(phoneNumberRegex1, '$1-$2')
     .replace(phoneNumberRegex2, '$1-$2-$3')
     .replace(phoneNumberRegex3, '$1-$2-$3');
+};
+
+export const isClosedClient = (clientInfo?: Partial<ClientResponse>): boolean => {
+  if (!clientInfo) return false;
+
+  const { openStatus, businessDate } = clientInfo;
+  return openStatus !== OpenStatus.OPEN || businessDate !== dayjs().format('YYYY-MM-DD');
 };

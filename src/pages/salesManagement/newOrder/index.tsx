@@ -1,15 +1,23 @@
 import { useGetClientDetail } from '@/apis/queries/client';
+import { isClosedClient } from '@/util';
 import { PointOfSaleRounded } from '@mui/icons-material';
 import { Box, styled, Typography } from '@mui/material';
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useLayoutEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { CartList } from './components/CartList';
 import { MenuList } from './components/MenuList';
 import { Order } from './components/Order';
 
 export const NewOrderPage = (): React.ReactNode => {
   const { clientId } = useParams();
-  const { data: clientDetail } = useGetClientDetail(Number(clientId));
+  const navigate = useNavigate();
+
+  const { data: clientInfo } = useGetClientDetail(Number(clientId));
+
+  useLayoutEffect(() => {
+    if (!isClosedClient(clientInfo)) return;
+    navigate(`/${clientId}/order`);
+  }, [clientId, clientInfo, navigate]);
 
   return (
     <Styled.Wrapper>
@@ -19,9 +27,9 @@ export const NewOrderPage = (): React.ReactNode => {
           NEW ORDER
         </Typography>
       </Box>
-      {clientDetail?.clientKey && (
+      {clientInfo?.clientKey && (
         <Styled.Content>
-          <MenuList clientKey={clientDetail.clientKey} />
+          <MenuList clientKey={clientInfo.clientKey} />
           <CartList />
           <Order />
         </Styled.Content>
