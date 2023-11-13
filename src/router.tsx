@@ -25,11 +25,7 @@ const routers = createBrowserRouter([
 
       return !isLogin() && redirect('/login');
     },
-    element: (
-      <Layout>
-        <Outlet />
-      </Layout>
-    ),
+    element: <Layout />,
     children: [
       {
         path: '/',

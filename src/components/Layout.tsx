@@ -3,9 +3,9 @@ import GlobalNavigation from '@/components/GlobalNavigation';
 import ClientHeader from '@/pages/salesManagement/components/ClientHeader';
 import { Box, styled } from '@mui/material';
 import React, { useCallback, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 
-const Layout = ({ children }: React.PropsWithChildren):React.ReactNode => {
+const Layout = (): React.ReactNode => {
   const { clientId } = useParams();
   const [isOffsetTop, setIsOffsetTop] = useState(true);
 
@@ -21,7 +21,7 @@ const Layout = ({ children }: React.PropsWithChildren):React.ReactNode => {
       <Box flexGrow={1} maxHeight="100dvh" display="grid" gridTemplateRows={clientId ? '50px 1fr' : '1fr'}>
         {clientId && <ClientHeader clientId={Number(clientId)} isOffsetTop={isOffsetTop} />}
         <Styled.Main onScroll={handleScroll}>
-          {children}
+          <Outlet />
         </Styled.Main>
       </Box>
     </Box>
