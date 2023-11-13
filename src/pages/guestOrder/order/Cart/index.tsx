@@ -1,5 +1,5 @@
-import { useGetClientMenuForGuest } from '@/apis/queries/guestOrder';
-import { cartAtom, OrderItem } from '@/pages/guestOrder/order/atoms';
+import { useCurrentCartList } from '@/hooks/useCurrentCartList';
+import { cartAtom } from '@/pages/guestOrder/order/atoms';
 import { KeyboardDoubleArrowDownRounded, KeyboardDoubleArrowUpRounded } from '@mui/icons-material';
 import { Box, Divider, styled, Typography } from '@mui/material';
 import { useAtom } from 'jotai';
@@ -20,25 +20,10 @@ const Cart = (props: IProps): React.ReactNode => {
   const prevScrollY = useRef<number>(window.scrollY);
 
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
-
-  const { data: menuList } = useGetClientMenuForGuest(clientKey);
-
   const [cartListAtom, setCartList] = useAtom(cartAtom);
 
   const totalQuantity = cartListAtom.reduce((prev, { quantity }) => prev + quantity, 0);
-  const cartList: OrderItem[] = cartListAtom.map((item) => {
-    if (!menuList) return item;
-    const findMenu = menuList.find(({ clientMenuId }) => clientMenuId === item.menuInfo.clientMenuId);
-    const thisMenuTotalQuantity = cartListAtom
-      ?.reduce((prev, { quantity, menuInfo }) => menuInfo.clientMenuId === item.menuInfo.clientMenuId ? prev + quantity : prev, 0);
-    const availableQuantityToOrder = findMenu ? findMenu.stockQuantity - findMenu.saleQuantity : 0;
-
-    return {
-      ...item,
-      remain: availableQuantityToOrder,
-      error: thisMenuTotalQuantity > availableQuantityToOrder,
-    }
-  });
+  const cartList = useCurrentCartList(cartListAtom, clientKey);
   const isError = cartList.some(({ error }) => error);
 
   const toggleCartOpen = () => {
@@ -150,6 +135,7 @@ const Cart = (props: IProps): React.ReactNode => {
                 <CartListItem
                   key={`cart-${item.menuInfo.clientMenuId}-${index}`}
                   data={item}
+                  cartList={cartList}
                   onIncrease={handleIncrease(index)}
                   onDecrease={handleDecrease(index)}
                   onRemove={handleRemove(index)}

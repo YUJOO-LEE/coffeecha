@@ -8,13 +8,14 @@ import React, { useState } from 'react';
 
 type Props = {
   clientKey: string;
+  cartList: CartItem[];
+  onAdd: (newItem: CartItem) => void;
 }
 
 export const MenuList = (props: Props): React.ReactNode => {
-  const { clientKey } = props;
+  const { clientKey, cartList, onAdd } = props;
 
   const [addCartTarget, setAddCartTarget] = useState<ClientMenuResponse | null>(null);
-  const [cartList, setCartList] = useState<CartItem[]>([]);
 
   const { data: menuList } = useGetClientMenuForGuest(clientKey);
 
@@ -27,11 +28,7 @@ export const MenuList = (props: Props): React.ReactNode => {
   };
 
   const handleAdd = (newItem: CartItem) => {
-    setCartList((prev) => ([
-      ...prev,
-      newItem,
-    ]));
-
+    onAdd(newItem);
     handleClose();
   };
 

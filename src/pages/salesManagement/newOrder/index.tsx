@@ -1,8 +1,9 @@
 import { useGetClientDetail } from '@/apis/queries/client';
+import { CartItem } from '@/pages/guestOrder/order/atoms';
 import { isClosedClient } from '@/util';
 import { PointOfSaleRounded } from '@mui/icons-material';
 import { Box, styled, Typography } from '@mui/material';
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { CartList } from './components/CartList';
 import { MenuList } from './components/MenuList';
@@ -12,7 +13,43 @@ export const NewOrderPage = (): React.ReactNode => {
   const { clientId } = useParams();
   const navigate = useNavigate();
 
+  const [cartList, setCartList] = useState<CartItem[]>([]);
+
   const { data: clientInfo } = useGetClientDetail(Number(clientId));
+
+  const handleAdd = (newItem: CartItem) => {
+    setCartList((prev) => ([
+      ...prev,
+      newItem,
+    ]));
+  };
+
+  const handleDecrease = (index: number) => () => {
+    setCartList((prev) => {
+      const newList = [...prev];
+      if (newList[index].quantity > 1) {
+        newList[index].quantity -= 1;
+        return newList;
+      }
+      return prev;
+    });
+  };
+
+  const handleIncrease = (index: number) => () => {
+    setCartList((prev) => {
+      const newList = [...prev];
+      newList[index].quantity += 1;
+      return newList;
+    });
+  };
+
+  const handleRemove = (index: number) => () => {
+    setCartList((prev) => {
+      const newList = [...prev];
+      newList.splice(index, 1);
+      return newList;
+    });
+  };
 
   useLayoutEffect(() => {
     if (!isClosedClient(clientInfo)) return;
@@ -29,8 +66,8 @@ export const NewOrderPage = (): React.ReactNode => {
       </Box>
       {clientInfo?.clientKey && (
         <Styled.Content>
-          <MenuList clientKey={clientInfo.clientKey} />
-          <CartList />
+          <MenuList clientKey={clientInfo.clientKey} cartList={cartList} onAdd={handleAdd} />
+          <CartList clientKey={clientInfo.clientKey} cartList={cartList} onDecrease={handleDecrease} onIncrease={handleIncrease} onRemove={handleRemove} />
           <Order />
         </Styled.Content>
       )}
