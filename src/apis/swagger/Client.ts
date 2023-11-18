@@ -9,7 +9,13 @@
  * ---------------------------------------------------------------
  */
 
-import { ClientResponse, SaveClientRequest, SaveResponse, UpdateClientRequest } from "./data-contracts";
+import {
+  ClientOrderResponse,
+  ClientResponse,
+  SaveClientRequest,
+  SaveResponse,
+  UpdateClientRequest,
+} from "./data-contracts";
 import { ContentType, HttpClient, RequestParams } from "./http-client";
 
 export class Client<SecurityDataType = unknown> {
@@ -132,6 +138,38 @@ export class Client<SecurityDataType = unknown> {
     this.http.request<void, any>({
       path: `/api/clients/${clientId}/close`,
       method: "PATCH",
+      secure: true,
+      ...params,
+    });
+  /**
+   * @description 클라이언트 주문 조회 API
+   *
+   * @tags Client
+   * @name GetClientOrders
+   * @summary 클라이언트 주문 리스트 조회
+   * @request GET:/api/clients/{clientId}/orders
+   * @secure
+   */
+  getClientOrders = (
+    clientId: number,
+    query: {
+      /**
+       * 최소값 0
+       * @format int64
+       */
+      offset: number;
+      /**
+       * 유효값 1~50
+       * @format int64
+       */
+      limit: number;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.http.request<ClientOrderResponse, any>({
+      path: `/api/clients/${clientId}/orders`,
+      method: "GET",
+      query: query,
       secure: true,
       ...params,
     });

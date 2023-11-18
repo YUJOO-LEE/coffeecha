@@ -223,3 +223,25 @@ export interface ClientResponse {
   openStatus: OpenStatus;
   clientKey: string;
 }
+
+export interface ClientOrderResponse {
+  /** @format int64 */
+  totalCount: number;
+  orders: ClientOrderResult[];
+}
+
+export interface ClientOrderResult {
+  /** @format int32 */
+  orderNumber: number;
+  guestName: string;
+  phoneNumber: string;
+  message?: string;
+  orderStatus: OrderStatus;
+  /** @format int64 */
+  orderId: number;
+  orderMenus: OrderMenuInfo[];
+  /** @format int32 */
+  totalQuantity: number;
+  /** @format date-time */
+  orderDateTime: string;
+}
