@@ -1,5 +1,6 @@
 import { useOrder } from '@/apis/queries/guestOrder';
 import { OrderMenuRequest, OrderRequest } from '@/apis/swagger/data-contracts';
+import LoadingCircleProgress from '@/components/LoadingCircleProgress';
 import { CartItem } from '@/pages/guestOrder/order/atoms';
 import { getPhoneNumber } from '@/util';
 import { Box, Button, Card, styled, TextField } from '@mui/material';
@@ -63,6 +64,7 @@ export const Order = (props: Props): React.ReactNode => {
 
   return (
     <Styled.Wrapper>
+      <LoadingCircleProgress open={guestOrder.isLoading} />
       <Box display="flex" flexDirection="column" gap="16px">
         <TextField label="주문자/팀명" variant="outlined" value={formData.guestName} onChange={handleChange('guestName')} />
         <TextField label="안내문자 수신 연락처" inputProps={{ maxLength: 13, inputMode: 'numeric' }} variant="outlined" value={formData.phoneNumber} onChange={handleChange('phoneNumber')} />
