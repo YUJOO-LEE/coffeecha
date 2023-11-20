@@ -20,7 +20,7 @@ export const Order = (props: Props): React.ReactNode => {
 
   const [formData, setFormData] = useState<Omit<OrderRequest, 'orderList'>>(initialFormData);
 
-  const isDisable = !formData.guestName.trim() || !formData.phoneNumber || formData.phoneNumber.trim().length < 12;
+  const isDisable = !formData.guestName.trim() || !formData.phoneNumber || formData.phoneNumber.trim().length < 12 || !cartList.length;
 
   const guestOrder = useOrder(clientKey);
 
@@ -49,6 +49,8 @@ export const Order = (props: Props): React.ReactNode => {
   });
 
   const handleOrder = async () => {
+    if (isDisable) return;
+
     const request = getRequest();
     try {
       await guestOrder.mutateAsync(request);
