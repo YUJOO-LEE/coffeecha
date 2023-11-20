@@ -69,7 +69,10 @@ const Styled = {
     gridTemplateRows: '1fr auto',
     columnGap: '16px',
     rowGap: '8px',
-    borderBottom: `1px solid ${theme.palette.grey[200]}`
+    borderBottom: `1px solid ${theme.palette.grey[200]}`,
+    '&:last-of-type': {
+      borderBottom: 'none',
+    },
   })),
   ImageWrapper: styled('div')(({ theme }) => ({
     aspectRatio: '1',
