@@ -51,6 +51,10 @@ export const NewOrderPage = (): React.ReactNode => {
     });
   };
 
+  const handleReset = () => {
+    setCartList([]);
+  };
+
   useLayoutEffect(() => {
     if (!isClosedClient(clientInfo)) return;
     navigate(`/${clientId}/order`);
@@ -68,7 +72,7 @@ export const NewOrderPage = (): React.ReactNode => {
         <Styled.Content>
           <MenuList clientKey={clientInfo.clientKey} cartList={cartList} onAdd={handleAdd} />
           <CartList clientKey={clientInfo.clientKey} cartList={cartList} onDecrease={handleDecrease} onIncrease={handleIncrease} onRemove={handleRemove} />
-          <Order />
+          <Order clientKey={clientInfo.clientKey} cartList={cartList} onReset={handleReset} />
         </Styled.Content>
       )}
     </Styled.Wrapper>
@@ -89,7 +93,7 @@ const Styled = {
     overflow: 'hidden',
     display: 'grid',
     gridTemplateColumns: '1fr 420px',
-    gridTemplateRows: '1fr 320px',
+    gridTemplateRows: '1fr auto',
     gap: '24px',
   }),
 };
