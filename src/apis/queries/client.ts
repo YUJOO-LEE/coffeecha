@@ -88,13 +88,19 @@ export const useCloseClient = (): UseMutationResult<AxiosResponse<void>, unknown
   });
 };
 
-export const useGetOrderList = (clientId: number) => {
+export const useGetOrderList = (clientId: number, limit: number) => {
   return useInfiniteQuery(
     [QueryKey, 'list', clientId],
     async ({ pageParam = 0 }) => {
-      const { data } = await clientApi.getClientOrders(clientId, { offset: pageParam, limit: 10 });
+      const { data } = await clientApi.getClientOrders(clientId, { offset: pageParam, limit });
       return data;
     },
-    defaultOption,
+    {
+      ...defaultOption,
+      getNextPageParam: (lastPage, allPages) => {
+        if (lastPage.orders.length < limit) return;
+        return limit * allPages.length;
+      },
+    }
   );
 };
