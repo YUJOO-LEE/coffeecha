@@ -52,14 +52,14 @@ export const OrderListItem = (props: Props): React.ReactNode => {
         </AccordionSummary>
         <AccordionDetails>
           {data.orderMenus.map((menu, index) => (
-            <Box key={`menu_${index}`} display="grid" gridTemplateColumns="auto 1fr auto" gap="8px">
+            <Box key={`${data.orderId}_menu_${index}`} display="flex" gap="8px">
               <Typography>
                 {menu.menuName}
               </Typography>
               <Typography color="grey">
                 {menu.menuOption}
               </Typography>
-              <Typography>
+              <Typography color={(theme) => menu.orderQuantity > 1 ? theme.palette.error.main : undefined}>
                 수량 {menu.orderQuantity}
               </Typography>
             </Box>
