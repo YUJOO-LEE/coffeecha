@@ -1,7 +1,14 @@
 import { clientApi } from '@/apis';
 import { defaultOption } from '@/apis/queries/index';
 import { ClientResponse, SaveClientRequest, SaveResponse, UpdateClientRequest } from '@/apis/swagger/data-contracts';
-import { useMutation, UseMutationResult, useQuery, useQueryClient, UseQueryResult } from '@tanstack/react-query';
+import {
+  useInfiniteQuery,
+  useMutation,
+  UseMutationResult,
+  useQuery,
+  useQueryClient,
+  UseQueryResult,
+} from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
 
 export const QueryKey = 'client';
@@ -79,4 +86,15 @@ export const useCloseClient = (): UseMutationResult<AxiosResponse<void>, unknown
       queryClient.invalidateQueries([QueryKey, 'detail']);
     },
   });
+};
+
+export const useGetOrderList = (clientId: number) => {
+  return useInfiniteQuery(
+    [QueryKey, 'list', clientId],
+    async ({ pageParam = 0 }) => {
+      const { data } = await clientApi.getClientOrders(clientId, { offset: pageParam, limit: 10 });
+      return data;
+    },
+    defaultOption,
+  );
 };

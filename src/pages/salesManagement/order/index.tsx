@@ -1,3 +1,4 @@
+import { useGetOrderList } from '@/apis/queries/client';
 import DeleteDialog from '@/components/DeleteDialog';
 import { OrderStatusEnum } from '@/type/order';
 import {
@@ -22,9 +23,15 @@ import {
 import dayjs from 'dayjs';
 import numeral from 'numeral';
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 const OrderPage = (): React.ReactNode => {
+  const { clientId } = useParams();
+
   const [deleteOpen, setDeleteOpen] = useState(false);
+
+  const { data: orderList } = useGetOrderList(Number(clientId));
+  console.log('###', orderList);
 
   const handleDeleteOpen = () => {
     setDeleteOpen(true);
