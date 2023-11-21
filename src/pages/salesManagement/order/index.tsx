@@ -19,7 +19,7 @@ const OrderPage = (): React.ReactNode => {
 
   const [deleteOpen, setDeleteOpen] = useState(false);
 
-  const { data, fetchNextPage, isLoading, isFetching, hasNextPage } = useGetOrderList(Number(clientId), limit);
+  const { data, fetchNextPage, isLoading, isFetchingNextPage, hasNextPage } = useGetOrderList(Number(clientId), limit);
   const orderList = data?.pages.reduce<ClientOrderResult[]>((prev, { orders }) => ([...prev, ...orders]), []) || [];
 
   const handleDeleteOpen = () => {
@@ -34,9 +34,9 @@ const OrderPage = (): React.ReactNode => {
   };
 
   useEffect(() => {
-    if (!isIntersecting || isFetching || !hasNextPage) return;
+    if (!isIntersecting || isFetchingNextPage || !hasNextPage) return;
     fetchNextPage();
-  }, [fetchNextPage, isFetching, isIntersecting, hasNextPage]);
+  }, [fetchNextPage, isFetchingNextPage, isIntersecting, hasNextPage]);
 
   return (
     <Box display="grid" gap="16px">
@@ -53,6 +53,9 @@ const OrderPage = (): React.ReactNode => {
         {orderList.map((item) => (
           <OrderListItem key={item.orderId} data={item} />
         ))}
+        {isFetchingNextPage && (
+          <OrderListItemSkeleton />
+        )}
       </Box>
 
       <Styled.FetchMore ref={fetchMoreRef} />
