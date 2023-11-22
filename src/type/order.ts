@@ -1,4 +1,4 @@
-export enum OrderStatusEnum {
+export const enum OrderStatusEnum {
   OrderPlaced = 'order_placed',
   OrderAccepted = 'order_accepted',
   WaitingForPickup = 'waiting_for_pickup',
