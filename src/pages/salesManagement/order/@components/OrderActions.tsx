@@ -38,6 +38,7 @@ export const OrderActions = (props: Props): React.ReactNode => {
     } catch (e) {
       enqueueSnackbar('An error occurred, Please try again later', { variant: 'error' });
     }
+    handleClose();
   };
 
   return (
