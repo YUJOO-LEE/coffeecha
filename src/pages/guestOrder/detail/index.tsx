@@ -45,7 +45,7 @@ const GuestOrderDetailPage = (): React.ReactNode => {
             {isLoading || !orderDetail ? (
               <Skeleton width="100px" />
             ) : (
-              orderStatusList[orderDetail.status].name
+              orderStatusList[orderDetail.status].ko
             )}
           </Typography>
         </Box>
