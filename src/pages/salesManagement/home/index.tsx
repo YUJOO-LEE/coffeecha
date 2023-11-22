@@ -1,6 +1,6 @@
 import { useGetClientDetail } from '@/apis/queries/client';
 import { OpenStatus } from '@/apis/swagger/data-contracts';
-import CopyToClipboard from '@/pages/components/CopyToClipboard';
+import { CopyToClipboard } from '@/components/CopyToClipboard';
 import OpenCloseDialog from '@/pages/salesManagement/home/components/OpenCloseDialog';
 import { NotificationsRounded } from '@mui/icons-material';
 import { Box, Button, Card, Chip, styled, Typography } from '@mui/material';

@@ -3,11 +3,11 @@ import { styled, Typography } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import React from 'react';
 
-interface Props {
+type Props = {
   children: string;
 }
 
-const CopyToClipboard = (props: Props & React.HTMLAttributes<HTMLDivElement>): React.ReactNode => {
+export const CopyToClipboard = (props: Props & React.HTMLAttributes<HTMLDivElement>): React.ReactNode => {
   const { children, ...restProps } = props;
   const { enqueueSnackbar } = useSnackbar();
 
@@ -25,8 +25,6 @@ const CopyToClipboard = (props: Props & React.HTMLAttributes<HTMLDivElement>): R
     </Styled.Wrapper>
   );
 };
-
-export default CopyToClipboard;
 
 const Styled = {
   Wrapper: styled('div')(({ theme }) => ({
