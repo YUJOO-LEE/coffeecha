@@ -25,7 +25,7 @@ export const orderStatusList: Record<OrderStatus, OrderStatusData> = {
   },
   [OrderStatus.PICKUP_COMPLETE]: {
     ko: '픽업 완료',
-    en: 'complete',
+    en: 'completed',
     color: (theme) => theme.palette.success.main,
   },
   [OrderStatus.ORDER_CANCELLED]: {
