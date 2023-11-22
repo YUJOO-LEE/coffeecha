@@ -1,12 +1,11 @@
 import { useGetOrderList } from '@/apis/queries/client';
 import { ClientOrderResult } from '@/apis/swagger/data-contracts';
-import DeleteDialog from '@/components/DeleteDialog';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import { OrderListItem } from '@/pages/salesManagement/order/components/OrderListItem';
 import { OrderListItemSkeleton } from '@/pages/salesManagement/order/components/OrderListItemSkeleton';
 import { ReceiptLongRounded } from '@mui/icons-material';
 import { Box, styled, Typography } from '@mui/material';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 
 const limit = 10;
@@ -17,21 +16,8 @@ const OrderPage = (): React.ReactNode => {
   const fetchMoreRef = useRef<HTMLDivElement>(null);
   const isIntersecting = useIntersectionObserver(fetchMoreRef);
 
-  const [deleteOpen, setDeleteOpen] = useState(false);
-
   const { data, fetchNextPage, isLoading, isFetchingNextPage, hasNextPage } = useGetOrderList(Number(clientId), limit);
   const orderList = data?.pages.reduce<ClientOrderResult[]>((prev, { orders }) => ([...prev, ...orders]), []) || [];
-
-  const handleDeleteOpen = () => {
-    setDeleteOpen(true);
-  };
-
-  const handleClose = () => {
-    setDeleteOpen(false);
-  };
-
-  const handleDelete = () => {
-  };
 
   useEffect(() => {
     if (!isIntersecting || isFetchingNextPage || !hasNextPage) return;
@@ -59,10 +45,6 @@ const OrderPage = (): React.ReactNode => {
       </Box>
 
       <Styled.FetchMore ref={fetchMoreRef} />
-
-      {deleteOpen && (
-        <DeleteDialog onDone={handleDelete} onClose={handleClose} />
-      )}
     </Box>
   );
 }

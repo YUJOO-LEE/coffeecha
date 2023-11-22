@@ -1,16 +1,18 @@
-import { ClientOrderResult } from '@/apis/swagger/data-contracts';
-import { OrderStatusEnum } from '@/type/order';
-import { CheckRounded, CloseRounded, CoffeeRounded, ExpandMoreRounded, HowToRegRounded } from '@mui/icons-material';
+import { ClientOrderResult, OrderStatus } from '@/apis/swagger/data-contracts';
+import { orderStatusList } from '@/constants/orderStatusList';
+import { OrderActions } from '@/pages/salesManagement/order/components/OrderActions';
+import { ExpandMoreRounded } from '@mui/icons-material';
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
   Box,
-  Button,
   Card,
+  Chip,
   Divider,
   styled,
   Typography,
+  useTheme,
 } from '@mui/material';
 import dayjs from 'dayjs';
 import numeral from 'numeral';
@@ -22,10 +24,13 @@ type Props = {
 
 export const OrderListItem = (props: Props): React.ReactNode => {
   const { data } = props;
+  const theme = useTheme();
+
+  const isDefaultExpanded = data.orderStatus === OrderStatus.ORDER_PLACED || data.orderStatus === OrderStatus.ORDER_ACCEPTED;
 
   return (
     <Styled.ListItem>
-      <Styled.Status className={OrderStatusEnum.OrderPlaced} />
+      <Styled.Status color={orderStatusList[data.orderStatus].color(theme)} />
       <Styled.NumberTypography fontSize="28px" fontWeight="500">
         {numeral(data.orderNumber).format('000')}
       </Styled.NumberTypography>
@@ -44,7 +49,7 @@ export const OrderListItem = (props: Props): React.ReactNode => {
         </Typography>
       </Box>
       <Divider />
-      <Styled.OrderDetail disableGutters>
+      <Styled.OrderDetail defaultExpanded={isDefaultExpanded} disableGutters>
         <AccordionSummary expandIcon={<ExpandMoreRounded />} >
           <Typography>
             합계 수량 {data.totalQuantity}
@@ -52,34 +57,24 @@ export const OrderListItem = (props: Props): React.ReactNode => {
         </AccordionSummary>
         <AccordionDetails>
           {data.orderMenus.map((menu, index) => (
-            <Box key={`${data.orderId}_menu_${index}`} display="flex" gap="8px">
+            <Box key={`${data.orderId}_menu_${index}`} display="flex" alignItems="center" gap="8px">
+              <Styled.QuantityChip
+                size="small"
+                variant="filled"
+                label={menu.orderQuantity}
+                status={menu.orderQuantity > 1 ? data.orderStatus : undefined}
+              />
               <Typography>
                 {menu.menuName}
               </Typography>
               <Typography color="grey">
                 {menu.menuOption}
               </Typography>
-              <Typography color={(theme) => menu.orderQuantity > 1 ? theme.palette.error.main : undefined}>
-                수량 {menu.orderQuantity}
-              </Typography>
             </Box>
           ))}
         </AccordionDetails>
       </Styled.OrderDetail>
-      <Styled.Actions display="flex" gap="8px" alignItems="flex-start">
-        <Styled.ActionButton disableElevation size="small" variant="contained">
-          <CheckRounded />
-        </Styled.ActionButton>
-        <Styled.ActionButton size="small" variant="outlined" color="error">
-          <CloseRounded />
-        </Styled.ActionButton>
-        {/*<Styled.ActionButton disableElevation size="small" variant="contained" color="success">*/}
-        {/*  <HowToRegRounded />*/}
-        {/*</Styled.ActionButton>*/}
-        {/*<Styled.ActionButton disableElevation size="small" variant="contained" color="warning">*/}
-        {/*  <CoffeeRounded />*/}
-        {/*</Styled.ActionButton>*/}
-      </Styled.Actions>
+      <OrderActions orderId={data.orderId} status={data.orderStatus} />
     </Styled.ListItem>
   );
 };
@@ -95,25 +90,12 @@ const Styled = {
       backgroundColor: theme.palette.grey[50],
     },
   })),
-  Status: styled(Box)(({ theme }) => ({
+  Status: styled(Box)<{ color: string }>({
     gridColumn: '1',
     gridRow: '1 / 4',
     borderRadius: '0 4px 4px 0',
-    [`&.${OrderStatusEnum.OrderPlaced}`]: {
-      backgroundColor: theme.palette.error.main,
-    },
-    [`&.${OrderStatusEnum.OrderAccepted}`]: {
-      backgroundColor: theme.palette.primary.main,
-    },
-    [`&.${OrderStatusEnum.WaitingForPickup}`]: {
-      backgroundColor: theme.palette.warning.main,
-    },
-    [`&.${OrderStatusEnum.PickupComplete}`]: {
-      backgroundColor: theme.palette.success.main,
-    },
-    [`&.${OrderStatusEnum.OrderCancelled}`]: {
-      backgroundColor: theme.palette.grey[500],
-    },
+  }, ({ color }) => ({
+    backgroundColor: color,
   })),
   NumberTypography: styled(Typography)({
     gridColumn: '2',
@@ -138,13 +120,15 @@ const Styled = {
     },
     '& .MuiAccordionDetails-root': {
       padding: '16px 0 0',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '8px',
     },
   }),
-  Actions: styled(Box)({
-    gridColumn: '4',
-    gridRow: '1 / 4',
-  }),
-  ActionButton: styled(Button)({
-    height: '64px',
-  }),
+  QuantityChip: styled(Chip)<{ status?: OrderStatus }>({
+    borderRadius: '4px',
+  }, ({ status, theme }) => ({
+    backgroundColor: status ? orderStatusList[status].color(theme) : undefined,
+    color: status ? theme.palette.common.white : undefined,
+  })),
 };
