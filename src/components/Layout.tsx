@@ -1,7 +1,7 @@
 import { useAuth } from '@/apis/queries/auth';
 import { useGetClientDetail } from '@/apis/queries/client';
 import GlobalNavigation from '@/components/GlobalNavigation';
-import ClientHeader from '@/pages/salesManagement/components/ClientHeader';
+import ClientHeader from '@/pages/salesManagement/@components/ClientHeader';
 import { Box, styled } from '@mui/material';
 import React, { useCallback, useLayoutEffect, useState } from 'react';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';

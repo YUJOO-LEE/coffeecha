@@ -2,7 +2,7 @@ import { useAddCollection, useGetCategoryList, useImageUpload, useUpdateCollecti
 import { useGetOptionList } from '@/apis/queries/menuOption';
 import { CreateMenuRequest, MenuResponse } from '@/apis/swagger/data-contracts';
 import LoadingCircleProgress from '@/components/LoadingCircleProgress';
-import OptionDialog from '@/pages/collection/components/OptionDialog';
+import OptionDialog from '@/pages/collection/@dialogs/OptionDialog';
 import { ManageSearchRounded } from '@mui/icons-material';
 import {
   Box,

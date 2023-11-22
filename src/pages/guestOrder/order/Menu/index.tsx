@@ -1,8 +1,8 @@
 import { useGetClientMenuForGuest } from '@/apis/queries/guestOrder';
 import { ClientMenuResponse } from '@/apis/swagger/data-contracts';
-import { cartAtom, CartItem } from '@/pages/guestOrder/order/atoms';
-import AddCartDialog from '@/pages/guestOrder/order/Menu/components/AddCartDialog';
-import MenuListItem from '@/pages/guestOrder/order/Menu/components/MenuListItem';
+import { cartAtom, CartItem } from '@/pages/guestOrder/order/@atoms';
+import AddCartDialog from '@/pages/guestOrder/order/Menu/@dialogs/AddCartDialog';
+import MenuListItem from '@/pages/guestOrder/order/Menu/@components/MenuListItem';
 import { Box } from '@mui/material';
 import { useAtom } from 'jotai/index';
 import React, { useState } from 'react';

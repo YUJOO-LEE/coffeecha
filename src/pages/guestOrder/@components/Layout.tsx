@@ -1,4 +1,4 @@
-import GuestOrderHeader from '@/pages/guestOrder/components/Header';
+import GuestOrderHeader from '@/pages/guestOrder/@components/Header';
 import { styled } from '@mui/material';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';

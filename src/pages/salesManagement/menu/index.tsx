@@ -1,7 +1,7 @@
 import { useGetCategoryList } from '@/apis/queries/collection';
 import { useGetClientMenuList } from '@/apis/queries/salesManagement/menu';
-import AddDialog from '@/pages/salesManagement/menu/components/AddDialog';
-import MenuGridItem from '@/pages/salesManagement/menu/components/MenuGridItem';
+import AddDialog from '@/pages/salesManagement/menu/@dialogs/AddDialog';
+import MenuGridItem from '@/pages/salesManagement/menu/@components/MenuGridItem';
 import { AddRounded, CoffeeRounded, InfoRounded } from '@mui/icons-material';
 import { Box, Button, Card, IconButton, Skeleton, styled, Typography } from '@mui/material';
 import React, { useState } from 'react';

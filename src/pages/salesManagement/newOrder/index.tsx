@@ -1,13 +1,13 @@
 import { useGetClientDetail } from '@/apis/queries/client';
-import { CartItem } from '@/pages/guestOrder/order/atoms';
+import { CartItem } from '@/pages/guestOrder/order/@atoms';
 import { isClosedClient } from '@/util';
 import { PointOfSaleRounded } from '@mui/icons-material';
 import { Box, styled, Typography } from '@mui/material';
 import React, { useLayoutEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { CartList } from './components/CartList';
-import { MenuList } from './components/MenuList';
-import { Order } from './components/Order';
+import { CartList } from './@components/CartList';
+import { MenuList } from './@components/MenuList';
+import { Order } from './@components/Order';
 
 export const NewOrderPage = (): React.ReactNode => {
   const { clientId } = useParams();

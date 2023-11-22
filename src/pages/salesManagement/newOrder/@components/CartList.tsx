@@ -1,5 +1,5 @@
 import { useCurrentCartList } from '@/hooks/useCurrentCartList';
-import { CartItem } from '@/pages/guestOrder/order/atoms';
+import { CartItem } from '@/pages/guestOrder/order/@atoms';
 import { CartListItem } from '@/pages/guestOrder/order/Cart/CartListItem';
 import { Card, styled } from '@mui/material';
 import React from 'react';

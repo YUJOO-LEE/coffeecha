@@ -1,6 +1,6 @@
 import { GuestOrderResponse } from '@/apis/swagger/data-contracts';
 import { OrderListItem } from '@/pages/guestOrder/list/OrderListItem';
-import { guestLoginAtom } from '@/pages/guestOrder/order/atoms';
+import { guestLoginAtom } from '@/pages/guestOrder/order/@atoms';
 import { Box, Card, Divider, Skeleton, styled, Typography } from '@mui/material';
 import { useAtomValue } from 'jotai';
 import React from 'react';

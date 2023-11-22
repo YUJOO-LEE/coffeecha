@@ -1,5 +1,5 @@
 import { useCurrentCartList } from '@/hooks/useCurrentCartList';
-import { cartAtom } from '@/pages/guestOrder/order/atoms';
+import { cartAtom } from '@/pages/guestOrder/order/@atoms';
 import { KeyboardDoubleArrowDownRounded, KeyboardDoubleArrowUpRounded } from '@mui/icons-material';
 import { Box, Divider, styled, Typography } from '@mui/material';
 import { useAtom } from 'jotai';

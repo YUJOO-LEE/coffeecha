@@ -1,5 +1,5 @@
 import { useGetClientMenuForGuest } from '@/apis/queries/guestOrder';
-import { CartItem, OrderItem } from '@/pages/guestOrder/order/atoms';
+import { CartItem, OrderItem } from '@/pages/guestOrder/order/@atoms';
 
 export const useCurrentCartList = (cartList: CartItem[], clientKey: string): OrderItem[] => {
   const { data: menuList } = useGetClientMenuForGuest(clientKey);

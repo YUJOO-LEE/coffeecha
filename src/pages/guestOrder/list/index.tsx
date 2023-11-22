@@ -1,8 +1,8 @@
 import { useGetGuestOrderList } from '@/apis/queries/guestOrder';
-import GuestLayout from '@/pages/guestOrder/components/Layout';
+import GuestLayout from '@/pages/guestOrder/@components/Layout';
 import { GuestLogin } from '@/pages/guestOrder/list/GuestLogin';
 import { OrderList } from '@/pages/guestOrder/list/OrderList';
-import { guestLoginAtom, guestLoginInfoInitialData } from '@/pages/guestOrder/order/atoms';
+import { guestLoginAtom, guestLoginInfoInitialData } from '@/pages/guestOrder/order/@atoms';
 import { useAtom } from 'jotai';
 import { useSnackbar } from 'notistack';
 import React, { useLayoutEffect } from 'react';

@@ -1,5 +1,5 @@
 import { ClientResponse, OpenStatus } from '@/apis/swagger/data-contracts';
-import ClientListDrawer from '@/pages/salesManagement/components/ClientListDrawer';
+import ClientListDrawer from '@/pages/salesManagement/@components/ClientListDrawer';
 import { ErrorRounded, LoopRounded } from '@mui/icons-material';
 import { Box, Button, Chip, Divider, styled, Tooltip, Typography } from '@mui/material';
 import dayjs from 'dayjs';

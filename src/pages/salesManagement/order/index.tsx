@@ -1,8 +1,8 @@
 import { useGetOrderList } from '@/apis/queries/client';
 import { ClientOrderResult } from '@/apis/swagger/data-contracts';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
-import { OrderListItem } from '@/pages/salesManagement/order/components/OrderListItem';
-import { OrderListItemSkeleton } from '@/pages/salesManagement/order/components/OrderListItemSkeleton';
+import { OrderListItem } from '@/pages/salesManagement/order/@components/OrderListItem';
+import { OrderListItemSkeleton } from '@/pages/salesManagement/order/@components/OrderListItemSkeleton';
 import { ReceiptLongRounded } from '@mui/icons-material';
 import { Box, styled, Typography } from '@mui/material';
 import React, { useEffect, useRef } from 'react';

@@ -1,6 +1,6 @@
 import { ClientOrderResult, OrderStatus } from '@/apis/swagger/data-contracts';
 import { orderStatusList } from '@/constants/orderStatusList';
-import { OrderActions } from '@/pages/salesManagement/order/components/OrderActions';
+import { OrderActions } from '@/pages/salesManagement/order/@components/OrderActions';
 import { ExpandMoreRounded } from '@mui/icons-material';
 import {
   Accordion,

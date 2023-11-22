@@ -1,5 +1,5 @@
 import { useGetClientInfoForGuest } from '@/apis/queries/guestOrder';
-import { cartAtom } from '@/pages/guestOrder/order/atoms';
+import { cartAtom } from '@/pages/guestOrder/order/@atoms';
 import Cart, { maxWidth } from '@/pages/guestOrder/order/Cart';
 import ClientInfo from '@/pages/guestOrder/order/ClientInfo';
 import CoffeechaClosedPage from '@/pages/guestOrder/order/Error/CoffeechaClosedPage';

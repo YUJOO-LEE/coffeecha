@@ -1,6 +1,6 @@
 import { useGetCollectionList } from '@/apis/queries/collection';
 import { useAddClientMenu } from '@/apis/queries/salesManagement/menu';
-import CollectionGridItem from '@/pages/collection/components/CollectionGridItem';
+import CollectionGridItem from '@/pages/collection/@components/CollectionGridItem';
 import {
   Box,
   Button,

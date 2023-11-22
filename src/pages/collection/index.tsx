@@ -2,9 +2,9 @@ import { useDeleteCollection, useGetCategoryList, useGetCollectionList } from '@
 import { MenuResponse } from '@/apis/swagger/data-contracts';
 import DeleteDialog from '@/components/DeleteDialog';
 import LoadingCircularProgress from '@/components/LoadingCircleProgress';
-import AddEditDialog from '@/pages/collection/components/AddEditDialog';
-import CollectionGridItem from '@/pages/collection/components/CollectionGridItem';
-import OptionDialog from '@/pages/collection/components/OptionDialog';
+import AddEditDialog from '@/pages/collection/@dialogs/AddEditDialog';
+import CollectionGridItem from '@/pages/collection/@components/CollectionGridItem';
+import OptionDialog from '@/pages/collection/@dialogs/OptionDialog';
 import {
   AddRounded,
   CancelRounded,

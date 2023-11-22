@@ -1,4 +1,4 @@
-import { guestInfoAtom, guestLoginAtom } from '@/pages/guestOrder/order/atoms';
+import { guestInfoAtom, guestLoginAtom } from '@/pages/guestOrder/order/@atoms';
 import { getPhoneNumber } from '@/util';
 import { Box, Button, TextField } from '@mui/material';
 import { useAtom, useSetAtom } from 'jotai';

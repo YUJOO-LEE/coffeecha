@@ -1,5 +1,5 @@
-import ClientAddDialog from '@/pages/salesManagement/components/ClientAddDialog';
-import ClientList from '@/pages/salesManagement/components/ClientList';
+import ClientAddDialog from '@/pages/salesManagement/@dialogs/ClientAddDialog';
+import ClientList from '@/pages/salesManagement/@components/ClientList';
 import { AddRounded, LocalShippingRounded } from '@mui/icons-material';
 import { Box, Button, Typography } from '@mui/material';
 import React, { useState } from 'react';

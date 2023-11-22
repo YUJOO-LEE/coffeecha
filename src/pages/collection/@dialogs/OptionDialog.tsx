@@ -2,7 +2,7 @@ import { useAddOption, useDeleteOption, useGetOptionList } from '@/apis/queries/
 import { MenuOptionResponse } from '@/apis/swagger/data-contracts';
 import DeleteDialog from '@/components/DeleteDialog';
 import LoadingCircleProgress from '@/components/LoadingCircleProgress';
-import OptionListItem from '@/pages/collection/components/OptionListItem';
+import OptionListItem from '@/pages/collection/@components/OptionListItem';
 import { AddRounded, CheckRounded, ClearRounded } from '@mui/icons-material';
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, styled, TextField } from '@mui/material';
 import React, { useState } from 'react';

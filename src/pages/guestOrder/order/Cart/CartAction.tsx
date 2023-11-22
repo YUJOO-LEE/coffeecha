@@ -1,4 +1,4 @@
-import { OrderItem } from '@/pages/guestOrder/order/atoms';
+import { OrderItem } from '@/pages/guestOrder/order/@atoms';
 import GuestProfile from '@/pages/guestOrder/order/Cart/GuestProfile';
 import { ErrorRounded } from '@mui/icons-material';
 import { Box, Button, Tooltip, Typography } from '@mui/material';

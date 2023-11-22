@@ -1,7 +1,7 @@
 import { useDeleteClientMenu, useUpdateClientMenuStockQuantity } from '@/apis/queries/salesManagement/menu';
 import { ClientMenuResponse } from '@/apis/swagger/data-contracts';
 import DeleteDialog from '@/components/DeleteDialog';
-import MenuInfoTooltip from '@/pages/salesManagement/menu/components/MenuInfoTooltip';
+import MenuInfoTooltip from '@/pages/salesManagement/menu/@components/MenuInfoTooltip';
 import {
   CancelRounded,
   CheckCircleRounded,
