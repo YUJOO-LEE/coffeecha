@@ -1,5 +1,5 @@
 import { GuestOrderResponse } from '@/apis/swagger/data-contracts';
-import { orderStatusList } from '@/assets/orderStatusList';
+import { orderStatusList } from '@/constants/orderStatusList';
 import { Box, Card, Chip, Divider, styled, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import React from 'react';

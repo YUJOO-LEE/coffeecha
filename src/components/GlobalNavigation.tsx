@@ -1,5 +1,5 @@
 import { ClientResponse } from '@/apis/swagger/data-contracts';
-import { clientNavList, userNavList } from '@/assets/navList';
+import { clientNavList, userNavList } from '@/constants/navList';
 import GlobalNavigationButton from '@/components/GlobalNavigationButton';
 import { MenuOpenRounded, MenuRounded } from '@mui/icons-material';
 import { Box, Button, Divider, styled } from '@mui/material';

@@ -1,5 +1,5 @@
 import { useGetGuestOrderDetail } from '@/apis/queries/guestOrder';
-import { orderStatusList } from '@/assets/orderStatusList';
+import { orderStatusList } from '@/constants/orderStatusList';
 import GuestLayout from '@/pages/guestOrder/components/Layout';
 import { GuestProfile } from '@/pages/guestOrder/detail/GuestProfile';
 import { MenuList } from '@/pages/guestOrder/detail/MenuList';
