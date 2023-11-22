@@ -1,4 +1,4 @@
-import { clientApi } from '@/apis';
+import { clientApi, orderApi } from '@/apis';
 import { defaultOption } from '@/apis/queries/index';
 import { ClientResponse, SaveClientRequest, SaveResponse, UpdateClientRequest } from '@/apis/swagger/data-contracts';
 import {
@@ -103,4 +103,14 @@ export const useGetOrderList = (clientId: number, limit: number) => {
       },
     }
   );
+};
+
+export const useUpdateStatus = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation(orderApi.updateOrderStatus, {
+    onSuccess: () => {
+      queryClient.invalidateQueries([QueryKey, 'list']);
+    },
+  });
 };

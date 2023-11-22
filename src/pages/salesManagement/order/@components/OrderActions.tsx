@@ -1,8 +1,10 @@
+import { useUpdateStatus } from '@/apis/queries/client';
 import { OrderStatus } from '@/apis/swagger/data-contracts';
 import { orderActions } from '@/pages/salesManagement/order/@constants';
 import { CancelDialog } from '@/pages/salesManagement/order/@dialogs/CancelDialog';
 import { CloseRounded } from '@mui/icons-material';
 import { Box, Button, styled } from '@mui/material';
+import { useSnackbar } from 'notistack';
 import React, { useState } from 'react';
 
 type Props = {
@@ -12,11 +14,14 @@ type Props = {
 
 export const OrderActions = (props: Props): React.ReactNode => {
   const { orderId, status } = props;
+  const { enqueueSnackbar } = useSnackbar();
 
   const Icon = orderActions[status]?.icon;
   const isCancelShow = status !== OrderStatus.ORDER_CANCELLED && status !== OrderStatus.PICKUP_COMPLETE;
 
   const [isCancelOpen, setIsCancelOpen] = useState<boolean>(false);
+
+  const updateStatus = useUpdateStatus();
 
   const handleCancelOpen = () => {
     setIsCancelOpen(true);
@@ -26,8 +31,9 @@ export const OrderActions = (props: Props): React.ReactNode => {
     setIsCancelOpen(false);
   };
 
-  const handleStatusChange = async () => {
-    // TODO: api
+  const handleStatusChange = (target: OrderStatus) => async () => {
+    await updateStatus.mutateAsync({ orderId, orderStatus: target });
+    enqueueSnackbar('Status has been successfully changed', { variant: 'success' })
   };
 
   return (
@@ -38,19 +44,27 @@ export const OrderActions = (props: Props): React.ReactNode => {
           size="small"
           variant={orderActions[status].variant}
           color={orderActions[status].color}
+          onClick={handleStatusChange(orderActions[status].actionTarget)}
+          disabled={updateStatus.isLoading}
         >
           <Icon/>
         </Styled.ActionButton>
       )}
 
       {isCancelShow && (
-        <Styled.ActionButton size="small" variant="outlined" color="error" onClick={handleCancelOpen}>
+        <Styled.ActionButton
+          size="small"
+          variant="outlined"
+          color="error"
+          onClick={handleCancelOpen}
+          disabled={updateStatus.isLoading}
+        >
           <CloseRounded />
         </Styled.ActionButton>
       )}
 
       {isCancelOpen && (
-        <CancelDialog onDone={handleStatusChange} onClose={handleClose} />
+        <CancelDialog onDone={handleStatusChange(OrderStatus.ORDER_CANCELLED)} onClose={handleClose} />
       )}
     </Styled.Actions>
   );
