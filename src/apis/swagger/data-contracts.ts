@@ -81,6 +81,20 @@ export interface TokenInfo {
   refreshToken?: string;
 }
 
+export enum OrderStatus {
+  ORDER_PLACED = "ORDER_PLACED",
+  ORDER_ACCEPTED = "ORDER_ACCEPTED",
+  WAITING_FOR_PICKUP = "WAITING_FOR_PICKUP",
+  PICKUP_COMPLETE = "PICKUP_COMPLETE",
+  ORDER_CANCELLED = "ORDER_CANCELLED",
+}
+
+export interface UpdateOrderStatusRequest {
+  /** @format int64 */
+  orderId: number;
+  orderStatus: OrderStatus;
+}
+
 export interface UpdateMenuRequest {
   name?: string;
   imageUrl?: string;
@@ -128,14 +142,6 @@ export interface OrderMenuInfo {
   orderQuantity: number;
   menuOption?: string;
   imageUrl?: string;
-}
-
-export enum OrderStatus {
-  ORDER_PLACED = "ORDER_PLACED",
-  ORDER_ACCEPTED = "ORDER_ACCEPTED",
-  WAITING_FOR_PICKUP = "WAITING_FOR_PICKUP",
-  PICKUP_COMPLETE = "PICKUP_COMPLETE",
-  ORDER_CANCELLED = "ORDER_CANCELLED",
 }
 
 export interface GuestOrderResponse {
