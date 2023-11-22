@@ -12,7 +12,6 @@ import {
   Divider,
   styled,
   Typography,
-  useTheme,
 } from '@mui/material';
 import dayjs from 'dayjs';
 import numeral from 'numeral';
@@ -24,13 +23,12 @@ type Props = {
 
 export const OrderListItem = (props: Props): React.ReactNode => {
   const { data } = props;
-  const theme = useTheme();
 
   const isDefaultExpanded = data.orderStatus === OrderStatus.ORDER_PLACED || data.orderStatus === OrderStatus.ORDER_ACCEPTED;
 
   return (
     <Styled.ListItem>
-      <Styled.Status color={orderStatusList[data.orderStatus].color(theme)} />
+      <Styled.Status status={data.orderStatus} />
       <Styled.NumberTypography fontSize="28px" fontWeight="500">
         {numeral(data.orderNumber).format('000')}
       </Styled.NumberTypography>
@@ -90,12 +88,12 @@ const Styled = {
       backgroundColor: theme.palette.grey[50],
     },
   })),
-  Status: styled(Box)<{ color: string }>({
+  Status: styled(Box)<{ status: OrderStatus }>({
     gridColumn: '1',
     gridRow: '1 / 4',
     borderRadius: '0 4px 4px 0',
-  }, ({ color }) => ({
-    backgroundColor: color,
+  }, ({ status, theme }) => ({
+    backgroundColor: orderStatusList[status].color(theme),
   })),
   NumberTypography: styled(Typography)({
     gridColumn: '2',

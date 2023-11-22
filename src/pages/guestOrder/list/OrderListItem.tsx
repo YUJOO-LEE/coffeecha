@@ -23,7 +23,7 @@ export const OrderListItem = (props: Props): React.ReactNode => {
     <Styled.Wrapper onClick={handleMove}>
       <Box display="flex" gap="8px" alignItems="center" justifyContent="space-between" flexWrap="wrap">
         <Box display="flex" gap="8px" alignItems="center">
-          <Chip label={orderStatusList[data.orderStatus].name} />
+          <Chip label={orderStatusList[data.orderStatus].ko} />
           <Typography fontWeight={700}>
             {data.userName}
           </Typography>

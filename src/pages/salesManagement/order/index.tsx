@@ -1,5 +1,6 @@
 import { useGetOrderList } from '@/apis/queries/client';
-import { ClientOrderResult } from '@/apis/swagger/data-contracts';
+import { ClientOrderResult, OrderStatus } from '@/apis/swagger/data-contracts';
+import { orderStatusList } from '@/constants/orderStatusList';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import { OrderListItem } from '@/pages/salesManagement/order/@components/OrderListItem';
 import { OrderListItemSkeleton } from '@/pages/salesManagement/order/@components/OrderListItemSkeleton';
@@ -26,11 +27,23 @@ const OrderPage = (): React.ReactNode => {
 
   return (
     <Box display="grid" gap="16px">
-      <Box display="flex" gap="8px">
-        <ReceiptLongRounded color="primary" />
-        <Typography variant="h1" fontSize="20px" fontWeight="500" color={(theme) => theme.palette.primary.main}>
-          ORDER
-        </Typography>
+      <Box display="flex" justifyContent="space-between" alignItems="center">
+        <Box display="flex" gap="8px">
+          <ReceiptLongRounded color="primary" />
+          <Typography variant="h1" fontSize="20px" fontWeight="500" color={(theme) => theme.palette.primary.main}>
+            ORDER
+          </Typography>
+        </Box>
+        <Box display="flex" gap="16px">
+          {Object.entries(orderStatusList).map(([key, value]) => (
+            <Box key={key} display="flex" alignItems="center" gap="4px">
+              <Styled.StatusColorChip status={key as OrderStatus} />
+              <Typography fontSize="12px">
+                {value.en.toUpperCase()}
+              </Typography>
+            </Box>
+          ))}
+        </Box>
       </Box>
       <Box display="flex" flexDirection="column" gap="16px">
         {isLoading && [...Array(10)].map((_, index) => (
@@ -56,4 +69,10 @@ const Styled = {
     width: '100%',
     height: '8px',
   }),
+  StatusColorChip: styled('i')<{ status: OrderStatus }>(({ status, theme }) => ({
+    width: '16px',
+    height: '6px',
+    borderRadius: '4px',
+    backgroundColor: orderStatusList[status].color(theme),
+  })),
 };
