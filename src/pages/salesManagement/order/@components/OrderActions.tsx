@@ -32,8 +32,12 @@ export const OrderActions = (props: Props): React.ReactNode => {
   };
 
   const handleStatusChange = (target: OrderStatus) => async () => {
-    await updateStatus.mutateAsync({ orderId, orderStatus: target });
-    enqueueSnackbar('Status has been successfully changed', { variant: 'success' })
+    try {
+      await updateStatus.mutateAsync({ orderId, orderStatus: target });
+      enqueueSnackbar('Status has been successfully changed', { variant: 'success' });
+    } catch (e) {
+      enqueueSnackbar('An error occurred, Please try again later', { variant: 'error' });
+    }
   };
 
   return (
