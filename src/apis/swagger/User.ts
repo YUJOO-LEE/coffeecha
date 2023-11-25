@@ -9,7 +9,7 @@
  * ---------------------------------------------------------------
  */
 
-import { UpdateUserRequest, UserRequest } from "./data-contracts";
+import { UpdateUserRequest, UserRequest, UserResponse } from "./data-contracts";
 import { ContentType, HttpClient, RequestParams } from "./http-client";
 
 export class User<SecurityDataType = unknown> {
@@ -20,16 +20,32 @@ export class User<SecurityDataType = unknown> {
   }
 
   /**
+   * @description 사용자 이름, 번호
+   *
+   * @tags User
+   * @name GetUser
+   * @summary 사용자 정보 조회
+   * @request GET:/api/users
+   * @secure
+   */
+  getUser = (params: RequestParams = {}) =>
+    this.http.request<UserResponse, any>({
+      path: `/api/users`,
+      method: "GET",
+      secure: true,
+      ...params,
+    });
+  /**
    * No description
    *
    * @tags User
    * @name SaveUser
-   * @request POST:/api/user
+   * @request POST:/api/users
    * @secure
    */
   saveUser = (data: UserRequest, params: RequestParams = {}) =>
     this.http.request<number, any>({
-      path: `/api/user`,
+      path: `/api/users`,
       method: "POST",
       body: data,
       secure: true,

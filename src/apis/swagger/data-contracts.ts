@@ -201,6 +201,11 @@ export interface CategoryResponse {
   name: string;
 }
 
+export interface UserResponse {
+  name: string;
+  phoneNumber: string;
+}
+
 export interface MenuResponse {
   /** @format int64 */
   menuId: number;
