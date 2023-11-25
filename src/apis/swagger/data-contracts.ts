@@ -81,6 +81,11 @@ export interface TokenInfo {
   refreshToken?: string;
 }
 
+export interface UpdateUserRequest {
+  name?: string;
+  phoneNumber?: string;
+}
+
 export enum OrderStatus {
   ORDER_PLACED = "ORDER_PLACED",
   ORDER_ACCEPTED = "ORDER_ACCEPTED",
@@ -250,4 +255,10 @@ export interface ClientOrderResult {
   totalQuantity: number;
   /** @format date-time */
   orderDateTime: string;
+  messageSend: YesNo;
+}
+
+export enum YesNo {
+  Y = "Y",
+  N = "N",
 }
