@@ -28,7 +28,7 @@ const routers = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: '/',
+        index: true,
         element: <SalesManagementPage />,
       },
       {
@@ -44,7 +44,7 @@ const routers = createBrowserRouter([
         element: <Outlet />,
         children: [
           {
-            path: '/:clientId',
+            index: true,
             element: <HomePage />,
           },
           {
@@ -79,7 +79,7 @@ const routers = createBrowserRouter([
     },
   },
   {
-    path: 'order',
+    path: '/order',
     element: <Outlet />,
     errorElement: <NoCoffeechaDataPage />,
     children: [

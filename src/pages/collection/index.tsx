@@ -81,7 +81,7 @@ const CollectionPage = (): React.ReactNode => {
         </Box>
 
         {categoryList?.map(({ id, name }) => (
-          <Box display="grid" gap="16px">
+          <Box key={id} display="grid" gap="16px">
             <Typography fontSize="18px" fontWeight="700">
               {name}
             </Typography>

@@ -24,14 +24,14 @@ export const useGetClientList = (): UseQueryResult<ClientResponse[]> => {
   );
 };
 
-export const useGetClientDetail = (clientId: number): UseQueryResult<ClientResponse> => {
+export const useGetClientDetail = (clientId: number, disabled?: boolean): UseQueryResult<ClientResponse> => {
   return useQuery(
     [QueryKey, 'detail', clientId],
     async () => {
       const { data } = await clientApi.getClientById(clientId);
       return data;
     },
-    defaultOption
+    { ...defaultOption, enabled: !disabled },
   );
 };
 

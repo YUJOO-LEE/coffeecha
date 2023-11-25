@@ -13,7 +13,7 @@ const Layout = (): React.ReactNode => {
   const [isOffsetTop, setIsOffsetTop] = useState(true);
 
   useAuth();
-  const { data: clientInfo, isError } = useGetClientDetail(Number(clientId));
+  const { data: clientInfo, isError } = useGetClientDetail(Number(clientId), !clientId);
 
   const handleScroll = useCallback((e: React.WheelEvent<HTMLElement>) => {
     setIsOffsetTop((e.target as HTMLElement).scrollTop === 0);
@@ -29,7 +29,7 @@ const Layout = (): React.ReactNode => {
     <Box display="flex">
       <GlobalNavigation clientInfo={clientInfo} />
       <Box flexGrow={1} maxHeight="100dvh" display="grid" gridTemplateRows={clientId ? '50px 1fr' : '1fr'}>
-        {clientInfo && <ClientHeader clientInfo={clientInfo} isOffsetTop={isOffsetTop} />}
+        {clientId && clientInfo && <ClientHeader clientInfo={clientInfo} isOffsetTop={isOffsetTop} />}
         <Styled.Main onScroll={handleScroll}>
           <Outlet />
         </Styled.Main>
