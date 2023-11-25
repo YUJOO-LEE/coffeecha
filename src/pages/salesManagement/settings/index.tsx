@@ -6,19 +6,21 @@ import { ManageAccountsRounded } from '@mui/icons-material';
 import { Box, Button, styled, TextField, Typography } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
+import { useSnackbar } from 'notistack';
 import React, { useLayoutEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const ClientSettingsPage = () => {
   const { clientId } = useParams();
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [editMode, setEditMode] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [formData, setFormData] = useState<UpdateClientRequest>({ name: '', phoneNumber: '', address: '', businessDate: '' });
   const isDisabled = Object.values(formData).some((value) => !value);
 
-  const { data: clientDetail } = useGetClientDetail(Number(clientId));
+  const { data: clientDetail, isLoading } = useGetClientDetail(Number(clientId));
   const updateClient = useUpdateClient();
   const deleteClient = useDeleteClient();
 
@@ -44,7 +46,10 @@ const ClientSettingsPage = () => {
     const { status } = await updateClient.mutateAsync({ clientId: Number(clientId), data: formData });
 
     if (status === 200) {
+      enqueueSnackbar({ variant: 'success', message: 'Successfully saved' });
       setEditMode(false);
+    } else {
+      enqueueSnackbar({ variant: 'error', message: 'An error occurred, Please try again later' });
     }
   };
 
@@ -106,7 +111,7 @@ const ClientSettingsPage = () => {
               <Button disableElevation variant="contained" color="error" size="large" onClick={handleDeleteOpen}>
                 Delete
               </Button>
-              <Button disableElevation variant="contained" size="large" onClick={toggleEditMode}>
+              <Button disableElevation variant="contained" size="large" disabled={isLoading} onClick={toggleEditMode}>
                 Edit
               </Button>
             </>
