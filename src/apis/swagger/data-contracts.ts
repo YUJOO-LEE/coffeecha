@@ -86,6 +86,11 @@ export interface UpdateUserRequest {
   phoneNumber?: string;
 }
 
+export interface UpdateUserPasswordRequest {
+  currentPassword: string;
+  newPassword: string;
+}
+
 export enum OrderStatus {
   ORDER_PLACED = "ORDER_PLACED",
   ORDER_ACCEPTED = "ORDER_ACCEPTED",

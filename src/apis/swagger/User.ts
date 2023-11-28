@@ -9,7 +9,7 @@
  * ---------------------------------------------------------------
  */
 
-import { UpdateUserRequest, UserRequest, UserResponse } from "./data-contracts";
+import { UpdateUserPasswordRequest, UpdateUserRequest, UserRequest, UserResponse } from "./data-contracts";
 import { ContentType, HttpClient, RequestParams } from "./http-client";
 
 export class User<SecurityDataType = unknown> {
@@ -64,6 +64,24 @@ export class User<SecurityDataType = unknown> {
   updateUser = (data: UpdateUserRequest, params: RequestParams = {}) =>
     this.http.request<void, any>({
       path: `/api/users`,
+      method: "PATCH",
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      ...params,
+    });
+  /**
+   * @description 사용자 비밀번호 변경
+   *
+   * @tags User
+   * @name UpdateUserPassword
+   * @summary 사용자 비밀번호 변경
+   * @request PATCH:/api/users/password
+   * @secure
+   */
+  updateUserPassword = (data: UpdateUserPasswordRequest, params: RequestParams = {}) =>
+    this.http.request<void, any>({
+      path: `/api/users/password`,
       method: "PATCH",
       body: data,
       secure: true,
