@@ -24,3 +24,7 @@ export const useUpdateUserInfo = () => {
     },
   });
 };
+
+export const useChangePassword = () => {
+  return useMutation(userApi.updateUserPassword);
+};

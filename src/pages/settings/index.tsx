@@ -1,6 +1,7 @@
 import { useGetUserDetail, useUpdateUserInfo } from '@/apis/queries/user';
 import { UpdateUserRequest } from '@/apis/swagger/data-contracts';
 import LoadingCircleProgress from '@/components/LoadingCircleProgress';
+import { ChangePasswordDialog } from '@/pages/settings/@dialogs/ChangePasswordDialog';
 import { getPhoneNumber } from '@/util';
 import { ManageAccountsRounded } from '@mui/icons-material';
 import { Box, Button, styled, TextField, Typography } from '@mui/material';
@@ -10,7 +11,8 @@ import React, { useCallback, useLayoutEffect, useState } from 'react';
 const UserSettingsPage = (): React.ReactNode => {
   const { enqueueSnackbar } = useSnackbar();
 
-  const [editMode, setEditMode] = useState(false);
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
+  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
   const [formData, setFormData] = useState<Required<UpdateUserRequest>>({ name: '', phoneNumber: '' });
 
   const isDisabled = !formData.name.trim().length || formData.phoneNumber.trim().length < 12;
@@ -20,7 +22,15 @@ const UserSettingsPage = (): React.ReactNode => {
 
   const toggleEditMode = () => {
     resetFormData();
-    setEditMode(!editMode);
+    setIsEditMode(!isEditMode);
+  };
+
+  const handleDialogOpen = () => {
+    setIsDialogOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    setIsDialogOpen(false);
   };
 
   const handleChange = (target: keyof UpdateUserRequest) => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,7 +50,7 @@ const UserSettingsPage = (): React.ReactNode => {
 
     if (status === 200) {
       enqueueSnackbar({ variant: 'success', message: 'Successfully saved' });
-      setEditMode(false);
+      setIsEditMode(false);
     } else {
       enqueueSnackbar({ variant: 'error', message: 'An error occurred, Please try again later' });
     }
@@ -74,7 +84,7 @@ const UserSettingsPage = (): React.ReactNode => {
           variant="outlined"
           value={formData.name}
           onChange={handleChange('name')}
-          disabled={!editMode}
+          disabled={!isEditMode}
         />
         <TextField
           label="Contact"
@@ -82,25 +92,30 @@ const UserSettingsPage = (): React.ReactNode => {
           value={formData.phoneNumber}
           inputProps={{ maxLength: 13, inputMode: 'numeric' }}
           onChange={handleChange('phoneNumber')}
-          disabled={!editMode}
+          disabled={!isEditMode}
         />
-        <Box display="flex" justifyContent="flex-end" gap="8px">
-          {editMode ? (
-            <>
-              <Button variant="outlined" size="large" onClick={toggleEditMode}>
-                Cancel
-              </Button>
-              <Button disableElevation variant="contained" size="large" disabled={isDisabled} onClick={handleUpdate}>
-                Save
-              </Button>
-            </>
-          ) : (
+        {isEditMode ? (
+          <Box display="flex" justifyContent="flex-end" gap="8px">
+            <Button variant="outlined" size="large" onClick={toggleEditMode}>
+              Cancel
+            </Button>
+            <Button disableElevation variant="contained" size="large" disabled={isDisabled} onClick={handleUpdate}>
+              Save
+            </Button>
+          </Box>
+        ) : (
+          <Box display="flex" justifyContent="space-between" gap="8px">
+            <Button disableElevation variant="contained" size="large" disabled={isLoading} onClick={handleDialogOpen}>
+              Change Password
+            </Button>
             <Button disableElevation variant="contained" size="large" disabled={isLoading} onClick={toggleEditMode}>
               Edit
             </Button>
-          )}
-        </Box>
+          </Box>
+        )}
       </Styled.ContentBox>
+
+      {isDialogOpen && <ChangePasswordDialog onClose={handleDialogClose} />}
     </Box>
   );
 };
