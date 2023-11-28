@@ -1,6 +1,7 @@
 import { useGetUserDetail, useUpdateUserInfo } from '@/apis/queries/user';
 import { UpdateUserRequest } from '@/apis/swagger/data-contracts';
 import LoadingCircleProgress from '@/components/LoadingCircleProgress';
+import { getPhoneNumber } from '@/util';
 import { ManageAccountsRounded } from '@mui/icons-material';
 import { Box, Button, styled, TextField, Typography } from '@mui/material';
 import { useSnackbar } from 'notistack';
@@ -10,8 +11,9 @@ const UserSettingsPage = (): React.ReactNode => {
   const { enqueueSnackbar } = useSnackbar();
 
   const [editMode, setEditMode] = useState(false);
-  const [formData, setFormData] = useState<UpdateUserRequest>({ name: '', phoneNumber: '' });
-  const isDisabled = Object.values(formData).some((value) => !value);
+  const [formData, setFormData] = useState<Required<UpdateUserRequest>>({ name: '', phoneNumber: '' });
+
+  const isDisabled = !formData.name.trim().length || formData.phoneNumber.trim().length < 12;
 
   const { data: userDetail, isLoading } = useGetUserDetail();
   const updateUserInfo = useUpdateUserInfo();
@@ -20,10 +22,12 @@ const UserSettingsPage = (): React.ReactNode => {
     setEditMode(!editMode);
   };
 
-  const handleChange = (target: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (target: keyof UpdateUserRequest) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value: string = e.target.value;
+
     setFormData((prev) => ({
       ...prev,
-      [target]: e.target.value,
+      [target]: target === 'phoneNumber' ? getPhoneNumber(value) : value,
     }))
   };
 
@@ -60,8 +64,21 @@ const UserSettingsPage = (): React.ReactNode => {
         </Typography>
       </Box>
       <Styled.ContentBox display="flex" flexDirection="column" gap="16px">
-        <TextField label="Name" variant="outlined" value={formData.name} onChange={handleChange('name')} disabled={!editMode} />
-        <TextField label="Contact" variant="outlined" value={formData.phoneNumber} onChange={handleChange('phoneNumber')} disabled={!editMode} />
+        <TextField
+          label="Name"
+          variant="outlined"
+          value={formData.name}
+          onChange={handleChange('name')}
+          disabled={!editMode}
+        />
+        <TextField
+          label="Contact"
+          variant="outlined"
+          value={formData.phoneNumber}
+          inputProps={{ maxLength: 13, inputMode: 'numeric' }}
+          onChange={handleChange('phoneNumber')}
+          disabled={!editMode}
+        />
         <Box display="flex" justifyContent="flex-end" gap="8px">
           {editMode ? (
             <>
