@@ -24,7 +24,7 @@ export const CancelDialog = (props: Props): React.ReactNode => {
           Cancel
         </Button>
         <Button variant="outlined" size="large" onClick={onClose}>
-          Cancel
+          Close
         </Button>
       </DialogActions>
     </Dialog>
