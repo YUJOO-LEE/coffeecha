@@ -5,7 +5,7 @@ import { getPhoneNumber } from '@/util';
 import { ManageAccountsRounded } from '@mui/icons-material';
 import { Box, Button, styled, TextField, Typography } from '@mui/material';
 import { useSnackbar } from 'notistack';
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useCallback, useLayoutEffect, useState } from 'react';
 
 const UserSettingsPage = (): React.ReactNode => {
   const { enqueueSnackbar } = useSnackbar();
@@ -19,6 +19,7 @@ const UserSettingsPage = (): React.ReactNode => {
   const updateUserInfo = useUpdateUserInfo();
 
   const toggleEditMode = () => {
+    resetFormData();
     setEditMode(!editMode);
   };
 
@@ -45,7 +46,7 @@ const UserSettingsPage = (): React.ReactNode => {
     }
   };
 
-  useLayoutEffect(() => {
+  const resetFormData = useCallback(() => {
     if (!userDetail) return;
 
     setFormData({
@@ -53,6 +54,10 @@ const UserSettingsPage = (): React.ReactNode => {
       phoneNumber: userDetail.phoneNumber,
     })
   }, [userDetail]);
+
+  useLayoutEffect(() => {
+    resetFormData();
+  }, [resetFormData]);
 
   return (
     <Box display="grid" gap="16px">

@@ -7,7 +7,7 @@ import { Box, Button, styled, TextField, Typography } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import { useSnackbar } from 'notistack';
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useCallback, useLayoutEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const ClientSettingsPage = () => {
@@ -25,6 +25,7 @@ const ClientSettingsPage = () => {
   const deleteClient = useDeleteClient();
 
   const toggleEditMode = () => {
+    resetFormData();
     setEditMode(!editMode);
   };
 
@@ -70,7 +71,7 @@ const ClientSettingsPage = () => {
     }
   };
 
-  useLayoutEffect(() => {
+  const resetFormData = useCallback(() => {
     if (!clientDetail) return;
 
     setFormData({
@@ -78,8 +79,12 @@ const ClientSettingsPage = () => {
       address: clientDetail.address,
       phoneNumber: clientDetail.phoneNumber,
       businessDate: clientDetail.businessDate,
-    })
+    });
   }, [clientDetail]);
+
+  useLayoutEffect(() => {
+    resetFormData();
+  }, [resetFormData]);
 
   return (
     <Box display="grid" gap="16px">
