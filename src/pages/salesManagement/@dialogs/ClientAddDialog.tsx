@@ -1,6 +1,6 @@
 import { useAddClient } from '@/apis/queries/client';
 import { SaveClientRequest } from '@/apis/swagger/data-contracts';
-import LoadingCircularProgress from '@/components/LoadingCircleProgress';
+import { LoadingCircleProgress } from '@/components/LoadingCircleProgress';
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
@@ -52,7 +52,7 @@ const ClientAddDialog = (props: Props): React.ReactNode => {
 
   return (
     <Dialog open={true} onClose={onClose} PaperProps={{ style: { width: '50%', minWidth: '440px' } }}>
-      <LoadingCircularProgress open={addClient.isLoading} />
+      <LoadingCircleProgress open={addClient.isLoading} />
 
       <DialogTitle display="flex" justifyContent="space-between">
         Add New Customer
