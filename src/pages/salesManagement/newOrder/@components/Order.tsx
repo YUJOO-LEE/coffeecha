@@ -1,6 +1,6 @@
 import { useOrder } from '@/apis/queries/guestOrder';
 import { OrderMenuRequest, OrderRequest } from '@/apis/swagger/data-contracts';
-import LoadingCircleProgress from '@/components/LoadingCircleProgress';
+import { LoadingCircleProgress } from '@/components/LoadingCircleProgress';
 import { CartItem } from '@/pages/guestOrder/order/@atoms';
 import { getPhoneNumber } from '@/util';
 import { Box, Button, Card, styled, TextField } from '@mui/material';

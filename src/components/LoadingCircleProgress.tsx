@@ -6,7 +6,7 @@ interface Props {
   progress?: number;
 }
 
-const LoadingCircleProgress = (props: Props): React.ReactNode => {
+export const LoadingCircleProgress = (props: Props): React.ReactNode => {
   const { open, progress } = props;
 
   return (
@@ -22,8 +22,6 @@ const LoadingCircleProgress = (props: Props): React.ReactNode => {
     </Dialog>
   );
 };
-
-export default LoadingCircleProgress;
 
 const Styled = {
   Circle: styled(CircularProgress)({

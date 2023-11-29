@@ -3,7 +3,7 @@ import { cartAtom } from '@/pages/guestOrder/order/@atoms';
 import Cart, { maxWidth } from '@/pages/guestOrder/order/Cart';
 import ClientInfo from '@/pages/guestOrder/order/ClientInfo';
 import CoffeechaClosedPage from '@/pages/guestOrder/order/Error/CoffeechaClosedPage';
-import CoffeechaLoading from '@/pages/guestOrder/order/Error/CoffeechaLoading';
+import { CoffeechaLoading } from '@/pages/guestOrder/order/Error/CoffeechaLoading';
 import { NoCoffeechaDataPage } from '@/pages/guestOrder/order/Error/NoCoffeechaDataPage';
 import MenuList from '@/pages/guestOrder/order/Menu';
 import MenuHeader from '@/pages/guestOrder/order/Menu/MenuHeader';

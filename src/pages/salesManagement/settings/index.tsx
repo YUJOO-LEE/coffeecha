@@ -1,7 +1,7 @@
 import { useDeleteClient, useGetClientDetail, useUpdateClient } from '@/apis/queries/client';
 import { UpdateClientRequest } from '@/apis/swagger/data-contracts';
 import DeleteDialog from '@/components/DeleteDialog';
-import LoadingCircleProgress from '@/components/LoadingCircleProgress';
+import { LoadingCircleProgress } from '@/components/LoadingCircleProgress';
 import { ManageAccountsRounded } from '@mui/icons-material';
 import { Box, Button, styled, TextField, Typography } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';

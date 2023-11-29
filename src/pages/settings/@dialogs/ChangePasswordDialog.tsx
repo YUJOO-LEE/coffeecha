@@ -1,6 +1,6 @@
 import { useChangePassword } from '@/apis/queries/user';
 import { UpdateUserPasswordRequest } from '@/apis/swagger/data-contracts';
-import LoadingCircleProgress from '@/components/LoadingCircleProgress';
+import { LoadingCircleProgress } from '@/components/LoadingCircleProgress';
 import { Alert, Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';

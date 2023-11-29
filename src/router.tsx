@@ -1,6 +1,7 @@
-import LoadingCircleProgress from '@/components/LoadingCircleProgress';
+import { LoadingCircleProgress } from '@/components/LoadingCircleProgress';
 import { GuestOrderDetailPage, GuestOrderListPage, GuestOrderPage, Layout } from '@/pages';
 import { CollectionPage } from '@/pages/collection';
+import { CoffeechaLoading } from '@/pages/guestOrder/order/Error/CoffeechaLoading';
 import { NoCoffeechaDataPage } from '@/pages/guestOrder/order/Error/NoCoffeechaDataPage';
 import { LoginPage } from '@/pages/login';
 import { SalesManagementPage } from '@/pages/salesManagement';
@@ -83,7 +84,7 @@ const routers = createBrowserRouter([
   {
     path: '/order',
     element: (
-      <Suspense fallback={<NoCoffeechaDataPage />}>
+      <Suspense fallback={<CoffeechaLoading />}>
         <Outlet />
       </Suspense>
     ),

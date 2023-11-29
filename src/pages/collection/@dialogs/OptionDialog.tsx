@@ -1,7 +1,7 @@
 import { useAddOption, useDeleteOption, useGetOptionList } from '@/apis/queries/menuOption';
 import { MenuOptionResponse } from '@/apis/swagger/data-contracts';
 import DeleteDialog from '@/components/DeleteDialog';
-import LoadingCircleProgress from '@/components/LoadingCircleProgress';
+import { LoadingCircleProgress } from '@/components/LoadingCircleProgress';
 import OptionListItem from '@/pages/collection/@components/OptionListItem';
 import { AddRounded, CheckRounded, ClearRounded } from '@mui/icons-material';
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, styled, TextField } from '@mui/material';

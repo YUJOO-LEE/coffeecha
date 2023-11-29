@@ -1,6 +1,6 @@
 import { useGetUserDetail, useUpdateUserInfo } from '@/apis/queries/user';
 import { UpdateUserRequest } from '@/apis/swagger/data-contracts';
-import LoadingCircleProgress from '@/components/LoadingCircleProgress';
+import { LoadingCircleProgress } from '@/components/LoadingCircleProgress';
 import { ChangePasswordDialog } from '@/pages/settings/@dialogs/ChangePasswordDialog';
 import { getPhoneNumber } from '@/util';
 import { ManageAccountsRounded } from '@mui/icons-material';
