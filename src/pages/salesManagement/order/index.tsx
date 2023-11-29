@@ -11,7 +11,7 @@ import { useParams } from 'react-router-dom';
 
 const limit = 10;
 
-const OrderPage = (): React.ReactNode => {
+export const OrderPage = (): React.ReactNode => {
   const { clientId } = useParams();
 
   const fetchMoreRef = useRef<HTMLDivElement>(null);
@@ -60,9 +60,7 @@ const OrderPage = (): React.ReactNode => {
       <Styled.FetchMore ref={fetchMoreRef} />
     </Box>
   );
-}
-
-export default OrderPage;
+};
 
 const Styled = {
   FetchMore: styled('div')({

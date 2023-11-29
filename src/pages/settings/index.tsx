@@ -8,7 +8,7 @@ import { Box, Button, styled, TextField, Typography } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import React, { useCallback, useLayoutEffect, useState } from 'react';
 
-const UserSettingsPage = (): React.ReactNode => {
+export const UserSettingsPage = (): React.ReactNode => {
   const { enqueueSnackbar } = useSnackbar();
 
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
@@ -119,8 +119,6 @@ const UserSettingsPage = (): React.ReactNode => {
     </Box>
   );
 };
-
-export default UserSettingsPage;
 
 const Styled = {
   ContentBox: styled(Box)(({ theme }) => ({

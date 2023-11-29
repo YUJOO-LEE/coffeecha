@@ -6,7 +6,7 @@ import { Box, styled } from '@mui/material';
 import React, { useCallback, useLayoutEffect, useState } from 'react';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
-const Layout = (): React.ReactNode => {
+export const Layout = (): React.ReactNode => {
   const { clientId } = useParams();
   const navigate = useNavigate();
 
@@ -36,9 +36,7 @@ const Layout = (): React.ReactNode => {
       </Box>
     </Box>
   );
-}
-
-export default Layout;
+};
 
 const Styled = {
   Main: styled('main')(({ theme }) => ({

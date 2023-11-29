@@ -10,7 +10,7 @@ import { useSnackbar } from 'notistack';
 import React, { useCallback, useLayoutEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const ClientSettingsPage = () => {
+export const ClientSettingsPage = () => {
   const { clientId } = useParams();
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
@@ -127,9 +127,7 @@ const ClientSettingsPage = () => {
       {isDeleteOpen && (<DeleteDialog onClose={handleDeleteClose} onDone={handleDelete} />)}
     </Box>
   );
-}
-
-export default ClientSettingsPage;
+};
 
 const Styled = {
   ContentBox: styled(Box)(({ theme }) => ({

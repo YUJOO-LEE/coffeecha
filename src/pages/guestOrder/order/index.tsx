@@ -4,7 +4,7 @@ import Cart, { maxWidth } from '@/pages/guestOrder/order/Cart';
 import ClientInfo from '@/pages/guestOrder/order/ClientInfo';
 import CoffeechaClosedPage from '@/pages/guestOrder/order/Error/CoffeechaClosedPage';
 import CoffeechaLoading from '@/pages/guestOrder/order/Error/CoffeechaLoading';
-import NoCoffeechaDataPage from '@/pages/guestOrder/order/Error/NoCoffeechaDataPage';
+import { NoCoffeechaDataPage } from '@/pages/guestOrder/order/Error/NoCoffeechaDataPage';
 import MenuList from '@/pages/guestOrder/order/Menu';
 import MenuHeader from '@/pages/guestOrder/order/Menu/MenuHeader';
 import { isClosedClient } from '@/util';
@@ -13,7 +13,7 @@ import { useAtom } from 'jotai';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-const GuestOrderPage = (): React.ReactNode => {
+export const GuestOrderPage = (): React.ReactNode => {
   const { clientKey } = useParams();
 
   const [isLoadingShow, setIsLoadingShow] = useState<boolean>(true);
@@ -61,8 +61,6 @@ const GuestOrderPage = (): React.ReactNode => {
     </Styled.Wrapper>
   );
 };
-
-export default GuestOrderPage;
 
 const Styled = {
   Wrapper: styled(Box)(({ theme }) => ({

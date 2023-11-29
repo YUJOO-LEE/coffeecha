@@ -3,12 +3,12 @@ import { orderStatusList } from '@/constants/orderStatusList';
 import GuestLayout from '@/pages/guestOrder/@components/Layout';
 import { GuestProfile } from '@/pages/guestOrder/detail/GuestProfile';
 import { MenuList } from '@/pages/guestOrder/detail/MenuList';
-import NoCoffeechaDataPage from '@/pages/guestOrder/order/Error/NoCoffeechaDataPage';
+import { NoCoffeechaDataPage } from '@/pages/guestOrder/order/Error/NoCoffeechaDataPage';
 import { Box, Button, Card, Divider, Skeleton, Typography } from '@mui/material';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const GuestOrderDetailPage = (): React.ReactNode => {
+export const GuestOrderDetailPage = (): React.ReactNode => {
   const { orderKey } = useParams();
   const navigate = useNavigate();
 
@@ -58,5 +58,3 @@ const GuestOrderDetailPage = (): React.ReactNode => {
     </GuestLayout>
   );
 };
-
-export default GuestOrderDetailPage;

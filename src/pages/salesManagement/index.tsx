@@ -5,7 +5,7 @@ import { Box, Button, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const SalesManagementPage = (): React.ReactNode => {
+export const SalesManagementPage = (): React.ReactNode => {
   const navigate = useNavigate();
 
   const [addOpen, setAddOpen] = useState<boolean>(false);
@@ -38,6 +38,4 @@ const SalesManagementPage = (): React.ReactNode => {
       {addOpen && <ClientAddDialog onClose={handleClose} onDone={handleDone} />}
     </Box>
   );
-}
-
-export default SalesManagementPage;
+};

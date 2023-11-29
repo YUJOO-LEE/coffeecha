@@ -2,7 +2,7 @@ import { ReportRounded } from '@mui/icons-material';
 import { styled, Typography } from '@mui/material';
 import React from 'react';
 
-const NoCoffeechaDataPage = (): React.ReactNode => {
+export const NoCoffeechaDataPage = (): React.ReactNode => {
   return (
     <Styled.Wrapper>
       <Styled.Icon />
@@ -13,8 +13,6 @@ const NoCoffeechaDataPage = (): React.ReactNode => {
     </Styled.Wrapper>
   );
 };
-
-export default NoCoffeechaDataPage;
 
 const Styled = {
   Wrapper: styled('div')({

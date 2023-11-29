@@ -9,7 +9,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-const HomePage = () => {
+export const HomePage = () => {
   const { clientId } = useParams();
   dayjs.extend(relativeTime);
 
@@ -88,9 +88,7 @@ const HomePage = () => {
       )}
     </Box>
   );
-}
-
-export default HomePage;
+};
 
 const Styled = {
   InfoCard: styled(Card)({

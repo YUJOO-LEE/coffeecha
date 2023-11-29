@@ -7,7 +7,7 @@ import { useAtom } from 'jotai';
 import { useSnackbar } from 'notistack';
 import React, { useLayoutEffect } from 'react';
 
-const GuestOrderListPage = (): React.ReactNode => {
+export const GuestOrderListPage = (): React.ReactNode => {
   const { enqueueSnackbar } = useSnackbar();
 
   const [guestLoginInfo, setGuestLoginInfo] = useAtom(guestLoginAtom);
@@ -32,5 +32,3 @@ const GuestOrderListPage = (): React.ReactNode => {
     </GuestLayout>
   );
 };
-
-export default GuestOrderListPage;

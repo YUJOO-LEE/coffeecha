@@ -4,7 +4,7 @@ import { Box, Button, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import { Form, useNavigate } from 'react-router-dom';
 
-const LoginPage = (): React.ReactNode => {
+export const LoginPage = (): React.ReactNode => {
   const navigate = useNavigate();
 
   const [loginId, setLoginId] = useState<string>('');
@@ -45,5 +45,3 @@ const LoginPage = (): React.ReactNode => {
     </Box>
   );
 };
-
-export default LoginPage;

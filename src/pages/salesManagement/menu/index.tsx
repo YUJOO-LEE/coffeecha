@@ -7,7 +7,7 @@ import { Box, Button, Card, IconButton, Skeleton, styled, Typography } from '@mu
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-const MenuPage = () => {
+export const MenuPage = () => {
   const { clientId } = useParams();
 
   const [isAddOpen, setAddOpen] = useState<boolean>(false);
@@ -72,9 +72,7 @@ const MenuPage = () => {
       )}
     </Box>
   );
-}
-
-export default MenuPage;
+};
 
 const Styled = {
   ContentBox: styled(Box)({

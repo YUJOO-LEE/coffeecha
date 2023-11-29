@@ -15,7 +15,7 @@ import {
 import { Box, Button, IconButton, styled, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
-const CollectionPage = (): React.ReactNode => {
+export const CollectionPage = (): React.ReactNode => {
 
   const [isOptionOpen, setIsOptionOpen] = useState<boolean>(false);
   const [isAddEditOpen, setIsAddEditOpen] = useState<boolean>(false);
@@ -114,9 +114,7 @@ const CollectionPage = (): React.ReactNode => {
       {deleteItemId && (<DeleteDialog onClose={handleDeleteClose} onDone={handleDelete} />)}
     </>
   );
-}
-
-export default CollectionPage;
+};
 
 const Styled = {
   MenuList: styled(Box)({
