@@ -144,6 +144,8 @@ export interface OrderDetailResponse {
   /** @format int32 */
   totalQuantity: number;
   clientKey: string;
+  /** @format int64 */
+  orderNumber: number;
 }
 
 export interface OrderMenuInfo {
@@ -164,6 +166,8 @@ export interface GuestOrderResponse {
   firstMenuName: string;
   /** @format int32 */
   totalQuantity: number;
+  /** @format int64 */
+  orderNumber: number;
 }
 
 export enum OpenStatus {
@@ -252,7 +256,7 @@ export interface ClientOrderResponse {
 }
 
 export interface ClientOrderResult {
-  /** @format int32 */
+  /** @format int64 */
   orderNumber: number;
   guestName: string;
   phoneNumber: string;
