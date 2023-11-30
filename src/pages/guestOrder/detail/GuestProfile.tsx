@@ -4,19 +4,18 @@ import { styled } from '@mui/material';
 import dayjs from 'dayjs';
 import React from 'react';
 
-interface Props {
-  orderKey: string;
+type Props = {
   data?: OrderDetailResponse;
   isLoading: boolean;
-}
+};
 
 export const GuestProfile = (props: Props): React.ReactNode => {
-  const { orderKey, data, isLoading } = props;
+  const { data, isLoading } = props;
 
   return (
     <Styled.Wrapper>
       <ProfileItem isLoading={isLoading} title="주문번호">
-        {orderKey}
+        {data?.orderNumber}
       </ProfileItem>
 
       <ProfileItem isLoading={isLoading} title="주문일시">

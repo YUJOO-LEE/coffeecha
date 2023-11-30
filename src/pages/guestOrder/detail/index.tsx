@@ -50,7 +50,7 @@ export const GuestOrderDetailPage = (): React.ReactNode => {
           </Typography>
         </Box>
         <Card>
-          <GuestProfile isLoading={isLoading} orderKey={orderKey} data={orderDetail} />
+          <GuestProfile isLoading={isLoading} data={orderDetail} />
           <Divider />
           <MenuList isLoading={isLoading} data={orderDetail?.orderList} totalQuantity={orderDetail?.totalQuantity} />
         </Card>
