@@ -1,6 +1,7 @@
 import { authApi } from '@/apis';
+import { queryClient } from '@/apis/queries/index';
 import { TokenInfo } from '@/apis/swagger/data-contracts';
-import { QueryClient, useMutation, useQuery, useQueryClient, UseQueryResult } from '@tanstack/react-query';
+import { QueryClient, useMutation, useQuery, UseQueryResult } from '@tanstack/react-query';
 
 const QueryKey = 'auth';
 
@@ -33,8 +34,6 @@ export const clearAuth = (queryClient: QueryClient): void => {
 };
 
 export const useLoginMutation = () => {
-  const queryClient = useQueryClient();
-
   return useMutation(authApi.token, {
     onSuccess: (response) => {
       setAuth(queryClient, response.data);
