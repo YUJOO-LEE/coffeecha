@@ -1,4 +1,4 @@
-import { useUpdateStatus } from '@/apis/queries/client';
+import { useUpdateStatus } from '@/apis/queries/salesManagement/order';
 import { OrderStatus } from '@/apis/swagger/data-contracts';
 import { orderActions } from '@/pages/salesManagement/order/@constants';
 import { CancelDialog } from '@/pages/salesManagement/order/@dialogs/CancelDialog';

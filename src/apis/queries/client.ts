@@ -1,14 +1,7 @@
-import { clientApi, orderApi } from '@/apis';
+import { clientApi } from '@/apis';
 import { defaultOption } from '@/apis/queries/index';
 import { ClientResponse, SaveClientRequest, SaveResponse, UpdateClientRequest } from '@/apis/swagger/data-contracts';
-import {
-  useInfiniteQuery,
-  useMutation,
-  UseMutationResult,
-  useQuery,
-  useQueryClient,
-  UseQueryResult,
-} from '@tanstack/react-query';
+import { useMutation, UseMutationResult, useQuery, useQueryClient, UseQueryResult } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
 
 export const QueryKey = 'client';
@@ -84,33 +77,6 @@ export const useCloseClient = (): UseMutationResult<AxiosResponse<void>, unknown
     onSuccess: () => {
       queryClient.invalidateQueries([QueryKey, 'list']);
       queryClient.invalidateQueries([QueryKey, 'detail']);
-    },
-  });
-};
-
-export const useGetOrderList = (clientId: number, limit: number) => {
-  return useInfiniteQuery(
-    [QueryKey, 'list', clientId],
-    async ({ pageParam = 0 }) => {
-      const { data } = await clientApi.getClientOrders(clientId, { offset: pageParam, limit });
-      return data;
-    },
-    {
-      ...defaultOption,
-      getNextPageParam: (lastPage, allPages) => {
-        if (lastPage.orders.length < limit) return;
-        return limit * allPages.length;
-      },
-    }
-  );
-};
-
-export const useUpdateStatus = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation(orderApi.updateOrderStatus, {
-    onSuccess: () => {
-      queryClient.invalidateQueries([QueryKey, 'list']);
     },
   });
 };

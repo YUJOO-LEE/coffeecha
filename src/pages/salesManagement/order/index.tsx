@@ -1,4 +1,4 @@
-import { useGetOrderList } from '@/apis/queries/client';
+import { useGetOrderList } from '@/apis/queries/salesManagement/order';
 import { ClientOrderResult, OrderStatus } from '@/apis/swagger/data-contracts';
 import { orderStatusList } from '@/constants/orderStatusList';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
