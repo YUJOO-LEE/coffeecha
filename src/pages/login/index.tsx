@@ -32,7 +32,7 @@ export const LoginPage = (): React.ReactNode => {
 
   useEffect(() => {
     if (!login.isError) return;
-    enqueueSnackbar({ variant: 'error', message: (login.error as Error).message as string });
+    enqueueSnackbar({ variant: 'error', message: 'Invalid username or password. Please try again.' });
   }, [login.isError, login.error, enqueueSnackbar]);
 
   return (
@@ -45,7 +45,7 @@ export const LoginPage = (): React.ReactNode => {
       </Box>
       <Form onSubmit={handleLogin}>
         <Box display="grid" gap="16px" width="260px">
-          <TextField label="ID" variant="outlined" size="small" value={loginId} onChange={handleIdChange} />
+          <TextField label="Username" variant="outlined" size="small" value={loginId} onChange={handleIdChange} />
           <TextField label="Password" type="password" variant="outlined" size="small" value={password} onChange={handlePasswordChange} />
           <Button type="submit" variant="contained" size="large" disableElevation>
             Login
