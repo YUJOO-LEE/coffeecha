@@ -29,7 +29,7 @@ export class ClientMenu<SecurityDataType = unknown> {
    * @secure
    */
   getClientMenuAll = (clientId: number, params: RequestParams = {}) =>
-    this.http.request<ClientMenuResponse[], any>({
+    this.http.request<ClientMenuResponse[], Record<string, string>>({
       path: `/api/client-menus/clients/${clientId}`,
       method: "GET",
       secure: true,
@@ -45,7 +45,7 @@ export class ClientMenu<SecurityDataType = unknown> {
    * @secure
    */
   saveClientMenus = (clientId: number, data: SaveClientMenuRequest, params: RequestParams = {}) =>
-    this.http.request<void, any>({
+    this.http.request<void, Record<string, string>>({
       path: `/api/client-menus/clients/${clientId}`,
       method: "POST",
       body: data,
@@ -63,7 +63,7 @@ export class ClientMenu<SecurityDataType = unknown> {
    * @secure
    */
   deleteClientMenus = (clientMenuId: number, params: RequestParams = {}) =>
-    this.http.request<void, any>({
+    this.http.request<void, Record<string, string>>({
       path: `/api/client-menus/${clientMenuId}`,
       method: "DELETE",
       secure: true,
@@ -79,7 +79,7 @@ export class ClientMenu<SecurityDataType = unknown> {
    * @secure
    */
   updateClientMenu = (clientMenuId: number, data: UpdateClientMenuRequest, params: RequestParams = {}) =>
-    this.http.request<void, any>({
+    this.http.request<void, Record<string, string>>({
       path: `/api/client-menus/${clientMenuId}`,
       method: "PATCH",
       body: data,

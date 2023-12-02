@@ -37,7 +37,7 @@ export class OrderPage<SecurityDataType = unknown> {
    * @secure
    */
   customerOrder = (clientKey: string, data: OrderRequest, params: RequestParams = {}) =>
-    this.http.request<OrderResponse, any>({
+    this.http.request<OrderResponse, Record<string, string>>({
       path: `/order-api/orders/${clientKey}`,
       method: "POST",
       body: data,
@@ -55,7 +55,7 @@ export class OrderPage<SecurityDataType = unknown> {
    * @secure
    */
   guestOrderDetail = (orderKey: string, params: RequestParams = {}) =>
-    this.http.request<OrderDetailResponse, any>({
+    this.http.request<OrderDetailResponse, Record<string, string>>({
       path: `/order-api/orders/${orderKey}`,
       method: "GET",
       secure: true,
@@ -77,7 +77,7 @@ export class OrderPage<SecurityDataType = unknown> {
     },
     params: RequestParams = {},
   ) =>
-    this.http.request<GuestOrderResponse[], any>({
+    this.http.request<GuestOrderResponse[], Record<string, string>>({
       path: `/order-api/orders/guests`,
       method: "GET",
       query: query,
@@ -94,7 +94,7 @@ export class OrderPage<SecurityDataType = unknown> {
    * @secure
    */
   getClientByKey = (clientKey: string, params: RequestParams = {}) =>
-    this.http.request<OrderClientResponse, any>({
+    this.http.request<OrderClientResponse, Record<string, string>>({
       path: `/order-api/clients/${clientKey}`,
       method: "GET",
       secure: true,
@@ -110,7 +110,7 @@ export class OrderPage<SecurityDataType = unknown> {
    * @secure
    */
   getOpenClientAllMenus = (clientKey: string, params: RequestParams = {}) =>
-    this.http.request<ClientMenuResponse[], any>({
+    this.http.request<ClientMenuResponse[], Record<string, string>>({
       path: `/order-api/client-menus/clients/${clientKey}`,
       method: "GET",
       secure: true,
@@ -126,7 +126,7 @@ export class OrderPage<SecurityDataType = unknown> {
    * @secure
    */
   orderAllCategories = (clientKey: string, params: RequestParams = {}) =>
-    this.http.request<CategoryResponse[], any>({
+    this.http.request<CategoryResponse[], Record<string, string>>({
       path: `/order-api/categories/${clientKey}`,
       method: "GET",
       secure: true,

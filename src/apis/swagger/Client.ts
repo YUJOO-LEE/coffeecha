@@ -35,7 +35,7 @@ export class Client<SecurityDataType = unknown> {
    * @secure
    */
   getUserClients = (params: RequestParams = {}) =>
-    this.http.request<ClientResponse[], any>({
+    this.http.request<ClientResponse[], Record<string, string>>({
       path: `/api/clients`,
       method: "GET",
       secure: true,
@@ -51,7 +51,7 @@ export class Client<SecurityDataType = unknown> {
    * @secure
    */
   saveClient = (data: SaveClientRequest, params: RequestParams = {}) =>
-    this.http.request<SaveResponse, any>({
+    this.http.request<SaveResponse, Record<string, string>>({
       path: `/api/clients`,
       method: "POST",
       body: data,
@@ -69,7 +69,7 @@ export class Client<SecurityDataType = unknown> {
    * @secure
    */
   getClientById = (clientId: number, params: RequestParams = {}) =>
-    this.http.request<ClientResponse, any>({
+    this.http.request<ClientResponse, Record<string, string>>({
       path: `/api/clients/${clientId}`,
       method: "GET",
       secure: true,
@@ -85,7 +85,7 @@ export class Client<SecurityDataType = unknown> {
    * @secure
    */
   deleteClient = (clientId: number, params: RequestParams = {}) =>
-    this.http.request<void, any>({
+    this.http.request<void, Record<string, string>>({
       path: `/api/clients/${clientId}`,
       method: "DELETE",
       secure: true,
@@ -101,7 +101,7 @@ export class Client<SecurityDataType = unknown> {
    * @secure
    */
   updateClient = (clientId: number, data: UpdateClientRequest, params: RequestParams = {}) =>
-    this.http.request<void, any>({
+    this.http.request<void, Record<string, string>>({
       path: `/api/clients/${clientId}`,
       method: "PATCH",
       body: data,
@@ -119,7 +119,7 @@ export class Client<SecurityDataType = unknown> {
    * @secure
    */
   clientOpen = (clientId: number, params: RequestParams = {}) =>
-    this.http.request<void, any>({
+    this.http.request<void, Record<string, string>>({
       path: `/api/clients/${clientId}/open`,
       method: "PATCH",
       secure: true,
@@ -135,7 +135,7 @@ export class Client<SecurityDataType = unknown> {
    * @secure
    */
   clientClose = (clientId: number, params: RequestParams = {}) =>
-    this.http.request<void, any>({
+    this.http.request<void, Record<string, string>>({
       path: `/api/clients/${clientId}/close`,
       method: "PATCH",
       secure: true,
@@ -166,7 +166,7 @@ export class Client<SecurityDataType = unknown> {
     },
     params: RequestParams = {},
   ) =>
-    this.http.request<ClientOrderResponse, any>({
+    this.http.request<ClientOrderResponse, Record<string, string>>({
       path: `/api/clients/${clientId}/orders`,
       method: "GET",
       query: query,

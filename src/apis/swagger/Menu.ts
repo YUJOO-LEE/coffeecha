@@ -29,7 +29,7 @@ export class Menu<SecurityDataType = unknown> {
    * @secure
    */
   allMenu = (params: RequestParams = {}) =>
-    this.http.request<MenuResponse[], any>({
+    this.http.request<MenuResponse[], Record<string, string>>({
       path: `/api/menus`,
       method: "GET",
       secure: true,
@@ -46,7 +46,7 @@ export class Menu<SecurityDataType = unknown> {
    * @secure
    */
   saveUserMenu = (data: CreateMenuRequest, params: RequestParams = {}) =>
-    this.http.request<SaveResponse, any>({
+    this.http.request<SaveResponse, Record<string, string>>({
       path: `/api/menus`,
       method: "POST",
       body: data,
@@ -64,7 +64,7 @@ export class Menu<SecurityDataType = unknown> {
    * @secure
    */
   deleteUserMenu = (menuId: number, params: RequestParams = {}) =>
-    this.http.request<void, any>({
+    this.http.request<void, Record<string, string>>({
       path: `/api/menus/${menuId}`,
       method: "DELETE",
       secure: true,
@@ -80,7 +80,7 @@ export class Menu<SecurityDataType = unknown> {
    * @secure
    */
   updateUserMenu = (menuId: number, data: UpdateMenuRequest, params: RequestParams = {}) =>
-    this.http.request<void, any>({
+    this.http.request<void, Record<string, string>>({
       path: `/api/menus/${menuId}`,
       method: "PATCH",
       body: data,

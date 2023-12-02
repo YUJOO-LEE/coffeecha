@@ -133,6 +133,11 @@ export interface UpdateClientMenuRequest {
   saleQuantity?: number;
 }
 
+export interface SseEmitter {
+  /** @format int64 */
+  timeout?: number;
+}
+
 export interface OrderDetailResponse {
   guestName: string;
   status: OrderStatus;

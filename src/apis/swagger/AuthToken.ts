@@ -28,7 +28,7 @@ export class AuthToken<SecurityDataType = unknown> {
    * @secure
    */
   token = (data: TokenRequest, params: RequestParams = {}) =>
-    this.http.request<TokenInfo, any>({
+    this.http.request<TokenInfo, Record<string, string>>({
       path: `/api/auth/token`,
       method: "POST",
       body: data,

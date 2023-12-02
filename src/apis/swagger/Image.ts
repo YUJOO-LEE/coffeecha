@@ -34,7 +34,7 @@ export class Image<SecurityDataType = unknown> {
     },
     params: RequestParams = {},
   ) =>
-    this.http.request<ImageUploadUrlResponse, any>({
+    this.http.request<ImageUploadUrlResponse, Record<string, string>>({
       path: `/api/image-upload-path`,
       method: "GET",
       query: query,

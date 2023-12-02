@@ -29,7 +29,7 @@ export class ClientOrder<SecurityDataType = unknown> {
    * @secure
    */
   updateOrderStatus = (data: UpdateOrderStatusRequest, params: RequestParams = {}) =>
-    this.http.request<void, any>({
+    this.http.request<void, Record<string, string>>({
       path: `/api/orders/status`,
       method: "PATCH",
       body: data,

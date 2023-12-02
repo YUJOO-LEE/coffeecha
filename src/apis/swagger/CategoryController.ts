@@ -28,7 +28,7 @@ export class CategoryController<SecurityDataType = unknown> {
    * @secure
    */
   saveCategory = (data: CategoryRequest, params: RequestParams = {}) =>
-    this.http.request<number, any>({
+    this.http.request<number, Record<string, string>>({
       path: `/api/category`,
       method: "POST",
       body: data,
@@ -45,7 +45,7 @@ export class CategoryController<SecurityDataType = unknown> {
    * @secure
    */
   allCategories = (params: RequestParams = {}) =>
-    this.http.request<CategoryResponse[], any>({
+    this.http.request<CategoryResponse[], Record<string, string>>({
       path: `/api/categories`,
       method: "GET",
       secure: true,

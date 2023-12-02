@@ -29,7 +29,7 @@ export class User<SecurityDataType = unknown> {
    * @secure
    */
   getUser = (params: RequestParams = {}) =>
-    this.http.request<UserResponse, any>({
+    this.http.request<UserResponse, Record<string, string>>({
       path: `/api/users`,
       method: "GET",
       secure: true,
@@ -44,7 +44,7 @@ export class User<SecurityDataType = unknown> {
    * @secure
    */
   saveUser = (data: UserRequest, params: RequestParams = {}) =>
-    this.http.request<number, any>({
+    this.http.request<number, Record<string, string>>({
       path: `/api/users`,
       method: "POST",
       body: data,
@@ -62,7 +62,7 @@ export class User<SecurityDataType = unknown> {
    * @secure
    */
   updateUser = (data: UpdateUserRequest, params: RequestParams = {}) =>
-    this.http.request<void, any>({
+    this.http.request<void, Record<string, string>>({
       path: `/api/users`,
       method: "PATCH",
       body: data,
@@ -80,7 +80,7 @@ export class User<SecurityDataType = unknown> {
    * @secure
    */
   updateUserPassword = (data: UpdateUserPasswordRequest, params: RequestParams = {}) =>
-    this.http.request<void, any>({
+    this.http.request<void, Record<string, string>>({
       path: `/api/users/password`,
       method: "PATCH",
       body: data,
