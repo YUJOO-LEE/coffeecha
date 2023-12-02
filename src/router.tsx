@@ -1,4 +1,3 @@
-import { isLogin } from '@/apis/queries/auth';
 import { LoadingCircleProgress } from '@/components/LoadingCircleProgress';
 import { GuestOrderDetailPage, GuestOrderListPage, GuestOrderPage, Layout } from '@/pages';
 import { CollectionPage } from '@/pages/collection';
@@ -12,6 +11,7 @@ import { NewOrderPage } from '@/pages/salesManagement/newOrder';
 import { OrderPage } from '@/pages/salesManagement/order';
 import { ClientSettingsPage } from '@/pages/salesManagement/settings';
 import { UserSettingsPage } from '@/pages/settings';
+import { isLogin } from '@/util/auth';
 import React, { Suspense } from 'react';
 import { createBrowserRouter, Outlet, redirect } from 'react-router-dom';
 

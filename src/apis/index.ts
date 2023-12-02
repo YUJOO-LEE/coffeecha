@@ -1,4 +1,3 @@
-import { clearAuth } from '@/apis/queries/auth';
 import { AuthToken } from '@/apis/swagger/AuthToken';
 import { CategoryController } from '@/apis/swagger/CategoryController';
 import { Client } from '@/apis/swagger/Client';
@@ -10,7 +9,7 @@ import { Menu } from '@/apis/swagger/Menu';
 import { MenuOption } from '@/apis/swagger/MenuOption';
 import { OrderPage } from '@/apis/swagger/OrderPage';
 import { User } from '@/apis/swagger/User';
-import { getAuthorization } from '@/util';
+import { clearAuth, getAuthorization } from '@/util/auth';
 import { InternalAxiosRequestConfig } from 'axios';
 
 const axiosConfig = {

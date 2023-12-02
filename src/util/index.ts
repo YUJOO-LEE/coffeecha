@@ -1,17 +1,5 @@
-import { ClientResponse, OpenStatus, TokenInfo } from '@/apis/swagger/data-contracts';
+import { ClientResponse, OpenStatus } from '@/apis/swagger/data-contracts';
 import dayjs from 'dayjs';
-
-export const getAuthorization = (isReturnTokenOnly?: boolean): string => {
-  const authStorageData = localStorage.getItem('auth');
-  if (!authStorageData) return '';
-
-  const authData: TokenInfo = JSON.parse(authStorageData);
-  const grandType = authData.grandType;
-  const accessToken = authData.accessToken;
-
-  if (isReturnTokenOnly && accessToken) return accessToken;
-  return `${grandType} ${accessToken}`;
-};
 
 export const getPhoneNumber = (value: string) => {
   if (value.length > 1 && !/^(01)/.test(value)) {

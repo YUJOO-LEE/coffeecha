@@ -1,6 +1,6 @@
 import { OrderQueryKey } from '@/apis/queries/salesManagement/order';
 import { AlarmResponse } from '@/components/ServerSentAlarm/@types';
-import { getAuthorization } from '@/util';
+import { getAuthorization } from '@/util/auth';
 import { Button } from '@mui/material';
 import { useQueryClient } from '@tanstack/react-query';
 import { useSnackbar } from 'notistack';
