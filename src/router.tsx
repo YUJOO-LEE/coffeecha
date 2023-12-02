@@ -1,3 +1,4 @@
+import { isLogin } from '@/apis/queries/auth';
 import { LoadingCircleProgress } from '@/components/LoadingCircleProgress';
 import { GuestOrderDetailPage, GuestOrderListPage, GuestOrderPage, Layout } from '@/pages';
 import { CollectionPage } from '@/pages/collection';
@@ -18,11 +19,8 @@ const routers = createBrowserRouter([
   {
     path: '/',
     loader: async () => {
-      const isLogin = () => {
-        return localStorage.getItem('auth') !== null;
-      };
-
-      return !isLogin() && redirect('/login');
+      if (isLogin()) return false;
+      return redirect('/login');
     },
     element: (
       <Suspense fallback={<LoadingCircleProgress open={true} />}>
@@ -74,11 +72,8 @@ const routers = createBrowserRouter([
     path: '/login',
     element: <LoginPage />,
     loader: async () => {
-      const isLogin = () => {
-        return localStorage.getItem('auth') !== null;
-      };
-
-      return isLogin() && redirect('/');
+      if (!isLogin()) return false;
+      return redirect('/');
     },
   },
   {

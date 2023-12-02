@@ -1,42 +1,27 @@
 import { authApi } from '@/apis';
-import { queryClient } from '@/apis/queries/index';
-import { TokenInfo } from '@/apis/swagger/data-contracts';
-import { useMutation, useQuery, UseQueryResult } from '@tanstack/react-query';
+import { authAtom } from '@/atoms/auth';
+import { useMutation } from '@tanstack/react-query';
+import { useSetAtom } from 'jotai';
 
 const QueryKey = 'auth';
 
-export const useAuth = (): UseQueryResult<{ accessToken: string; refreshToken: string, grandType: string }> => {
-  return useQuery([QueryKey], {
-    initialData: () => {
-      try {
-        const { accessToken, refreshToken, grandType } = JSON.parse(
-          localStorage.getItem(QueryKey) || '{}'
-        );
+export const isLogin = (): boolean => {
+  const authData = localStorage.getItem('auth');
+  const isLogin = authData && authData !== '{}';
 
-        return { accessToken, refreshToken, grandType };
-      } catch (e) {
-        throw new Error('Failed to load user info');
-      }
-    },
-  });
-};
-
-export const setAuth = (partialResponse: Partial<TokenInfo>) => {
-  queryClient.setQueryData([QueryKey], { ...partialResponse });
-
-  const authData = { ...(queryClient.getQueryData<TokenInfo>([QueryKey]) || {}), ...partialResponse };
-  localStorage.setItem(QueryKey, JSON.stringify(authData));
+  return !!isLogin;
 };
 
 export const clearAuth = (): void => {
-  queryClient.setQueryData([QueryKey], null);
   localStorage.removeItem(QueryKey);
 };
 
 export const useLoginMutation = () => {
+  const setAuthAtom = useSetAtom(authAtom);
+
   return useMutation(authApi.token, {
     onSuccess: (response) => {
-      setAuth(response.data);
+      setAuthAtom(response.data);
     },
   });
 };

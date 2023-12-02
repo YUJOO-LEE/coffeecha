@@ -1,4 +1,3 @@
-import { useAuth } from '@/apis/queries/auth';
 import { useGetClientDetail } from '@/apis/queries/client';
 import GlobalNavigation from '@/components/GlobalNavigation';
 import { ServerSentAlarm } from '@/components/ServerSentAlarm';
@@ -13,7 +12,6 @@ export const Layout = (): React.ReactNode => {
 
   const [isOffsetTop, setIsOffsetTop] = useState(true);
 
-  useAuth();
   const { data: clientInfo, isError } = useGetClientDetail(Number(clientId), !clientId);
 
   const handleScroll = useCallback((e: React.WheelEvent<HTMLElement>) => {
