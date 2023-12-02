@@ -1,7 +1,7 @@
 import { authApi } from '@/apis';
 import { queryClient } from '@/apis/queries/index';
 import { TokenInfo } from '@/apis/swagger/data-contracts';
-import { QueryClient, useMutation, useQuery, UseQueryResult } from '@tanstack/react-query';
+import { useMutation, useQuery, UseQueryResult } from '@tanstack/react-query';
 
 const QueryKey = 'auth';
 
@@ -21,14 +21,14 @@ export const useAuth = (): UseQueryResult<{ accessToken: string; refreshToken: s
   });
 };
 
-export const setAuth = (queryClient: QueryClient, partialResponse: Partial<TokenInfo>) => {
+export const setAuth = (partialResponse: Partial<TokenInfo>) => {
   queryClient.setQueryData([QueryKey], { ...partialResponse });
 
   const authData = { ...(queryClient.getQueryData<TokenInfo>([QueryKey]) || {}), ...partialResponse };
   localStorage.setItem(QueryKey, JSON.stringify(authData));
 };
 
-export const clearAuth = (queryClient: QueryClient): void => {
+export const clearAuth = (): void => {
   queryClient.setQueryData([QueryKey], null);
   localStorage.removeItem(QueryKey);
 };
@@ -36,7 +36,7 @@ export const clearAuth = (queryClient: QueryClient): void => {
 export const useLoginMutation = () => {
   return useMutation(authApi.token, {
     onSuccess: (response) => {
-      setAuth(queryClient, response.data);
+      setAuth(response.data);
     },
   });
 };

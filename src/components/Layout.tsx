@@ -1,6 +1,7 @@
 import { useAuth } from '@/apis/queries/auth';
 import { useGetClientDetail } from '@/apis/queries/client';
 import GlobalNavigation from '@/components/GlobalNavigation';
+import { ServerSentAlarm } from '@/components/ServerSentAlarm';
 import ClientHeader from '@/pages/salesManagement/@components/ClientHeader';
 import { Box, styled } from '@mui/material';
 import React, { useCallback, useLayoutEffect, useState } from 'react';
@@ -27,6 +28,7 @@ export const Layout = (): React.ReactNode => {
 
   return (
     <Box display="flex">
+      <ServerSentAlarm />
       <GlobalNavigation clientInfo={clientInfo} />
       <Box flexGrow={1} maxHeight="100dvh" display="grid" gridTemplateRows={clientId ? '50px 1fr' : '1fr'}>
         {clientId && clientInfo && <ClientHeader clientInfo={clientInfo} isOffsetTop={isOffsetTop} />}
