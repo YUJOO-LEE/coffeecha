@@ -1,7 +1,7 @@
 import { OrderQueryKey } from '@/apis/queries/salesManagement/order';
 import { AlarmResponse } from '@/components/GlobalNavigation/@types';
 import { getAuthorization } from '@/util/auth';
-import { Button, styled, Tooltip, Typography } from '@mui/material';
+import { Button, styled, Tooltip } from '@mui/material';
 import { useQueryClient } from '@tanstack/react-query';
 import { useSnackbar } from 'notistack';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
@@ -66,13 +66,8 @@ export const AlarmServerIndicator = () => {
   return (
     <Tooltip
       arrow
-      title={isOnline ? (
-        <Typography>Server is Online</Typography>
-      ) : (
-        <Button variant="text" size="small" color="inherit" onClick={handleRefresh}>
-          refresh
-        </Button>
-      )}
+      disableHoverListener={isOnline}
+      title={<Button variant="text" size="small" color="inherit" onClick={handleRefresh}>refresh</Button>}
     >
       <Styled.AlarmServerIndicator
         sx={(theme) => ({ backgroundColor: isOnline ? theme.palette.success.main : theme.palette.error.main })}
