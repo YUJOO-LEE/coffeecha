@@ -64,19 +64,4 @@ export class SseController<SecurityDataType = unknown> {
       secure: true,
       ...params,
     });
-  /**
-   * No description
-   *
-   * @tags sse-controller
-   * @name SseConnect
-   * @request GET:/sse/connect
-   * @secure
-   */
-  sseConnect = (params: RequestParams = {}) =>
-    this.http.request<SseEmitter, Record<string, string>>({
-      path: `/sse/connect`,
-      method: "GET",
-      secure: true,
-      ...params,
-    });
 }
