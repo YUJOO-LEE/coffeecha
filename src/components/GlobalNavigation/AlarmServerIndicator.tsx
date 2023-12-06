@@ -1,10 +1,10 @@
 import { OrderQueryKey } from '@/apis/queries/salesManagement/order';
-import { AlarmResponse } from '@/components/ServerSentAlarm/@types';
+import { AlarmResponse } from '@/components/GlobalNavigation/@types';
 import { getAuthorization } from '@/util/auth';
-import { Button } from '@mui/material';
+import { Button, styled, Tooltip, Typography } from '@mui/material';
 import { useQueryClient } from '@tanstack/react-query';
 import { useSnackbar } from 'notistack';
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const authorization = getAuthorization(true);
@@ -18,12 +18,17 @@ const alarmAction = (onMove: React.MouseEventHandler<HTMLButtonElement>) => () =
   );
 };
 
-export const ServerSentAlarm = () => {
+export const AlarmServerIndicator = () => {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
   const eventSource = useRef<EventSource>();
+  const [isOnline, setIsOnline] = useState<boolean>(false);
+
+  const handleRefresh = () => {
+    window.location.reload();
+  };
 
   const handleMove = useCallback((clientId: number) => () => {
     navigate(`/${clientId}/order`);
@@ -44,7 +49,13 @@ export const ServerSentAlarm = () => {
     });
 
     if (eventSource.current) {
+      eventSource.current.onopen = () => {
+        setIsOnline(true);
+      };
       eventSource.current.onmessage = showAlarm;
+      eventSource.current.onerror = () => {
+        setIsOnline(false);
+      };
     }
 
     return () => {
@@ -53,7 +64,28 @@ export const ServerSentAlarm = () => {
   }, [showAlarm]);
 
   return (
-    <>
-    </>
+    <Tooltip
+      arrow
+      title={isOnline ? (
+        <Typography>Server is Online</Typography>
+      ) : (
+        <Button variant="text" size="small" color="inherit" onClick={handleRefresh}>
+          refresh
+        </Button>
+      )}
+    >
+      <Styled.AlarmServerIndicator
+        sx={(theme) => ({ backgroundColor: isOnline ? theme.palette.success.main : theme.palette.error.main })}
+      />
+    </Tooltip>
   );
+};
+
+const Styled = {
+  AlarmServerIndicator: styled('span')({
+    display: 'block',
+    width: '100%',
+    height: '8px',
+    borderRadius: '4px',
+  }),
 };

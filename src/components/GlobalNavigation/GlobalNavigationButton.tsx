@@ -10,7 +10,7 @@ interface Props {
   onClick: () => void;
 }
 
-const GlobalNavigationButton = (props: Props): React.ReactNode => {
+export const GlobalNavigationButton = (props: Props): React.ReactNode => {
   const { open, icon, url, label, isSelected, onClick } = props;
 
   return (
@@ -29,8 +29,6 @@ const GlobalNavigationButton = (props: Props): React.ReactNode => {
     </Styled.NavButton>
   );
 };
-
-export default GlobalNavigationButton;
 
 const Styled = {
   NavButton: styled(Button, { shouldForwardProp: (prop) => prop !== 'open' })<{

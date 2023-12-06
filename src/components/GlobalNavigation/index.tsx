@@ -1,16 +1,17 @@
 import { ClientResponse } from '@/apis/swagger/data-contracts';
+import { AlarmServerIndicator } from '@/components/GlobalNavigation/AlarmServerIndicator';
 import { clientNavList, userNavList } from '@/constants/navList';
-import GlobalNavigationButton from '@/components/GlobalNavigationButton';
 import { MenuOpenRounded, MenuRounded } from '@mui/icons-material';
 import { Box, Button, Divider, styled } from '@mui/material';
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { GlobalNavigationButton } from './GlobalNavigationButton';
 
 interface Props {
   clientInfo?: ClientResponse;
 }
 
-const GlobalNavigation = (props: Props): React.ReactNode => {
+export const GlobalNavigation = (props: Props): React.ReactNode => {
   const { clientInfo } = props;
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -37,9 +38,7 @@ const GlobalNavigation = (props: Props): React.ReactNode => {
         </Styled.OpenButton>
       </Box>
       <Divider />
-      <Styled.NavList
-        justifyContent={clientInfo ? 'space-between' : 'flex-start'}
-      >
+      <Styled.NavList justifyContent={clientInfo ? 'space-between' : 'flex-start'}>
         <Box display="flex" flexDirection="column" gap="8px">
           {clientInfo && (
             clientNavList(clientInfo).map(({ label, icon, url }) => (
@@ -55,26 +54,27 @@ const GlobalNavigation = (props: Props): React.ReactNode => {
             ))
           )}
         </Box>
-        <Box display="flex" flexDirection="column" gap="8px">
-          {clientInfo && (<Divider />)}
-          {userNavList.map(({ label, icon, url }) => (
-            <GlobalNavigationButton
-              key={url}
-              open={open}
-              icon={icon}
-              url={url}
-              label={label}
-              onClick={handleMove(url)}
-              isSelected={pathname === url}
-            />
-          ))}
+        <Box height="100%" display="flex" flexDirection="column" justifyContent="space-between" gap="8px">
+          <Box display="flex" flexDirection="column" gap="8px">
+            {clientInfo && (<Divider />)}
+            {userNavList.map(({ label, icon, url }) => (
+              <GlobalNavigationButton
+                key={url}
+                open={open}
+                icon={icon}
+                url={url}
+                label={label}
+                onClick={handleMove(url)}
+                isSelected={pathname === url}
+              />
+            ))}
+          </Box>
+          <AlarmServerIndicator />
         </Box>
       </Styled.NavList>
     </Styled.NavWrapper>
   );
-}
-
-export default GlobalNavigation;
+};
 
 const Styled = {
   NavWrapper: styled('div', { shouldForwardProp: (prop) => prop !== 'open' })<{
@@ -105,5 +105,5 @@ const Styled = {
     gap: '8px',
     width: '100%',
     height: '100%',
-  })
+  }),
 };
