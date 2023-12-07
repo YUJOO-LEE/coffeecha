@@ -9,7 +9,7 @@
  * ---------------------------------------------------------------
  */
 
-import { ClientMenuResponse, SaveClientMenuRequest, UpdateClientMenuRequest } from "./data-contracts";
+import { ClientMenuResponse, MenuResponse, SaveClientMenuRequest, UpdateClientMenuRequest } from "./data-contracts";
 import { ContentType, HttpClient, RequestParams } from "./http-client";
 
 export class ClientMenu<SecurityDataType = unknown> {
@@ -85,6 +85,22 @@ export class ClientMenu<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      ...params,
+    });
+  /**
+   * @description 클라이언트 미설정 메뉴 조회
+   *
+   * @tags ClientMenu
+   * @name GetUnconfiguredMenu
+   * @summary 클라이언트 미설정 메뉴 조회
+   * @request GET:/api/client-menus/clients/{clientId}/unconfigured
+   * @secure
+   */
+  getUnconfiguredMenu = (clientId: number, params: RequestParams = {}) =>
+    this.http.request<MenuResponse[], Record<string, string>>({
+      path: `/api/client-menus/clients/${clientId}/unconfigured`,
+      method: "GET",
+      secure: true,
       ...params,
     });
 }
