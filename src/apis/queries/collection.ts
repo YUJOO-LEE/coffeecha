@@ -1,5 +1,4 @@
 import { categoryApi, collectionApi, imageApi } from '@/apis';
-import { defaultOption } from '@/apis/queries/index';
 import { CategoryResponse, CreateMenuRequest } from '@/apis/swagger/data-contracts';
 import { useMutation, UseMutationResult, useQuery, useQueryClient, UseQueryResult } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
@@ -13,7 +12,6 @@ export const useGetCategoryList = (): UseQueryResult<CategoryResponse[]> => {
       const { data } = await categoryApi.allCategories();
       return data;
     },
-    defaultOption
   );
 };
 
@@ -24,7 +22,6 @@ export const useGetCollectionList = () => {
       const { data } = await collectionApi.allMenu();
       return data;
     },
-    defaultOption
   );
 };
 

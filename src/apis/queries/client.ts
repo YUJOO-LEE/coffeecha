@@ -1,5 +1,4 @@
 import { clientApi } from '@/apis';
-import { defaultOption } from '@/apis/queries/index';
 import { ClientResponse, SaveClientRequest, SaveResponse, UpdateClientRequest } from '@/apis/swagger/data-contracts';
 import { useMutation, UseMutationResult, useQuery, useQueryClient, UseQueryResult } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
@@ -12,8 +11,7 @@ export const useGetClientList = (): UseQueryResult<ClientResponse[]> => {
     async () => {
       const { data } = await clientApi.getUserClients();
       return data;
-    },
-    defaultOption
+    }
   );
 };
 
@@ -24,7 +22,7 @@ export const useGetClientDetail = (clientId: number, disabled?: boolean): UseQue
       const { data } = await clientApi.getClientById(clientId);
       return data;
     },
-    { ...defaultOption, enabled: !disabled },
+    { enabled: !disabled },
   );
 };
 

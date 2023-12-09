@@ -1,5 +1,4 @@
 import { clientApi, orderApi } from '@/apis';
-import { defaultOption } from '@/apis/queries';
 import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 export const OrderQueryKey = 'order';
@@ -15,7 +14,6 @@ export const useGetOrderList = (clientId: number, limit: number) => {
       return data;
     },
     {
-      ...defaultOption,
       ...queryOptions,
       getNextPageParam: (lastPage, allPages) => {
         if (lastPage.orders.length < limit) return;

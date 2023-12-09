@@ -1,5 +1,4 @@
 import { menuApi } from '@/apis';
-import { defaultOption } from '@/apis/queries';
 import { SaveClientMenuRequest, UpdateClientMenuRequest } from '@/apis/swagger/data-contracts';
 import { useMutation, UseMutationResult, useQuery, useQueryClient } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
@@ -13,7 +12,6 @@ export const useGetClientMenuList = (clientId: number) => {
       const { data } = await menuApi.getClientMenuAll(clientId);
       return data;
     },
-    defaultOption
   );
 };
 
@@ -54,6 +52,5 @@ export const useGetUnconfiguredCollectionList = (clientId: number) => {
       const { data } = await menuApi.getUnconfiguredMenu(clientId);
       return data;
     },
-    defaultOption
   );
 };

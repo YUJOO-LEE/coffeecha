@@ -1,5 +1,4 @@
 import { guestOrderApi } from '@/apis';
-import { defaultOption } from '@/apis/queries/index';
 import { OrderRequest, OrderResponse } from '@/apis/swagger/data-contracts';
 import { useMutation, UseMutationResult, useQuery, useQueryClient } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
@@ -16,7 +15,7 @@ export const useGetCategoryForGuest = (clientKey: string) => {
       const { data } = await guestOrderApi.orderAllCategories(clientKey);
       return data;
     },
-    { ...defaultOption, ...queryOptions }
+    { ...queryOptions },
   );
 };
 
@@ -27,7 +26,7 @@ export const useGetClientInfoForGuest = (clientKey: string, enabled: boolean) =>
       const { data } = await guestOrderApi.getClientByKey(clientKey);
       return data;
     },
-    { ...defaultOption, ...queryOptions, enabled }
+    { ...queryOptions, enabled },
   );
 };
 
@@ -38,7 +37,7 @@ export const useGetClientMenuForGuest = (clientKey: string) => {
       const { data } = await guestOrderApi.getOpenClientAllMenus(clientKey);
       return data;
     },
-    { ...defaultOption, ...queryOptions, refetchInterval: 30000 },
+    { ...queryOptions, refetchInterval: 30000 },
   );
 };
 
@@ -61,7 +60,7 @@ export const useGetGuestOrderList = (name: string, phone: string, enabled: boole
       const { data } = await guestOrderApi.guestAllOrders({ name, phone });
       return data;
     },
-    { ...defaultOption, ...queryOptions, enabled },
+    { ...queryOptions, enabled },
   );
 };
 
@@ -72,6 +71,6 @@ export const useGetGuestOrderDetail = (orderKey?: string) => {
       const { data } = await guestOrderApi.guestOrderDetail(orderKey!);
       return data;
     },
-    { ...defaultOption, ...queryOptions, enabled: !!orderKey },
+    { ...queryOptions, enabled: !!orderKey },
   );
 };

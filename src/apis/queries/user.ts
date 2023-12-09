@@ -1,5 +1,4 @@
 import { userApi } from '@/apis';
-import { defaultOption } from '@/apis/queries/index';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export const QueryKey = 'user';
@@ -11,7 +10,6 @@ export const useGetUserDetail = () => {
       const { data } = await userApi.getUser();
       return data;
     },
-    { ...defaultOption },
   );
 };
 
