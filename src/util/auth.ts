@@ -1,4 +1,4 @@
-import { AuthQueryKey } from '@/apis/queries/auth';
+import { AuthQueryKey } from '@/constants';
 import { TokenInfo } from '@/apis/swagger/data-contracts';
 
 export const getAuthorization = (isReturnTokenOnly?: boolean): string => {
@@ -15,4 +15,5 @@ export const getAuthorization = (isReturnTokenOnly?: boolean): string => {
 
 export const clearAuth = (): void => {
   localStorage.removeItem(AuthQueryKey);
+  window.location.reload();
 };

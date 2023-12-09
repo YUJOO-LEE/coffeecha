@@ -1,4 +1,4 @@
-import { AuthQueryKey } from '@/apis/queries/auth';
+import { AuthQueryKey } from '@/constants';
 import { TokenInfo } from '@/apis/swagger/data-contracts';
 import { atomWithStorage } from 'jotai/utils';
 

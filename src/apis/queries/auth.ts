@@ -3,8 +3,6 @@ import { authAtom } from '@/atoms/auth';
 import { useMutation } from '@tanstack/react-query';
 import { useSetAtom } from 'jotai';
 
-export const AuthQueryKey = 'auth';
-
 export const useLoginMutation = () => {
   const setAuthAtom = useSetAtom(authAtom);
 
