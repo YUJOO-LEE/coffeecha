@@ -274,10 +274,12 @@ export interface ClientOrderResult {
   totalQuantity: number;
   /** @format date-time */
   orderDateTime: string;
-  messageSend: YesNo;
+  smsStatus: ClientOrderResultSmsStatusEnum;
 }
 
-export enum YesNo {
-  Y = "Y",
-  N = "N",
+export enum ClientOrderResultSmsStatusEnum {
+  BEFORE = "BEFORE",
+  SUCCESS = "SUCCESS",
+  FAIL = "FAIL",
+  BLOCK = "BLOCK",
 }
