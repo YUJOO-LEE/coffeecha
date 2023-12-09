@@ -1,12 +1,12 @@
 import { useLoginMutation } from '@/apis/queries/auth';
+import { LoadingCircleProgress } from '@/components/LoadingCircleProgress';
 import { CoffeeRounded } from '@mui/icons-material';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
-import { Form, useNavigate } from 'react-router-dom';
+import { Form } from 'react-router-dom';
 
 export const LoginPage = (): React.ReactNode => {
-  const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
   const [loginId, setLoginId] = useState<string>('');
@@ -22,12 +22,9 @@ export const LoginPage = (): React.ReactNode => {
     setPassword(e.target.value);
   };
 
-  const handleLogin = async () => {
-    const { status } = await login.mutateAsync({ loginId, password });
-
-    if (status === 200) {
-      navigate('/');
-    }
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    await login.mutateAsync({ loginId, password });
   };
 
   useEffect(() => {
@@ -37,6 +34,7 @@ export const LoginPage = (): React.ReactNode => {
 
   return (
     <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" gap="16px" width="100dvw" height="100dvh">
+      <LoadingCircleProgress open={login.isLoading} />
       <Box display="flex" alignItems="center" gap="8px">
         <CoffeeRounded style={{ width: '30px', height: '30px' }} />
         <Typography variant="h1" fontSize="24px" fontWeight="700" textTransform="capitalize">

@@ -13,18 +13,14 @@ import { ClientSettingsPage } from '@/pages/salesManagement/settings';
 import { UserSettingsPage } from '@/pages/settings';
 import { isLogin } from '@/util/auth';
 import React, { Suspense } from 'react';
-import { createBrowserRouter, Outlet, redirect } from 'react-router-dom';
+import { createBrowserRouter, Outlet } from 'react-router-dom';
 
 const routers = createBrowserRouter([
   {
     path: '/',
-    loader: async () => {
-      if (isLogin()) return false;
-      return redirect('/login');
-    },
     element: (
       <Suspense fallback={<LoadingCircleProgress open={true} />}>
-        <Layout />
+        <ProtectedPageWrapper />
       </Suspense>
     ),
     children: [
@@ -67,14 +63,6 @@ const routers = createBrowserRouter([
         ],
       },
     ],
-  },
-  {
-    path: '/login',
-    element: <LoginPage />,
-    loader: async () => {
-      if (!isLogin()) return false;
-      return redirect('/');
-    },
   },
   {
     path: '/order',

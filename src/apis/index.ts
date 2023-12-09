@@ -35,7 +35,6 @@ const responseInterceptor = async (error?: any) => {
 
   if (status === 403) {
     clearAuth();
-    location.replace('/login');
     return;
   }
 
