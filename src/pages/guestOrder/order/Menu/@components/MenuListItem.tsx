@@ -24,9 +24,11 @@ const MenuListItem = (props: Props): React.ReactNode => {
         border: (isClientView && !isSoldOut) ? `1px solid ${theme.palette.primary.main}` : undefined
       })}
     >
-      <Styled.ImageWrapper>
-        <img src={data.menuImageUrl} alt="title" />
-      </Styled.ImageWrapper>
+      {data.menuImageUrl && (
+        <Styled.ImageWrapper>
+          <img src={data.menuImageUrl} alt="title" />
+        </Styled.ImageWrapper>
+      )}
       <Typography fontSize="16px" fontWeight="500">
         {data.menuName}
       </Typography>
@@ -50,7 +52,7 @@ const Styled = {
     position: 'relative',
     padding: '16px',
     display: 'grid',
-    gridTemplateColumns: '1fr',
+    placeContent: 'center',
     justifyItems: 'center',
     gap: '16px',
     borderRadius: '4px',
