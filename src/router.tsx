@@ -1,17 +1,20 @@
 import { LoadingCircleProgress } from '@/components/LoadingCircleProgress';
-import { GuestOrderDetailPage, GuestOrderListPage, GuestOrderPage, Layout } from '@/pages';
-import { CollectionPage } from '@/pages/collection';
+import { ProtectedPageWrapper } from '@/components/ProtectedPageWrapper';
+import {
+  ClientSettingsPage,
+  CollectionPage,
+  GuestOrderDetailPage,
+  GuestOrderListPage,
+  GuestOrderPage,
+  HomePage,
+  MenuPage,
+  NewOrderPage,
+  NoCoffeechaDataPage,
+  OrderPage,
+  SalesManagementPage,
+  UserSettingsPage,
+} from '@/pages';
 import { CoffeechaLoading } from '@/pages/guestOrder/order/Error/CoffeechaLoading';
-import { NoCoffeechaDataPage } from '@/pages/guestOrder/order/Error/NoCoffeechaDataPage';
-import { LoginPage } from '@/pages/login';
-import { SalesManagementPage } from '@/pages/salesManagement';
-import { HomePage } from '@/pages/salesManagement/home';
-import { MenuPage } from '@/pages/salesManagement/menu';
-import { NewOrderPage } from '@/pages/salesManagement/newOrder';
-import { OrderPage } from '@/pages/salesManagement/order';
-import { ClientSettingsPage } from '@/pages/salesManagement/settings';
-import { UserSettingsPage } from '@/pages/settings';
-import { isLogin } from '@/util/auth';
 import React, { Suspense } from 'react';
 import { createBrowserRouter, Outlet } from 'react-router-dom';
 
