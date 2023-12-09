@@ -95,13 +95,21 @@ const MenuGridItem = (props: Props): React.ReactNode => {
         )}
       </Box>
       <Box display="grid" gap="16px">
-        <Styled.ImageWrapper>
-          <img
-            src={data.menuImageUrl}
-            alt={data.menuName}
-            style={{ filter: data.menuHidden ? 'blur(5px)' : undefined }}
-          />
-        </Styled.ImageWrapper>
+        {data.menuImageUrl ? (
+          <Styled.ImageWrapper>
+            <img
+              src={data.menuImageUrl}
+              alt={data.menuName}
+              style={{ filter: data.menuHidden ? 'blur(5px)' : undefined }}
+            />
+          </Styled.ImageWrapper>
+        ) : (
+          <Styled.ImageWrapper>
+            <Typography fontSize="14px" fontWeight="700" color={(theme) => theme.palette.background.default}>
+              No image
+            </Typography>
+          </Styled.ImageWrapper>
+        )}
         <Typography>
           {data.menuName}
         </Typography>
@@ -148,18 +156,22 @@ const Styled = {
     gridTemplateRows: 'auto auto 1fr',
     gap: '16px',
   }),
-  ImageWrapper: styled(Box)({
+  ImageWrapper: styled(Box)(({ theme }) => ({
     width: '100%',
     height: 'auto',
     aspectRatio: '1 / 1',
-    borderRadius: '8px',
+    borderRadius: '4px',
+    backgroundColor: theme.palette.grey[300],
     overflow: 'hidden',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     '& img': {
       width: '100%',
       height: '100%',
       objectFit: 'cover',
     },
-  }),
+  })),
   Quantity: styled(TextField)({
     '& input': {
       paddingRight: '8px',
