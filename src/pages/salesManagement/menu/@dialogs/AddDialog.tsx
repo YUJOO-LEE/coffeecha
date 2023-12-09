@@ -1,5 +1,4 @@
-import { useGetCollectionList } from '@/apis/queries/collection';
-import { useAddClientMenu } from '@/apis/queries/salesManagement/menu';
+import { useAddClientMenu, useGetUnconfiguredCollectionList } from '@/apis/queries/salesManagement/menu';
 import CollectionGridItem from '@/pages/collection/@components/CollectionGridItem';
 import {
   Box,
@@ -25,7 +24,7 @@ const AddDialog = (props: Props): React.ReactNode => {
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
   const [selectedIdList, setSelectedIdList] = useState<number[]>([]);
 
-  const { data: collectionList } = useGetCollectionList();
+  const { data: collectionList } = useGetUnconfiguredCollectionList(clientId);
   const addMenu = useAddClientMenu();
 
   const isCheckedAll = selectedIdList.length === collectionList?.length;

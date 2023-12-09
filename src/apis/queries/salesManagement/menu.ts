@@ -46,3 +46,14 @@ export const useDeleteClientMenu = (clientMenuId: number)=> {
     },
   });
 };
+
+export const useGetUnconfiguredCollectionList = (clientId: number) => {
+  return useQuery(
+    [QueryKey, 'collection'],
+    async () => {
+      const { data } = await menuApi.getUnconfiguredMenu(clientId);
+      return data;
+    },
+    defaultOption
+  );
+};
