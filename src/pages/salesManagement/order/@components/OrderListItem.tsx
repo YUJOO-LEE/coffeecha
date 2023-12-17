@@ -1,11 +1,12 @@
-import { ClientOrderResult, OrderStatus } from '@/apis/swagger/data-contracts';
-import { orderStatusList } from '@/constants/orderStatusList';
+import { ClientOrderResult, ClientOrderResultSmsStatusEnum, OrderStatus } from '@/apis/swagger/data-contracts';
+import { orderStatusList, smsStatusList } from '@/constants/orderStatusList';
 import { OrderActions } from '@/pages/salesManagement/order/@components/OrderActions';
 import { ExpandMoreRounded } from '@mui/icons-material';
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Badge,
   Box,
   Card,
   Chip,
@@ -15,7 +16,7 @@ import {
 } from '@mui/material';
 import dayjs from 'dayjs';
 import numeral from 'numeral';
-import React from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 
 type Props = {
   data: ClientOrderResult;
@@ -24,21 +25,29 @@ type Props = {
 export const OrderListItem = (props: Props): React.ReactNode => {
   const { data } = props;
 
-  const isDefaultExpanded = data.orderStatus === OrderStatus.ORDER_PLACED || data.orderStatus === OrderStatus.ORDER_ACCEPTED;
+  const [isExpended, setExpended] = useState<boolean>(false);
+
+  const handleExpend = (_: React.SyntheticEvent, expanded: boolean) => {
+    setExpended(expanded);
+  };
+
+  useLayoutEffect(() => {
+    setExpended(data.orderStatus === OrderStatus.ORDER_PLACED || data.orderStatus === OrderStatus.ORDER_ACCEPTED);
+  }, [data.orderStatus]);
 
   return (
     <Styled.ListItem>
       <Styled.Status status={data.orderStatus} />
-      <Styled.NumberTypography fontSize="28px" fontWeight="500">
+      <Styled.OrderNumber fontSize="28px" fontWeight="500">
         {numeral(data.orderNumber).format('000')}
-      </Styled.NumberTypography>
-      <Box display="flex" alignItems="flex-end" gap="16px">
+      </Styled.OrderNumber>
+      <Box display="flex" alignItems="center" gap="8px">
         <Typography fontSize="12px">
           {data.guestName}
         </Typography>
-        <Typography fontSize="12px" color="grey">
-          {data.phoneNumber}
-        </Typography>
+        <Styled.SMSStatus variant="dot" status={data.smsStatus} invisible={data.smsStatus === ClientOrderResultSmsStatusEnum.BEFORE}>
+          <Chip variant="filled" size="small" label={data.phoneNumber} />
+        </Styled.SMSStatus>
         <Typography fontSize="14px" color={(theme) => theme.palette.error.main} flex={1}>
           {data.message}
         </Typography>
@@ -47,7 +56,7 @@ export const OrderListItem = (props: Props): React.ReactNode => {
         </Typography>
       </Box>
       <Divider />
-      <Styled.OrderDetail defaultExpanded={isDefaultExpanded} disableGutters>
+      <Styled.OrderDetail expanded={isExpended} onChange={handleExpend} disableGutters>
         <AccordionSummary expandIcon={<ExpandMoreRounded />} >
           <Typography>
             합계 수량 {data.totalQuantity}
@@ -95,13 +104,20 @@ const Styled = {
   }, ({ status, theme }) => ({
     backgroundColor: orderStatusList[status].color(theme),
   })),
-  NumberTypography: styled(Typography)({
+  OrderNumber: styled(Typography)({
     gridColumn: '2',
     gridRow: '1 / 4',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
   }),
+  SMSStatus: styled(Badge)<{ status: ClientOrderResultSmsStatusEnum }>(({ status, theme }) => ({
+    '& .MuiBadge-badge': {
+      top: '2px',
+      right: '4px',
+      backgroundColor: smsStatusList[status](theme),
+    },
+  })),
   OrderDetail: styled(Accordion)({
     border: 0,
     boxShadow: 'none',

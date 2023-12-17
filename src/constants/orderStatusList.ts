@@ -1,4 +1,4 @@
-import { OrderStatus } from '@/apis/swagger/data-contracts';
+import { ClientOrderResultSmsStatusEnum, OrderStatus } from '@/apis/swagger/data-contracts';
 import { Theme } from '@mui/material/styles/createTheme';
 
 interface OrderStatusData {
@@ -33,4 +33,11 @@ export const orderStatusList: Record<OrderStatus, OrderStatusData> = {
     en: 'cancelled',
     color: (theme) => theme.palette.grey[400],
   },
+};
+
+export const smsStatusList: Record<ClientOrderResultSmsStatusEnum, (theme: Theme) => string> = {
+  [ClientOrderResultSmsStatusEnum.BEFORE]: (theme) => theme.palette.grey[200],
+  [ClientOrderResultSmsStatusEnum.SUCCESS]: (theme) => theme.palette.success.main,
+  [ClientOrderResultSmsStatusEnum.BLOCK]: (theme) => theme.palette.warning.main,
+  [ClientOrderResultSmsStatusEnum.FAIL]: (theme) => theme.palette.error.main,
 };
