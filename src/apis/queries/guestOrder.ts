@@ -60,7 +60,7 @@ export const useGetGuestOrderList = (name: string, phone: string, enabled: boole
       const { data } = await guestOrderApi.guestAllOrders({ name, phone });
       return data;
     },
-    { ...queryOptions, enabled },
+    { ...queryOptions, refetchInterval: 30000, enabled },
   );
 };
 
@@ -71,6 +71,6 @@ export const useGetGuestOrderDetail = (orderKey?: string) => {
       const { data } = await guestOrderApi.guestOrderDetail(orderKey!);
       return data;
     },
-    { ...queryOptions, enabled: !!orderKey },
+    { ...queryOptions, refetchInterval: 30000, enabled: !!orderKey },
   );
 };
