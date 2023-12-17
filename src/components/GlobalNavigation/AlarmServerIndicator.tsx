@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 const authorization = getAuthorization(true);
 const sseApiUrl = `${import.meta.env.VITE_API_ROOT}/sse/open/connect?userId=1&auth=${authorization}`;
 
-const alarmAction = (onMove: React.MouseEventHandler<HTMLButtonElement>) => () => {
+const AlarmAction = ({ onMove }: { onMove: React.MouseEventHandler<HTMLButtonElement> }) => {
   return (
     <Button variant="text" size="small" color="inherit" onClick={onMove}>
       Go to list
@@ -39,8 +39,9 @@ export const AlarmServerIndicator = () => {
 
     const alarmResponse: AlarmResponse = JSON.parse(event.data);
     const quantity = alarmResponse.totalQuantity - 1;
-    const message = quantity > 1 ? `${alarmResponse.firstMenuName} 외 수량 ${quantity}` : alarmResponse.firstMenuName;
-    enqueueSnackbar(message, { variant: 'info', action: alarmAction(handleMove(alarmResponse.clientId)) });
+    const message = alarmResponse.totalQuantity > 1 ? `${alarmResponse.firstMenuName} 외 수량 ${quantity}` : alarmResponse.firstMenuName;
+
+    enqueueSnackbar(message, { variant: 'info', action: <AlarmAction onMove={handleMove(alarmResponse.clientId)} /> });
   }, [enqueueSnackbar, handleMove, queryClient]);
 
   useEffect(() => {
