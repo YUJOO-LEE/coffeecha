@@ -13,10 +13,11 @@ interface Props {
 }
 
 export const CartListItem = (props: Props): React.ReactNode => {
-  const { isSimple, data, cartList, onIncrease, onDecrease, onRemove } = props;
+  const { data, cartList, onIncrease, onDecrease, onRemove } = props;
 
   const cartQuantity = cartList.reduce((prev, { quantity, menuInfo }) => menuInfo.clientMenuId === data.menuInfo.clientMenuId ? prev + quantity : prev, 0);
   const isIncreaseDisable = cartQuantity >= (data.remain ?? 0);
+  const isSimple = props.isSimple || !data.menuInfo.menuImageUrl;
 
   return (
     <Styled.Wrapper sx={{ gridTemplateColumns: isSimple ? '1fr' : '68px 1fr', }}>
