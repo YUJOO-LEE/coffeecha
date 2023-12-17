@@ -87,7 +87,6 @@ const Styled = {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: '8px',
     backdropFilter: 'blur(5px)',
     backgroundColor: 'rgba(0,0,0,0.15)',
   }),
