@@ -16,7 +16,7 @@ export const App = ():React.ReactNode => {
         <SpeedInsights />
         <JotaiProvider>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <SnackbarProvider>
+            <SnackbarProvider autoHideDuration={1000}>
               <RouterProvider router={routers} />
             </SnackbarProvider>
           </LocalizationProvider>
