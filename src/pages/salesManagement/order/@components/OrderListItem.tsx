@@ -102,7 +102,7 @@ const Styled = {
     gridRow: '1 / 4',
     borderRadius: '0 4px 4px 0',
   }, ({ status, theme }) => ({
-    backgroundColor: orderStatusList[status].color(theme),
+    backgroundColor: orderStatusList[status].colorForAdmin(theme),
   })),
   OrderNumber: styled(Typography)({
     gridColumn: '2',
@@ -142,7 +142,7 @@ const Styled = {
   QuantityChip: styled(Chip)<{ status?: OrderStatus }>({
     borderRadius: '4px',
   }, ({ status, theme }) => ({
-    backgroundColor: status ? orderStatusList[status].color(theme) : undefined,
+    backgroundColor: status ? orderStatusList[status].colorForAdmin(theme) : undefined,
     color: status ? theme.palette.common.white : undefined,
   })),
 };

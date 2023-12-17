@@ -1,4 +1,4 @@
-import { GuestOrderResponse } from '@/apis/swagger/data-contracts';
+import { GuestOrderResponse, OrderStatus } from '@/apis/swagger/data-contracts';
 import { orderStatusList } from '@/constants/orderStatusList';
 import { Box, Card, Chip, Divider, styled, Typography } from '@mui/material';
 import dayjs from 'dayjs';
@@ -23,7 +23,7 @@ export const OrderListItem = (props: Props): React.ReactNode => {
     <Styled.Wrapper onClick={handleMove}>
       <Box display="flex" gap="8px" alignItems="center" justifyContent="space-between" flexWrap="wrap">
         <Box display="flex" gap="8px" alignItems="center">
-          <Chip label={orderStatusList[data.orderStatus].ko} />
+          <Styled.OrderStatus label={orderStatusList[data.orderStatus].ko} status={data.orderStatus} />
           <Typography fontWeight={700}>
             {data.userName}
           </Typography>
@@ -54,5 +54,10 @@ const Styled = {
     '&:hover': {
       outline: `3px solid ${theme.palette.primary.main}`
     },
+  })),
+  OrderStatus: styled(Chip)<{ status: OrderStatus }>(({ status, theme }) => ({
+    backgroundColor: orderStatusList[status].colorForGuest(theme),
+    color: theme.palette.common.white,
+    fontWeight: '500',
   })),
 };

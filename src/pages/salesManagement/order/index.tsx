@@ -71,6 +71,6 @@ const Styled = {
     width: '16px',
     height: '6px',
     borderRadius: '4px',
-    backgroundColor: orderStatusList[status].color(theme),
+    backgroundColor: orderStatusList[status].colorForAdmin(theme),
   })),
 };

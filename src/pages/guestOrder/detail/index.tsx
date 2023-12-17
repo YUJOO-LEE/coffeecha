@@ -41,7 +41,7 @@ export const GuestOrderDetailPage = (): React.ReactNode => {
           <Typography>
             현재 주문 상태
           </Typography>
-          <Typography variant="h4" color={(theme) => theme.palette.primary.main}>
+          <Typography variant="h4" color={orderDetail && orderStatusList[orderDetail.status].colorForGuest}>
             {isLoading || !orderDetail ? (
               <Skeleton width="100px" />
             ) : (
