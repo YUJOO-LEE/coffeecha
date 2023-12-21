@@ -44,6 +44,5 @@ export const orderStatusList: Record<OrderStatus, OrderStatusData> = {
 export const smsStatusList: Record<ClientOrderResultSmsStatusEnum, (theme: Theme) => string> = {
   [ClientOrderResultSmsStatusEnum.BEFORE]: (theme) => theme.palette.grey[200],
   [ClientOrderResultSmsStatusEnum.SUCCESS]: (theme) => theme.palette.success.main,
-  [ClientOrderResultSmsStatusEnum.BLOCK]: (theme) => theme.palette.warning.main,
   [ClientOrderResultSmsStatusEnum.FAIL]: (theme) => theme.palette.error.main,
 };

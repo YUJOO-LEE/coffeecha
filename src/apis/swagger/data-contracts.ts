@@ -281,5 +281,4 @@ export enum ClientOrderResultSmsStatusEnum {
   BEFORE = "BEFORE",
   SUCCESS = "SUCCESS",
   FAIL = "FAIL",
-  BLOCK = "BLOCK",
 }
