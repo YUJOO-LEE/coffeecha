@@ -23,29 +23,6 @@ export class SseController<SecurityDataType = unknown> {
    * No description
    *
    * @tags sse-controller
-   * @name SendMsg
-   * @request GET:/sse/open/send
-   * @secure
-   */
-  sendMsg = (
-    query: {
-      msg: string;
-      /** @format int64 */
-      userId: number;
-    },
-    params: RequestParams = {},
-  ) =>
-    this.http.request<void, Record<string, string>>({
-      path: `/sse/open/send`,
-      method: "GET",
-      query: query,
-      secure: true,
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags sse-controller
    * @name SseOpenConnect
    * @request GET:/sse/open/connect
    * @secure

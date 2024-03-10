@@ -58,6 +58,8 @@ export interface SaveClientRequest {
   phoneNumber: string;
   /** @format date */
   businessDate?: string;
+  /** @format int32 */
+  totalQuantity?: number;
 }
 
 export interface SaveClientMenuRequest {
@@ -121,9 +123,12 @@ export interface UpdateMenuOptionRequest {
 export interface UpdateClientRequest {
   name?: string;
   address?: string;
+  /** @pattern ^01[016789]-\d{3,4}-\d{4}$ */
   phoneNumber?: string;
   /** @format date */
   businessDate?: string;
+  /** @format int32 */
+  totalQuantity?: number;
 }
 
 export interface UpdateClientMenuRequest {
