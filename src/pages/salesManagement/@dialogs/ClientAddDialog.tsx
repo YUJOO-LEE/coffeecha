@@ -1,15 +1,19 @@
 import { useAddClient } from '@/apis/queries/client';
-import { SaveClientRequest } from '@/apis/swagger/data-contracts';
+import { SaveClientRequest, UpdateClientRequest } from '@/apis/swagger/data-contracts';
 import { LoadingCircleProgress } from '@/components/LoadingCircleProgress';
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 
-interface Props {
+const getValidValue: Partial<Record<keyof UpdateClientRequest, (value: string) => string | number>> = {
+  totalQuantity: (value) => Number(value),
+};
+
+type Props = {
   onClose: () => void;
   onDone: (clientId: number) => void;
-}
+};
 
 const ClientAddDialog = (props: Props): React.ReactNode => {
   const { onClose, onDone } = props;
@@ -19,10 +23,12 @@ const ClientAddDialog = (props: Props): React.ReactNode => {
 
   const addClient = useAddClient();
 
-  const handleChange = (target: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (target: keyof SaveClientRequest) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = getValidValue[target]?.(e.target.value) || e.target.value;
+
     setFormData((prev) => ({
       ...prev,
-      [target]: e.target.value,
+      [target]: value,
     }));
   };
 
@@ -55,22 +61,23 @@ const ClientAddDialog = (props: Props): React.ReactNode => {
       <LoadingCircleProgress open={addClient.isLoading} />
 
       <DialogTitle display="flex" justifyContent="space-between">
-        Add New Customer
+        신규 고객 추가
       </DialogTitle>
       <DialogContent>
         <Box display="flex" flexDirection="column" gap="16px" paddingTop="4px">
-          <TextField label="Name" variant="outlined" value={formData.name} onChange={handleChange('name')} />
-          <TextField label="Contact" variant="outlined" value={formData.phoneNumber} onChange={handleChange('phoneNumber')} />
-          <TextField label="Address" variant="outlined" value={formData.address} onChange={handleChange('address')} />
-          <DatePicker label="Business date" value={formData.businessDate ? dayjs(formData.businessDate) : null} onChange={handleDateChange} />
+          <TextField label="고객명" variant="outlined" value={formData.name} onChange={handleChange('name')} />
+          <TextField label="연락처" variant="outlined" value={formData.phoneNumber} onChange={handleChange('phoneNumber')} />
+          <TextField label="출장 주소" variant="outlined" value={formData.address} onChange={handleChange('address')} />
+          <DatePicker label="영업 예정일" value={formData.businessDate ? dayjs(formData.businessDate) : null} onChange={handleDateChange} />
+          <TextField label="계약 수량" variant="outlined" type="number" value={formData.totalQuantity?.toString() || '0'} onChange={handleChange('totalQuantity')} />
         </Box>
       </DialogContent>
       <DialogActions sx={{ padding: '16px 24px' }}>
         <Button variant="text" size="large" onClick={onClose}>
-          Cancel
+          취소
         </Button>
         <Button disableElevation variant="contained" size="large" disabled={isDisabled} onClick={handleSave}>
-          Add
+          등록
         </Button>
       </DialogActions>
     </Dialog>

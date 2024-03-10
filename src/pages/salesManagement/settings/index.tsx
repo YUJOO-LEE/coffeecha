@@ -10,6 +10,10 @@ import { useSnackbar } from 'notistack';
 import React, { useCallback, useLayoutEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
+const getValidValue: Partial<Record<keyof UpdateClientRequest, (value: string) => string | number>> = {
+  totalQuantity: (value) => Number(value),
+};
+
 export const ClientSettingsPage = () => {
   const { clientId } = useParams();
   const navigate = useNavigate();
@@ -30,7 +34,7 @@ export const ClientSettingsPage = () => {
   };
 
   const handleChange = (target: keyof UpdateClientRequest) => (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = target === 'totalQuantity' ? Number(e.target.value) : e.target.value;
+    const value = getValidValue[target]?.(e.target.value) || e.target.value;
 
     setFormData((prev) => ({
       ...prev,
