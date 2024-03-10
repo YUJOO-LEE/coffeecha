@@ -45,7 +45,7 @@ export const useDeleteClientMenu = (clientMenuId: number)=> {
   });
 };
 
-export const useGetUnconfiguredCollectionList = (clientId: number) => {
+export const useGetUnConfiguredCollectionList = (clientId: number) => {
   return useQuery(
     [QueryKey, 'collection'],
     async () => {
