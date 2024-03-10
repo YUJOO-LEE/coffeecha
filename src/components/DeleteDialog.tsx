@@ -16,7 +16,7 @@ const DeleteDialog = (props: Props): React.ReactNode => {
           삭제하시겠습니까?
         </Typography>
         <Typography>
-          삭제된 고객 정보는 복구할 수 없습니다.
+          삭제된 데이터는 복구할 수 없습니다.
         </Typography>
       </DialogContent>
       <DialogActions sx={{ padding: '16px 24px' }}>

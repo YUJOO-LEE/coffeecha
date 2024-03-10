@@ -93,7 +93,7 @@ export const HomePage = () => {
         </Box>
         {clientDetail?.openStatus === OpenStatus.OPEN && (
           <Box display="flex" alignItems="center" gap="8px">
-            <Chip size="small" label="ORDER PAGE" />
+            <Chip size="small" label="주문 URL" />
             <CopyToClipboard>
               {`${window.location.origin}/order/${clientDetail?.clientKey}`}
             </CopyToClipboard>

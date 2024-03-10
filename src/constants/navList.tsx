@@ -24,28 +24,28 @@ export const clientNavList = (clientInfo: ClientResponse): NavItem[] => {
 
   const navList = [
     {
-      label: 'Home',
+      label: '홈',
       url: `/${clientId}/`,
       icon: <HomeRounded />,
     },
     {
-      label: 'Order',
+      label: '주문 관리',
       url: `/${clientId}/order`,
       icon: <ReceiptLongRounded />,
     },
     {
-      label: 'New Order',
+      label: '신규 주문 등록',
       url: `/${clientId}/order/new`,
       icon: <PointOfSaleRounded />,
       isHide: isClosedClient(clientInfo),
     },
     {
-      label: 'Menu',
+      label: '판매 메뉴',
       url: `/${clientId}/menu`,
       icon: <CoffeeRounded />,
     },
     {
-      label: 'Settings',
+      label: '고객사 설정',
       url: `/${clientId}/settings`,
       icon: <ManageAccountsRounded />,
     },
@@ -56,17 +56,17 @@ export const clientNavList = (clientInfo: ClientResponse): NavItem[] => {
 
 export const userNavList: NavItem[] = [
   {
-    label: 'Clients',
+    label: '고객 관리',
     url: '/',
     icon: <LocalShippingRounded />,
   },
   {
-    label: 'Collection',
+    label: '전체 메뉴',
     url: '/collection',
     icon: <CoffeeMakerRounded />,
   },
   {
-    label: 'Settings',
+    label: '계정 설정',
     url: '/settings',
     icon: <SettingsRounded />,
   },

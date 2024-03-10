@@ -28,13 +28,13 @@ export const MenuPage = () => {
       <Box display="flex" gap="8px">
         <CoffeeRounded color="primary" />
         <Typography variant="h1" fontSize="20px" fontWeight="500" color={(theme) => theme.palette.primary.main}>
-          Menu
+          판매 메뉴 관리
         </Typography>
       </Box>
       <Styled.ContentBox>
         <Box display="flex" gap="8px" alignItems="center">
           <Button disableElevation size="medium" variant="contained" startIcon={<AddRounded />} onClick={handleMenuAdd}>
-            Add New Menu
+            메뉴 추가
           </Button>
         </Box>
         {categoryList?.map(({ id, name }) => (

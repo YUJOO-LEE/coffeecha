@@ -134,7 +134,7 @@ const AddEditDialog = (props: Props): React.ReactNode => {
       <LoadingCircleProgress open={addCollection.isLoading || updateCollection.isLoading} />
 
       <DialogTitle display="flex" justifyContent="space-between">
-        {editData ? 'Edit' : 'Add New'} Menu
+        {editData ? '메뉴 정보 수정' : '신규 메뉴 등록'}
       </DialogTitle>
       <DialogContent>
         <Box display="flex" flexDirection="column" gap="16px" paddingTop="5px">
@@ -142,30 +142,30 @@ const AddEditDialog = (props: Props): React.ReactNode => {
             <Styled.ImagePreview>
               <img src={formData.imageUrl} alt={formData.imageUrl} />
               <Styled.ChangeImageButton variant="contained" disableElevation onClick={handleUploadClick}>
-                Change Image
+                대표 이미지 변경
               </Styled.ChangeImageButton>
             </Styled.ImagePreview>
           ) : (
             <Button variant="contained" size="large" disableElevation onClick={handleUploadClick}>
-              Upload Image
+              대표 이미지 선택
             </Button>
           )}
           <Styled.ImageInput ref={fileRef} type="file" accept="image/*" onChange={handleFileChange} />
 
           <FormControl fullWidth>
-            <InputLabel id="category-label">Category</InputLabel>
-            <Select labelId="category-label" label="Category" variant="outlined" value={formData.categoryId} onChange={handleCategoryChange}>
+            <InputLabel id="category-label">카테고리</InputLabel>
+            <Select labelId="category-label" label="카테고리" variant="outlined" value={formData.categoryId} onChange={handleCategoryChange}>
               {categoryList?.map(({ id, name }) => (
                 <MenuItem key={`${name}_${id}`} value={id} >{name}</MenuItem>
               ))}
             </Select>
           </FormControl>
-          <TextField label="Name" variant="outlined" value={formData.name} onChange={handleChange('name')} />
+          <TextField label="메뉴명" variant="outlined" value={formData.name} onChange={handleChange('name')} />
 
           <Box display="flex" gap="4px">
             <FormControl fullWidth>
-              <InputLabel id="options-label">Options</InputLabel>
-              <Select labelId="options-label" label="Options" multiple variant="outlined" value={formData.menuOptionIds || ''} onChange={handleOptionChange}>
+              <InputLabel id="options-label">옵션</InputLabel>
+              <Select labelId="options-label" label="옵션" multiple variant="outlined" value={formData.menuOptionIds || ''} onChange={handleOptionChange}>
                 {optionList?.map(({ menuOptionId, menuOptionName }) => (
                   <MenuItem key={`${menuOptionName}_${menuOptionId}`} value={menuOptionId} >{menuOptionName}</MenuItem>
                 ))}
@@ -175,15 +175,15 @@ const AddEditDialog = (props: Props): React.ReactNode => {
               <ManageSearchRounded />
             </Button>
           </Box>
-          <TextField label="Description" variant="outlined" value={formData.description} onChange={handleChange('description')} />
+          <TextField label="설명" variant="outlined" value={formData.description} onChange={handleChange('description')} />
         </Box>
       </DialogContent>
       <DialogActions sx={{ padding: '16px 24px' }}>
         <Button variant="text" size="large" onClick={onClose}>
-          Cancel
+          취소
         </Button>
         <Button variant="contained" size="large" disabled={isDisabled} disableElevation onClick={handleSave}>
-          {editData ? 'Save' : 'Add'}
+          {editData ? '저장' : '등록'}
         </Button>
       </DialogActions>
 

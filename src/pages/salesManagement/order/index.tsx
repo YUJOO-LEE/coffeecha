@@ -31,7 +31,7 @@ export const OrderPage = (): React.ReactNode => {
         <Box display="flex" gap="8px">
           <ReceiptLongRounded color="primary" />
           <Typography variant="h1" fontSize="20px" fontWeight="500" color={(theme) => theme.palette.primary.main}>
-            ORDER
+            주문 관리
           </Typography>
         </Box>
         <Box display="flex" gap="16px">
@@ -39,7 +39,7 @@ export const OrderPage = (): React.ReactNode => {
             <Box key={key} display="flex" alignItems="center" gap="4px">
               <Styled.StatusColorChip status={key as OrderStatus} />
               <Typography fontSize="12px">
-                {value.en.toUpperCase()}
+                {value.ko}
               </Typography>
             </Box>
           ))}

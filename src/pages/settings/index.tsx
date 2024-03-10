@@ -75,19 +75,19 @@ export const UserSettingsPage = (): React.ReactNode => {
       <Box display="flex" gap="8px">
         <ManageAccountsRounded color="primary" />
         <Typography variant="h1" fontSize="20px" fontWeight="500" color={(theme) => theme.palette.primary.main}>
-          Settings
+          계정 설정
         </Typography>
       </Box>
       <Styled.ContentBox display="flex" flexDirection="column" gap="16px">
         <TextField
-          label="Name"
+          label="상호"
           variant="outlined"
           value={formData.name}
           onChange={handleChange('name')}
           disabled={!isEditMode}
         />
         <TextField
-          label="Contact"
+          label="연락처"
           variant="outlined"
           value={formData.phoneNumber}
           inputProps={{ maxLength: 13, inputMode: 'numeric' }}
@@ -97,19 +97,19 @@ export const UserSettingsPage = (): React.ReactNode => {
         {isEditMode ? (
           <Box display="flex" justifyContent="flex-end" gap="8px">
             <Button variant="outlined" size="large" onClick={toggleEditMode}>
-              Cancel
+              취소
             </Button>
             <Button disableElevation variant="contained" size="large" disabled={isDisabled} onClick={handleUpdate}>
-              Save
+              저장
             </Button>
           </Box>
         ) : (
           <Box display="flex" justifyContent="space-between" gap="8px">
             <Button disableElevation variant="contained" size="large" disabled={isLoading} onClick={handleDialogOpen}>
-              Change Password
+              비밀번호 변경
             </Button>
             <Button disableElevation variant="contained" size="large" disabled={isLoading} onClick={toggleEditMode}>
-              Edit
+              정보 변경
             </Button>
           </Box>
         )}

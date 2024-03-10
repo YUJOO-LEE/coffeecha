@@ -68,14 +68,14 @@ export const CollectionPage = (): React.ReactNode => {
       <Box display="grid" gap="24px">
         <Box display="flex" justifyContent="space-between">
           <Typography fontSize="20px" fontWeight="inherit" display="flex" alignItems="center" gap="8px">
-            <CoffeeMakerRounded />Collection
+            <CoffeeMakerRounded />전체 메뉴 관리
           </Typography>
           <Box display="flex" gap="8px">
             <Button size="medium" variant="contained" startIcon={<AddRounded />} disableElevation onClick={handleAddOpen}>
-              Add New Menu
+              신규 메뉴 등록
             </Button>
             <Button size="medium" color="info" variant="contained" disableElevation startIcon={<ManageSearchRounded />} onClick={toggleOptionPanel}>
-              Menu Options
+              옵션 관리
             </Button>
           </Box>
         </Box>

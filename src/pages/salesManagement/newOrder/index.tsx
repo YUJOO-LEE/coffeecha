@@ -65,7 +65,7 @@ export const NewOrderPage = (): React.ReactNode => {
       <Box display="flex" gap="8px">
         <PointOfSaleRounded color="primary" />
         <Typography variant="h1" fontSize="20px" fontWeight="500" color={(theme) => theme.palette.primary.main}>
-          NEW ORDER
+          신규 주문 등록
         </Typography>
       </Box>
       {clientInfo?.clientKey && (

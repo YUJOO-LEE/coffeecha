@@ -100,7 +100,7 @@ export const ClientSettingsPage = () => {
       <Box display="flex" gap="8px">
         <ManageAccountsRounded color="primary" />
         <Typography variant="h1" fontSize="20px" fontWeight="500" color={(theme) => theme.palette.primary.main}>
-          고객사 정보
+          고객사 설정
         </Typography>
       </Box>
       <Styled.ContentBox display="flex" flexDirection="column" gap="16px">
@@ -122,10 +122,10 @@ export const ClientSettingsPage = () => {
           ) : (
             <>
               <Button disableElevation variant="contained" color="error" size="large" onClick={handleDeleteOpen}>
-                삭제
+                고객 삭제
               </Button>
               <Button disableElevation variant="contained" size="large" disabled={isLoading} onClick={toggleEditMode}>
-                수정
+                정보 변경
               </Button>
             </>
           )}

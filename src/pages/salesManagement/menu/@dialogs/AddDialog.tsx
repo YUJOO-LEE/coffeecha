@@ -68,7 +68,7 @@ const AddDialog = (props: Props): React.ReactNode => {
   return (
     <Dialog open={true} onClose={onClose} PaperProps={{ style: { width: '50%', minWidth: '440px' } }}>
       <DialogTitle display="flex" justifyContent="space-between">
-        Add New Menu
+        판매 메뉴 추가
       </DialogTitle>
       <DialogContent>
         <Box display="flex">
@@ -81,7 +81,7 @@ const AddDialog = (props: Props): React.ReactNode => {
               disabled={!collectionList}
             />
             <Typography fontSize="14px" fontWeight="500">
-              Select All
+              전체 선택
             </Typography>
           </Styled.CheckAllLabel>
         </Box>
@@ -103,10 +103,10 @@ const AddDialog = (props: Props): React.ReactNode => {
       </DialogContent>
       <DialogActions sx={{ padding: '16px 24px' }}>
         <Button variant="text" size="large" onClick={onClose}>
-          Cancel
+          취소
         </Button>
         <Button disableElevation variant="contained" size="large" disabled={isDisabled} onClick={handleAdd}>
-          Add
+          추가
         </Button>
       </DialogActions>
     </Dialog>

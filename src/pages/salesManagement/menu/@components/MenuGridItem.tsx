@@ -122,7 +122,7 @@ const MenuGridItem = (props: Props): React.ReactNode => {
         <Box display="grid" gridTemplateColumns="1fr 1fr" gap="8px">
           <Styled.Quantity
             disabled
-            label="sold"
+            label="판매"
             inputMode="numeric"
             type="number"
             size="small"
@@ -130,7 +130,7 @@ const MenuGridItem = (props: Props): React.ReactNode => {
           />
           <Styled.Quantity
             disabled={!editMode}
-            label="in stock"
+            label="재고"
             inputMode="numeric"
             type="number"
             size="small"

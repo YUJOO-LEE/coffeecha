@@ -55,7 +55,7 @@ const OptionDialog = (props: Props): React.ReactNode => {
     <Dialog open={true} onClose={onClose} PaperProps={{ style: { width: '30%', minWidth: '380px' } }}>
       <LoadingCircleProgress open={addOption.isLoading} />
       <DialogTitle display="flex" justifyContent="space-between">
-        Option Settings
+        메뉴 옵션 관리
       </DialogTitle>
       <DialogContent>
         <Box display="flex" flexDirection="column" gap="16px">
@@ -78,7 +78,7 @@ const OptionDialog = (props: Props): React.ReactNode => {
               </>
             ) : (
               <Styled.Button variant="contained" size="medium" disableElevation startIcon={<AddRounded />} onClick={toggleEditMode}>
-                New Option
+                신규 옵션 추가
               </Styled.Button>
             )}
           </Box>
@@ -90,7 +90,7 @@ const OptionDialog = (props: Props): React.ReactNode => {
       </DialogContent>
       <DialogActions sx={{ padding: '0 24px 16px' }}>
         <Button variant="text" size="large" onClick={onClose}>
-          Close
+          닫기
         </Button>
       </DialogActions>
 
