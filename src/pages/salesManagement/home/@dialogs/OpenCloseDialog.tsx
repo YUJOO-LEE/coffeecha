@@ -45,7 +45,7 @@ const OpenCloseDialog = (props: Props): React.ReactNode => {
           {!isSameDate ? (
             <Styled.ErrorBox>
               <Styled.Content color={(theme) => theme.palette.error.main}>
-                설정된 <span>영업 예정일 ({dayjs(data.businessDate).format('MMM d, YYYY')})</span> 당일에만 영업을 시작할 수 있습니다.
+                설정된 <span>영업 예정일 ({data.businessDate})</span> 당일에만 영업을 시작할 수 있습니다.
               </Styled.Content>
             </Styled.ErrorBox>
           ) : changeToOpen && (

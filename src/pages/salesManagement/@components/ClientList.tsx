@@ -1,5 +1,6 @@
 import { useGetClientList } from '@/apis/queries/client';
 import { OpenStatus } from '@/apis/swagger/data-contracts';
+import { clientStatusLabel } from '@/constants/clientStatus';
 import { CheckRounded, DownloadDoneRounded, ErrorRounded, ManageAccountsRounded } from '@mui/icons-material';
 import { Box, Button, Card, Chip, Divider, styled, Tooltip, Typography } from '@mui/material';
 import dayjs from 'dayjs';
@@ -37,7 +38,7 @@ const ClientList = (props: Props): React.ReactNode => {
               {openStatus === OpenStatus.OPEN && (
               <Box display="flex" gap="4px" alignItems="center">
                 {openStatus === OpenStatus.OPEN && !dayjs().isSame(dayjs(businessDate), 'd') && (
-                  <Tooltip title="Store is open but today is not opening day. Unable to take orders until opening day." arrow>
+                  <Tooltip title="설정된 영업 예정일이 오늘 날짜와 다릅니다. 영업 예정일 당일에만 주문받을 수 있습니다." arrow>
                     <ErrorRounded color="error" />
                   </Tooltip>
                 )}
@@ -45,7 +46,7 @@ const ClientList = (props: Props): React.ReactNode => {
                   size="small"
                   variant="filled"
                   color="success"
-                  label={openStatus}
+                  label={clientStatusLabel[openStatus]}
                 />
               </Box>
               )}

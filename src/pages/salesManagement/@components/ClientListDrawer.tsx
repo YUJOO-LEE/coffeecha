@@ -41,10 +41,10 @@ const ClientListDrawer = (props: Props): React.ReactNode => {
       <Styled.Title isOffsetTop={isOffsetTop}>
         <Box display="flex" alignItems="center" gap="16px">
           <Typography fontSize="inherit" fontWeight="inherit">
-            Client List
+            고객 리스트
           </Typography>
           <Button variant="outlined" size="small" onClick={handleMove}>
-            Edit Clients
+            관리
           </Button>
         </Box>
         <IconButton onClick={onClose}>

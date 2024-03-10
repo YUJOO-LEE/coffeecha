@@ -79,13 +79,13 @@ export const HomePage = () => {
         <Box display="flex" alignItems="center" gap="8px">
           <Chip size="small" label="오늘 날짜" />
           <Typography>
-            {dayjs().format('MMM D, YYYY')}
+            {dayjs().format('YYYY-MM-DD')}
           </Typography>
         </Box>
         <Box display="flex" alignItems="center" gap="8px">
           <Chip size="small" label="영업 예정일" />
           <Typography>
-            {dayjs(clientDetail?.businessDate).format('MMM D, YYYY')}
+            {dayjs(clientDetail?.businessDate).format('YYYY-MM-DD')}
           </Typography>
           <Typography color="grey">
             ({dayjs(clientDetail?.businessDate).fromNow()})

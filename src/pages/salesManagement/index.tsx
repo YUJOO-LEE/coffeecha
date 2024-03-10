@@ -27,10 +27,10 @@ export const SalesManagementPage = (): React.ReactNode => {
     <Box display="grid" gap="16px">
       <Box display="flex" justifyContent="space-between">
         <Typography fontSize="20px" fontWeight="inherit" display="flex" alignItems="center" gap="8px">
-          <LocalShippingRounded />Clients Management
+          <LocalShippingRounded />고객사 관리
         </Typography>
         <Button disableElevation size="medium" variant="contained" startIcon={<AddRounded />} onClick={handleAddOpen}>
-          Add New Client
+          신규 고객 등록
         </Button>
       </Box>
       <ClientList isEditMote />

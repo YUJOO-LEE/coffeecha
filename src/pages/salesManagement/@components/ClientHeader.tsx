@@ -1,4 +1,5 @@
 import { ClientResponse, OpenStatus } from '@/apis/swagger/data-contracts';
+import { clientStatusLabel } from '@/constants/clientStatus';
 import ClientListDrawer from '@/pages/salesManagement/@components/ClientListDrawer';
 import { ErrorRounded, LoopRounded } from '@mui/icons-material';
 import { Box, Button, Chip, Divider, styled, Tooltip, Typography } from '@mui/material';
@@ -29,24 +30,24 @@ const ClientHeader = (props: Props): React.ReactNode => {
     <Styled.HeaderBar isOffsetTop={isOffsetTop}>
       <Box display="flex" gap="8px" alignItems="center">
         <Box display="flex" gap="4px" alignItems="center">
-          {clientInfo?.openStatus === OpenStatus.OPEN && isOpenDisabled && (
-            <Tooltip title="Store is open but today is not opening day. Unable to take orders until opening day." arrow>
+          {clientInfo.openStatus === OpenStatus.OPEN && isOpenDisabled && (
+            <Tooltip title="설정된 영업 예정일이 오늘 날짜와 다릅니다. 영업 예정일 당일에만 주문받을 수 있습니다." arrow>
               <ErrorRounded color="error" />
             </Tooltip>
           )}
           <Chip
             size="small"
             variant="filled"
-            color={clientInfo?.openStatus === OpenStatus.OPEN ? 'success' : 'default'}
-            label={clientInfo?.openStatus}
+            color={clientInfo.openStatus === OpenStatus.OPEN ? 'success' : 'default'}
+            label={clientStatusLabel[clientInfo.openStatus]}
           />
         </Box>
         <Typography variant="h2" fontSize="20px" fontWeight="500">
-          {clientInfo?.clientName}
+          {clientInfo.clientName}
         </Typography>
         <Divider orientation="vertical" sx={{ height: '50%' }} />
         <Typography color="grey" fontSize="12px" fontWeight="300">
-          {clientInfo?.address}
+          {clientInfo.address}
         </Typography>
       </Box>
       <Styled.ControlButton size="small" color="inherit" onClick={handleListOpen}>
