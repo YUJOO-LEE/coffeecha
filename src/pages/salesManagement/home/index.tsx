@@ -8,10 +8,12 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import 'dayjs/locale/ko';
 
 export const HomePage = () => {
   const { clientId } = useParams();
   dayjs.extend(relativeTime);
+  dayjs.locale('ko');
 
   const [isChangeStatusOpen, setChangeStatusOpen] = useState<boolean>(false);
 
@@ -32,9 +34,28 @@ export const HomePage = () => {
     <Box
       display="grid"
       gap="16px"
-      gridTemplateColumns="repeat(auto-fit, minmax(180px, 1fr))"
-      gridTemplateRows="repeat(auto-fit, minmax(180px, 1fr))"
+      gridTemplateColumns="repeat(auto-fit, minmax(240px, 1fr))"
+      gridTemplateRows="repeat(auto-fit, minmax(120px, 1fr))"
     >
+      <Styled.SalesCard>
+        <Box>
+          <Chip size="small" label="판매 수량 집계" />
+        </Box>
+        <Styled.Quantity>
+          <Typography fontSize="24px">
+            {clientDetail?.saleQuantity || 0}
+          </Typography>
+          <Typography fontSize="12px" color="grey">전체 판매 수량</Typography>
+          <Typography fontSize="24px">
+            /
+          </Typography>
+          <Box />
+          <Typography fontSize="24px">
+            {clientDetail?.totalQuantity || 0}
+          </Typography>
+          <Typography fontSize="12px" color="grey">계약 수량</Typography>
+        </Styled.Quantity>
+      </Styled.SalesCard>
       <Styled.OpenCard>
         <Button
           disableElevation
@@ -45,24 +66,24 @@ export const HomePage = () => {
           onClick={handleChangeStatusOpen}
           disabled={changeToOpen && isOpenDisabled}
         >
-          Change to {changeToOpen ? 'Opend' : 'Closed'}
+          {changeToOpen ? '영업시작' : '영업종료'}
         </Button>
         {isOpenDisabled && (
           <Styled.OpenWarning>
-            The store can only be opened if the <span>Opening date</span> is the same as <span>Today's date</span>.
+            설정된 <span>영업 예정일</span> 당일에만 영업을 시작할 수 있습니다.
           </Styled.OpenWarning>
         )}
       </Styled.OpenCard>
 
       <Styled.InfoCard>
         <Box display="flex" alignItems="center" gap="8px">
-          <Chip size="small" label="TODAY" />
+          <Chip size="small" label="오늘 날짜" />
           <Typography>
             {dayjs().format('MMM D, YYYY')}
           </Typography>
         </Box>
         <Box display="flex" alignItems="center" gap="8px">
-          <Chip size="small" label="OPENING DATE" />
+          <Chip size="small" label="영업 예정일" />
           <Typography>
             {dayjs(clientDetail?.businessDate).format('MMM D, YYYY')}
           </Typography>
@@ -112,4 +133,20 @@ const Styled = {
       fontWeight: '700',
     },
   })),
-}
+  SalesCard: styled(Card)({
+    padding: '24px',
+    display: 'grid',
+    gridTemplateRows: 'auto 1fr',
+    gap: '8px',
+  }),
+  Quantity: styled(Box)({
+    justifySelf: 'center',
+    display: 'grid',
+    justifyItems: 'center',
+    gridTemplateColumns: '1fr auto 1fr',
+    gridTemplateRows: 'auto 1fr',
+    gridAutoFlow: 'column',
+    rowGap: '4px',
+    columnGap: '8px',
+  }),
+};

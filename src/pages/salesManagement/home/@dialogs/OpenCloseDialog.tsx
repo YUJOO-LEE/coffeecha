@@ -40,18 +40,18 @@ const OpenCloseDialog = (props: Props): React.ReactNode => {
       <DialogContent>
         <Box display="grid" gap="16px">
           <Styled.Content>
-            Are you sure you want to change the status to <span>{changeToOpen ? 'Open' : 'Close'}?</span>
+            영업을 <span>{changeToOpen ? '시작' : '종료'}</span> 하시겠습니까?
           </Styled.Content>
           {!isSameDate ? (
             <Styled.ErrorBox>
               <Styled.Content color={(theme) => theme.palette.error.main}>
-                Status cannot be updated due to a mismatch with the provided <span>opening date ({dayjs(data.businessDate).format('MMM d, YYYY')})</span>
+                설정된 <span>영업 예정일 ({dayjs(data.businessDate).format('MMM d, YYYY')})</span> 당일에만 영업을 시작할 수 있습니다.
               </Styled.Content>
             </Styled.ErrorBox>
           ) : changeToOpen && (
             <Styled.ErrorBox>
               <Styled.Content color={(theme) => theme.palette.error.main}>
-                Changing the current client's status to <span>Open</span> will automatically switch the status of the currently open client to <span>Closed</span>.
+                현재 출장지를 <span>영업 시작</span> 상태로 변경하면, 기존에 영업중인 출장지의 상태가 <span>영업 종료</span>로 변경됩니다.
               </Styled.Content>
             </Styled.ErrorBox>
           )}
@@ -65,10 +65,10 @@ const OpenCloseDialog = (props: Props): React.ReactNode => {
           onClick={handleChangeStatus}
           disabled={changeToOpen && isDisabled}
         >
-          Confirm
+          변경
         </Button>
         <Button variant="outlined" size="large" onClick={onClose}>
-          Cancel
+          취소
         </Button>
       </DialogActions>
     </Dialog>

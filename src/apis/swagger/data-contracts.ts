@@ -257,6 +257,10 @@ export interface ClientResponse {
   businessDate: string;
   openStatus: OpenStatus;
   clientKey: string;
+  /** @format int32 */
+  totalQuantity: number;
+  /** @format int32 */
+  saleQuantity: number;
 }
 
 export interface ClientOrderResponse {

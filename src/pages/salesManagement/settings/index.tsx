@@ -17,8 +17,8 @@ export const ClientSettingsPage = () => {
 
   const [editMode, setEditMode] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-  const [formData, setFormData] = useState<UpdateClientRequest>({ name: '', phoneNumber: '', address: '', businessDate: '' });
-  const isDisabled = Object.values(formData).some((value) => !value);
+  const [formData, setFormData] = useState<UpdateClientRequest>({ name: '', phoneNumber: '', address: '', businessDate: '', totalQuantity: 0 });
+  const isDisabled = Object.entries(formData).some(([key, value]) => key !== 'totalQuantity' && !value);
 
   const { data: clientDetail, isLoading } = useGetClientDetail(Number(clientId));
   const updateClient = useUpdateClient();
@@ -29,10 +29,12 @@ export const ClientSettingsPage = () => {
     setEditMode(!editMode);
   };
 
-  const handleChange = (target: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (target: keyof UpdateClientRequest) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = target === 'totalQuantity' ? Number(e.target.value) : e.target.value;
+
     setFormData((prev) => ({
       ...prev,
-      [target]: e.target.value,
+      [target]: value,
     }))
   };
 
@@ -79,6 +81,7 @@ export const ClientSettingsPage = () => {
       address: clientDetail.address,
       phoneNumber: clientDetail.phoneNumber,
       businessDate: clientDetail.businessDate,
+      totalQuantity: clientDetail.totalQuantity,
     });
   }, [clientDetail]);
 
@@ -93,31 +96,32 @@ export const ClientSettingsPage = () => {
       <Box display="flex" gap="8px">
         <ManageAccountsRounded color="primary" />
         <Typography variant="h1" fontSize="20px" fontWeight="500" color={(theme) => theme.palette.primary.main}>
-          Settings
+          고객사 정보
         </Typography>
       </Box>
       <Styled.ContentBox display="flex" flexDirection="column" gap="16px">
-        <TextField label="Name" variant="outlined" value={formData.name} onChange={handleChange('name')} disabled={!editMode} />
-        <TextField label="Contact" variant="outlined" value={formData.phoneNumber} onChange={handleChange('phoneNumber')} disabled={!editMode} />
-        <TextField label="Address" variant="outlined" value={formData.address} onChange={handleChange('address')} disabled={!editMode} />
-        <DatePicker label="Opening date" value={formData.businessDate ? dayjs(formData.businessDate) : null} onChange={handleDateChange} disabled={!editMode} />
+        <TextField label="고객명" variant="outlined" value={formData.name} onChange={handleChange('name')} disabled={!editMode} />
+        <TextField label="연락처" variant="outlined" value={formData.phoneNumber} onChange={handleChange('phoneNumber')} disabled={!editMode} />
+        <TextField label="출장 주소" variant="outlined" value={formData.address} onChange={handleChange('address')} disabled={!editMode} />
+        <DatePicker label="영업 예정일" value={formData.businessDate ? dayjs(formData.businessDate) : null} onChange={handleDateChange} disabled={!editMode} />
+        <TextField label="계약 수량" variant="outlined" type="number" value={formData.totalQuantity?.toString() || '0'} onChange={handleChange('totalQuantity')} disabled={!editMode} />
         <Box display="flex" justifyContent="flex-end" gap="8px">
           {editMode ? (
             <>
               <Button variant="outlined" size="large" onClick={toggleEditMode}>
-                Cancel
+                취소
               </Button>
               <Button disableElevation variant="contained" size="large" disabled={isDisabled} onClick={handleUpdate}>
-                Save
+                저장
               </Button>
             </>
           ) : (
             <>
               <Button disableElevation variant="contained" color="error" size="large" onClick={handleDeleteOpen}>
-                Delete
+                삭제
               </Button>
               <Button disableElevation variant="contained" size="large" disabled={isLoading} onClick={toggleEditMode}>
-                Edit
+                수정
               </Button>
             </>
           )}

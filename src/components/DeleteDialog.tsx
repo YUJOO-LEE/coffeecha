@@ -13,18 +13,18 @@ const DeleteDialog = (props: Props): React.ReactNode => {
     <Dialog open={true} onClose={onClose} PaperProps={{ style: { minWidth: '360px' } }}>
       <DialogContent>
         <Typography>
-          Are you sure you want to delete?
+          삭제하시겠습니까?
         </Typography>
         <Typography>
-          This cannot be undone.
+          삭제된 고객 정보는 복구할 수 없습니다.
         </Typography>
       </DialogContent>
       <DialogActions sx={{ padding: '16px 24px' }}>
         <Button variant="contained" size="large" color="error" disableElevation onClick={onDone}>
-          Delete
+          삭제
         </Button>
         <Button variant="outlined" size="large" onClick={onClose}>
-          Cancel
+          취소
         </Button>
       </DialogActions>
     </Dialog>
