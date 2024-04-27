@@ -69,7 +69,7 @@ export interface SaveClientMenuRequest {
 export interface CategoryRequest {
   name: string;
   /** @format int32 */
-  priorityOrder: number;
+  priorityOrder?: number;
 }
 
 export interface TokenRequest {
@@ -123,7 +123,6 @@ export interface UpdateMenuOptionRequest {
 export interface UpdateClientRequest {
   name?: string;
   address?: string;
-  /** @pattern ^01[016789]-\d{3,4}-\d{4}$ */
   phoneNumber?: string;
   /** @format date */
   businessDate?: string;
@@ -278,12 +277,19 @@ export interface ClientOrderResult {
   orderStatus: OrderStatus;
   /** @format int64 */
   orderId: number;
-  orderMenus: OrderMenuInfo[];
   /** @format int32 */
   totalQuantity: number;
   /** @format date-time */
   orderDateTime: string;
   smsStatus: ClientOrderResultSmsStatusEnum;
+  orderMenuCategories: OrderMenuCategories[];
+}
+
+export interface OrderMenuCategories {
+  /** @format int64 */
+  categoryId: number;
+  categoryName: string;
+  orderMenus: OrderMenuInfo[];
 }
 
 export enum ClientOrderResultSmsStatusEnum {

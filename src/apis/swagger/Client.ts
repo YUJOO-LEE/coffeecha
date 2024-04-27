@@ -154,14 +154,11 @@ export class Client<SecurityDataType = unknown> {
     clientId: number,
     query: {
       /**
-       * 최소값 0
        * @format int64
+       * @min 0
        */
       offset: number;
-      /**
-       * 유효값 1~50
-       * @format int64
-       */
+      /** @format int64 */
       limit: number;
     },
     params: RequestParams = {},

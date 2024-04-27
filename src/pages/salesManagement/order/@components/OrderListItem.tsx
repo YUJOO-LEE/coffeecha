@@ -1,6 +1,7 @@
 import { ClientOrderResult, ClientOrderResultSmsStatusEnum, OrderStatus } from '@/apis/swagger/data-contracts';
 import { orderStatusList, smsStatusList } from '@/constants/orderStatusList';
 import { OrderActions } from '@/pages/salesManagement/order/@components/OrderActions';
+import { OrderMenuItem } from '@/pages/salesManagement/order/@components/OrderMenuItem.tsx';
 import { ExpandMoreRounded } from '@mui/icons-material';
 import {
   Accordion,
@@ -62,24 +63,16 @@ export const OrderListItem = (props: Props): React.ReactNode => {
             합계 수량 {data.totalQuantity}
           </Typography>
         </AccordionSummary>
-        <AccordionDetails>
-          {data.orderMenus.map((menu, index) => (
-            <Box key={`${data.orderId}_menu_${index}`} display="flex" alignItems="center" gap="8px">
-              <Styled.QuantityChip
-                size="small"
-                variant="filled"
-                label={menu.orderQuantity}
-                status={menu.orderQuantity > 1 ? data.orderStatus : undefined}
-              />
-              <Typography>
-                {menu.menuName}
-              </Typography>
-              <Typography color="grey">
-                {menu.menuOption}
-              </Typography>
-            </Box>
+        <Styled.AccordionDetails>
+          {data.orderMenuCategories.map(({ orderMenus, categoryId, categoryName }) => (
+            <Styled.Category key={`${data.orderId}-category-${categoryId}`}>
+              <Typography fontSize="12px" fontWeight="600">{categoryName}</Typography>
+              {orderMenus.map((menu, index) => (
+                <OrderMenuItem key={`${data.orderId}-menu-${index}`} orderStatus={data.orderStatus} data={menu} />
+              ))}
+            </Styled.Category>
           ))}
-        </AccordionDetails>
+        </Styled.AccordionDetails>
       </Styled.OrderDetail>
       <OrderActions orderId={data.orderId} status={data.orderStatus} />
     </Styled.ListItem>
@@ -145,4 +138,18 @@ const Styled = {
     backgroundColor: status ? orderStatusList[status].colorForAdmin(theme) : undefined,
     color: status ? theme.palette.common.white : undefined,
   })),
+  AccordionDetails: styled(AccordionDetails)(({ theme }) => ({
+    marginTop: '8px',
+    padding: '4px !important',
+    backgroundColor: theme.palette.grey[200],
+    borderRadius: '8px',
+    gap: '4px !important',
+  })),
+  Category: styled(Box)(({ theme }) => ({
+    padding: '8px',
+    display: 'grid',
+    gap: '8px',
+    backgroundColor: theme.palette.background.default,
+    borderRadius: '4px',
+  }))
 };
