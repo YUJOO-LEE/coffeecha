@@ -2,6 +2,7 @@ import { useUpdateStatus } from '@/apis/queries/salesManagement/order';
 import { OrderStatus } from '@/apis/swagger/data-contracts';
 import { orderActions } from '@/pages/salesManagement/order/@constants';
 import { CancelDialog } from '@/pages/salesManagement/order/@dialogs/CancelDialog';
+import { UpdateStatusDialog } from '@/pages/salesManagement/order/@dialogs/UpdateStatusDialog.tsx';
 import { CloseRounded } from '@mui/icons-material';
 import { Box, Button, styled } from '@mui/material';
 import { useSnackbar } from 'notistack';
@@ -19,15 +20,21 @@ export const OrderActions = (props: Props): React.ReactNode => {
   const Icon = orderActions[status]?.icon;
   const isCancelShow = status !== OrderStatus.ORDER_CANCELLED && status !== OrderStatus.PICKUP_COMPLETE;
 
+  const [isUpdateOpen, setIsUpdateOpen] = useState<boolean>(false);
   const [isCancelOpen, setIsCancelOpen] = useState<boolean>(false);
 
   const updateStatus = useUpdateStatus();
+
+  const handleUpdateOpen = () => {
+    setIsUpdateOpen(true);
+  };
 
   const handleCancelOpen = () => {
     setIsCancelOpen(true);
   };
 
   const handleClose = () => {
+    setIsUpdateOpen(false);
     setIsCancelOpen(false);
   };
 
@@ -49,7 +56,7 @@ export const OrderActions = (props: Props): React.ReactNode => {
           size="small"
           variant={orderActions[status].variant}
           color={orderActions[status].color}
-          onClick={handleStatusChange(orderActions[status].actionTarget)}
+          onClick={handleUpdateOpen}
           disabled={updateStatus.isLoading}
         >
           <Icon/>
@@ -64,12 +71,20 @@ export const OrderActions = (props: Props): React.ReactNode => {
           onClick={handleCancelOpen}
           disabled={updateStatus.isLoading}
         >
-          <CloseRounded />
+          <CloseRounded/>
         </Styled.ActionButton>
       )}
 
+      {isUpdateOpen && (
+        <UpdateStatusDialog
+          from={status}
+          to={orderActions[status].actionTarget}
+          onDone={handleStatusChange(orderActions[status].actionTarget)}
+          onClose={handleClose}
+        />
+      )}
       {isCancelOpen && (
-        <CancelDialog onDone={handleStatusChange(OrderStatus.ORDER_CANCELLED)} onClose={handleClose} />
+        <CancelDialog onDone={handleStatusChange(OrderStatus.ORDER_CANCELLED)} onClose={handleClose}/>
       )}
     </Styled.Actions>
   );
