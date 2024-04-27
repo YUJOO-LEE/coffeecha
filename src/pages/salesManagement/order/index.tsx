@@ -5,9 +5,9 @@ import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import { OrderListItem } from '@/pages/salesManagement/order/@components/OrderListItem';
 import { OrderListItemSkeleton } from '@/pages/salesManagement/order/@components/OrderListItemSkeleton';
 import { ReceiptLongRounded } from '@mui/icons-material';
-import { Box, styled, Typography } from '@mui/material';
+import { Box, Button, styled, Typography } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 
 const limit = 10;
 
@@ -17,8 +17,20 @@ export const OrderPage = (): React.ReactNode => {
   const fetchMoreRef = useRef<HTMLDivElement>(null);
   const isIntersecting = useIntersectionObserver(fetchMoreRef);
 
+  const [searchParams, setSearchParams] = useSearchParams(); // 쿼리 스트링을 searchParams 형태로 가져오고
+  const filter = searchParams.get('filter');
+
   const { data, fetchNextPage, isLoading, isFetchingNextPage, hasNextPage } = useGetOrderList(Number(clientId), limit);
   const orderList = data?.pages.reduce<ClientOrderResult[]>((prev, { orders }) => ([...prev, ...orders]), []) || [];
+
+  const handleFilter = (filter: string) => () => {
+    if (searchParams.get('filter') === filter) {
+      searchParams.delete('filter');
+    } else {
+      searchParams.set('filter', filter);
+    }
+    setSearchParams(searchParams);
+  };
 
   useEffect(() => {
     if (!isIntersecting || isFetchingNextPage || !hasNextPage) return;
@@ -34,14 +46,22 @@ export const OrderPage = (): React.ReactNode => {
             주문 관리
           </Typography>
         </Box>
-        <Box display="flex" gap="16px">
+        <Box display="flex" gap="4px">
           {Object.entries(orderStatusList).map(([key, value]) => (
-            <Box key={key} display="flex" alignItems="center" gap="4px">
-              <Styled.StatusColorChip status={key as OrderStatus} />
-              <Typography fontSize="12px">
-                {value.ko}
-              </Typography>
-            </Box>
+            <Button
+              key={key}
+              variant="text"
+              size="small"
+              color="inherit"
+              onClick={handleFilter(key)}
+            >
+              <Box padding="0 4px" display="flex" alignItems="center" gap="6px">
+                {(!filter || filter === key) && (<Styled.StatusColorChip status={key as OrderStatus} />)}
+                <Typography color={(filter && filter !== key) ? 'grey' : undefined}>
+                  {value.ko}
+                </Typography>
+              </Box>
+            </Button>
           ))}
         </Box>
       </Box>
