@@ -18,16 +18,16 @@ export const OrderPage = (): React.ReactNode => {
   const isIntersecting = useIntersectionObserver(fetchMoreRef);
 
   const [searchParams, setSearchParams] = useSearchParams(); // 쿼리 스트링을 searchParams 형태로 가져오고
-  const filter = searchParams.get('filter');
+  const statusFilter = searchParams.get('status');
 
-  const { data, fetchNextPage, isLoading, isFetchingNextPage, hasNextPage } = useGetOrderList(Number(clientId), limit);
+  const { data, refetch, fetchNextPage, isLoading, isFetchingNextPage, hasNextPage } = useGetOrderList(Number(clientId), limit, statusFilter);
   const orderList = data?.pages.reduce<ClientOrderResult[]>((prev, { orders }) => ([...prev, ...orders]), []) || [];
 
   const handleFilter = (filter: string) => () => {
-    if (searchParams.get('filter') === filter) {
-      searchParams.delete('filter');
+    if (searchParams.get('status') === filter) {
+      searchParams.delete('status');
     } else {
-      searchParams.set('filter', filter);
+      searchParams.set('status', filter);
     }
     setSearchParams(searchParams);
   };
@@ -36,6 +36,10 @@ export const OrderPage = (): React.ReactNode => {
     if (!isIntersecting || isFetchingNextPage || !hasNextPage) return;
     fetchNextPage();
   }, [fetchNextPage, isFetchingNextPage, isIntersecting, hasNextPage]);
+
+  useEffect(() => {
+    refetch();
+  }, [statusFilter, refetch]);
 
   return (
     <Box display="grid" gap="16px">
@@ -56,8 +60,8 @@ export const OrderPage = (): React.ReactNode => {
               onClick={handleFilter(key)}
             >
               <Box padding="0 4px" display="flex" alignItems="center" gap="6px">
-                {(!filter || filter === key) && (<Styled.StatusColorChip status={key as OrderStatus} />)}
-                <Typography color={(filter && filter !== key) ? 'grey' : undefined}>
+                {(!statusFilter || statusFilter === key) && (<Styled.StatusColorChip status={key as OrderStatus} />)}
+                <Typography color={(statusFilter && statusFilter !== key) ? 'grey' : undefined}>
                   {value.ko}
                 </Typography>
               </Box>

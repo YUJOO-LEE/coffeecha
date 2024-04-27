@@ -12,11 +12,12 @@
 import {
   ClientOrderResponse,
   ClientResponse,
+  OrderStatus,
   SaveClientRequest,
   SaveResponse,
   UpdateClientRequest,
-} from "./data-contracts";
-import { ContentType, HttpClient, RequestParams } from "./http-client";
+} from './data-contracts';
+import { ContentType, HttpClient, RequestParams } from './http-client';
 
 export class Client<SecurityDataType = unknown> {
   http: HttpClient<SecurityDataType>;
@@ -160,6 +161,7 @@ export class Client<SecurityDataType = unknown> {
       offset: number;
       /** @format int64 */
       limit: number;
+      status?: OrderStatus;
     },
     params: RequestParams = {},
   ) =>
